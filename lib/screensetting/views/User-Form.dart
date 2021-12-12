@@ -39,10 +39,8 @@ class _UserFormState extends State<UserForm> {
 
   @override
   Widget build(BuildContext context) {
-
-
-
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text("แก้ไขข้อมูล"),
         actions: <Widget>[
@@ -65,65 +63,66 @@ class _UserFormState extends State<UserForm> {
                 ));
                 Navigator.of(context).pop();
               }
-
             },
           )
         ],
       ),
-      body: 
-      Container(
-        color: Colors.blue[200],
-        padding: EdgeInsets.all(20),
-        child: Form(
-          key: _form,
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                initialValue: _formData['name'],
-                validator: (value){
-                  if(value == null || value.isEmpty){
-                    return 'Include your name';
-                  }
-
-                  if (value.trim().length < 3){
-                    return 'Name too small';
-                  }
-                },
-                onSaved: (value) => _formData['name'] = value,
-                decoration: InputDecoration(labelText: 'Name'),
-              ),
-              TextFormField(
-                initialValue: _formData['email'],
-                onSaved: (value) => _formData['email'] = value,                
-                decoration: InputDecoration(labelText: 'E-mail'),
-              ),
-              TextFormField(
-                initialValue: _formData['gender'],
-                onSaved: (value) => _formData['gender'] = value,
-                decoration: InputDecoration(labelText: 'Gender'),
-              ),
-              TextFormField(
-                initialValue: _formData['weight'],
-                onSaved: (value) => _formData['weight'] = value,
-                decoration: InputDecoration(labelText: 'Weight'),
-              ),
-              TextFormField(
-                initialValue: _formData['height'],
-                onSaved: (value) => _formData['height'] = value,
-                decoration: InputDecoration(labelText: 'Height'),
-              ),
-              TextFormField(
-                initialValue: _formData['drink'],
-                onSaved: (value) => _formData['drink'] = value,
-                decoration: InputDecoration(labelText: 'เป้าหมาย'),
-              ),
-              TextFormField(
-                initialValue: _formData['avatarUrl'],
-                onSaved: (value) => _formData['avatarUrl'] = value,
-                decoration: InputDecoration(labelText: 'Avatar URL'),
-              ),
-            ],
-          )
+      body: SingleChildScrollView(
+        child: Container(
+          height: 800,
+          color: Colors.blue[200],
+          padding: EdgeInsets.all(20),
+          alignment: Alignment.center,
+          child: Form(
+            key: _form,
+            child: Column(
+              children: <Widget>[
+                TextFormField(
+                  initialValue: _formData['name'],
+                  validator: (value){
+                    if(value == null || value.isEmpty){
+                      return 'Include your name';
+                    }
+                    if (value.trim().length < 3){
+                      return 'Name too small';
+                    }
+                  },
+                  onSaved: (value) => _formData['name'] = value,
+                  decoration: InputDecoration(labelText: 'Name'),
+                ),
+                TextFormField(
+                  initialValue: _formData['email'],
+                  onSaved: (value) => _formData['email'] = value,                
+                  decoration: InputDecoration(labelText: 'E-mail'),
+                ),
+                TextFormField(
+                  initialValue: _formData['gender'],
+                  onSaved: (value) => _formData['gender'] = value,
+                  decoration: InputDecoration(labelText: 'Gender'),
+                ),
+                TextFormField(
+                  initialValue: _formData['weight'],
+                  onSaved: (value) => _formData['weight'] = value,
+                  decoration: InputDecoration(labelText: 'Weight'),
+                ),
+                TextFormField(
+                  initialValue: _formData['height'],
+                  onSaved: (value) => _formData['height'] = value,
+                  decoration: InputDecoration(labelText: 'Height'),
+                ),
+                TextFormField(
+                  initialValue: _formData['drink'],
+                  onSaved: (value) => _formData['drink'] = value,
+                  decoration: InputDecoration(labelText: 'เป้าหมาย'),
+                ),
+                TextFormField(
+                  initialValue: _formData['avatarUrl'],
+                  onSaved: (value) => _formData['avatarUrl'] = value,
+                  decoration: InputDecoration(labelText: 'Avatar URL'),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
