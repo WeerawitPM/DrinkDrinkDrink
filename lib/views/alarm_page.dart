@@ -17,6 +17,7 @@ class AlarmPage extends StatefulWidget {
 class _AlarmPageState extends State<AlarmPage> {
   DateTime _alarmTime;
   String _alarmTimeString;
+  bool _isRepeatSelected = false;
   AlarmHelper _alarmHelper = AlarmHelper();
   Future<List<AlarmInfo>> _alarms;
   List<AlarmInfo> _currentAlarms;
@@ -209,8 +210,14 @@ class _AlarmPageState extends State<AlarmPage> {
                                                 ),
                                                 ListTile(
                                                   title: Text('Repeat'),
-                                                  trailing: Icon(
-                                                      Icons.arrow_forward_ios),
+                                                  trailing: Switch(
+                                                  onChanged: (value) {
+                                                    setModalState(() {
+                                                      _isRepeatSelected = value;
+                                                    });
+                                                  },
+                                                  value: _isRepeatSelected,
+                                                ),
                                                 ),
                                                 ListTile(
                                                   title: Text('Sound'),

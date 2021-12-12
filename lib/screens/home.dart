@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:waterreminder/screens/home_screen.dart';
-import 'package:waterreminder/screens/notifications.dart';
-import 'package:waterreminder/screens/reminder.dart';
 import 'package:waterreminder/screens/settings.dart';
 import 'package:waterreminder/screens/statistics.dart';
 import 'package:waterreminder/views/alarm_page.dart';
@@ -19,7 +17,6 @@ class _HomeState extends State<Home> {
 		HomeScreen(),
 		Settings(),
 		Statistics(),
-    reminder(),
     AlarmPage()
 	];
 
