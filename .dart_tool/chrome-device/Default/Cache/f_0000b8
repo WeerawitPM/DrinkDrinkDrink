@@ -1,0 +1,1739 @@
+define(['dart_sdk', 'packages/charts_common/src/chart/common/series_renderer_config.dart', 'packages/charts_common/src/chart/cartesian/axis/simple_ordinal_scale.dart', 'packages/charts_common/src/chart/scatter_plot/point_renderer_config.dart', 'packages/charts_common/src/common/color.dart', 'packages/charts_common/src/common/math.dart', 'packages/charts_common/src/chart/cartesian/cartesian_chart.dart', 'packages/charts_common/src/chart/common/canvas_shapes.dart', 'packages/charts_common/src/common/typed_registry.dart'], (function load__packages__charts_common__src__chart__line__line_renderer_config_dart(dart_sdk, packages__charts_common__src__chart__common__series_renderer_config$46dart, packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart, packages__charts_common__src__chart__scatter_plot__point_renderer_config$46dart, packages__charts_common__src__common__color$46dart, packages__charts_common__src__common__math$46dart, packages__charts_common__src__chart__cartesian__cartesian_chart$46dart, packages__charts_common__src__chart__common__canvas_shapes$46dart, packages__charts_common__src__common__typed_registry$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const _js_helper = dart_sdk._js_helper;
+  const _interceptors = dart_sdk._interceptors;
+  const collection = dart_sdk.collection;
+  const math = dart_sdk.math;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const series_renderer_config = packages__charts_common__src__chart__common__series_renderer_config$46dart.src__chart__common__series_renderer_config;
+  const symbol_renderer = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__common__symbol_renderer;
+  const layout_view = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__layout__layout_view;
+  const processed_series = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__common__processed_series;
+  const axis = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__cartesian__axis__axis;
+  const base_chart = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__common__base_chart;
+  const datum_details = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__common__datum_details;
+  const series_datum = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__common__series_datum;
+  const series = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__data__series;
+  const point_renderer = packages__charts_common__src__chart__scatter_plot__point_renderer_config$46dart.src__chart__scatter_plot__point_renderer;
+  const point_renderer_config = packages__charts_common__src__chart__scatter_plot__point_renderer_config$46dart.src__chart__scatter_plot__point_renderer_config;
+  const color$ = packages__charts_common__src__common__color$46dart.src__common__color;
+  const math$ = packages__charts_common__src__common__math$46dart.src__common__math;
+  const cartesian_renderer = packages__charts_common__src__chart__cartesian__cartesian_chart$46dart.src__chart__cartesian__cartesian_renderer;
+  const chart_canvas = packages__charts_common__src__chart__common__canvas_shapes$46dart.src__chart__common__chart_canvas;
+  const typed_registry = packages__charts_common__src__common__typed_registry$46dart.src__common__typed_registry;
+  var line_renderer_config = Object.create(dart.library);
+  var line_renderer = Object.create(dart.library);
+  var $round = dartx.round;
+  var $forEach = dartx.forEach;
+  var $any = dartx.any;
+  var $length = dartx.length;
+  var $toDouble = dartx.toDouble;
+  var $isNotEmpty = dartx.isNotEmpty;
+  var $add = dartx.add;
+  var $_get = dartx._get;
+  var $_set = dartx._set;
+  var $first = dartx.first;
+  var $keys = dartx.keys;
+  var $remove = dartx.remove;
+  var $containsKey = dartx.containsKey;
+  var $entries = dartx.entries;
+  var $addAll = dartx.addAll;
+  var $clear = dartx.clear;
+  var $addEntries = dartx.addEntries;
+  var $right = dartx.right;
+  var $left = dartx.left;
+  var $last = dartx.last;
+  var $firstWhere = dartx.firstWhere;
+  var $contains = dartx.contains;
+  var $sublist = dartx.sublist;
+  var $reversed = dartx.reversed;
+  var $map = dartx.map;
+  var $removeWhere = dartx.removeWhere;
+  var $isEmpty = dartx.isEmpty;
+  var $expand = dartx.expand;
+  var $top = dartx.top;
+  var $height = dartx.height;
+  var $values = dartx.values;
+  var $abs = dartx.abs;
+  var $removeRange = dartx.removeRange;
+  var $roundToDouble = dartx.roundToDouble;
+  var $runtimeType = dartx.runtimeType;
+  dart._checkModuleNullSafetyMode(false);
+  var T = {
+    StringL: () => (T.StringL = dart.constFn(dart.legacy(core.String)))(),
+    JSArrayOfStringL: () => (T.JSArrayOfStringL = dart.constFn(_interceptors.JSArray$(T.StringL())))(),
+    ColorL: () => (T.ColorL = dart.constFn(dart.legacy(color$.Color)))(),
+    intL: () => (T.intL = dart.constFn(dart.legacy(core.int)))(),
+    intLToColorL: () => (T.intLToColorL = dart.constFn(dart.fnType(T.ColorL(), [T.intL()])))(),
+    MutableSeriesL: () => (T.MutableSeriesL = dart.constFn(dart.legacy(processed_series.MutableSeries)))(),
+    MutableSeriesLToNull: () => (T.MutableSeriesLToNull = dart.constFn(dart.fnType(core.Null, [T.MutableSeriesL()])))(),
+    boolL: () => (T.boolL = dart.constFn(dart.legacy(core.bool)))(),
+    ListOfintL: () => (T.ListOfintL = dart.constFn(core.List$(T.intL())))(),
+    ListLOfintL: () => (T.ListLOfintL = dart.constFn(dart.legacy(T.ListOfintL())))(),
+    intLToListLOfintL: () => (T.intLToListLOfintL = dart.constFn(dart.fnType(T.ListLOfintL(), [T.intL()])))(),
+    LinkedHashSetOfStringL: () => (T.LinkedHashSetOfStringL = dart.constFn(collection.LinkedHashSet$(T.StringL())))(),
+    _LineRendererElementL: () => (T._LineRendererElementL = dart.constFn(dart.legacy(line_renderer._LineRendererElement)))(),
+    ListOf_LineRendererElementL: () => (T.ListOf_LineRendererElementL = dart.constFn(core.List$(T._LineRendererElementL())))(),
+    ListLOf_LineRendererElementL: () => (T.ListLOf_LineRendererElementL = dart.constFn(dart.legacy(T.ListOf_LineRendererElementL())))(),
+    numL: () => (T.numL = dart.constFn(dart.legacy(core.num)))(),
+    intLTonumL: () => (T.intLTonumL = dart.constFn(dart.fnType(T.numL(), [T.intL()])))(),
+    intLToLnumL: () => (T.intLToLnumL = dart.constFn(dart.legacy(T.intLTonumL())))(),
+    AxisL: () => (T.AxisL = dart.constFn(dart.legacy(axis.Axis)))(),
+    OrdinalAxisL: () => (T.OrdinalAxisL = dart.constFn(dart.legacy(axis.OrdinalAxis)))(),
+    _AnimatedElementsL: () => (T._AnimatedElementsL = dart.constFn(dart.legacy(line_renderer._AnimatedElements)))(),
+    _AnimatedElementsLToboolL: () => (T._AnimatedElementsLToboolL = dart.constFn(dart.fnType(T.boolL(), [T._AnimatedElementsL()])))(),
+    VoidToNull: () => (T.VoidToNull = dart.constFn(dart.fnType(core.Null, [])))(),
+    _LineRendererElementLToNull: () => (T._LineRendererElementLToNull = dart.constFn(dart.fnType(core.Null, [T._LineRendererElementL()])))(),
+    ImmutableAxisOfnumL: () => (T.ImmutableAxisOfnumL = dart.constFn(axis.ImmutableAxis$(T.numL())))(),
+    ImmutableAxisLOfnumL: () => (T.ImmutableAxisLOfnumL = dart.constFn(dart.legacy(T.ImmutableAxisOfnumL())))(),
+    _RangeOfnumL: () => (T._RangeOfnumL = dart.constFn(line_renderer._Range$(T.numL())))(),
+    _AreaRendererElementL: () => (T._AreaRendererElementL = dart.constFn(dart.legacy(line_renderer._AreaRendererElement)))(),
+    _AreaRendererElementLToNull: () => (T._AreaRendererElementLToNull = dart.constFn(dart.fnType(core.Null, [T._AreaRendererElementL()])))(),
+    RectangleOfnumL: () => (T.RectangleOfnumL = dart.constFn(math.Rectangle$(T.numL())))(),
+    doubleL: () => (T.doubleL = dart.constFn(dart.legacy(core.double)))(),
+    PointOfdoubleL: () => (T.PointOfdoubleL = dart.constFn(math.Point$(T.doubleL())))(),
+    PointLOfdoubleL: () => (T.PointLOfdoubleL = dart.constFn(dart.legacy(T.PointOfdoubleL())))(),
+    PointOfnumL: () => (T.PointOfnumL = dart.constFn(math.Point$(T.numL())))(),
+    PointLOfnumL: () => (T.PointLOfnumL = dart.constFn(dart.legacy(T.PointOfnumL())))(),
+    PointLOfnumLToNull: () => (T.PointLOfnumLToNull = dart.constFn(dart.fnType(core.Null, [T.PointLOfnumL()])))(),
+    DateTimeL: () => (T.DateTimeL = dart.constFn(dart.legacy(core.DateTime)))(),
+    AttributeKeyOfListLOf_LineRendererElementL: () => (T.AttributeKeyOfListLOf_LineRendererElementL = dart.constFn(series.AttributeKey$(T.ListLOf_LineRendererElementL())))(),
+    AttributeKeyOfintL: () => (T.AttributeKeyOfintL = dart.constFn(series.AttributeKey$(T.intL())))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: T.AttributeKeyOfListLOf_LineRendererElementL().prototype,
+        [TypedKey_uniqueKey]: "LineRenderer.styleSegments"
+      });
+    },
+    get C1() {
+      return C[1] = dart.const({
+        __proto__: T.AttributeKeyOfintL().prototype,
+        [TypedKey_uniqueKey]: "LineRenderer.lineStackIndex"
+      });
+    }
+  }, false);
+  var C = Array(2).fill(void 0);
+  var I = [
+    "package:charts_common/src/chart/line/line_renderer_config.dart",
+    "package:charts_common/src/chart/line/line_renderer.dart"
+  ];
+  var customRendererId$ = dart.privateName(line_renderer_config, "LineRendererConfig.customRendererId");
+  var symbolRenderer$ = dart.privateName(line_renderer_config, "LineRendererConfig.symbolRenderer");
+  var rendererAttributes = dart.privateName(line_renderer_config, "LineRendererConfig.rendererAttributes");
+  var radiusPx$ = dart.privateName(line_renderer_config, "LineRendererConfig.radiusPx");
+  var stacked$ = dart.privateName(line_renderer_config, "LineRendererConfig.stacked");
+  var strokeWidthPx$ = dart.privateName(line_renderer_config, "LineRendererConfig.strokeWidthPx");
+  var dashPattern$ = dart.privateName(line_renderer_config, "LineRendererConfig.dashPattern");
+  var includeLine$ = dart.privateName(line_renderer_config, "LineRendererConfig.includeLine");
+  var includePoints$ = dart.privateName(line_renderer_config, "LineRendererConfig.includePoints");
+  var includeArea$ = dart.privateName(line_renderer_config, "LineRendererConfig.includeArea");
+  var layoutPaintOrder$ = dart.privateName(line_renderer_config, "LineRendererConfig.layoutPaintOrder");
+  var areaOpacity$ = dart.privateName(line_renderer_config, "LineRendererConfig.areaOpacity");
+  var roundEndCaps$ = dart.privateName(line_renderer_config, "LineRendererConfig.roundEndCaps");
+  const _is_LineRendererConfig_default = Symbol('_is_LineRendererConfig_default');
+  line_renderer_config.LineRendererConfig$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    var LineRendererOfDL = () => (LineRendererOfDL = dart.constFn(line_renderer.LineRenderer$(DL())))();
+    class LineRendererConfig extends layout_view.LayoutViewConfig {
+      get customRendererId() {
+        return this[customRendererId$];
+      }
+      set customRendererId(value) {
+        super.customRendererId = value;
+      }
+      get symbolRenderer() {
+        return this[symbolRenderer$];
+      }
+      set symbolRenderer(value) {
+        super.symbolRenderer = value;
+      }
+      get rendererAttributes() {
+        return this[rendererAttributes];
+      }
+      set rendererAttributes(value) {
+        super.rendererAttributes = value;
+      }
+      get radiusPx() {
+        return this[radiusPx$];
+      }
+      set radiusPx(value) {
+        super.radiusPx = value;
+      }
+      get stacked() {
+        return this[stacked$];
+      }
+      set stacked(value) {
+        super.stacked = value;
+      }
+      get strokeWidthPx() {
+        return this[strokeWidthPx$];
+      }
+      set strokeWidthPx(value) {
+        super.strokeWidthPx = value;
+      }
+      get dashPattern() {
+        return this[dashPattern$];
+      }
+      set dashPattern(value) {
+        super.dashPattern = value;
+      }
+      get includeLine() {
+        return this[includeLine$];
+      }
+      set includeLine(value) {
+        super.includeLine = value;
+      }
+      get includePoints() {
+        return this[includePoints$];
+      }
+      set includePoints(value) {
+        super.includePoints = value;
+      }
+      get includeArea() {
+        return this[includeArea$];
+      }
+      set includeArea(value) {
+        super.includeArea = value;
+      }
+      get layoutPaintOrder() {
+        return this[layoutPaintOrder$];
+      }
+      set layoutPaintOrder(value) {
+        super.layoutPaintOrder = value;
+      }
+      get areaOpacity() {
+        return this[areaOpacity$];
+      }
+      set areaOpacity(value) {
+        super.areaOpacity = value;
+      }
+      get roundEndCaps() {
+        return this[roundEndCaps$];
+      }
+      set roundEndCaps(value) {
+        super.roundEndCaps = value;
+      }
+      build() {
+        return LineRendererOfDL().new({config: this, rendererId: this.customRendererId});
+      }
+    }
+    (LineRendererConfig.new = function(opts) {
+      let t0;
+      let customRendererId = opts && 'customRendererId' in opts ? opts.customRendererId : null;
+      let radiusPx = opts && 'radiusPx' in opts ? opts.radiusPx : 3.5;
+      let stacked = opts && 'stacked' in opts ? opts.stacked : false;
+      let strokeWidthPx = opts && 'strokeWidthPx' in opts ? opts.strokeWidthPx : 2;
+      let dashPattern = opts && 'dashPattern' in opts ? opts.dashPattern : null;
+      let includeLine = opts && 'includeLine' in opts ? opts.includeLine : true;
+      let includePoints = opts && 'includePoints' in opts ? opts.includePoints : false;
+      let includeArea = opts && 'includeArea' in opts ? opts.includeArea : false;
+      let layoutPaintOrder = opts && 'layoutPaintOrder' in opts ? opts.layoutPaintOrder : 20;
+      let areaOpacity = opts && 'areaOpacity' in opts ? opts.areaOpacity : 0.1;
+      let roundEndCaps = opts && 'roundEndCaps' in opts ? opts.roundEndCaps : false;
+      let symbolRenderer = opts && 'symbolRenderer' in opts ? opts.symbolRenderer : null;
+      this[rendererAttributes] = new series_renderer_config.RendererAttributes.new();
+      this[customRendererId$] = customRendererId;
+      this[radiusPx$] = radiusPx;
+      this[stacked$] = stacked;
+      this[strokeWidthPx$] = strokeWidthPx;
+      this[dashPattern$] = dashPattern;
+      this[includeLine$] = includeLine;
+      this[includePoints$] = includePoints;
+      this[includeArea$] = includeArea;
+      this[layoutPaintOrder$] = layoutPaintOrder;
+      this[areaOpacity$] = areaOpacity;
+      this[roundEndCaps$] = roundEndCaps;
+      this[symbolRenderer$] = (t0 = symbolRenderer, t0 == null ? new symbol_renderer.LineSymbolRenderer.new() : t0);
+      LineRendererConfig.__proto__.new.call(this);
+      ;
+    }).prototype = LineRendererConfig.prototype;
+    dart.addTypeTests(LineRendererConfig);
+    LineRendererConfig.prototype[_is_LineRendererConfig_default] = true;
+    dart.addTypeCaches(LineRendererConfig);
+    LineRendererConfig[dart.implements] = () => [series_renderer_config.SeriesRendererConfig$(dart.legacy(D))];
+    dart.setMethodSignature(LineRendererConfig, () => ({
+      __proto__: dart.getMethods(LineRendererConfig.__proto__),
+      build: dart.fnType(dart.legacy(line_renderer.LineRenderer$(dart.legacy(D))), [])
+    }));
+    dart.setLibraryUri(LineRendererConfig, I[0]);
+    dart.setFieldSignature(LineRendererConfig, () => ({
+      __proto__: dart.getFields(LineRendererConfig.__proto__),
+      customRendererId: dart.finalFieldType(dart.legacy(core.String)),
+      symbolRenderer: dart.finalFieldType(dart.legacy(symbol_renderer.SymbolRenderer)),
+      rendererAttributes: dart.finalFieldType(dart.legacy(series_renderer_config.RendererAttributes)),
+      radiusPx: dart.finalFieldType(dart.legacy(core.double)),
+      stacked: dart.finalFieldType(dart.legacy(core.bool)),
+      strokeWidthPx: dart.finalFieldType(dart.legacy(core.double)),
+      dashPattern: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(core.int)))),
+      includeLine: dart.finalFieldType(dart.legacy(core.bool)),
+      includePoints: dart.finalFieldType(dart.legacy(core.bool)),
+      includeArea: dart.finalFieldType(dart.legacy(core.bool)),
+      layoutPaintOrder: dart.finalFieldType(dart.legacy(core.int)),
+      areaOpacity: dart.finalFieldType(dart.legacy(core.double)),
+      roundEndCaps: dart.finalFieldType(dart.legacy(core.bool))
+    }));
+    return LineRendererConfig;
+  });
+  line_renderer_config.LineRendererConfig = line_renderer_config.LineRendererConfig$();
+  dart.addTypeTests(line_renderer_config.LineRendererConfig, _is_LineRendererConfig_default);
+  var config$ = dart.privateName(line_renderer, "LineRenderer.config");
+  var _pointRenderer = dart.privateName(line_renderer, "_pointRenderer");
+  var _chart = dart.privateName(line_renderer, "_chart");
+  var _hasMeasureBounds = dart.privateName(line_renderer, "_hasMeasureBounds");
+  var _seriesLineMap = dart.privateName(line_renderer, "_seriesLineMap");
+  var _currentKeys = dart.privateName(line_renderer, "_currentKeys");
+  var _createInitialOffsetMap = dart.privateName(line_renderer, "_createInitialOffsetMap");
+  var _createStackedMeasureOffsetFunction = dart.privateName(line_renderer, "_createStackedMeasureOffsetFunction");
+  var _mergeIntoSeriesMap = dart.privateName(line_renderer, "_mergeIntoSeriesMap");
+  var _createLineAndAreaElements = dart.privateName(line_renderer, "_createLineAndAreaElements");
+  var _createPointListForSeries = dart.privateName(line_renderer, "_createPointListForSeries");
+  var _createLineAndAreaSegmentsForSeries = dart.privateName(line_renderer, "_createLineAndAreaSegmentsForSeries");
+  var _createPositionExtent = dart.privateName(line_renderer, "_createPositionExtent");
+  var _getPoint = dart.privateName(line_renderer, "_getPoint");
+  var _createLineSegment = dart.privateName(line_renderer, "_createLineSegment");
+  var _createAreaSegment = dart.privateName(line_renderer, "_createAreaSegment");
+  var _createBoundsSegment = dart.privateName(line_renderer, "_createBoundsSegment");
+  var _getClipBoundsForExtent = dart.privateName(line_renderer, "_getClipBoundsForExtent");
+  const _is_LineRenderer_default = Symbol('_is_LineRenderer_default');
+  line_renderer.LineRenderer$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    var _AnimatedElementsOfDL = () => (_AnimatedElementsOfDL = dart.constFn(line_renderer._AnimatedElements$(DL())))();
+    var _AnimatedElementsLOfDL = () => (_AnimatedElementsLOfDL = dart.constFn(dart.legacy(_AnimatedElementsOfDL())))();
+    var ListOf_AnimatedElementsLOfDL = () => (ListOf_AnimatedElementsLOfDL = dart.constFn(core.List$(_AnimatedElementsLOfDL())))();
+    var ListLOf_AnimatedElementsLOfDL = () => (ListLOf_AnimatedElementsLOfDL = dart.constFn(dart.legacy(ListOf_AnimatedElementsLOfDL())))();
+    var IdentityMapOfStringL$ListLOf_AnimatedElementsLOfDL = () => (IdentityMapOfStringL$ListLOf_AnimatedElementsLOfDL = dart.constFn(_js_helper.IdentityMap$(T.StringL(), ListLOf_AnimatedElementsLOfDL())))();
+    var PointRendererOfDL = () => (PointRendererOfDL = dart.constFn(point_renderer.PointRenderer$(DL())))();
+    var PointRendererConfigOfDL = () => (PointRendererConfigOfDL = dart.constFn(point_renderer_config.PointRendererConfig$(DL())))();
+    var MutableSeriesOfDL = () => (MutableSeriesOfDL = dart.constFn(processed_series.MutableSeries$(DL())))();
+    var MutableSeriesLOfDL = () => (MutableSeriesLOfDL = dart.constFn(dart.legacy(MutableSeriesOfDL())))();
+    var ListOfMutableSeriesLOfDL = () => (ListOfMutableSeriesLOfDL = dart.constFn(core.List$(MutableSeriesLOfDL())))();
+    var ListLOfMutableSeriesLOfDL = () => (ListLOfMutableSeriesLOfDL = dart.constFn(dart.legacy(ListOfMutableSeriesLOfDL())))();
+    var MutableSeriesLOfDLToboolL = () => (MutableSeriesLOfDLToboolL = dart.constFn(dart.fnType(T.boolL(), [MutableSeriesLOfDL()])))();
+    var _LineRendererElementOfDL = () => (_LineRendererElementOfDL = dart.constFn(line_renderer._LineRendererElement$(DL())))();
+    var _LineRendererElementLOfDL = () => (_LineRendererElementLOfDL = dart.constFn(dart.legacy(_LineRendererElementOfDL())))();
+    var JSArrayOf_LineRendererElementLOfDL = () => (JSArrayOf_LineRendererElementLOfDL = dart.constFn(_interceptors.JSArray$(_LineRendererElementLOfDL())))();
+    var _RangeOfDL = () => (_RangeOfDL = dart.constFn(line_renderer._Range$(DL())))();
+    var MutableSeriesLOfDLToNull = () => (MutableSeriesLOfDLToNull = dart.constFn(dart.fnType(core.Null, [MutableSeriesLOfDL()])))();
+    var LinkedMapOfDL$numL = () => (LinkedMapOfDL$numL = dart.constFn(_js_helper.LinkedMap$(DL(), T.numL())))();
+    var ImmutableSeriesOfDL = () => (ImmutableSeriesOfDL = dart.constFn(processed_series.ImmutableSeries$(DL())))();
+    var ImmutableSeriesLOfDL = () => (ImmutableSeriesLOfDL = dart.constFn(dart.legacy(ImmutableSeriesOfDL())))();
+    var ListOfImmutableSeriesLOfDL = () => (ListOfImmutableSeriesLOfDL = dart.constFn(core.List$(ImmutableSeriesLOfDL())))();
+    var ListLOfImmutableSeriesLOfDL = () => (ListLOfImmutableSeriesLOfDL = dart.constFn(dart.legacy(ListOfImmutableSeriesLOfDL())))();
+    var MapEntryOfStringL$ListLOf_AnimatedElementsLOfDL = () => (MapEntryOfStringL$ListLOf_AnimatedElementsLOfDL = dart.constFn(core.MapEntry$(T.StringL(), ListLOf_AnimatedElementsLOfDL())))();
+    var MapEntryLOfStringL$ListLOf_AnimatedElementsLOfDL = () => (MapEntryLOfStringL$ListLOf_AnimatedElementsLOfDL = dart.constFn(dart.legacy(MapEntryOfStringL$ListLOf_AnimatedElementsLOfDL())))();
+    var JSArrayOfMapEntryLOfStringL$ListLOf_AnimatedElementsLOfDL = () => (JSArrayOfMapEntryLOfStringL$ListLOf_AnimatedElementsLOfDL = dart.constFn(_interceptors.JSArray$(MapEntryLOfStringL$ListLOf_AnimatedElementsLOfDL())))();
+    var ImmutableSeriesLOfDLToboolL = () => (ImmutableSeriesLOfDLToboolL = dart.constFn(dart.fnType(T.boolL(), [ImmutableSeriesLOfDL()])))();
+    var JSArrayOf_AnimatedElementsLOfDL = () => (JSArrayOf_AnimatedElementsLOfDL = dart.constFn(_interceptors.JSArray$(_AnimatedElementsLOfDL())))();
+    var ImmutableSeriesLOfDLToNull = () => (ImmutableSeriesLOfDLToNull = dart.constFn(dart.fnType(core.Null, [ImmutableSeriesLOfDL()])))();
+    var _DatumPointOfDL = () => (_DatumPointOfDL = dart.constFn(line_renderer._DatumPoint$(DL())))();
+    var _DatumPointLOfDL = () => (_DatumPointLOfDL = dart.constFn(dart.legacy(_DatumPointOfDL())))();
+    var ListOf_DatumPointLOfDL = () => (ListOf_DatumPointLOfDL = dart.constFn(core.List$(_DatumPointLOfDL())))();
+    var ListLOf_DatumPointLOfDL = () => (ListLOf_DatumPointLOfDL = dart.constFn(dart.legacy(ListOf_DatumPointLOfDL())))();
+    var JSArrayOfListLOf_DatumPointLOfDL = () => (JSArrayOfListLOf_DatumPointLOfDL = dart.constFn(_interceptors.JSArray$(ListLOf_DatumPointLOfDL())))();
+    var ImmutableAxisOfDL = () => (ImmutableAxisOfDL = dart.constFn(axis.ImmutableAxis$(DL())))();
+    var ImmutableAxisLOfDL = () => (ImmutableAxisLOfDL = dart.constFn(dart.legacy(ImmutableAxisOfDL())))();
+    var JSArrayOf_DatumPointLOfDL = () => (JSArrayOf_DatumPointLOfDL = dart.constFn(_interceptors.JSArray$(_DatumPointLOfDL())))();
+    var _AnimatedLineOfDL = () => (_AnimatedLineOfDL = dart.constFn(line_renderer._AnimatedLine$(DL())))();
+    var _AnimatedLineLOfDL = () => (_AnimatedLineLOfDL = dart.constFn(dart.legacy(_AnimatedLineOfDL())))();
+    var JSArrayOf_AnimatedLineLOfDL = () => (JSArrayOf_AnimatedLineLOfDL = dart.constFn(_interceptors.JSArray$(_AnimatedLineLOfDL())))();
+    var _AnimatedAreaOfDL = () => (_AnimatedAreaOfDL = dart.constFn(line_renderer._AnimatedArea$(DL())))();
+    var _AnimatedAreaLOfDL = () => (_AnimatedAreaLOfDL = dart.constFn(dart.legacy(_AnimatedAreaOfDL())))();
+    var JSArrayOf_AnimatedAreaLOfDL = () => (JSArrayOf_AnimatedAreaLOfDL = dart.constFn(_interceptors.JSArray$(_AnimatedAreaLOfDL())))();
+    var _AreaRendererElementOfDL = () => (_AreaRendererElementOfDL = dart.constFn(line_renderer._AreaRendererElement$(DL())))();
+    var _AreaRendererElementLOfDL = () => (_AreaRendererElementLOfDL = dart.constFn(dart.legacy(_AreaRendererElementOfDL())))();
+    var StringLAndListLOf_AnimatedElementsLOfDLToNull = () => (StringLAndListLOf_AnimatedElementsLOfDLToNull = dart.constFn(dart.fnType(core.Null, [T.StringL(), ListLOf_AnimatedElementsLOfDL()])))();
+    var _RangeLOfDL = () => (_RangeLOfDL = dart.constFn(dart.legacy(_RangeOfDL())))();
+    var JSArrayOf_AreaRendererElementLOfDL = () => (JSArrayOf_AreaRendererElementLOfDL = dart.constFn(_interceptors.JSArray$(_AreaRendererElementLOfDL())))();
+    var _DatumPointLOfDLTo_DatumPointLOfDL = () => (_DatumPointLOfDLTo_DatumPointLOfDL = dart.constFn(dart.fnType(_DatumPointLOfDL(), [_DatumPointLOfDL()])))();
+    var BaseChartOfDL = () => (BaseChartOfDL = dart.constFn(base_chart.BaseChart$(DL())))();
+    var BaseChartLOfDL = () => (BaseChartLOfDL = dart.constFn(dart.legacy(BaseChartOfDL())))();
+    var _AnimatedElementsLOfDLToboolL = () => (_AnimatedElementsLOfDLToboolL = dart.constFn(dart.fnType(T.boolL(), [_AnimatedElementsLOfDL()])))();
+    var ListOf_AnimatedAreaLOfDL = () => (ListOf_AnimatedAreaLOfDL = dart.constFn(core.List$(_AnimatedAreaLOfDL())))();
+    var ListLOf_AnimatedAreaLOfDL = () => (ListLOf_AnimatedAreaLOfDL = dart.constFn(dart.legacy(ListOf_AnimatedAreaLOfDL())))();
+    var _AnimatedElementsLOfDLToListLOf_AnimatedAreaLOfDL = () => (_AnimatedElementsLOfDLToListLOf_AnimatedAreaLOfDL = dart.constFn(dart.fnType(ListLOf_AnimatedAreaLOfDL(), [_AnimatedElementsLOfDL()])))();
+    var ListLOf_AnimatedAreaLOfDLToListLOf_AnimatedAreaLOfDL = () => (ListLOf_AnimatedAreaLOfDLToListLOf_AnimatedAreaLOfDL = dart.constFn(dart.fnType(ListLOf_AnimatedAreaLOfDL(), [ListLOf_AnimatedAreaLOfDL()])))();
+    var _AnimatedAreaLOfDLTo_AreaRendererElementLOfDL = () => (_AnimatedAreaLOfDLTo_AreaRendererElementLOfDL = dart.constFn(dart.fnType(_AreaRendererElementLOfDL(), [_AnimatedAreaLOfDL()])))();
+    var ListOf_AnimatedLineLOfDL = () => (ListOf_AnimatedLineLOfDL = dart.constFn(core.List$(_AnimatedLineLOfDL())))();
+    var ListLOf_AnimatedLineLOfDL = () => (ListLOf_AnimatedLineLOfDL = dart.constFn(dart.legacy(ListOf_AnimatedLineLOfDL())))();
+    var _AnimatedElementsLOfDLToListLOf_AnimatedLineLOfDL = () => (_AnimatedElementsLOfDLToListLOf_AnimatedLineLOfDL = dart.constFn(dart.fnType(ListLOf_AnimatedLineLOfDL(), [_AnimatedElementsLOfDL()])))();
+    var ListLOf_AnimatedLineLOfDLToListLOf_AnimatedLineLOfDL = () => (ListLOf_AnimatedLineLOfDLToListLOf_AnimatedLineLOfDL = dart.constFn(dart.fnType(ListLOf_AnimatedLineLOfDL(), [ListLOf_AnimatedLineLOfDL()])))();
+    var _AnimatedLineLOfDLTo_LineRendererElementLOfDL = () => (_AnimatedLineLOfDLTo_LineRendererElementLOfDL = dart.constFn(dart.fnType(_LineRendererElementLOfDL(), [_AnimatedLineLOfDL()])))();
+    var DatumDetailsOfDL = () => (DatumDetailsOfDL = dart.constFn(datum_details.DatumDetails$(DL())))();
+    var DatumDetailsLOfDL = () => (DatumDetailsLOfDL = dart.constFn(dart.legacy(DatumDetailsOfDL())))();
+    var JSArrayOfDatumDetailsLOfDL = () => (JSArrayOfDatumDetailsLOfDL = dart.constFn(_interceptors.JSArray$(DatumDetailsLOfDL())))();
+    var _AnimatedElementsLOfDLToNull = () => (_AnimatedElementsLOfDLToNull = dart.constFn(dart.fnType(core.Null, [_AnimatedElementsLOfDL()])))();
+    var ListLOf_AnimatedElementsLOfDLToNull = () => (ListLOf_AnimatedElementsLOfDLToNull = dart.constFn(dart.fnType(core.Null, [ListLOf_AnimatedElementsLOfDL()])))();
+    var SeriesDatumOfDL = () => (SeriesDatumOfDL = dart.constFn(series_datum.SeriesDatum$(DL())))();
+    var SeriesDatumLOfDL = () => (SeriesDatumLOfDL = dart.constFn(dart.legacy(SeriesDatumOfDL())))();
+    class LineRenderer extends cartesian_renderer.BaseCartesianRenderer$(dart.legacy(D)) {
+      get config() {
+        return this[config$];
+      }
+      set config(value) {
+        super.config = value;
+      }
+      static new(opts) {
+        let t0, t0$;
+        let rendererId = opts && 'rendererId' in opts ? opts.rendererId : null;
+        let config = opts && 'config' in opts ? opts.config : null;
+        return new (line_renderer.LineRenderer$(dart.legacy(D)))._internal({rendererId: (t0 = rendererId, t0 == null ? "line" : t0), config: (t0$ = config, t0$ == null ? new line_renderer_config.LineRendererConfig.new() : t0$)});
+      }
+      layout(componentBounds, drawAreaBounds) {
+        super.layout(componentBounds, drawAreaBounds);
+        if (dart.test(this.config.includePoints)) {
+          this[_pointRenderer].layout(componentBounds, drawAreaBounds);
+        }
+      }
+      configureSeries(seriesList) {
+        ListLOfMutableSeriesLOfDL().as(seriesList);
+        this.assignMissingColors(seriesList, {emptyCategoryUsesSinglePalette: false});
+        seriesList[$forEach](dart.fn(series => {
+          let t0;
+          t0 = series;
+          t0.areaColorFn == null ? t0.areaColorFn = dart.fn(index => {
+            let t2, t1;
+            let color = (t1 = series, t2 = index, t1.colorFn(t2));
+            return new color$.Color.new({r: color.r, g: color.g, b: color.b, a: (dart.notNull(color.a) * dart.notNull(this.config.areaOpacity))[$round]()});
+          }, T.intLToColorL()) : null;
+        }, T.MutableSeriesLToNull()));
+        if (dart.test(this.config.includePoints)) {
+          this[_pointRenderer].configureSeries(seriesList);
+        }
+      }
+      preprocessSeries(seriesList) {
+        ListLOfMutableSeriesLOfDL().as(seriesList);
+        let stackIndex = 0;
+        this[_hasMeasureBounds] = seriesList[$any](dart.fn(series => series.measureUpperBoundFn != null && series.measureLowerBoundFn != null, MutableSeriesLOfDLToboolL()));
+        seriesList[$forEach](dart.fn(series => {
+          let t0, t0$;
+          let colorFn = series.colorFn;
+          let areaColorFn = series.areaColorFn;
+          let domainFn = series.domainFn;
+          let measureFn = series.measureFn;
+          let strokeWidthPxFn = series.strokeWidthPxFn;
+          t0 = series;
+          t0.dashPatternFn == null ? t0.dashPatternFn = dart.fn(_ => this.config.dashPattern, T.intLToListLOfintL()) : null;
+          let dashPatternFn = series.dashPatternFn;
+          let styleSegments = JSArrayOf_LineRendererElementLOfDL().of([]);
+          let styleSegmentsIndex = 0;
+          let usedKeys = T.LinkedHashSetOfStringL().new();
+          let previousSegmentKey = null;
+          let currentDetails = null;
+          for (let index = 0; index < dart.notNull(series.data[$length]); index = index + 1) {
+            let domain = domainFn(index);
+            let measure = measureFn(index);
+            if (domain == null || measure == null) {
+              continue;
+            }
+            let color = colorFn(index);
+            let areaColor = areaColorFn(index);
+            let dashPattern = dashPatternFn(index);
+            let strokeWidthPx = strokeWidthPxFn != null ? strokeWidthPxFn(index)[$toDouble]() : this.config.strokeWidthPx;
+            let strokeWidthPxRounded = (dart.notNull(strokeWidthPx) * 100)[$round]() / 100;
+            let styleKey = dart.str(series.id) + "__" + dart.str(styleSegmentsIndex) + "__" + dart.str(color) + "__" + dart.str(dashPattern) + "__" + dart.str(strokeWidthPxRounded);
+            if (styleKey !== previousSegmentKey) {
+              if (dart.test(usedKeys[$isNotEmpty]) && dart.test(usedKeys.contains(styleKey))) {
+                styleSegmentsIndex = styleSegmentsIndex + 1;
+                styleKey = dart.str(series.id) + "__" + dart.str(styleSegmentsIndex) + "__" + dart.str(color) + "__" + dart.str(dashPattern) + "__" + dart.str(strokeWidthPxRounded);
+              }
+              if (currentDetails != null) {
+                currentDetails.domainExtent.includePoint(domain);
+              }
+              currentDetails = (t0$ = new (_LineRendererElementOfDL()).new(), (() => {
+                t0$.color = color;
+                t0$.areaColor = areaColor;
+                t0$.dashPattern = dashPattern;
+                t0$.domainExtent = new (_RangeOfDL()).new(domain, domain);
+                t0$.strokeWidthPx = strokeWidthPx;
+                t0$.styleKey = styleKey;
+                t0$.roundEndCaps = this.config.roundEndCaps;
+                return t0$;
+              })());
+              styleSegments[$add](currentDetails);
+              usedKeys.add(styleKey);
+              previousSegmentKey = styleKey;
+            } else {
+              currentDetails.domainExtent.includePoint(domain);
+            }
+          }
+          series.setAttr(T.ListLOf_LineRendererElementL(), line_renderer.styleSegmentsKey, styleSegments);
+          series.setAttr(T.intL(), line_renderer.lineStackIndexKey, stackIndex);
+          if (dart.test(this.config.stacked)) {
+            stackIndex = stackIndex + 1;
+          }
+        }, MutableSeriesLOfDLToNull()));
+        if (dart.test(this.config.includePoints)) {
+          this[_pointRenderer].preprocessSeries(seriesList);
+        }
+        if (dart.test(this.config.stacked) && dart.test(seriesList[$isNotEmpty])) {
+          let curOffsets = this[_createInitialOffsetMap](seriesList[$_get](0));
+          let nextOffsets = new (LinkedMapOfDL$numL()).new();
+          for (let i = 0; i < dart.notNull(seriesList[$length]); i = i + 1) {
+            let series = seriesList[$_get](i);
+            let measureOffsetFn = this[_createStackedMeasureOffsetFunction](series, curOffsets, nextOffsets);
+            if (i > 0) {
+              series.measureOffsetFn = T.intLToLnumL().as(measureOffsetFn);
+            }
+            curOffsets = nextOffsets;
+            nextOffsets = new (LinkedMapOfDL$numL()).new();
+          }
+        }
+      }
+      [_createInitialOffsetMap](series) {
+        let domainFn = series.domainFn;
+        let measureOffsetFn = series.measureOffsetFn;
+        let initialOffsets = new (LinkedMapOfDL$numL()).new();
+        for (let index = 0; index < dart.notNull(series.data[$length]); index = index + 1) {
+          initialOffsets[$_set](domainFn(index), measureOffsetFn(index));
+        }
+        return initialOffsets;
+      }
+      [_createStackedMeasureOffsetFunction](series, curOffsets, nextOffsets) {
+        let domainFn = series.domainFn;
+        let measureFn = series.measureFn;
+        for (let index = 0; index < dart.notNull(series.data[$length]); index = index + 1) {
+          let domainValue = domainFn(index);
+          let measure = measureFn(index);
+          let prevOffset = curOffsets[$_get](domainValue);
+          if (measure != null && prevOffset != null) {
+            nextOffsets[$_set](domainValue, dart.notNull(measure) + dart.notNull(prevOffset));
+          }
+        }
+        return dart.fn(i => curOffsets[$_get](domainFn(i)), T.intLTonumL());
+      }
+      [_mergeIntoSeriesMap](seriesList) {
+        ListLOfImmutableSeriesLOfDL().as(seriesList);
+        let newLineMap = JSArrayOfMapEntryLOfStringL$ListLOf_AnimatedElementsLOfDL().of([]);
+        seriesList[$forEach](dart.fn(series => {
+          let key = series.id;
+          let checkNext = true;
+          while (checkNext && dart.test(this[_seriesLineMap][$isNotEmpty])) {
+            let firstKey = this[_seriesLineMap][$keys][$first];
+            if (!dart.test(seriesList[$any](dart.fn(s => s.id == firstKey, ImmutableSeriesLOfDLToboolL())))) {
+              newLineMap[$add](new (MapEntryOfStringL$ListLOf_AnimatedElementsLOfDL()).__(firstKey, this[_seriesLineMap][$remove](firstKey)));
+              checkNext = true;
+            } else {
+              checkNext = false;
+            }
+          }
+          if (!dart.test(this[_seriesLineMap][$containsKey](key))) {
+            newLineMap[$add](new (MapEntryOfStringL$ListLOf_AnimatedElementsLOfDL()).__(key, JSArrayOf_AnimatedElementsLOfDL().of([])));
+          } else {
+            newLineMap[$add](new (MapEntryOfStringL$ListLOf_AnimatedElementsLOfDL()).__(key, this[_seriesLineMap][$remove](key)));
+          }
+        }, ImmutableSeriesLOfDLToNull()));
+        newLineMap[$addAll](this[_seriesLineMap][$entries]);
+        this[_seriesLineMap][$clear]();
+        this[_seriesLineMap][$addEntries](newLineMap);
+      }
+      update(seriesList, isAnimatingThisDraw) {
+        ListLOfImmutableSeriesLOfDL().as(seriesList);
+        this[_currentKeys][$clear]();
+        let previousPointList = JSArrayOfListLOf_DatumPointLOfDL().of([]);
+        let previousInitialPointList = JSArrayOfListLOf_DatumPointLOfDL().of([]);
+        this[_mergeIntoSeriesMap](seriesList);
+        seriesList[$forEach](dart.fn(series => {
+          let domainAxis = ImmutableAxisLOfDL().as(series.getAttr(T.AxisL(), axis.domainAxisKey));
+          let lineKey = series.id;
+          let stackIndex = series.getAttr(T.intL(), line_renderer.lineStackIndexKey);
+          previousPointList[$add](JSArrayOf_DatumPointLOfDL().of([]));
+          previousInitialPointList[$add](JSArrayOf_DatumPointLOfDL().of([]));
+          let elementsList = this[_seriesLineMap][$_get](lineKey);
+          let styleSegments = series.getAttr(T.ListLOf_LineRendererElementL(), line_renderer.styleSegmentsKey);
+          if (dart.test(styleSegments[$isNotEmpty]) && !T.OrdinalAxisL().is(domainAxis)) {
+            let startPx = (dart.test(this.isRtl) ? this.drawBounds[$right] : this.drawBounds[$left])[$toDouble]();
+            let endPx = (dart.test(this.isRtl) ? this.drawBounds[$left] : this.drawBounds[$right])[$toDouble]();
+            let startDomain = domainAxis.getDomain(startPx);
+            let endDomain = domainAxis.getDomain(endPx);
+            styleSegments[$first].domainExtent.includePoint(startDomain);
+            styleSegments[$last].domainExtent.includePoint(endDomain);
+          }
+          styleSegments[$forEach](dart.fn(styleSegment => {
+            let t0, t0$, t0$0, t0$1;
+            let styleKey = styleSegment.styleKey;
+            let animatingElements = elementsList[$firstWhere](dart.fn(elements => elements.styleKey == styleKey, T._AnimatedElementsLToboolL()), {orElse: dart.fn(() => null, T.VoidToNull())});
+            if (animatingElements != null) {
+              previousInitialPointList[$_set](stackIndex, animatingElements.allPoints);
+            } else {
+              let lineAndArea = this[_createLineAndAreaElements](series, styleSegment, dart.notNull(stackIndex) > 0 ? previousInitialPointList[$_get](dart.notNull(stackIndex) - 1) : null, true);
+              let lineElementList = lineAndArea[$_get](0);
+              let areaElementList = lineAndArea[$_get](1);
+              let allPointList = lineAndArea[$_get](2);
+              let boundsElementList = lineAndArea[$_get](3);
+              let animatingLines = JSArrayOf_AnimatedLineLOfDL().of([]);
+              for (let index = 0; index < dart.notNull(T.numL().as(dart.dload(lineElementList, 'length'))); index = index + 1) {
+                animatingLines[$add]((t0 = new (_AnimatedLineOfDL()).new({key: T.StringL().as(dart.dload(dart.dsend(lineElementList, '_get', [index]), 'styleKey')), overlaySeries: series.overlaySeries}), (() => {
+                  t0.setNewTarget(_LineRendererElementLOfDL().as(dart.dsend(lineElementList, '_get', [index])));
+                  return t0;
+                })()));
+              }
+              let animatingAreas = null;
+              if (dart.test(this.config.includeArea)) {
+                animatingAreas = JSArrayOf_AnimatedAreaLOfDL().of([]);
+                for (let index = 0; index < dart.notNull(T.numL().as(dart.dload(areaElementList, 'length'))); index = index + 1) {
+                  animatingAreas[$add]((t0$ = new (_AnimatedAreaOfDL()).new({key: T.StringL().as(dart.dload(dart.dsend(areaElementList, '_get', [index]), 'styleKey')), overlaySeries: series.overlaySeries}), (() => {
+                    t0$.setNewTarget(_AreaRendererElementLOfDL().as(dart.dsend(areaElementList, '_get', [index])));
+                    return t0$;
+                  })()));
+                }
+              }
+              let animatingBounds = null;
+              if (dart.test(this[_hasMeasureBounds])) {
+                animatingBounds == null ? animatingBounds = JSArrayOf_AnimatedAreaLOfDL().of([]) : null;
+                for (let index = 0; index < dart.notNull(T.numL().as(dart.dload(boundsElementList, 'length'))); index = index + 1) {
+                  animatingBounds[$add]((t0$0 = new (_AnimatedAreaOfDL()).new({key: T.StringL().as(dart.dload(dart.dsend(boundsElementList, '_get', [index]), 'styleKey')), overlaySeries: series.overlaySeries}), (() => {
+                    t0$0.setNewTarget(_AreaRendererElementLOfDL().as(dart.dsend(boundsElementList, '_get', [index])));
+                    return t0$0;
+                  })()));
+                }
+              }
+              animatingElements = (t0$1 = new (_AnimatedElementsOfDL()).new(), (() => {
+                t0$1.styleKey = styleSegment.styleKey;
+                t0$1.allPoints = ListLOf_DatumPointLOfDL().as(allPointList);
+                t0$1.lines = animatingLines;
+                t0$1.areas = animatingAreas;
+                t0$1.bounds = animatingBounds;
+                return t0$1;
+              })());
+              elementsList[$add](animatingElements);
+              previousInitialPointList[$_set](stackIndex, ListLOf_DatumPointLOfDL().as(allPointList));
+            }
+            let lineAndArea = this[_createLineAndAreaElements](series, styleSegment, dart.notNull(stackIndex) > 0 ? previousPointList[$_get](dart.notNull(stackIndex) - 1) : null, false);
+            let lineElementList = lineAndArea[$_get](0);
+            let areaElementList = lineAndArea[$_get](1);
+            let allPointList = lineAndArea[$_get](2);
+            let boundsElementList = lineAndArea[$_get](3);
+            for (let index = 0; index < dart.notNull(T.numL().as(dart.dload(lineElementList, 'length'))); index = index + 1) {
+              let lineElement = dart.dsend(lineElementList, '_get', [index]);
+              if (index >= dart.notNull(animatingElements.lines[$length])) {
+                animatingElements.lines[$add](new (_AnimatedLineOfDL()).new({key: T.StringL().as(dart.dload(lineElement, 'styleKey')), overlaySeries: series.overlaySeries}));
+              }
+              animatingElements.lines[$_get](index).setNewTarget(_LineRendererElementLOfDL().as(lineElement));
+            }
+            if (dart.test(this.config.includeArea)) {
+              for (let index = 0; index < dart.notNull(T.numL().as(dart.dload(areaElementList, 'length'))); index = index + 1) {
+                let areaElement = dart.dsend(areaElementList, '_get', [index]);
+                if (index >= dart.notNull(animatingElements.areas[$length])) {
+                  animatingElements.areas[$add](new (_AnimatedAreaOfDL()).new({key: T.StringL().as(dart.dload(areaElement, 'styleKey')), overlaySeries: series.overlaySeries}));
+                }
+                animatingElements.areas[$_get](index).setNewTarget(_AreaRendererElementLOfDL().as(areaElement));
+              }
+            }
+            if (dart.test(this[_hasMeasureBounds])) {
+              for (let index = 0; index < dart.notNull(T.numL().as(dart.dload(boundsElementList, 'length'))); index = index + 1) {
+                let boundElement = dart.dsend(boundsElementList, '_get', [index]);
+                if (index >= dart.notNull(animatingElements.bounds[$length])) {
+                  animatingElements.bounds[$add](new (_AnimatedAreaOfDL()).new({key: T.StringL().as(dart.dload(boundElement, 'styleKey')), overlaySeries: series.overlaySeries}));
+                }
+                animatingElements.bounds[$_get](index).setNewTarget(_AreaRendererElementLOfDL().as(boundElement));
+              }
+            }
+            animatingElements.allPoints = ListLOf_DatumPointLOfDL().as(allPointList);
+            previousPointList[$_set](stackIndex, ListLOf_DatumPointLOfDL().as(allPointList));
+          }, T._LineRendererElementLToNull()));
+        }, ImmutableSeriesLOfDLToNull()));
+        this[_seriesLineMap][$forEach](dart.fn((key, elements) => {
+          for (let element of elements) {
+            if (element.lines != null) {
+              for (let line of element.lines) {
+                if (this[_currentKeys][$contains](line.key) !== true) {
+                  line.animateOut();
+                }
+              }
+            }
+            if (element.areas != null) {
+              for (let area of element.areas) {
+                if (this[_currentKeys][$contains](area.key) !== true) {
+                  area.animateOut();
+                }
+              }
+            }
+            if (element.bounds != null) {
+              for (let bound of element.bounds) {
+                if (this[_currentKeys][$contains](bound.key) !== true) {
+                  bound.animateOut();
+                }
+              }
+            }
+          }
+        }, StringLAndListLOf_AnimatedElementsLOfDLToNull()));
+        if (dart.test(this.config.includePoints)) {
+          this[_pointRenderer].update(seriesList, isAnimatingThisDraw);
+        }
+      }
+      [_createLineAndAreaElements](series, styleSegment, previousPointList, initializeFromZero) {
+        let t0, t0$, t0$0;
+        let measureAxis = T.ImmutableAxisLOfnumL().as(series.getAttr(T.AxisL(), axis.measureAxisKey));
+        let color = styleSegment.color;
+        let areaColor = styleSegment.areaColor;
+        let dashPattern = styleSegment.dashPattern;
+        let domainExtent = styleSegment.domainExtent;
+        let strokeWidthPx = styleSegment.strokeWidthPx;
+        let styleKey = styleSegment.styleKey;
+        let roundEndCaps = styleSegment.roundEndCaps;
+        let pointList = this[_createPointListForSeries](series, initializeFromZero);
+        let segmentsList = this[_createLineAndAreaSegmentsForSeries](pointList, previousPointList, series, initializeFromZero);
+        let lineSegments = segmentsList[$_get](0);
+        let areaSegments = segmentsList[$_get](1);
+        let boundsSegment = segmentsList[$_get](2);
+        this[_currentKeys][$add](styleKey);
+        let positionExtent = this[_createPositionExtent](series, styleSegment);
+        let lineElements = JSArrayOf_LineRendererElementLOfDL().of([]);
+        for (let index = 0; index < dart.notNull(T.numL().as(dart.dload(lineSegments, 'length'))); index = index + 1) {
+          let linePointList = dart.dsend(lineSegments, '_get', [index]);
+          let lineStyleKey = dart.str(styleKey) + "__line__" + dart.str(index);
+          this[_currentKeys][$add](lineStyleKey);
+          lineElements[$add]((t0 = new (_LineRendererElementOfDL()).new(), (() => {
+            t0.points = ListLOf_DatumPointLOfDL().as(linePointList);
+            t0.color = color;
+            t0.areaColor = areaColor;
+            t0.dashPattern = dashPattern;
+            t0.domainExtent = _RangeLOfDL().as(domainExtent);
+            t0.measureAxisPosition = measureAxis.getLocation(0.0);
+            t0.positionExtent = positionExtent;
+            t0.strokeWidthPx = strokeWidthPx;
+            t0.styleKey = lineStyleKey;
+            t0.roundEndCaps = roundEndCaps;
+            return t0;
+          })()));
+        }
+        let areaElements = JSArrayOf_AreaRendererElementLOfDL().of([]);
+        if (dart.test(this.config.includeArea)) {
+          for (let index = 0; index < dart.notNull(T.numL().as(dart.dload(areaSegments, 'length'))); index = index + 1) {
+            let areaPointList = dart.dsend(areaSegments, '_get', [index]);
+            let areaStyleKey = dart.str(styleKey) + "__area_" + dart.str(index);
+            this[_currentKeys][$add](areaStyleKey);
+            areaElements[$add]((t0$ = new (_AreaRendererElementOfDL()).new(), (() => {
+              t0$.points = ListLOf_DatumPointLOfDL().as(areaPointList);
+              t0$.color = color;
+              t0$.areaColor = areaColor;
+              t0$.domainExtent = _RangeLOfDL().as(domainExtent);
+              t0$.measureAxisPosition = measureAxis.getLocation(0.0);
+              t0$.positionExtent = positionExtent;
+              t0$.styleKey = areaStyleKey;
+              return t0$;
+            })()));
+          }
+        }
+        let boundsElements = JSArrayOf_AreaRendererElementLOfDL().of([]);
+        if (dart.test(this[_hasMeasureBounds])) {
+          for (let index = 0; index < dart.notNull(T.numL().as(dart.dload(boundsSegment, 'length'))); index = index + 1) {
+            let boundsPointList = dart.dsend(boundsSegment, '_get', [index]);
+            let boundsStyleKey = dart.str(styleKey) + "__bounds_" + dart.str(index);
+            this[_currentKeys][$add](boundsStyleKey);
+            boundsElements[$add]((t0$0 = new (_AreaRendererElementOfDL()).new(), (() => {
+              t0$0.points = ListLOf_DatumPointLOfDL().as(boundsPointList);
+              t0$0.color = color;
+              t0$0.areaColor = areaColor;
+              t0$0.domainExtent = _RangeLOfDL().as(domainExtent);
+              t0$0.measureAxisPosition = measureAxis.getLocation(0.0);
+              t0$0.positionExtent = positionExtent;
+              t0$0.styleKey = boundsStyleKey;
+              return t0$0;
+            })()));
+          }
+        }
+        return [lineElements, areaElements, pointList, boundsElements];
+      }
+      [_createPointListForSeries](series, initializeFromZero) {
+        let domainAxis = ImmutableAxisLOfDL().as(series.getAttr(T.AxisL(), axis.domainAxisKey));
+        let domainFn = series.domainFn;
+        let measureAxis = T.ImmutableAxisLOfnumL().as(series.getAttr(T.AxisL(), axis.measureAxisKey));
+        let measureFn = series.measureFn;
+        let measureOffsetFn = series.measureOffsetFn;
+        let pointList = JSArrayOf_DatumPointLOfDL().of([]);
+        for (let index = 0; index < dart.notNull(series.data[$length]); index = index + 1) {
+          let datum = series.data[$_get](index);
+          let measure = measureFn(index);
+          if (measure != null && dart.test(initializeFromZero)) {
+            measure = 0.0;
+          }
+          let measureOffset = measureOffsetFn(index);
+          if (measureOffset != null && dart.test(initializeFromZero)) {
+            measureOffset = 0.0;
+          }
+          pointList[$add](this[_getPoint](datum, domainFn(index), series, domainAxis, measure, measureOffset, measureAxis, {index: index}));
+        }
+        return pointList;
+      }
+      [_createLineAndAreaSegmentsForSeries](pointList, previousPointList, series, initializeFromZero) {
+        let lineSegments = JSArrayOfListLOf_DatumPointLOfDL().of([]);
+        let areaSegments = JSArrayOfListLOf_DatumPointLOfDL().of([]);
+        let boundsSegments = JSArrayOfListLOf_DatumPointLOfDL().of([]);
+        let startPointIndex = null;
+        let endPointIndex = null;
+        let seriesHasMeasureBounds = series.measureUpperBoundFn != null && series.measureLowerBoundFn != null;
+        for (let index = 0; index < dart.notNull(pointList[$length]); index = index + 1) {
+          let point = pointList[$_get](index);
+          if (point.y == null) {
+            if (startPointIndex == null) {
+              continue;
+            }
+            lineSegments[$add](this[_createLineSegment](startPointIndex, endPointIndex, pointList));
+            if (startPointIndex != endPointIndex) {
+              if (dart.test(this.config.includeArea)) {
+                areaSegments[$add](this[_createAreaSegment](startPointIndex, endPointIndex, pointList, previousPointList, series, initializeFromZero));
+              }
+              if (seriesHasMeasureBounds) {
+                boundsSegments[$add](this[_createBoundsSegment](pointList[$sublist](startPointIndex, dart.notNull(endPointIndex) + 1), series, initializeFromZero));
+              }
+            }
+            startPointIndex = null;
+            endPointIndex = null;
+            continue;
+          }
+          startPointIndex == null ? startPointIndex = index : null;
+          endPointIndex = index;
+        }
+        if (startPointIndex != null && endPointIndex != null) {
+          lineSegments[$add](this[_createLineSegment](startPointIndex, endPointIndex, pointList));
+          if (startPointIndex != endPointIndex) {
+            if (dart.test(this.config.includeArea)) {
+              areaSegments[$add](this[_createAreaSegment](startPointIndex, endPointIndex, pointList, previousPointList, series, initializeFromZero));
+            }
+            if (seriesHasMeasureBounds) {
+              boundsSegments[$add](this[_createBoundsSegment](pointList[$sublist](startPointIndex, dart.notNull(endPointIndex) + 1), series, initializeFromZero));
+            }
+          }
+        }
+        return [lineSegments, areaSegments, boundsSegments];
+      }
+      [_createLineSegment](start, end, pointList) {
+        return pointList[$sublist](start, dart.notNull(end) + 1);
+      }
+      [_createAreaSegment](start, end, pointList, previousPointList, series, initializeFromZero) {
+        let domainAxis = ImmutableAxisLOfDL().as(series.getAttr(T.AxisL(), axis.domainAxisKey));
+        let domainFn = series.domainFn;
+        let measureAxis = T.ImmutableAxisLOfnumL().as(series.getAttr(T.AxisL(), axis.measureAxisKey));
+        let areaPointList = JSArrayOf_DatumPointLOfDL().of([]);
+        if (!dart.test(this.config.stacked) || previousPointList == null) {
+          areaPointList[$add](this[_getPoint](null, domainFn(end), series, domainAxis, 0.0, 0.0, measureAxis));
+          areaPointList[$add](this[_getPoint](null, domainFn(start), series, domainAxis, 0.0, 0.0, measureAxis));
+        } else {
+          areaPointList[$addAll](previousPointList[$sublist](start, dart.notNull(end) + 1)[$reversed]);
+        }
+        areaPointList[$addAll](pointList[$sublist](start, dart.notNull(end) + 1));
+        return areaPointList;
+      }
+      [_createBoundsSegment](pointList, series, initializeFromZero) {
+        let measureAxis = T.ImmutableAxisLOfnumL().as(series.getAttr(T.AxisL(), axis.measureAxisKey));
+        let areaPointList = JSArrayOf_DatumPointLOfDL().of([]);
+        areaPointList[$addAll](pointList[$map](_DatumPointLOfDL(), dart.fn(datumPoint => {
+          let t1, t0, t1$, t0$;
+          return _DatumPointOfDL().from(datumPoint, datumPoint.x, dart.test(initializeFromZero) ? datumPoint.y : measureAxis.getLocation(dart.notNull((t0 = series, t1 = datumPoint.index, t0.measureUpperBoundFn(t1))) + dart.notNull((t0$ = series, t1$ = datumPoint.index, t0$.measureOffsetFn(t1$)))));
+        }, _DatumPointLOfDLTo_DatumPointLOfDL())));
+        areaPointList[$addAll](pointList[$reversed][$map](_DatumPointLOfDL(), dart.fn(datumPoint => {
+          let t1, t0, t1$, t0$;
+          return _DatumPointOfDL().from(datumPoint, datumPoint.x, dart.test(initializeFromZero) ? datumPoint.y : measureAxis.getLocation(dart.notNull((t0 = series, t1 = datumPoint.index, t0.measureLowerBoundFn(t1))) + dart.notNull((t0$ = series, t1$ = datumPoint.index, t0$.measureOffsetFn(t1$)))));
+        }, _DatumPointLOfDLTo_DatumPointLOfDL())));
+        return areaPointList;
+      }
+      [_createPositionExtent](series, details) {
+        let t0, t0$;
+        let domainAxis = ImmutableAxisLOfDL().as(series.getAttr(T.AxisL(), axis.domainAxisKey));
+        let startPosition = (t0 = domainAxis.getLocation(DL().as(details.domainExtent.start)), t0 == null ? this.drawBounds[$left][$toDouble]() : t0);
+        let endPosition = (t0$ = domainAxis.getLocation(DL().as(details.domainExtent.end)), t0$ == null ? this.drawBounds[$right][$toDouble]() : t0$);
+        return new (T._RangeOfnumL()).new(startPosition, endPosition);
+      }
+      onAttach(chart) {
+        BaseChartLOfDL().as(chart);
+        super.onAttach(chart);
+        this[_chart] = chart;
+      }
+      paint(canvas, animationPercent) {
+        if (animationPercent === 1.0) {
+          let keysToRemove = T.JSArrayOfStringL().of([]);
+          this[_seriesLineMap][$forEach](dart.fn((key, elements) => {
+            elements[$removeWhere](dart.fn(element => element.animatingOut, _AnimatedElementsLOfDLToboolL()));
+            if (dart.test(elements[$isEmpty])) {
+              keysToRemove[$add](key);
+            }
+          }, StringLAndListLOf_AnimatedElementsLOfDLToNull()));
+          keysToRemove[$forEach](dart.bind(this[_seriesLineMap], $remove));
+        }
+        this[_seriesLineMap][$forEach](dart.fn((key, elements) => {
+          if (dart.test(this.config.includeArea)) {
+            elements[$map](ListLOf_AnimatedAreaLOfDL(), dart.fn(animatingElement => animatingElement.areas, _AnimatedElementsLOfDLToListLOf_AnimatedAreaLOfDL()))[$expand](_AnimatedAreaLOfDL(), dart.fn(areas => areas, ListLOf_AnimatedAreaLOfDLToListLOf_AnimatedAreaLOfDL()))[$map](_AreaRendererElementLOfDL(), dart.fn(animatingArea => {
+              let t0;
+              t0 = animatingArea;
+              return t0 == null ? null : t0.getCurrentArea(animationPercent);
+            }, _AnimatedAreaLOfDLTo_AreaRendererElementLOfDL()))[$forEach](dart.fn(area => {
+              let t0;
+              if (area != null) {
+                canvas.drawPolygon({clipBounds: this[_getClipBoundsForExtent](area.positionExtent), fill: (t0 = area.areaColor, t0 == null ? area.color : t0), points: area.points});
+              }
+            }, T._AreaRendererElementLToNull()));
+          }
+          if (dart.test(this[_hasMeasureBounds])) {
+            elements[$map](ListLOf_AnimatedAreaLOfDL(), dart.fn(animatingElement => animatingElement.bounds, _AnimatedElementsLOfDLToListLOf_AnimatedAreaLOfDL()))[$expand](_AnimatedAreaLOfDL(), dart.fn(bounds => bounds, ListLOf_AnimatedAreaLOfDLToListLOf_AnimatedAreaLOfDL()))[$map](_AreaRendererElementLOfDL(), dart.fn(animatingBounds => {
+              let t0;
+              t0 = animatingBounds;
+              return t0 == null ? null : t0.getCurrentArea(animationPercent);
+            }, _AnimatedAreaLOfDLTo_AreaRendererElementLOfDL()))[$forEach](dart.fn(bound => {
+              let t0;
+              if (bound != null) {
+                canvas.drawPolygon({clipBounds: this[_getClipBoundsForExtent](bound.positionExtent), fill: (t0 = bound.areaColor, t0 == null ? bound.color : t0), points: bound.points});
+              }
+            }, T._AreaRendererElementLToNull()));
+          }
+          if (dart.test(this.config.includeLine)) {
+            elements[$map](ListLOf_AnimatedLineLOfDL(), dart.fn(animatingElement => animatingElement.lines, _AnimatedElementsLOfDLToListLOf_AnimatedLineLOfDL()))[$expand](_AnimatedLineLOfDL(), dart.fn(lines => lines, ListLOf_AnimatedLineLOfDLToListLOf_AnimatedLineLOfDL()))[$map](_LineRendererElementLOfDL(), dart.fn(animatingLine => {
+              let t0;
+              t0 = animatingLine;
+              return t0 == null ? null : t0.getCurrentLine(animationPercent);
+            }, _AnimatedLineLOfDLTo_LineRendererElementLOfDL()))[$forEach](dart.fn(line => {
+              if (line != null) {
+                canvas.drawLine({clipBounds: this[_getClipBoundsForExtent](line.positionExtent), dashPattern: line.dashPattern, points: line.points, stroke: line.color, strokeWidthPx: line.strokeWidthPx, roundEndCaps: line.roundEndCaps});
+              }
+            }, T._LineRendererElementLToNull()));
+          }
+        }, StringLAndListLOf_AnimatedElementsLOfDLToNull()));
+        if (dart.test(this.config.includePoints)) {
+          this[_pointRenderer].paint(canvas, animationPercent);
+        }
+      }
+      [_getClipBoundsForExtent](extent) {
+        let left = dart.test(this.isRtl) ? math$.clamp(extent.end, this.drawBounds[$left], this.drawBounds[$right]) : math$.clamp(extent.start, this.drawBounds[$left], this.drawBounds[$right]);
+        let right = dart.test(this.isRtl) ? math$.clamp(extent.start, this.drawBounds[$left], this.drawBounds[$right]) : math$.clamp(extent.end, this.drawBounds[$left], this.drawBounds[$right]);
+        return new (T.RectangleOfnumL()).new(left, dart.notNull(this.drawBounds[$top]) - 5, dart.notNull(right) - dart.notNull(left), dart.notNull(this.drawBounds[$height]) + 5 + 5);
+      }
+      get isRtl() {
+        let t0, t0$, t0$0;
+        t0$0 = (t0$ = (t0 = this[_chart], t0 == null ? null : t0.context), t0$ == null ? null : t0$.isRtl);
+        return t0$0 == null ? false : t0$0;
+      }
+      [_getPoint](datum, domainValue, series, domainAxis, measureValue, measureOffsetValue, measureAxis, opts) {
+        let index = opts && 'index' in opts ? opts.index : null;
+        let domainPosition = domainAxis.getLocation(domainValue);
+        let measurePosition = measureValue != null && measureOffsetValue != null ? measureAxis.getLocation(dart.notNull(measureValue) + dart.notNull(measureOffsetValue)) : null;
+        return new (_DatumPointOfDL()).new({datum: datum, domain: domainValue, series: series, x: domainPosition, y: measurePosition, index: index});
+      }
+      getNearestDatumDetailPerSeries(chartPoint, byDomain, boundsOverride, opts) {
+        let selectOverlappingPoints = opts && 'selectOverlappingPoints' in opts ? opts.selectOverlappingPoints : false;
+        let selectExactEventLocation = opts && 'selectExactEventLocation' in opts ? opts.selectExactEventLocation : false;
+        let nearest = JSArrayOfDatumDetailsLOfDL().of([]);
+        if (!dart.test(this.isPointWithinBounds(chartPoint, boundsOverride))) {
+          return nearest;
+        }
+        this[_seriesLineMap][$values][$forEach](dart.fn(seriesSegments => {
+          let nearestPoint = null;
+          let nearestDomainDistance = 10000.0;
+          let nearestMeasureDistance = 10000.0;
+          let nearestRelativeDistance = 10000.0;
+          seriesSegments[$forEach](dart.fn(segment => {
+            if (dart.test(segment.overlaySeries)) {
+              return;
+            }
+            segment.allPoints[$forEach](dart.fn(p => {
+              if (dart.notNull(p.x) < dart.notNull(this.componentBounds[$left]) || dart.notNull(p.x) > dart.notNull(this.componentBounds[$right])) {
+                return;
+              }
+              let measureDistance = null;
+              let relativeDistance = null;
+              let domainDistance = null;
+              if (p.y != null) {
+                measureDistance = (dart.notNull(p.y) - dart.notNull(chartPoint.y))[$abs]();
+                domainDistance = (dart.notNull(p.x) - dart.notNull(chartPoint.x))[$abs]();
+                relativeDistance = chartPoint.distanceTo(T.PointLOfdoubleL().as(p));
+              } else {
+                measureDistance = 1 / 0;
+                domainDistance = 1 / 0;
+                relativeDistance = dart.test(byDomain) ? domainDistance : 1 / 0;
+              }
+              if (dart.test(byDomain)) {
+                if (dart.notNull(domainDistance) < dart.notNull(nearestDomainDistance) || domainDistance == nearestDomainDistance && dart.notNull(measureDistance) < dart.notNull(nearestMeasureDistance)) {
+                  nearestPoint = _DatumPointLOfDL().as(p);
+                  nearestDomainDistance = domainDistance;
+                  nearestMeasureDistance = measureDistance;
+                  nearestRelativeDistance = relativeDistance;
+                }
+              } else {
+                if (dart.notNull(relativeDistance) < dart.notNull(nearestRelativeDistance)) {
+                  nearestPoint = _DatumPointLOfDL().as(p);
+                  nearestDomainDistance = domainDistance;
+                  nearestMeasureDistance = measureDistance;
+                  nearestRelativeDistance = relativeDistance;
+                }
+              }
+            }, T.PointLOfnumLToNull()));
+          }, _AnimatedElementsLOfDLToNull()));
+          if (nearestPoint != null) {
+            nearest[$add](new (DatumDetailsOfDL()).new({chartPosition: new (T.PointOfdoubleL()).new(nearestPoint.x, nearestPoint.y), datum: nearestPoint.datum, domain: nearestPoint.domain, series: nearestPoint.series, domainDistance: nearestDomainDistance, measureDistance: nearestMeasureDistance, relativeDistance: nearestRelativeDistance}));
+          }
+        }, ListLOf_AnimatedElementsLOfDLToNull()));
+        return nearest;
+      }
+      addPositionToDetailsForSeriesDatum(details, seriesDatum) {
+        DatumDetailsLOfDL().as(details);
+        SeriesDatumLOfDL().as(seriesDatum);
+        let series = details.series;
+        let domainAxis = ImmutableAxisLOfDL().as(series.getAttr(T.AxisL(), axis.domainAxisKey));
+        let measureAxis = T.ImmutableAxisLOfnumL().as(series.getAttr(T.AxisL(), axis.measureAxisKey));
+        let point = this[_getPoint](seriesDatum.datum, details.domain, series, domainAxis, details.measure, details.measureOffset, measureAxis);
+        let chartPosition = new (T.PointOfdoubleL()).new(point.x, point.y);
+        return DatumDetailsOfDL().from(details, {chartPosition: chartPosition});
+      }
+    }
+    (LineRenderer._internal = function(opts) {
+      let rendererId = opts && 'rendererId' in opts ? opts.rendererId : null;
+      let config = opts && 'config' in opts ? opts.config : null;
+      this[_pointRenderer] = null;
+      this[_chart] = null;
+      this[_hasMeasureBounds] = null;
+      this[_seriesLineMap] = new (IdentityMapOfStringL$ListLOf_AnimatedElementsLOfDL()).new();
+      this[_currentKeys] = T.JSArrayOfStringL().of([]);
+      this[config$] = config;
+      LineRenderer.__proto__.new.call(this, {rendererId: rendererId, layoutPaintOrder: config.layoutPaintOrder, symbolRenderer: config.symbolRenderer});
+      this[_pointRenderer] = new (PointRendererOfDL()).new({config: new (PointRendererConfigOfDL()).new({radiusPx: this.config.radiusPx})});
+    }).prototype = LineRenderer.prototype;
+    dart.addTypeTests(LineRenderer);
+    LineRenderer.prototype[_is_LineRenderer_default] = true;
+    dart.addTypeCaches(LineRenderer);
+    dart.setMethodSignature(LineRenderer, () => ({
+      __proto__: dart.getMethods(LineRenderer.__proto__),
+      [_createInitialOffsetMap]: dart.fnType(dart.legacy(core.Map$(dart.legacy(D), dart.legacy(core.num))), [dart.legacy(processed_series.MutableSeries$(dart.legacy(D)))]),
+      [_createStackedMeasureOffsetFunction]: dart.fnType(dart.legacy(core.Function), [dart.legacy(processed_series.MutableSeries$(dart.legacy(D))), dart.legacy(core.Map$(dart.legacy(D), dart.legacy(core.num))), dart.legacy(core.Map$(dart.legacy(D), dart.legacy(core.num)))]),
+      [_mergeIntoSeriesMap]: dart.fnType(dart.void, [dart.legacy(core.Object)]),
+      update: dart.fnType(dart.void, [dart.legacy(core.Object), dart.legacy(core.bool)]),
+      [_createLineAndAreaElements]: dart.fnType(dart.legacy(core.List), [dart.legacy(processed_series.ImmutableSeries$(dart.legacy(D))), dart.legacy(line_renderer._LineRendererElement), dart.legacy(core.List$(dart.legacy(line_renderer._DatumPoint$(dart.legacy(D))))), dart.legacy(core.bool)]),
+      [_createPointListForSeries]: dart.fnType(dart.legacy(core.List$(dart.legacy(line_renderer._DatumPoint$(dart.legacy(D))))), [dart.legacy(processed_series.ImmutableSeries$(dart.legacy(D))), dart.legacy(core.bool)]),
+      [_createLineAndAreaSegmentsForSeries]: dart.fnType(dart.legacy(core.List), [dart.legacy(core.List$(dart.legacy(line_renderer._DatumPoint$(dart.legacy(D))))), dart.legacy(core.List$(dart.legacy(line_renderer._DatumPoint$(dart.legacy(D))))), dart.legacy(processed_series.ImmutableSeries$(dart.legacy(D))), dart.legacy(core.bool)]),
+      [_createLineSegment]: dart.fnType(dart.legacy(core.List$(dart.legacy(line_renderer._DatumPoint$(dart.legacy(D))))), [dart.legacy(core.int), dart.legacy(core.int), dart.legacy(core.List$(dart.legacy(line_renderer._DatumPoint$(dart.legacy(D)))))]),
+      [_createAreaSegment]: dart.fnType(dart.legacy(core.List$(dart.legacy(line_renderer._DatumPoint$(dart.legacy(D))))), [dart.legacy(core.int), dart.legacy(core.int), dart.legacy(core.List$(dart.legacy(line_renderer._DatumPoint$(dart.legacy(D))))), dart.legacy(core.List$(dart.legacy(line_renderer._DatumPoint$(dart.legacy(D))))), dart.legacy(processed_series.ImmutableSeries$(dart.legacy(D))), dart.legacy(core.bool)]),
+      [_createBoundsSegment]: dart.fnType(dart.legacy(core.List$(dart.legacy(line_renderer._DatumPoint$(dart.legacy(D))))), [dart.legacy(core.List$(dart.legacy(line_renderer._DatumPoint$(dart.legacy(D))))), dart.legacy(processed_series.ImmutableSeries$(dart.legacy(D))), dart.legacy(core.bool)]),
+      [_createPositionExtent]: dart.fnType(dart.legacy(line_renderer._Range$(dart.legacy(core.num))), [dart.legacy(processed_series.ImmutableSeries$(dart.legacy(D))), dart.legacy(line_renderer._LineRendererElement)]),
+      paint: dart.fnType(dart.void, [dart.legacy(chart_canvas.ChartCanvas), dart.legacy(core.double)]),
+      [_getClipBoundsForExtent]: dart.fnType(dart.legacy(math.Rectangle$(dart.legacy(core.num))), [dart.legacy(line_renderer._Range$(dart.legacy(core.num)))]),
+      [_getPoint]: dart.fnType(dart.legacy(line_renderer._DatumPoint$(dart.legacy(D))), [dart.dynamic, dart.legacy(D), dart.legacy(processed_series.ImmutableSeries$(dart.legacy(D))), dart.legacy(axis.ImmutableAxis$(dart.legacy(D))), dart.legacy(core.num), dart.legacy(core.num), dart.legacy(axis.ImmutableAxis$(dart.legacy(core.num)))], {index: dart.legacy(core.int)}, {}),
+      getNearestDatumDetailPerSeries: dart.fnType(dart.legacy(core.List$(dart.legacy(datum_details.DatumDetails$(dart.legacy(D))))), [dart.legacy(math.Point$(dart.legacy(core.double))), dart.legacy(core.bool), dart.legacy(math.Rectangle$(dart.legacy(core.int)))], {selectExactEventLocation: dart.legacy(core.bool), selectOverlappingPoints: dart.legacy(core.bool)}, {}),
+      addPositionToDetailsForSeriesDatum: dart.fnType(dart.legacy(datum_details.DatumDetails$(dart.legacy(D))), [dart.legacy(core.Object), dart.legacy(core.Object)])
+    }));
+    dart.setGetterSignature(LineRenderer, () => ({
+      __proto__: dart.getGetters(LineRenderer.__proto__),
+      isRtl: dart.legacy(core.bool)
+    }));
+    dart.setLibraryUri(LineRenderer, I[1]);
+    dart.setFieldSignature(LineRenderer, () => ({
+      __proto__: dart.getFields(LineRenderer.__proto__),
+      config: dart.finalFieldType(dart.legacy(line_renderer_config.LineRendererConfig)),
+      [_pointRenderer]: dart.fieldType(dart.legacy(point_renderer.PointRenderer)),
+      [_chart]: dart.fieldType(dart.legacy(base_chart.BaseChart$(dart.legacy(D)))),
+      [_hasMeasureBounds]: dart.fieldType(dart.legacy(core.bool)),
+      [_seriesLineMap]: dart.finalFieldType(dart.legacy(core.Map$(dart.legacy(core.String), dart.legacy(core.List$(dart.legacy(line_renderer._AnimatedElements$(dart.legacy(D)))))))),
+      [_currentKeys]: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(core.String))))
+    }));
+    return LineRenderer;
+  });
+  line_renderer.LineRenderer = line_renderer.LineRenderer$();
+  dart.defineLazy(line_renderer.LineRenderer, {
+    /*line_renderer.LineRenderer.drawBoundTopExtensionPx*/get drawBoundTopExtensionPx() {
+      return 5;
+    },
+    /*line_renderer.LineRenderer.drawBoundBottomExtensionPx*/get drawBoundBottomExtensionPx() {
+      return 5;
+    }
+  }, true);
+  dart.addTypeTests(line_renderer.LineRenderer, _is_LineRenderer_default);
+  const _is__DatumPoint_default = Symbol('_is__DatumPoint_default');
+  line_renderer._DatumPoint$ = dart.generic(D => {
+    class _DatumPoint extends math.Point$(dart.legacy(core.double)) {
+      static from(other, x = null, y = null) {
+        let t0, t0$;
+        return new (line_renderer._DatumPoint$(dart.legacy(D))).new({datum: other.datum, domain: other.domain, series: other.series, index: other.index, x: (t0 = x, t0 == null ? other.x : t0), y: (t0$ = y, t0$ == null ? other.y : t0$)});
+      }
+    }
+    (_DatumPoint.new = function(opts) {
+      let datum = opts && 'datum' in opts ? opts.datum : null;
+      let domain = opts && 'domain' in opts ? opts.domain : null;
+      let series = opts && 'series' in opts ? opts.series : null;
+      let index = opts && 'index' in opts ? opts.index : null;
+      let x = opts && 'x' in opts ? opts.x : null;
+      let y = opts && 'y' in opts ? opts.y : null;
+      this.datum = datum;
+      this.domain = domain;
+      this.series = series;
+      this.index = index;
+      _DatumPoint.__proto__.new.call(this, x, y);
+      ;
+    }).prototype = _DatumPoint.prototype;
+    dart.addTypeTests(_DatumPoint);
+    _DatumPoint.prototype[_is__DatumPoint_default] = true;
+    dart.addTypeCaches(_DatumPoint);
+    dart.setLibraryUri(_DatumPoint, I[1]);
+    dart.setFieldSignature(_DatumPoint, () => ({
+      __proto__: dart.getFields(_DatumPoint.__proto__),
+      datum: dart.finalFieldType(dart.dynamic),
+      domain: dart.finalFieldType(dart.legacy(D)),
+      series: dart.finalFieldType(dart.legacy(processed_series.ImmutableSeries$(dart.legacy(D)))),
+      index: dart.finalFieldType(dart.legacy(core.int))
+    }));
+    return _DatumPoint;
+  });
+  line_renderer._DatumPoint = line_renderer._DatumPoint$();
+  dart.addTypeTests(line_renderer._DatumPoint, _is__DatumPoint_default);
+  var points = dart.privateName(line_renderer, "_LineRendererElement.points");
+  var domainExtent = dart.privateName(line_renderer, "_LineRendererElement.domainExtent");
+  const _is__LineRendererElement_default = Symbol('_is__LineRendererElement_default');
+  line_renderer._LineRendererElement$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    var _DatumPointOfDL = () => (_DatumPointOfDL = dart.constFn(line_renderer._DatumPoint$(DL())))();
+    var _DatumPointLOfDL = () => (_DatumPointLOfDL = dart.constFn(dart.legacy(_DatumPointOfDL())))();
+    var ListOf_DatumPointLOfDL = () => (ListOf_DatumPointLOfDL = dart.constFn(core.List$(_DatumPointLOfDL())))();
+    var ListLOf_DatumPointLOfDL = () => (ListLOf_DatumPointLOfDL = dart.constFn(dart.legacy(ListOf_DatumPointLOfDL())))();
+    var _RangeOfDL = () => (_RangeOfDL = dart.constFn(line_renderer._Range$(DL())))();
+    var _RangeLOfDL = () => (_RangeLOfDL = dart.constFn(dart.legacy(_RangeOfDL())))();
+    var _LineRendererElementOfDL = () => (_LineRendererElementOfDL = dart.constFn(line_renderer._LineRendererElement$(DL())))();
+    class _LineRendererElement extends core.Object {
+      get points() {
+        return this[points];
+      }
+      set points(value) {
+        this[points] = ListLOf_DatumPointLOfDL().as(value);
+      }
+      get domainExtent() {
+        return this[domainExtent];
+      }
+      set domainExtent(value) {
+        this[domainExtent] = _RangeLOfDL().as(value);
+      }
+      clone() {
+        let t0;
+        t0 = new (_LineRendererElementOfDL()).new();
+        return (() => {
+          t0.points = ListOf_DatumPointLOfDL().from(this.points);
+          t0.color = this.color != null ? new color$.Color.fromOther({color: this.color}) : null;
+          t0.areaColor = this.areaColor != null ? new color$.Color.fromOther({color: this.areaColor}) : null;
+          t0.dashPattern = this.dashPattern != null ? T.ListOfintL().from(this.dashPattern) : null;
+          t0.domainExtent = this.domainExtent;
+          t0.measureAxisPosition = this.measureAxisPosition;
+          t0.positionExtent = this.positionExtent;
+          t0.strokeWidthPx = this.strokeWidthPx;
+          t0.styleKey = this.styleKey;
+          t0.roundEndCaps = this.roundEndCaps;
+          return t0;
+        })();
+      }
+      updateAnimationPercent(previous, target, animationPercent) {
+        let lastPoint = null;
+        let pointIndex = null;
+        for (let t0 = pointIndex = 0; dart.notNull(pointIndex) < dart.notNull(target.points[$length]); pointIndex = dart.notNull(pointIndex) + 1) {
+          let targetPoint = target.points[$_get](pointIndex);
+          let previousPoint = null;
+          if (dart.notNull(previous.points[$length]) - 1 >= dart.notNull(pointIndex)) {
+            previousPoint = _DatumPointLOfDL().as(previous.points[$_get](pointIndex));
+            lastPoint = previousPoint;
+          } else {
+            previousPoint = _DatumPointOfDL().from(_DatumPointLOfDL().as(targetPoint), targetPoint.x, lastPoint.y);
+          }
+          let x = (dart.notNull(targetPoint.x) - dart.notNull(previousPoint.x)) * dart.notNull(animationPercent) + dart.notNull(previousPoint.x);
+          let y = null;
+          if (targetPoint.y != null && previousPoint.y != null) {
+            y = (dart.notNull(targetPoint.y) - dart.notNull(previousPoint.y)) * dart.notNull(animationPercent) + dart.notNull(previousPoint.y);
+          } else if (targetPoint.y != null) {
+            y = targetPoint.y;
+          } else {
+            y = null;
+          }
+          if (dart.notNull(this.points[$length]) - 1 >= dart.notNull(pointIndex)) {
+            this.points[$_set](pointIndex, _DatumPointOfDL().from(_DatumPointLOfDL().as(targetPoint), x, y));
+          } else {
+            this.points[$add](_DatumPointOfDL().from(_DatumPointLOfDL().as(targetPoint), x, y));
+          }
+        }
+        if (dart.notNull(pointIndex) < dart.notNull(this.points[$length])) {
+          this.points[$removeRange](pointIndex, this.points[$length]);
+        }
+        this.color = chart_canvas.getAnimatedColor(previous.color, target.color, animationPercent);
+        if (this.areaColor != null) {
+          this.areaColor = chart_canvas.getAnimatedColor(previous.areaColor, target.areaColor, animationPercent);
+        }
+        this.strokeWidthPx = (dart.notNull(target.strokeWidthPx) - dart.notNull(previous.strokeWidthPx)) * dart.notNull(animationPercent) + dart.notNull(previous.strokeWidthPx);
+      }
+    }
+    (_LineRendererElement.new = function() {
+      this[points] = null;
+      this.color = null;
+      this.areaColor = null;
+      this.dashPattern = null;
+      this[domainExtent] = null;
+      this.measureAxisPosition = null;
+      this.positionExtent = null;
+      this.strokeWidthPx = null;
+      this.styleKey = null;
+      this.roundEndCaps = null;
+      ;
+    }).prototype = _LineRendererElement.prototype;
+    dart.addTypeTests(_LineRendererElement);
+    _LineRendererElement.prototype[_is__LineRendererElement_default] = true;
+    dart.addTypeCaches(_LineRendererElement);
+    dart.setMethodSignature(_LineRendererElement, () => ({
+      __proto__: dart.getMethods(_LineRendererElement.__proto__),
+      clone: dart.fnType(dart.legacy(line_renderer._LineRendererElement$(dart.legacy(D))), []),
+      updateAnimationPercent: dart.fnType(dart.void, [dart.legacy(line_renderer._LineRendererElement), dart.legacy(line_renderer._LineRendererElement), dart.legacy(core.double)])
+    }));
+    dart.setLibraryUri(_LineRendererElement, I[1]);
+    dart.setFieldSignature(_LineRendererElement, () => ({
+      __proto__: dart.getFields(_LineRendererElement.__proto__),
+      points: dart.fieldType(dart.legacy(core.List$(dart.legacy(line_renderer._DatumPoint$(dart.legacy(D)))))),
+      color: dart.fieldType(dart.legacy(color$.Color)),
+      areaColor: dart.fieldType(dart.legacy(color$.Color)),
+      dashPattern: dart.fieldType(dart.legacy(core.List$(dart.legacy(core.int)))),
+      domainExtent: dart.fieldType(dart.legacy(line_renderer._Range$(dart.legacy(D)))),
+      measureAxisPosition: dart.fieldType(dart.legacy(core.double)),
+      positionExtent: dart.fieldType(dart.legacy(line_renderer._Range$(dart.legacy(core.num)))),
+      strokeWidthPx: dart.fieldType(dart.legacy(core.double)),
+      styleKey: dart.fieldType(dart.legacy(core.String)),
+      roundEndCaps: dart.fieldType(dart.legacy(core.bool))
+    }));
+    return _LineRendererElement;
+  });
+  line_renderer._LineRendererElement = line_renderer._LineRendererElement$();
+  dart.addTypeTests(line_renderer._LineRendererElement, _is__LineRendererElement_default);
+  var _previousLine = dart.privateName(line_renderer, "_previousLine");
+  var _targetLine = dart.privateName(line_renderer, "_targetLine");
+  var _currentLine = dart.privateName(line_renderer, "_currentLine");
+  const _is__AnimatedLine_default = Symbol('_is__AnimatedLine_default');
+  line_renderer._AnimatedLine$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    var _DatumPointOfDL = () => (_DatumPointOfDL = dart.constFn(line_renderer._DatumPoint$(DL())))();
+    var _DatumPointLOfDL = () => (_DatumPointLOfDL = dart.constFn(dart.legacy(_DatumPointOfDL())))();
+    var JSArrayOf_DatumPointLOfDL = () => (JSArrayOf_DatumPointLOfDL = dart.constFn(_interceptors.JSArray$(_DatumPointLOfDL())))();
+    var _LineRendererElementOfDL = () => (_LineRendererElementOfDL = dart.constFn(line_renderer._LineRendererElement$(DL())))();
+    var _LineRendererElementLOfDL = () => (_LineRendererElementLOfDL = dart.constFn(dart.legacy(_LineRendererElementOfDL())))();
+    class _AnimatedLine extends core.Object {
+      animateOut() {
+        let newTarget = this[_currentLine].clone();
+        let newPoints = JSArrayOf_DatumPointLOfDL().of([]);
+        for (let index = 0; index < dart.notNull(newTarget.points[$length]); index = index + 1) {
+          let targetPoint = newTarget.points[$_get](index);
+          newPoints[$add](_DatumPointOfDL().from(targetPoint, targetPoint.x, newTarget.measureAxisPosition[$roundToDouble]()));
+        }
+        newTarget.points = newPoints;
+        newTarget.strokeWidthPx = 0.0;
+        this.setNewTarget(newTarget);
+        this.animatingOut = true;
+      }
+      setNewTarget(newTarget) {
+        _LineRendererElementLOfDL().as(newTarget);
+        this.animatingOut = false;
+        this[_currentLine] == null ? this[_currentLine] = newTarget.clone() : null;
+        this[_previousLine] = this[_currentLine].clone();
+        this[_targetLine] = newTarget;
+      }
+      getCurrentLine(animationPercent) {
+        if (animationPercent === 1.0 || this[_previousLine] == null) {
+          this[_currentLine] = this[_targetLine];
+          this[_previousLine] = this[_targetLine];
+          return this[_currentLine];
+        }
+        this[_currentLine].updateAnimationPercent(this[_previousLine], this[_targetLine], animationPercent);
+        return this[_currentLine];
+      }
+      get currentPoints() {
+        let t1;
+        t1 = this[_currentLine];
+        return t1 == null ? null : t1.points;
+      }
+    }
+    (_AnimatedLine.new = function(opts) {
+      let key = opts && 'key' in opts ? opts.key : null;
+      let overlaySeries = opts && 'overlaySeries' in opts ? opts.overlaySeries : null;
+      this[_previousLine] = null;
+      this[_targetLine] = null;
+      this[_currentLine] = null;
+      this.animatingOut = false;
+      this.key = key;
+      this.overlaySeries = overlaySeries;
+      ;
+    }).prototype = _AnimatedLine.prototype;
+    dart.addTypeTests(_AnimatedLine);
+    _AnimatedLine.prototype[_is__AnimatedLine_default] = true;
+    dart.addTypeCaches(_AnimatedLine);
+    dart.setMethodSignature(_AnimatedLine, () => ({
+      __proto__: dart.getMethods(_AnimatedLine.__proto__),
+      animateOut: dart.fnType(dart.void, []),
+      setNewTarget: dart.fnType(dart.void, [dart.legacy(core.Object)]),
+      getCurrentLine: dart.fnType(dart.legacy(line_renderer._LineRendererElement$(dart.legacy(D))), [dart.legacy(core.double)])
+    }));
+    dart.setGetterSignature(_AnimatedLine, () => ({
+      __proto__: dart.getGetters(_AnimatedLine.__proto__),
+      currentPoints: dart.legacy(core.List$(dart.legacy(line_renderer._DatumPoint$(dart.legacy(D)))))
+    }));
+    dart.setLibraryUri(_AnimatedLine, I[1]);
+    dart.setFieldSignature(_AnimatedLine, () => ({
+      __proto__: dart.getFields(_AnimatedLine.__proto__),
+      key: dart.finalFieldType(dart.legacy(core.String)),
+      overlaySeries: dart.finalFieldType(dart.legacy(core.bool)),
+      [_previousLine]: dart.fieldType(dart.legacy(line_renderer._LineRendererElement$(dart.legacy(D)))),
+      [_targetLine]: dart.fieldType(dart.legacy(line_renderer._LineRendererElement$(dart.legacy(D)))),
+      [_currentLine]: dart.fieldType(dart.legacy(line_renderer._LineRendererElement$(dart.legacy(D)))),
+      animatingOut: dart.fieldType(dart.legacy(core.bool))
+    }));
+    return _AnimatedLine;
+  });
+  line_renderer._AnimatedLine = line_renderer._AnimatedLine$();
+  dart.addTypeTests(line_renderer._AnimatedLine, _is__AnimatedLine_default);
+  var points$ = dart.privateName(line_renderer, "_AreaRendererElement.points");
+  var domainExtent$ = dart.privateName(line_renderer, "_AreaRendererElement.domainExtent");
+  const _is__AreaRendererElement_default = Symbol('_is__AreaRendererElement_default');
+  line_renderer._AreaRendererElement$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    var _DatumPointOfDL = () => (_DatumPointOfDL = dart.constFn(line_renderer._DatumPoint$(DL())))();
+    var _DatumPointLOfDL = () => (_DatumPointLOfDL = dart.constFn(dart.legacy(_DatumPointOfDL())))();
+    var ListOf_DatumPointLOfDL = () => (ListOf_DatumPointLOfDL = dart.constFn(core.List$(_DatumPointLOfDL())))();
+    var ListLOf_DatumPointLOfDL = () => (ListLOf_DatumPointLOfDL = dart.constFn(dart.legacy(ListOf_DatumPointLOfDL())))();
+    var _RangeOfDL = () => (_RangeOfDL = dart.constFn(line_renderer._Range$(DL())))();
+    var _RangeLOfDL = () => (_RangeLOfDL = dart.constFn(dart.legacy(_RangeOfDL())))();
+    var _AreaRendererElementOfDL = () => (_AreaRendererElementOfDL = dart.constFn(line_renderer._AreaRendererElement$(DL())))();
+    class _AreaRendererElement extends core.Object {
+      get points() {
+        return this[points$];
+      }
+      set points(value) {
+        this[points$] = ListLOf_DatumPointLOfDL().as(value);
+      }
+      get domainExtent() {
+        return this[domainExtent$];
+      }
+      set domainExtent(value) {
+        this[domainExtent$] = _RangeLOfDL().as(value);
+      }
+      clone() {
+        let t1;
+        t1 = new (_AreaRendererElementOfDL()).new();
+        return (() => {
+          t1.points = ListOf_DatumPointLOfDL().from(this.points);
+          t1.color = this.color != null ? new color$.Color.fromOther({color: this.color}) : null;
+          t1.areaColor = this.areaColor != null ? new color$.Color.fromOther({color: this.areaColor}) : null;
+          t1.domainExtent = this.domainExtent;
+          t1.measureAxisPosition = this.measureAxisPosition;
+          t1.positionExtent = this.positionExtent;
+          t1.styleKey = this.styleKey;
+          return t1;
+        })();
+      }
+      updateAnimationPercent(previous, target, animationPercent) {
+        let lastPoint = null;
+        let pointIndex = null;
+        for (let t1 = pointIndex = 0; dart.notNull(pointIndex) < dart.notNull(target.points[$length]); pointIndex = dart.notNull(pointIndex) + 1) {
+          let targetPoint = target.points[$_get](pointIndex);
+          let previousPoint = null;
+          if (dart.notNull(previous.points[$length]) - 1 >= dart.notNull(pointIndex)) {
+            previousPoint = _DatumPointLOfDL().as(previous.points[$_get](pointIndex));
+            lastPoint = previousPoint;
+          } else {
+            previousPoint = _DatumPointOfDL().from(_DatumPointLOfDL().as(targetPoint), targetPoint.x, lastPoint.y);
+          }
+          let x = (dart.notNull(targetPoint.x) - dart.notNull(previousPoint.x)) * dart.notNull(animationPercent) + dart.notNull(previousPoint.x);
+          let y = null;
+          if (targetPoint.y != null && previousPoint.y != null) {
+            y = (dart.notNull(targetPoint.y) - dart.notNull(previousPoint.y)) * dart.notNull(animationPercent) + dart.notNull(previousPoint.y);
+          } else if (targetPoint.y != null) {
+            y = targetPoint.y;
+          } else {
+            y = null;
+          }
+          if (dart.notNull(this.points[$length]) - 1 >= dart.notNull(pointIndex)) {
+            this.points[$_set](pointIndex, _DatumPointOfDL().from(_DatumPointLOfDL().as(targetPoint), x, y));
+          } else {
+            this.points[$add](_DatumPointOfDL().from(_DatumPointLOfDL().as(targetPoint), x, y));
+          }
+        }
+        if (dart.notNull(pointIndex) < dart.notNull(this.points[$length])) {
+          this.points[$removeRange](pointIndex, this.points[$length]);
+        }
+        this.color = chart_canvas.getAnimatedColor(previous.color, target.color, animationPercent);
+        if (this.areaColor != null) {
+          this.areaColor = chart_canvas.getAnimatedColor(previous.areaColor, target.areaColor, animationPercent);
+        }
+      }
+    }
+    (_AreaRendererElement.new = function() {
+      this[points$] = null;
+      this.color = null;
+      this.areaColor = null;
+      this[domainExtent$] = null;
+      this.measureAxisPosition = null;
+      this.positionExtent = null;
+      this.styleKey = null;
+      ;
+    }).prototype = _AreaRendererElement.prototype;
+    dart.addTypeTests(_AreaRendererElement);
+    _AreaRendererElement.prototype[_is__AreaRendererElement_default] = true;
+    dart.addTypeCaches(_AreaRendererElement);
+    dart.setMethodSignature(_AreaRendererElement, () => ({
+      __proto__: dart.getMethods(_AreaRendererElement.__proto__),
+      clone: dart.fnType(dart.legacy(line_renderer._AreaRendererElement$(dart.legacy(D))), []),
+      updateAnimationPercent: dart.fnType(dart.void, [dart.legacy(line_renderer._AreaRendererElement), dart.legacy(line_renderer._AreaRendererElement), dart.legacy(core.double)])
+    }));
+    dart.setLibraryUri(_AreaRendererElement, I[1]);
+    dart.setFieldSignature(_AreaRendererElement, () => ({
+      __proto__: dart.getFields(_AreaRendererElement.__proto__),
+      points: dart.fieldType(dart.legacy(core.List$(dart.legacy(line_renderer._DatumPoint$(dart.legacy(D)))))),
+      color: dart.fieldType(dart.legacy(color$.Color)),
+      areaColor: dart.fieldType(dart.legacy(color$.Color)),
+      domainExtent: dart.fieldType(dart.legacy(line_renderer._Range$(dart.legacy(D)))),
+      measureAxisPosition: dart.fieldType(dart.legacy(core.double)),
+      positionExtent: dart.fieldType(dart.legacy(line_renderer._Range$(dart.legacy(core.num)))),
+      styleKey: dart.fieldType(dart.legacy(core.String))
+    }));
+    return _AreaRendererElement;
+  });
+  line_renderer._AreaRendererElement = line_renderer._AreaRendererElement$();
+  dart.addTypeTests(line_renderer._AreaRendererElement, _is__AreaRendererElement_default);
+  var _previousArea = dart.privateName(line_renderer, "_previousArea");
+  var _targetArea = dart.privateName(line_renderer, "_targetArea");
+  var _currentArea = dart.privateName(line_renderer, "_currentArea");
+  const _is__AnimatedArea_default = Symbol('_is__AnimatedArea_default');
+  line_renderer._AnimatedArea$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    var _DatumPointOfDL = () => (_DatumPointOfDL = dart.constFn(line_renderer._DatumPoint$(DL())))();
+    var _DatumPointLOfDL = () => (_DatumPointLOfDL = dart.constFn(dart.legacy(_DatumPointOfDL())))();
+    var JSArrayOf_DatumPointLOfDL = () => (JSArrayOf_DatumPointLOfDL = dart.constFn(_interceptors.JSArray$(_DatumPointLOfDL())))();
+    var _AreaRendererElementOfDL = () => (_AreaRendererElementOfDL = dart.constFn(line_renderer._AreaRendererElement$(DL())))();
+    var _AreaRendererElementLOfDL = () => (_AreaRendererElementLOfDL = dart.constFn(dart.legacy(_AreaRendererElementOfDL())))();
+    class _AnimatedArea extends core.Object {
+      animateOut() {
+        let newTarget = this[_currentArea].clone();
+        let newPoints = JSArrayOf_DatumPointLOfDL().of([]);
+        for (let index = 0; index < dart.notNull(newTarget.points[$length]); index = index + 1) {
+          let targetPoint = newTarget.points[$_get](index);
+          newPoints[$add](_DatumPointOfDL().from(targetPoint, targetPoint.x, newTarget.measureAxisPosition[$roundToDouble]()));
+        }
+        newTarget.points = newPoints;
+        this.setNewTarget(newTarget);
+        this.animatingOut = true;
+      }
+      setNewTarget(newTarget) {
+        _AreaRendererElementLOfDL().as(newTarget);
+        this.animatingOut = false;
+        this[_currentArea] == null ? this[_currentArea] = newTarget.clone() : null;
+        this[_previousArea] = this[_currentArea].clone();
+        this[_targetArea] = newTarget;
+      }
+      getCurrentArea(animationPercent) {
+        if (animationPercent === 1.0 || this[_previousArea] == null) {
+          this[_currentArea] = this[_targetArea];
+          this[_previousArea] = this[_targetArea];
+          return this[_currentArea];
+        }
+        this[_currentArea].updateAnimationPercent(this[_previousArea], this[_targetArea], animationPercent);
+        return this[_currentArea];
+      }
+    }
+    (_AnimatedArea.new = function(opts) {
+      let key = opts && 'key' in opts ? opts.key : null;
+      let overlaySeries = opts && 'overlaySeries' in opts ? opts.overlaySeries : null;
+      this[_previousArea] = null;
+      this[_targetArea] = null;
+      this[_currentArea] = null;
+      this.animatingOut = false;
+      this.key = key;
+      this.overlaySeries = overlaySeries;
+      ;
+    }).prototype = _AnimatedArea.prototype;
+    dart.addTypeTests(_AnimatedArea);
+    _AnimatedArea.prototype[_is__AnimatedArea_default] = true;
+    dart.addTypeCaches(_AnimatedArea);
+    dart.setMethodSignature(_AnimatedArea, () => ({
+      __proto__: dart.getMethods(_AnimatedArea.__proto__),
+      animateOut: dart.fnType(dart.void, []),
+      setNewTarget: dart.fnType(dart.void, [dart.legacy(core.Object)]),
+      getCurrentArea: dart.fnType(dart.legacy(line_renderer._AreaRendererElement$(dart.legacy(D))), [dart.legacy(core.double)])
+    }));
+    dart.setLibraryUri(_AnimatedArea, I[1]);
+    dart.setFieldSignature(_AnimatedArea, () => ({
+      __proto__: dart.getFields(_AnimatedArea.__proto__),
+      key: dart.finalFieldType(dart.legacy(core.String)),
+      overlaySeries: dart.finalFieldType(dart.legacy(core.bool)),
+      [_previousArea]: dart.fieldType(dart.legacy(line_renderer._AreaRendererElement$(dart.legacy(D)))),
+      [_targetArea]: dart.fieldType(dart.legacy(line_renderer._AreaRendererElement$(dart.legacy(D)))),
+      [_currentArea]: dart.fieldType(dart.legacy(line_renderer._AreaRendererElement$(dart.legacy(D)))),
+      animatingOut: dart.fieldType(dart.legacy(core.bool))
+    }));
+    return _AnimatedArea;
+  });
+  line_renderer._AnimatedArea = line_renderer._AnimatedArea$();
+  dart.addTypeTests(line_renderer._AnimatedArea, _is__AnimatedArea_default);
+  var allPoints = dart.privateName(line_renderer, "_AnimatedElements.allPoints");
+  var areas = dart.privateName(line_renderer, "_AnimatedElements.areas");
+  var lines = dart.privateName(line_renderer, "_AnimatedElements.lines");
+  var bounds = dart.privateName(line_renderer, "_AnimatedElements.bounds");
+  const _is__AnimatedElements_default = Symbol('_is__AnimatedElements_default');
+  line_renderer._AnimatedElements$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    var _DatumPointOfDL = () => (_DatumPointOfDL = dart.constFn(line_renderer._DatumPoint$(DL())))();
+    var _DatumPointLOfDL = () => (_DatumPointLOfDL = dart.constFn(dart.legacy(_DatumPointOfDL())))();
+    var ListOf_DatumPointLOfDL = () => (ListOf_DatumPointLOfDL = dart.constFn(core.List$(_DatumPointLOfDL())))();
+    var ListLOf_DatumPointLOfDL = () => (ListLOf_DatumPointLOfDL = dart.constFn(dart.legacy(ListOf_DatumPointLOfDL())))();
+    var _AnimatedAreaOfDL = () => (_AnimatedAreaOfDL = dart.constFn(line_renderer._AnimatedArea$(DL())))();
+    var _AnimatedAreaLOfDL = () => (_AnimatedAreaLOfDL = dart.constFn(dart.legacy(_AnimatedAreaOfDL())))();
+    var ListOf_AnimatedAreaLOfDL = () => (ListOf_AnimatedAreaLOfDL = dart.constFn(core.List$(_AnimatedAreaLOfDL())))();
+    var ListLOf_AnimatedAreaLOfDL = () => (ListLOf_AnimatedAreaLOfDL = dart.constFn(dart.legacy(ListOf_AnimatedAreaLOfDL())))();
+    var _AnimatedLineOfDL = () => (_AnimatedLineOfDL = dart.constFn(line_renderer._AnimatedLine$(DL())))();
+    var _AnimatedLineLOfDL = () => (_AnimatedLineLOfDL = dart.constFn(dart.legacy(_AnimatedLineOfDL())))();
+    var ListOf_AnimatedLineLOfDL = () => (ListOf_AnimatedLineLOfDL = dart.constFn(core.List$(_AnimatedLineLOfDL())))();
+    var ListLOf_AnimatedLineLOfDL = () => (ListLOf_AnimatedLineLOfDL = dart.constFn(dart.legacy(ListOf_AnimatedLineLOfDL())))();
+    class _AnimatedElements extends core.Object {
+      get allPoints() {
+        return this[allPoints];
+      }
+      set allPoints(value) {
+        this[allPoints] = ListLOf_DatumPointLOfDL().as(value);
+      }
+      get areas() {
+        return this[areas];
+      }
+      set areas(value) {
+        this[areas] = ListLOf_AnimatedAreaLOfDL().as(value);
+      }
+      get lines() {
+        return this[lines];
+      }
+      set lines(value) {
+        this[lines] = ListLOf_AnimatedLineLOfDL().as(value);
+      }
+      get bounds() {
+        return this[bounds];
+      }
+      set bounds(value) {
+        this[bounds] = ListLOf_AnimatedAreaLOfDL().as(value);
+      }
+      get animatingOut() {
+        let areasAnimatingOut = true;
+        if (this.areas != null) {
+          for (let area of this.areas) {
+            areasAnimatingOut = areasAnimatingOut && dart.test(area.animatingOut);
+          }
+        }
+        let linesAnimatingOut = true;
+        if (this.lines != null) {
+          for (let line of this.lines) {
+            linesAnimatingOut = linesAnimatingOut && dart.test(line.animatingOut);
+          }
+        }
+        let boundsAnimatingOut = true;
+        if (this.bounds != null) {
+          for (let bound of this.bounds) {
+            boundsAnimatingOut = boundsAnimatingOut && dart.test(bound.animatingOut);
+          }
+        }
+        return areasAnimatingOut && linesAnimatingOut && boundsAnimatingOut;
+      }
+      get overlaySeries() {
+        let areasOverlaySeries = true;
+        if (this.areas != null) {
+          for (let area of this.areas) {
+            areasOverlaySeries = areasOverlaySeries && dart.test(area.overlaySeries);
+          }
+        }
+        let linesOverlaySeries = true;
+        if (this.lines != null) {
+          for (let line of this.lines) {
+            linesOverlaySeries = linesOverlaySeries && dart.test(line.overlaySeries);
+          }
+        }
+        let boundsOverlaySeries = true;
+        if (this.bounds != null) {
+          for (let bound of this.bounds) {
+            boundsOverlaySeries = boundsOverlaySeries && dart.test(bound.overlaySeries);
+          }
+        }
+        return areasOverlaySeries && linesOverlaySeries && boundsOverlaySeries;
+      }
+    }
+    (_AnimatedElements.new = function() {
+      this[allPoints] = null;
+      this[areas] = null;
+      this[lines] = null;
+      this[bounds] = null;
+      this.styleKey = null;
+      ;
+    }).prototype = _AnimatedElements.prototype;
+    dart.addTypeTests(_AnimatedElements);
+    _AnimatedElements.prototype[_is__AnimatedElements_default] = true;
+    dart.addTypeCaches(_AnimatedElements);
+    dart.setGetterSignature(_AnimatedElements, () => ({
+      __proto__: dart.getGetters(_AnimatedElements.__proto__),
+      animatingOut: dart.legacy(core.bool),
+      overlaySeries: dart.legacy(core.bool)
+    }));
+    dart.setLibraryUri(_AnimatedElements, I[1]);
+    dart.setFieldSignature(_AnimatedElements, () => ({
+      __proto__: dart.getFields(_AnimatedElements.__proto__),
+      allPoints: dart.fieldType(dart.legacy(core.List$(dart.legacy(line_renderer._DatumPoint$(dart.legacy(D)))))),
+      areas: dart.fieldType(dart.legacy(core.List$(dart.legacy(line_renderer._AnimatedArea$(dart.legacy(D)))))),
+      lines: dart.fieldType(dart.legacy(core.List$(dart.legacy(line_renderer._AnimatedLine$(dart.legacy(D)))))),
+      bounds: dart.fieldType(dart.legacy(core.List$(dart.legacy(line_renderer._AnimatedArea$(dart.legacy(D)))))),
+      styleKey: dart.fieldType(dart.legacy(core.String))
+    }));
+    return _AnimatedElements;
+  });
+  line_renderer._AnimatedElements = line_renderer._AnimatedElements$();
+  dart.addTypeTests(line_renderer._AnimatedElements, _is__AnimatedElements_default);
+  var _start = dart.privateName(line_renderer, "_start");
+  var _end = dart.privateName(line_renderer, "_end");
+  var _includePointAsNum = dart.privateName(line_renderer, "_includePointAsNum");
+  var _includePointAsDateTime = dart.privateName(line_renderer, "_includePointAsDateTime");
+  var _includePointAsString = dart.privateName(line_renderer, "_includePointAsString");
+  const _is__Range_default = Symbol('_is__Range_default');
+  line_renderer._Range$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    class _Range extends core.Object {
+      get start() {
+        return this[_start];
+      }
+      get end() {
+        return this[_end];
+      }
+      includePoint(value) {
+        DL().as(value);
+        if (value == null) {
+          return;
+        } else if (T.numL().is(value) || T.doubleL().is(value) || T.intL().is(value)) {
+          this[_includePointAsNum](value);
+        } else if (T.DateTimeL().is(value)) {
+          this[_includePointAsDateTime](value);
+        } else if (T.StringL().is(value)) {
+          this[_includePointAsString](value);
+        } else {
+          dart.throw(new core.ArgumentError.new("Unsupported object type for LineRenderer domain value: " + dart.str(dart.runtimeType(value))));
+        }
+      }
+      [_includePointAsNum](value) {
+        if (dart.notNull(T.numL().as(value)) < dart.notNull(T.numL().as(this[_start]))) {
+          this[_start] = value;
+        } else if (dart.notNull(T.numL().as(value)) > dart.notNull(T.numL().as(this[_end]))) {
+          this[_end] = value;
+        }
+      }
+      [_includePointAsDateTime](value) {
+        if (dart.test(T.DateTimeL().as(value).isBefore(T.DateTimeL().as(this[_start])))) {
+          this[_start] = value;
+        } else if (dart.test(T.DateTimeL().as(value).isAfter(T.DateTimeL().as(this[_end])))) {
+          this[_end] = value;
+        }
+      }
+      [_includePointAsString](value) {
+        this[_end] = value;
+      }
+    }
+    (_Range.new = function(start, end) {
+      this[_start] = null;
+      this[_end] = null;
+      this[_start] = start;
+      this[_end] = end;
+    }).prototype = _Range.prototype;
+    dart.addTypeTests(_Range);
+    _Range.prototype[_is__Range_default] = true;
+    dart.addTypeCaches(_Range);
+    dart.setMethodSignature(_Range, () => ({
+      __proto__: dart.getMethods(_Range.__proto__),
+      includePoint: dart.fnType(dart.void, [dart.legacy(core.Object)]),
+      [_includePointAsNum]: dart.fnType(dart.void, [dart.legacy(D)]),
+      [_includePointAsDateTime]: dart.fnType(dart.void, [dart.legacy(D)]),
+      [_includePointAsString]: dart.fnType(dart.void, [dart.legacy(D)])
+    }));
+    dart.setGetterSignature(_Range, () => ({
+      __proto__: dart.getGetters(_Range.__proto__),
+      start: dart.legacy(D),
+      end: dart.legacy(D)
+    }));
+    dart.setLibraryUri(_Range, I[1]);
+    dart.setFieldSignature(_Range, () => ({
+      __proto__: dart.getFields(_Range.__proto__),
+      [_start]: dart.fieldType(dart.legacy(D)),
+      [_end]: dart.fieldType(dart.legacy(D))
+    }));
+    return _Range;
+  });
+  line_renderer._Range = line_renderer._Range$();
+  dart.addTypeTests(line_renderer._Range, _is__Range_default);
+  var renderer$ = dart.privateName(line_renderer, "LineRendererTester.renderer");
+  const _is_LineRendererTester_default = Symbol('_is_LineRendererTester_default');
+  line_renderer.LineRendererTester$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    var _AnimatedElementsOfDL = () => (_AnimatedElementsOfDL = dart.constFn(line_renderer._AnimatedElements$(DL())))();
+    var _AnimatedElementsLOfDL = () => (_AnimatedElementsLOfDL = dart.constFn(dart.legacy(_AnimatedElementsOfDL())))();
+    var ListOf_AnimatedElementsLOfDL = () => (ListOf_AnimatedElementsLOfDL = dart.constFn(core.List$(_AnimatedElementsLOfDL())))();
+    var ListLOf_AnimatedElementsLOfDL = () => (ListLOf_AnimatedElementsLOfDL = dart.constFn(dart.legacy(ListOf_AnimatedElementsLOfDL())))();
+    var MapEntryOfStringL$ListLOf_AnimatedElementsLOfDL = () => (MapEntryOfStringL$ListLOf_AnimatedElementsLOfDL = dart.constFn(core.MapEntry$(T.StringL(), ListLOf_AnimatedElementsLOfDL())))();
+    var MapEntryLOfStringL$ListLOf_AnimatedElementsLOfDL = () => (MapEntryLOfStringL$ListLOf_AnimatedElementsLOfDL = dart.constFn(dart.legacy(MapEntryOfStringL$ListLOf_AnimatedElementsLOfDL())))();
+    var JSArrayOf_AnimatedElementsLOfDL = () => (JSArrayOf_AnimatedElementsLOfDL = dart.constFn(_interceptors.JSArray$(_AnimatedElementsLOfDL())))();
+    var StringLToMapEntryLOfStringL$ListLOf_AnimatedElementsLOfDL = () => (StringLToMapEntryLOfStringL$ListLOf_AnimatedElementsLOfDL = dart.constFn(dart.fnType(MapEntryLOfStringL$ListLOf_AnimatedElementsLOfDL(), [T.StringL()])))();
+    var ImmutableSeriesOfDL = () => (ImmutableSeriesOfDL = dart.constFn(processed_series.ImmutableSeries$(DL())))();
+    var ImmutableSeriesLOfDL = () => (ImmutableSeriesLOfDL = dart.constFn(dart.legacy(ImmutableSeriesOfDL())))();
+    var ListOfImmutableSeriesLOfDL = () => (ListOfImmutableSeriesLOfDL = dart.constFn(core.List$(ImmutableSeriesLOfDL())))();
+    var ListLOfImmutableSeriesLOfDL = () => (ListLOfImmutableSeriesLOfDL = dart.constFn(dart.legacy(ListOfImmutableSeriesLOfDL())))();
+    class LineRendererTester extends core.Object {
+      get renderer() {
+        return this[renderer$];
+      }
+      set renderer(value) {
+        super.renderer = value;
+      }
+      get seriesKeys() {
+        return this.renderer[_seriesLineMap][$keys];
+      }
+      setSeriesKeys(keys) {
+        this.renderer[_seriesLineMap][$addEntries](keys[$map](MapEntryLOfStringL$ListLOf_AnimatedElementsLOfDL(), dart.fn(key => new (MapEntryOfStringL$ListLOf_AnimatedElementsLOfDL()).__(key, JSArrayOf_AnimatedElementsLOfDL().of([])), StringLToMapEntryLOfStringL$ListLOf_AnimatedElementsLOfDL())));
+      }
+      merge(series) {
+        ListLOfImmutableSeriesLOfDL().as(series);
+        this.renderer[_mergeIntoSeriesMap](series);
+      }
+    }
+    (LineRendererTester.new = function(renderer) {
+      this[renderer$] = renderer;
+      ;
+    }).prototype = LineRendererTester.prototype;
+    dart.addTypeTests(LineRendererTester);
+    LineRendererTester.prototype[_is_LineRendererTester_default] = true;
+    dart.addTypeCaches(LineRendererTester);
+    dart.setMethodSignature(LineRendererTester, () => ({
+      __proto__: dart.getMethods(LineRendererTester.__proto__),
+      setSeriesKeys: dart.fnType(dart.void, [dart.legacy(core.List$(dart.legacy(core.String)))]),
+      merge: dart.fnType(dart.void, [dart.legacy(core.Object)])
+    }));
+    dart.setGetterSignature(LineRendererTester, () => ({
+      __proto__: dart.getGetters(LineRendererTester.__proto__),
+      seriesKeys: dart.legacy(core.Iterable$(dart.legacy(core.String)))
+    }));
+    dart.setLibraryUri(LineRendererTester, I[1]);
+    dart.setFieldSignature(LineRendererTester, () => ({
+      __proto__: dart.getFields(LineRendererTester.__proto__),
+      renderer: dart.finalFieldType(dart.legacy(line_renderer.LineRenderer$(dart.legacy(D))))
+    }));
+    return LineRendererTester;
+  });
+  line_renderer.LineRendererTester = line_renderer.LineRendererTester$();
+  dart.addTypeTests(line_renderer.LineRendererTester, _is_LineRendererTester_default);
+  var TypedKey_uniqueKey = dart.privateName(typed_registry, "TypedKey.uniqueKey");
+  dart.defineLazy(line_renderer, {
+    /*line_renderer.styleSegmentsKey*/get styleSegmentsKey() {
+      return C[0] || CT.C0;
+    },
+    /*line_renderer.lineStackIndexKey*/get lineStackIndexKey() {
+      return C[1] || CT.C1;
+    }
+  }, true);
+  dart.trackLibraries("packages/charts_common/src/chart/line/line_renderer_config.dart", {
+    "package:charts_common/src/chart/line/line_renderer_config.dart": line_renderer_config,
+    "package:charts_common/src/chart/line/line_renderer.dart": line_renderer
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["line_renderer_config.dart","line_renderer.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../../../D:/packages/charts_common/src/chart/line/line_renderer_config.dart.lib.js"}');
+  // Exports:
+  return {
+    src__chart__line__line_renderer_config: line_renderer_config,
+    src__chart__line__line_renderer: line_renderer
+  };
+}));
+
+//# sourceMappingURL=line_renderer_config.dart.lib.js.map

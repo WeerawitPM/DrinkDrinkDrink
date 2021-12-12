@@ -1,0 +1,1220 @@
+define(['dart_sdk', 'packages/flutter/src/animation/curves.dart', 'packages/flutter/src/material/colors.dart', 'packages/flutter/src/widgets/widget_span.dart', 'packages/flutter/src/painting/gradient.dart', 'packages/flutter/src/animation/animation_controller.dart', 'packages/flutter/src/animation/listener_helpers.dart', 'packages/flutter/src/material/icon_button.dart', 'packages/flutter/src/rendering/flex.dart', 'packages/flutter/src/rendering/custom_paint.dart'], (function load__packages__percent_indicator__circular_percent_indicator_dart(dart_sdk, packages__flutter__src__animation__curves$46dart, packages__flutter__src__material__colors$46dart, packages__flutter__src__widgets__widget_span$46dart, packages__flutter__src__painting__gradient$46dart, packages__flutter__src__animation__animation_controller$46dart, packages__flutter__src__animation__listener_helpers$46dart, packages__flutter__src__material__icon_button$46dart, packages__flutter__src__rendering__flex$46dart, packages__flutter__src__rendering__custom_paint$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const ui = dart_sdk.ui;
+  const _interceptors = dart_sdk._interceptors;
+  const math = dart_sdk.math;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const curves = packages__flutter__src__animation__curves$46dart.src__animation__curves;
+  const colors = packages__flutter__src__material__colors$46dart.src__material__colors;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const container = packages__flutter__src__widgets__widget_span$46dart.src__widgets__container;
+  const basic = packages__flutter__src__widgets__widget_span$46dart.src__widgets__basic;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const ticker_provider = packages__flutter__src__widgets__widget_span$46dart.src__widgets__ticker_provider;
+  const automatic_keep_alive = packages__flutter__src__widgets__widget_span$46dart.src__widgets__automatic_keep_alive;
+  const gradient = packages__flutter__src__painting__gradient$46dart.src__painting__gradient;
+  const animation_controller = packages__flutter__src__animation__animation_controller$46dart.src__animation__animation_controller;
+  const tween = packages__flutter__src__animation__listener_helpers$46dart.src__animation__tween;
+  const animations = packages__flutter__src__animation__listener_helpers$46dart.src__animation__animations;
+  const animation = packages__flutter__src__animation__listener_helpers$46dart.src__animation__animation;
+  const material = packages__flutter__src__material__icon_button$46dart.src__material__material;
+  const flex = packages__flutter__src__rendering__flex$46dart.src__rendering__flex;
+  const custom_paint = packages__flutter__src__rendering__custom_paint$46dart.src__rendering__custom_paint;
+  var circular_percent_indicator = Object.create(dart.library);
+  var $toString = dartx.toString;
+  var $add = dartx.add;
+  var $reversed = dartx.reversed;
+  var $toList = dartx.toList;
+  dart._checkModuleNullSafetyMode(false);
+  var T = {
+    CircularStrokeCapL: () => (T.CircularStrokeCapL = dart.constFn(dart.legacy(circular_percent_indicator.CircularStrokeCap)))(),
+    ArcTypeL: () => (T.ArcTypeL = dart.constFn(dart.legacy(circular_percent_indicator.ArcType)))(),
+    doubleL: () => (T.doubleL = dart.constFn(dart.legacy(core.double)))(),
+    TweenOfdoubleL: () => (T.TweenOfdoubleL = dart.constFn(tween.Tween$(T.doubleL())))(),
+    VoidToNull: () => (T.VoidToNull = dart.constFn(dart.fnType(core.Null, [])))(),
+    AnimationStatusL: () => (T.AnimationStatusL = dart.constFn(dart.legacy(animation.AnimationStatus)))(),
+    AnimationStatusLToNull: () => (T.AnimationStatusLToNull = dart.constFn(dart.fnType(core.Null, [T.AnimationStatusL()])))(),
+    CircularPercentIndicatorL: () => (T.CircularPercentIndicatorL = dart.constFn(dart.legacy(circular_percent_indicator.CircularPercentIndicator)))(),
+    WidgetL: () => (T.WidgetL = dart.constFn(dart.legacy(framework.Widget)))(),
+    JSArrayOfWidgetL: () => (T.JSArrayOfWidgetL = dart.constFn(_interceptors.JSArray$(T.WidgetL())))(),
+    _LocationL: () => (T._LocationL = dart.constFn(dart.legacy(widget_inspector._Location)))(),
+    CustomPainterL: () => (T.CustomPainterL = dart.constFn(dart.legacy(custom_paint.CustomPainter)))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: circular_percent_indicator.CircularStrokeCap.prototype,
+        [_name$]: "CircularStrokeCap.butt",
+        index: 0
+      });
+    },
+    get C1() {
+      return C[1] = dart.const({
+        __proto__: circular_percent_indicator.CircularStrokeCap.prototype,
+        [_name$]: "CircularStrokeCap.round",
+        index: 1
+      });
+    },
+    get C2() {
+      return C[2] = dart.const({
+        __proto__: circular_percent_indicator.CircularStrokeCap.prototype,
+        [_name$]: "CircularStrokeCap.square",
+        index: 2
+      });
+    },
+    get C3() {
+      return C[3] = dart.constList([C[0] || CT.C0, C[1] || CT.C1, C[2] || CT.C2], T.CircularStrokeCapL());
+    },
+    get C4() {
+      return C[4] = dart.const({
+        __proto__: circular_percent_indicator.ArcType.prototype,
+        [_name$]: "ArcType.HALF",
+        index: 0
+      });
+    },
+    get C5() {
+      return C[5] = dart.const({
+        __proto__: circular_percent_indicator.ArcType.prototype,
+        [_name$]: "ArcType.FULL",
+        index: 1
+      });
+    },
+    get C6() {
+      return C[6] = dart.constList([C[4] || CT.C4, C[5] || CT.C5], T.ArcTypeL());
+    },
+    get C7() {
+      return C[7] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 0
+      });
+    },
+    get C8() {
+      return C[8] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4290299851.0
+      });
+    },
+    get C9() {
+      return C[9] = dart.const({
+        __proto__: curves._Linear.prototype
+      });
+    },
+    get C12() {
+      return C[12] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 28,
+        [_Location_line]: 256,
+        [_Location_file]: null
+      });
+    },
+    get C11() {
+      return C[11] = dart.constList([C[12] || CT.C12], T._LocationL());
+    },
+    get C10() {
+      return C[10] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[11] || CT.C11,
+        [_Location_name]: null,
+        [_Location_column]: 21,
+        [_Location_line]: 256,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/percent_indicator-2.1.9+1/lib/circular_percent_indicator.dart"
+      });
+    },
+    get C14() {
+      return C[14] = dart.constList([], T._LocationL());
+    },
+    get C13() {
+      return C[13] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[14] || CT.C14,
+        [_Location_name]: null,
+        [_Location_column]: 21,
+        [_Location_line]: 257,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/percent_indicator-2.1.9+1/lib/circular_percent_indicator.dart"
+      });
+    },
+    get C17() {
+      return C[17] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "painter",
+        [_Location_column]: 15,
+        [_Location_line]: 237,
+        [_Location_file]: null
+      });
+    },
+    get C18() {
+      return C[18] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 15,
+        [_Location_line]: 255,
+        [_Location_file]: null
+      });
+    },
+    get C16() {
+      return C[16] = dart.constList([C[17] || CT.C17, C[18] || CT.C18], T._LocationL());
+    },
+    get C15() {
+      return C[15] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[16] || CT.C16,
+        [_Location_name]: null,
+        [_Location_column]: 13,
+        [_Location_line]: 236,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/percent_indicator-2.1.9+1/lib/circular_percent_indicator.dart"
+      });
+    },
+    get C21() {
+      return C[21] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "offset",
+        [_Location_column]: 23,
+        [_Location_line]: 270,
+        [_Location_file]: null
+      });
+    },
+    get C22() {
+      return C[22] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 23,
+        [_Location_line]: 276,
+        [_Location_file]: null
+      });
+    },
+    get C20() {
+      return C[20] = dart.constList([C[21] || CT.C21, C[22] || CT.C22], T._LocationL());
+    },
+    get C19() {
+      return C[19] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[20] || CT.C20,
+        [_Location_name]: null,
+        [_Location_column]: 38,
+        [_Location_line]: 269,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/percent_indicator-2.1.9+1/lib/circular_percent_indicator.dart"
+      });
+    },
+    get C25() {
+      return C[25] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "angle",
+        [_Location_column]: 21,
+        [_Location_line]: 268,
+        [_Location_file]: null
+      });
+    },
+    get C26() {
+      return C[26] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 21,
+        [_Location_line]: 269,
+        [_Location_file]: null
+      });
+    },
+    get C24() {
+      return C[24] = dart.constList([C[25] || CT.C25, C[26] || CT.C26], T._LocationL());
+    },
+    get C23() {
+      return C[23] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[24] || CT.C24,
+        [_Location_name]: null,
+        [_Location_column]: 36,
+        [_Location_line]: 267,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/percent_indicator-2.1.9+1/lib/circular_percent_indicator.dart"
+      });
+    },
+    get C29() {
+      return C[29] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "angle",
+        [_Location_column]: 19,
+        [_Location_line]: 262,
+        [_Location_file]: null
+      });
+    },
+    get C30() {
+      return C[30] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 19,
+        [_Location_line]: 267,
+        [_Location_file]: null
+      });
+    },
+    get C28() {
+      return C[28] = dart.constList([C[29] || CT.C29, C[30] || CT.C30], T._LocationL());
+    },
+    get C27() {
+      return C[27] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[28] || CT.C28,
+        [_Location_name]: null,
+        [_Location_column]: 34,
+        [_Location_line]: 261,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/percent_indicator-2.1.9+1/lib/circular_percent_indicator.dart"
+      });
+    },
+    get C33() {
+      return C[33] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 17,
+        [_Location_line]: 261,
+        [_Location_file]: null
+      });
+    },
+    get C32() {
+      return C[32] = dart.constList([C[33] || CT.C33], T._LocationL());
+    },
+    get C31() {
+      return C[31] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[32] || CT.C32,
+        [_Location_name]: null,
+        [_Location_column]: 26,
+        [_Location_line]: 260,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/percent_indicator-2.1.9+1/lib/circular_percent_indicator.dart"
+      });
+    },
+    get C36() {
+      return C[36] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 11,
+        [_Location_line]: 235,
+        [_Location_file]: null
+      });
+    },
+    get C35() {
+      return C[35] = dart.constList([C[36] || CT.C36], T._LocationL());
+    },
+    get C34() {
+      return C[34] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[35] || CT.C35,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 234,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/percent_indicator-2.1.9+1/lib/circular_percent_indicator.dart"
+      });
+    },
+    get C39() {
+      return C[39] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "height",
+        [_Location_column]: 9,
+        [_Location_line]: 232,
+        [_Location_file]: null
+      });
+    },
+    get C40() {
+      return C[40] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 9,
+        [_Location_line]: 233,
+        [_Location_file]: null
+      });
+    },
+    get C41() {
+      return C[41] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 9,
+        [_Location_line]: 234,
+        [_Location_file]: null
+      });
+    },
+    get C38() {
+      return C[38] = dart.constList([C[39] || CT.C39, C[40] || CT.C40, C[41] || CT.C41], T._LocationL());
+    },
+    get C37() {
+      return C[37] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[38] || CT.C38,
+        [_Location_name]: null,
+        [_Location_column]: 7,
+        [_Location_line]: 231,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/percent_indicator-2.1.9+1/lib/circular_percent_indicator.dart"
+      });
+    },
+    get C44() {
+      return C[44] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "mainAxisAlignment",
+        [_Location_column]: 11,
+        [_Location_line]: 294,
+        [_Location_file]: null
+      });
+    },
+    get C45() {
+      return C[45] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "mainAxisSize",
+        [_Location_column]: 11,
+        [_Location_line]: 295,
+        [_Location_file]: null
+      });
+    },
+    get C46() {
+      return C[46] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 11,
+        [_Location_line]: 296,
+        [_Location_file]: null
+      });
+    },
+    get C43() {
+      return C[43] = dart.constList([C[44] || CT.C44, C[45] || CT.C45, C[46] || CT.C46], T._LocationL());
+    },
+    get C42() {
+      return C[42] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[43] || CT.C43,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 293,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/percent_indicator-2.1.9+1/lib/circular_percent_indicator.dart"
+      });
+    },
+    get C49() {
+      return C[49] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 9,
+        [_Location_line]: 293,
+        [_Location_file]: null
+      });
+    },
+    get C48() {
+      return C[48] = dart.constList([C[49] || CT.C49], T._LocationL());
+    },
+    get C47() {
+      return C[47] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[48] || CT.C48,
+        [_Location_name]: null,
+        [_Location_column]: 14,
+        [_Location_line]: 292,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/percent_indicator-2.1.9+1/lib/circular_percent_indicator.dart"
+      });
+    },
+    get C52() {
+      return C[52] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "color",
+        [_Location_column]: 7,
+        [_Location_line]: 291,
+        [_Location_file]: null
+      });
+    },
+    get C53() {
+      return C[53] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 7,
+        [_Location_line]: 292,
+        [_Location_file]: null
+      });
+    },
+    get C51() {
+      return C[51] = dart.constList([C[52] || CT.C52, C[53] || CT.C53], T._LocationL());
+    },
+    get C50() {
+      return C[50] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[51] || CT.C51,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 290,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/percent_indicator-2.1.9+1/lib/circular_percent_indicator.dart"
+      });
+    }
+  }, false);
+  var C = Array(54).fill(void 0);
+  var I = [
+    "package:percent_indicator/circular_percent_indicator.dart",
+    "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/percent_indicator-2.1.9+1/lib/circular_percent_indicator.dart"
+  ];
+  var _name$ = dart.privateName(circular_percent_indicator, "_name");
+  circular_percent_indicator.CircularStrokeCap = class CircularStrokeCap extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (circular_percent_indicator.CircularStrokeCap.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = circular_percent_indicator.CircularStrokeCap.prototype;
+  dart.addTypeTests(circular_percent_indicator.CircularStrokeCap);
+  dart.addTypeCaches(circular_percent_indicator.CircularStrokeCap);
+  dart.setMethodSignature(circular_percent_indicator.CircularStrokeCap, () => ({
+    __proto__: dart.getMethods(circular_percent_indicator.CircularStrokeCap.__proto__),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setLibraryUri(circular_percent_indicator.CircularStrokeCap, I[0]);
+  dart.setFieldSignature(circular_percent_indicator.CircularStrokeCap, () => ({
+    __proto__: dart.getFields(circular_percent_indicator.CircularStrokeCap.__proto__),
+    index: dart.finalFieldType(dart.legacy(core.int)),
+    [_name$]: dart.finalFieldType(dart.legacy(core.String))
+  }));
+  dart.defineExtensionMethods(circular_percent_indicator.CircularStrokeCap, ['toString']);
+  circular_percent_indicator.CircularStrokeCap.butt = C[0] || CT.C0;
+  circular_percent_indicator.CircularStrokeCap.round = C[1] || CT.C1;
+  circular_percent_indicator.CircularStrokeCap.square = C[2] || CT.C2;
+  circular_percent_indicator.CircularStrokeCap.values = C[3] || CT.C3;
+  circular_percent_indicator.ArcType = class ArcType extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (circular_percent_indicator.ArcType.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = circular_percent_indicator.ArcType.prototype;
+  dart.addTypeTests(circular_percent_indicator.ArcType);
+  dart.addTypeCaches(circular_percent_indicator.ArcType);
+  dart.setMethodSignature(circular_percent_indicator.ArcType, () => ({
+    __proto__: dart.getMethods(circular_percent_indicator.ArcType.__proto__),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setLibraryUri(circular_percent_indicator.ArcType, I[0]);
+  dart.setFieldSignature(circular_percent_indicator.ArcType, () => ({
+    __proto__: dart.getFields(circular_percent_indicator.ArcType.__proto__),
+    index: dart.finalFieldType(dart.legacy(core.int)),
+    [_name$]: dart.finalFieldType(dart.legacy(core.String))
+  }));
+  dart.defineExtensionMethods(circular_percent_indicator.ArcType, ['toString']);
+  circular_percent_indicator.ArcType.HALF = C[4] || CT.C4;
+  circular_percent_indicator.ArcType.FULL = C[5] || CT.C5;
+  circular_percent_indicator.ArcType.values = C[6] || CT.C6;
+  var percent$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.percent");
+  var radius$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.radius");
+  var lineWidth$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.lineWidth");
+  var backgroundWidth$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.backgroundWidth");
+  var fillColor$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.fillColor");
+  var backgroundColor$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.backgroundColor");
+  var animation$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.animation");
+  var animationDuration$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.animationDuration");
+  var header$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.header");
+  var footer$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.footer");
+  var center$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.center");
+  var linearGradient$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.linearGradient");
+  var circularStrokeCap$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.circularStrokeCap");
+  var startAngle$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.startAngle");
+  var animateFromLastPercent$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.animateFromLastPercent");
+  var addAutomaticKeepAlive$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.addAutomaticKeepAlive");
+  var arcType$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.arcType");
+  var arcBackgroundColor$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.arcBackgroundColor");
+  var reverse$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.reverse");
+  var maskFilter$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.maskFilter");
+  var curve$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.curve");
+  var restartAnimation$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.restartAnimation");
+  var onAnimationEnd$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.onAnimationEnd");
+  var widgetIndicator$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.widgetIndicator");
+  var rotateLinearGradient$ = dart.privateName(circular_percent_indicator, "CircularPercentIndicator.rotateLinearGradient");
+  var Color_value = dart.privateName(ui, "Color.value");
+  var _progressColor = dart.privateName(circular_percent_indicator, "_progressColor");
+  circular_percent_indicator.CircularPercentIndicator = class CircularPercentIndicator extends framework.StatefulWidget {
+    get percent() {
+      return this[percent$];
+    }
+    set percent(value) {
+      super.percent = value;
+    }
+    get radius() {
+      return this[radius$];
+    }
+    set radius(value) {
+      super.radius = value;
+    }
+    get lineWidth() {
+      return this[lineWidth$];
+    }
+    set lineWidth(value) {
+      super.lineWidth = value;
+    }
+    get backgroundWidth() {
+      return this[backgroundWidth$];
+    }
+    set backgroundWidth(value) {
+      super.backgroundWidth = value;
+    }
+    get fillColor() {
+      return this[fillColor$];
+    }
+    set fillColor(value) {
+      super.fillColor = value;
+    }
+    get backgroundColor() {
+      return this[backgroundColor$];
+    }
+    set backgroundColor(value) {
+      super.backgroundColor = value;
+    }
+    get animation() {
+      return this[animation$];
+    }
+    set animation(value) {
+      super.animation = value;
+    }
+    get animationDuration() {
+      return this[animationDuration$];
+    }
+    set animationDuration(value) {
+      super.animationDuration = value;
+    }
+    get header() {
+      return this[header$];
+    }
+    set header(value) {
+      super.header = value;
+    }
+    get footer() {
+      return this[footer$];
+    }
+    set footer(value) {
+      super.footer = value;
+    }
+    get center() {
+      return this[center$];
+    }
+    set center(value) {
+      super.center = value;
+    }
+    get linearGradient() {
+      return this[linearGradient$];
+    }
+    set linearGradient(value) {
+      super.linearGradient = value;
+    }
+    get circularStrokeCap() {
+      return this[circularStrokeCap$];
+    }
+    set circularStrokeCap(value) {
+      super.circularStrokeCap = value;
+    }
+    get startAngle() {
+      return this[startAngle$];
+    }
+    set startAngle(value) {
+      super.startAngle = value;
+    }
+    get animateFromLastPercent() {
+      return this[animateFromLastPercent$];
+    }
+    set animateFromLastPercent(value) {
+      super.animateFromLastPercent = value;
+    }
+    get addAutomaticKeepAlive() {
+      return this[addAutomaticKeepAlive$];
+    }
+    set addAutomaticKeepAlive(value) {
+      super.addAutomaticKeepAlive = value;
+    }
+    get arcType() {
+      return this[arcType$];
+    }
+    set arcType(value) {
+      super.arcType = value;
+    }
+    get arcBackgroundColor() {
+      return this[arcBackgroundColor$];
+    }
+    set arcBackgroundColor(value) {
+      super.arcBackgroundColor = value;
+    }
+    get reverse() {
+      return this[reverse$];
+    }
+    set reverse(value) {
+      super.reverse = value;
+    }
+    get maskFilter() {
+      return this[maskFilter$];
+    }
+    set maskFilter(value) {
+      super.maskFilter = value;
+    }
+    get curve() {
+      return this[curve$];
+    }
+    set curve(value) {
+      super.curve = value;
+    }
+    get restartAnimation() {
+      return this[restartAnimation$];
+    }
+    set restartAnimation(value) {
+      super.restartAnimation = value;
+    }
+    get onAnimationEnd() {
+      return this[onAnimationEnd$];
+    }
+    set onAnimationEnd(value) {
+      super.onAnimationEnd = value;
+    }
+    get widgetIndicator() {
+      return this[widgetIndicator$];
+    }
+    set widgetIndicator(value) {
+      super.widgetIndicator = value;
+    }
+    get rotateLinearGradient() {
+      return this[rotateLinearGradient$];
+    }
+    set rotateLinearGradient(value) {
+      super.rotateLinearGradient = value;
+    }
+    get progressColor() {
+      return this[_progressColor];
+    }
+    createState() {
+      return new circular_percent_indicator._CircularPercentIndicatorState.new();
+    }
+  };
+  (circular_percent_indicator.CircularPercentIndicator.new = function(opts) {
+    let t0;
+    let key = opts && 'key' in opts ? opts.key : null;
+    let percent = opts && 'percent' in opts ? opts.percent : 0;
+    let lineWidth = opts && 'lineWidth' in opts ? opts.lineWidth : 5;
+    let startAngle = opts && 'startAngle' in opts ? opts.startAngle : 0;
+    let radius = opts && 'radius' in opts ? opts.radius : null;
+    let fillColor = opts && 'fillColor' in opts ? opts.fillColor : C[7] || CT.C7;
+    let backgroundColor = opts && 'backgroundColor' in opts ? opts.backgroundColor : C[8] || CT.C8;
+    let progressColor = opts && 'progressColor' in opts ? opts.progressColor : null;
+    let backgroundWidth = opts && 'backgroundWidth' in opts ? opts.backgroundWidth : -1;
+    let linearGradient = opts && 'linearGradient' in opts ? opts.linearGradient : null;
+    let animation = opts && 'animation' in opts ? opts.animation : false;
+    let animationDuration = opts && 'animationDuration' in opts ? opts.animationDuration : 500;
+    let header = opts && 'header' in opts ? opts.header : null;
+    let footer = opts && 'footer' in opts ? opts.footer : null;
+    let center = opts && 'center' in opts ? opts.center : null;
+    let addAutomaticKeepAlive = opts && 'addAutomaticKeepAlive' in opts ? opts.addAutomaticKeepAlive : true;
+    let circularStrokeCap = opts && 'circularStrokeCap' in opts ? opts.circularStrokeCap : null;
+    let arcBackgroundColor = opts && 'arcBackgroundColor' in opts ? opts.arcBackgroundColor : null;
+    let arcType = opts && 'arcType' in opts ? opts.arcType : null;
+    let animateFromLastPercent = opts && 'animateFromLastPercent' in opts ? opts.animateFromLastPercent : false;
+    let reverse = opts && 'reverse' in opts ? opts.reverse : false;
+    let curve = opts && 'curve' in opts ? opts.curve : C[9] || CT.C9;
+    let maskFilter = opts && 'maskFilter' in opts ? opts.maskFilter : null;
+    let restartAnimation = opts && 'restartAnimation' in opts ? opts.restartAnimation : false;
+    let onAnimationEnd = opts && 'onAnimationEnd' in opts ? opts.onAnimationEnd : null;
+    let widgetIndicator = opts && 'widgetIndicator' in opts ? opts.widgetIndicator : null;
+    let rotateLinearGradient = opts && 'rotateLinearGradient' in opts ? opts.rotateLinearGradient : false;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[_progressColor] = null;
+    this[percent$] = percent;
+    this[lineWidth$] = lineWidth;
+    this[startAngle$] = startAngle;
+    this[radius$] = radius;
+    this[fillColor$] = fillColor;
+    this[backgroundColor$] = backgroundColor;
+    this[backgroundWidth$] = backgroundWidth;
+    this[linearGradient$] = linearGradient;
+    this[animation$] = animation;
+    this[animationDuration$] = animationDuration;
+    this[header$] = header;
+    this[footer$] = footer;
+    this[center$] = center;
+    this[addAutomaticKeepAlive$] = addAutomaticKeepAlive;
+    this[circularStrokeCap$] = circularStrokeCap;
+    this[arcBackgroundColor$] = arcBackgroundColor;
+    this[arcType$] = arcType;
+    this[animateFromLastPercent$] = animateFromLastPercent;
+    this[reverse$] = reverse;
+    this[curve$] = curve;
+    this[maskFilter$] = maskFilter;
+    this[restartAnimation$] = restartAnimation;
+    this[onAnimationEnd$] = onAnimationEnd;
+    this[widgetIndicator$] = widgetIndicator;
+    this[rotateLinearGradient$] = rotateLinearGradient;
+    circular_percent_indicator.CircularPercentIndicator.__proto__.new.call(this, {key: key, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    if (this.linearGradient != null && progressColor != null) {
+      dart.throw(new core.ArgumentError.new("Cannot provide both linearGradient and progressColor"));
+    }
+    this[_progressColor] = (t0 = progressColor, t0 == null ? colors.Colors.red : t0);
+    if (!(dart.notNull(this.startAngle) >= 0.0)) dart.assertFailed(null, I[1], 128, 12, "startAngle >= 0.0");
+    if (!(this.curve != null)) dart.assertFailed(null, I[1], 129, 12, "curve != null");
+    if (dart.notNull(this.percent) < 0.0 || dart.notNull(this.percent) > 1.0) {
+      dart.throw(core.Exception.new("Percent value must be a double between 0.0 and 1.0"));
+    }
+    if (this.arcType == null && this.arcBackgroundColor != null) {
+      dart.throw(new core.ArgumentError.new("arcType is required when you arcBackgroundColor"));
+    }
+  }).prototype = circular_percent_indicator.CircularPercentIndicator.prototype;
+  dart.addTypeTests(circular_percent_indicator.CircularPercentIndicator);
+  dart.addTypeCaches(circular_percent_indicator.CircularPercentIndicator);
+  dart.setMethodSignature(circular_percent_indicator.CircularPercentIndicator, () => ({
+    __proto__: dart.getMethods(circular_percent_indicator.CircularPercentIndicator.__proto__),
+    createState: dart.fnType(dart.legacy(circular_percent_indicator._CircularPercentIndicatorState), [])
+  }));
+  dart.setGetterSignature(circular_percent_indicator.CircularPercentIndicator, () => ({
+    __proto__: dart.getGetters(circular_percent_indicator.CircularPercentIndicator.__proto__),
+    progressColor: dart.legacy(ui.Color)
+  }));
+  dart.setLibraryUri(circular_percent_indicator.CircularPercentIndicator, I[0]);
+  dart.setFieldSignature(circular_percent_indicator.CircularPercentIndicator, () => ({
+    __proto__: dart.getFields(circular_percent_indicator.CircularPercentIndicator.__proto__),
+    percent: dart.finalFieldType(dart.legacy(core.double)),
+    radius: dart.finalFieldType(dart.legacy(core.double)),
+    lineWidth: dart.finalFieldType(dart.legacy(core.double)),
+    backgroundWidth: dart.finalFieldType(dart.legacy(core.double)),
+    fillColor: dart.finalFieldType(dart.legacy(ui.Color)),
+    backgroundColor: dart.finalFieldType(dart.legacy(ui.Color)),
+    [_progressColor]: dart.fieldType(dart.legacy(ui.Color)),
+    animation: dart.finalFieldType(dart.legacy(core.bool)),
+    animationDuration: dart.finalFieldType(dart.legacy(core.int)),
+    header: dart.finalFieldType(dart.legacy(framework.Widget)),
+    footer: dart.finalFieldType(dart.legacy(framework.Widget)),
+    center: dart.finalFieldType(dart.legacy(framework.Widget)),
+    linearGradient: dart.finalFieldType(dart.legacy(gradient.LinearGradient)),
+    circularStrokeCap: dart.finalFieldType(dart.legacy(circular_percent_indicator.CircularStrokeCap)),
+    startAngle: dart.finalFieldType(dart.legacy(core.double)),
+    animateFromLastPercent: dart.finalFieldType(dart.legacy(core.bool)),
+    addAutomaticKeepAlive: dart.finalFieldType(dart.legacy(core.bool)),
+    arcType: dart.finalFieldType(dart.legacy(circular_percent_indicator.ArcType)),
+    arcBackgroundColor: dart.finalFieldType(dart.legacy(ui.Color)),
+    reverse: dart.finalFieldType(dart.legacy(core.bool)),
+    maskFilter: dart.finalFieldType(dart.legacy(ui.MaskFilter)),
+    curve: dart.finalFieldType(dart.legacy(curves.Curve)),
+    restartAnimation: dart.finalFieldType(dart.legacy(core.bool)),
+    onAnimationEnd: dart.finalFieldType(dart.legacy(dart.fnType(dart.void, []))),
+    widgetIndicator: dart.finalFieldType(dart.legacy(framework.Widget)),
+    rotateLinearGradient: dart.finalFieldType(dart.legacy(core.bool))
+  }));
+  var _animationController = dart.privateName(circular_percent_indicator, "_animationController");
+  var _animation = dart.privateName(circular_percent_indicator, "_animation");
+  var _percent = dart.privateName(circular_percent_indicator, "_percent");
+  var _updateProgress = dart.privateName(circular_percent_indicator, "_updateProgress");
+  var _checkIfNeedCancelAnimation = dart.privateName(circular_percent_indicator, "_checkIfNeedCancelAnimation");
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  const State_SingleTickerProviderStateMixin$36 = class State_SingleTickerProviderStateMixin extends framework.State$(dart.legacy(circular_percent_indicator.CircularPercentIndicator)) {};
+  (State_SingleTickerProviderStateMixin$36.new = function() {
+    ticker_provider.SingleTickerProviderStateMixin$(dart.legacy(circular_percent_indicator.CircularPercentIndicator))[dart.mixinNew].call(this);
+    State_SingleTickerProviderStateMixin$36.__proto__.new.call(this);
+  }).prototype = State_SingleTickerProviderStateMixin$36.prototype;
+  dart.applyMixin(State_SingleTickerProviderStateMixin$36, ticker_provider.SingleTickerProviderStateMixin$(dart.legacy(circular_percent_indicator.CircularPercentIndicator)));
+  const State_AutomaticKeepAliveClientMixin$36 = class State_AutomaticKeepAliveClientMixin extends State_SingleTickerProviderStateMixin$36 {};
+  (State_AutomaticKeepAliveClientMixin$36.new = function() {
+    automatic_keep_alive.AutomaticKeepAliveClientMixin$(dart.legacy(circular_percent_indicator.CircularPercentIndicator))[dart.mixinNew].call(this);
+    State_AutomaticKeepAliveClientMixin$36.__proto__.new.call(this);
+  }).prototype = State_AutomaticKeepAliveClientMixin$36.prototype;
+  dart.applyMixin(State_AutomaticKeepAliveClientMixin$36, automatic_keep_alive.AutomaticKeepAliveClientMixin$(dart.legacy(circular_percent_indicator.CircularPercentIndicator)));
+  circular_percent_indicator._CircularPercentIndicatorState = class _CircularPercentIndicatorState extends State_AutomaticKeepAliveClientMixin$36 {
+    dispose() {
+      if (this[_animationController] != null) {
+        this[_animationController].dispose();
+      }
+      super.dispose();
+    }
+    initState() {
+      let t0;
+      if (dart.test(this.widget.animation)) {
+        this[_animationController] = new animation_controller.AnimationController.new({vsync: this, duration: new core.Duration.new({milliseconds: this.widget.animationDuration})});
+        this[_animation] = (t0 = new (T.TweenOfdoubleL()).new({begin: 0.0, end: this.widget.percent}).animate(new animations.CurvedAnimation.new({parent: this[_animationController], curve: this.widget.curve})), (() => {
+          t0.addListener(dart.fn(() => {
+            this.setState(dart.fn(() => {
+              this[_percent] = T.doubleL().as(this[_animation].value);
+            }, T.VoidToNull()));
+            if (dart.test(this.widget.restartAnimation) && this[_percent] === 1.0) {
+              this[_animationController].repeat({min: 0.0, max: 1.0});
+            }
+          }, T.VoidToNull()));
+          return t0;
+        })());
+        this[_animationController].addStatusListener(dart.fn(status => {
+          if (this.widget.onAnimationEnd != null && status == animation.AnimationStatus.completed) {
+            this.widget.onAnimationEnd();
+          }
+        }, T.AnimationStatusLToNull()));
+        this[_animationController].forward();
+      } else {
+        this[_updateProgress]();
+      }
+      super.initState();
+    }
+    [_checkIfNeedCancelAnimation](oldWidget) {
+      if (dart.test(oldWidget.animation) && !dart.test(this.widget.animation) && this[_animationController] != null) {
+        this[_animationController].stop();
+      }
+    }
+    didUpdateWidget(oldWidget) {
+      T.CircularPercentIndicatorL().as(oldWidget);
+      super.didUpdateWidget(oldWidget);
+      if (oldWidget.percent != this.widget.percent || oldWidget.startAngle != this.widget.startAngle) {
+        if (this[_animationController] != null) {
+          this[_animationController].duration = new core.Duration.new({milliseconds: this.widget.animationDuration});
+          this[_animation] = new (T.TweenOfdoubleL()).new({begin: dart.test(this.widget.animateFromLastPercent) ? oldWidget.percent : 0.0, end: this.widget.percent}).animate(new animations.CurvedAnimation.new({parent: this[_animationController], curve: this.widget.curve}));
+          this[_animationController].forward({from: 0.0});
+        } else {
+          this[_updateProgress]();
+        }
+      }
+      this[_checkIfNeedCancelAnimation](oldWidget);
+    }
+    [_updateProgress]() {
+      this.setState(dart.fn(() => {
+        this[_percent] = this.widget.percent;
+      }, T.VoidToNull()));
+    }
+    build(context) {
+      super.build(context);
+      let items = T.JSArrayOfWidgetL().of([]);
+      if (this.widget.header != null) {
+        items[$add](this.widget.header);
+      }
+      items[$add](new container.Container.new({height: this.widget.radius, width: this.widget.radius, child: new basic.Stack.new({children: (() => {
+            let t0 = T.JSArrayOfWidgetL().of([new basic.CustomPaint.new({painter: new circular_percent_indicator.CirclePainter.new({progress: dart.notNull(this[_percent]) * 360, progressColor: this.widget.progressColor, backgroundColor: this.widget.backgroundColor, startAngle: this.widget.startAngle, circularStrokeCap: this.widget.circularStrokeCap, radius: dart.notNull(this.widget.radius) / 2 - dart.notNull(this.widget.lineWidth) / 2, lineWidth: this.widget.lineWidth, backgroundWidth: dart.notNull(this.widget.backgroundWidth) >= 0.0 ? this.widget.backgroundWidth : this.widget.lineWidth, arcBackgroundColor: this.widget.arcBackgroundColor, arcType: this.widget.arcType, reverse: this.widget.reverse, linearGradient: this.widget.linearGradient, maskFilter: this.widget.maskFilter, rotateLinearGradient: this.widget.rotateLinearGradient}), child: this.widget.center != null ? new basic.Center.new({child: this.widget.center, $creationLocationd_0dea112b090073317d4: C[10] || CT.C10}) : new container.Container.new({$creationLocationd_0dea112b090073317d4: C[13] || CT.C13}), $creationLocationd_0dea112b090073317d4: C[15] || CT.C15})]);
+            if (this.widget.widgetIndicator != null && dart.test(this.widget.animation)) t0[$add](new basic.Positioned.fill({child: new basic.Transform.rotate({angle: dart.nullCast(circular_percent_indicator.radians(this.widget.circularStrokeCap != circular_percent_indicator.CircularStrokeCap.butt && dart.test(this.widget.reverse) ? -15 : 0), core.double), child: new basic.Transform.rotate({angle: dart.nullCast(circular_percent_indicator.radians((dart.test(this.widget.reverse) ? -360 : 360) * dart.notNull(this[_percent])), core.double), child: new basic.Transform.translate({offset: new ui.Offset.new(this.widget.circularStrokeCap != circular_percent_indicator.CircularStrokeCap.butt ? dart.notNull(this.widget.lineWidth) / 2 : 0.0, -dart.notNull(this.widget.radius) / 2 + dart.notNull(this.widget.lineWidth) / 2), child: this.widget.widgetIndicator, $creationLocationd_0dea112b090073317d4: C[19] || CT.C19}), $creationLocationd_0dea112b090073317d4: C[23] || CT.C23}), $creationLocationd_0dea112b090073317d4: C[27] || CT.C27}), $creationLocationd_0dea112b090073317d4: C[31] || CT.C31}));
+            return t0;
+          })(), $creationLocationd_0dea112b090073317d4: C[34] || CT.C34}), $creationLocationd_0dea112b090073317d4: C[37] || CT.C37}));
+      if (this.widget.footer != null) {
+        items[$add](this.widget.footer);
+      }
+      return new material.Material.new({color: this.widget.fillColor, child: new container.Container.new({child: new basic.Column.new({mainAxisAlignment: flex.MainAxisAlignment.center, mainAxisSize: flex.MainAxisSize.min, children: items, $creationLocationd_0dea112b090073317d4: C[42] || CT.C42}), $creationLocationd_0dea112b090073317d4: C[47] || CT.C47}), $creationLocationd_0dea112b090073317d4: C[50] || CT.C50});
+    }
+    get wantKeepAlive() {
+      return this.widget.addAutomaticKeepAlive;
+    }
+  };
+  (circular_percent_indicator._CircularPercentIndicatorState.new = function() {
+    this[_animationController] = null;
+    this[_animation] = null;
+    this[_percent] = 0.0;
+    circular_percent_indicator._CircularPercentIndicatorState.__proto__.new.call(this);
+    ;
+  }).prototype = circular_percent_indicator._CircularPercentIndicatorState.prototype;
+  dart.addTypeTests(circular_percent_indicator._CircularPercentIndicatorState);
+  dart.addTypeCaches(circular_percent_indicator._CircularPercentIndicatorState);
+  dart.setMethodSignature(circular_percent_indicator._CircularPercentIndicatorState, () => ({
+    __proto__: dart.getMethods(circular_percent_indicator._CircularPercentIndicatorState.__proto__),
+    [_checkIfNeedCancelAnimation]: dart.fnType(dart.void, [dart.legacy(circular_percent_indicator.CircularPercentIndicator)]),
+    didUpdateWidget: dart.fnType(dart.void, [dart.legacy(core.Object)]),
+    [_updateProgress]: dart.fnType(dart.dynamic, [])
+  }));
+  dart.setGetterSignature(circular_percent_indicator._CircularPercentIndicatorState, () => ({
+    __proto__: dart.getGetters(circular_percent_indicator._CircularPercentIndicatorState.__proto__),
+    wantKeepAlive: dart.legacy(core.bool)
+  }));
+  dart.setLibraryUri(circular_percent_indicator._CircularPercentIndicatorState, I[0]);
+  dart.setFieldSignature(circular_percent_indicator._CircularPercentIndicatorState, () => ({
+    __proto__: dart.getFields(circular_percent_indicator._CircularPercentIndicatorState.__proto__),
+    [_animationController]: dart.fieldType(dart.legacy(animation_controller.AnimationController)),
+    [_animation]: dart.fieldType(dart.legacy(animation.Animation)),
+    [_percent]: dart.fieldType(dart.legacy(core.double))
+  }));
+  var lineWidth$0 = dart.privateName(circular_percent_indicator, "CirclePainter.lineWidth");
+  var backgroundWidth$0 = dart.privateName(circular_percent_indicator, "CirclePainter.backgroundWidth");
+  var progress$ = dart.privateName(circular_percent_indicator, "CirclePainter.progress");
+  var radius$0 = dart.privateName(circular_percent_indicator, "CirclePainter.radius");
+  var progressColor$ = dart.privateName(circular_percent_indicator, "CirclePainter.progressColor");
+  var backgroundColor$0 = dart.privateName(circular_percent_indicator, "CirclePainter.backgroundColor");
+  var circularStrokeCap$0 = dart.privateName(circular_percent_indicator, "CirclePainter.circularStrokeCap");
+  var startAngle$0 = dart.privateName(circular_percent_indicator, "CirclePainter.startAngle");
+  var linearGradient$0 = dart.privateName(circular_percent_indicator, "CirclePainter.linearGradient");
+  var arcBackgroundColor$0 = dart.privateName(circular_percent_indicator, "CirclePainter.arcBackgroundColor");
+  var arcType$0 = dart.privateName(circular_percent_indicator, "CirclePainter.arcType");
+  var reverse$0 = dart.privateName(circular_percent_indicator, "CirclePainter.reverse");
+  var maskFilter$0 = dart.privateName(circular_percent_indicator, "CirclePainter.maskFilter");
+  var rotateLinearGradient$0 = dart.privateName(circular_percent_indicator, "CirclePainter.rotateLinearGradient");
+  var _paintBackground = dart.privateName(circular_percent_indicator, "_paintBackground");
+  var _paintLine = dart.privateName(circular_percent_indicator, "_paintLine");
+  var _paintBackgroundStartAngle = dart.privateName(circular_percent_indicator, "_paintBackgroundStartAngle");
+  circular_percent_indicator.CirclePainter = class CirclePainter extends custom_paint.CustomPainter {
+    get lineWidth() {
+      return this[lineWidth$0];
+    }
+    set lineWidth(value) {
+      super.lineWidth = value;
+    }
+    get backgroundWidth() {
+      return this[backgroundWidth$0];
+    }
+    set backgroundWidth(value) {
+      super.backgroundWidth = value;
+    }
+    get progress() {
+      return this[progress$];
+    }
+    set progress(value) {
+      super.progress = value;
+    }
+    get radius() {
+      return this[radius$0];
+    }
+    set radius(value) {
+      super.radius = value;
+    }
+    get progressColor() {
+      return this[progressColor$];
+    }
+    set progressColor(value) {
+      super.progressColor = value;
+    }
+    get backgroundColor() {
+      return this[backgroundColor$0];
+    }
+    set backgroundColor(value) {
+      super.backgroundColor = value;
+    }
+    get circularStrokeCap() {
+      return this[circularStrokeCap$0];
+    }
+    set circularStrokeCap(value) {
+      super.circularStrokeCap = value;
+    }
+    get startAngle() {
+      return this[startAngle$0];
+    }
+    set startAngle(value) {
+      super.startAngle = value;
+    }
+    get linearGradient() {
+      return this[linearGradient$0];
+    }
+    set linearGradient(value) {
+      super.linearGradient = value;
+    }
+    get arcBackgroundColor() {
+      return this[arcBackgroundColor$0];
+    }
+    set arcBackgroundColor(value) {
+      super.arcBackgroundColor = value;
+    }
+    get arcType() {
+      return this[arcType$0];
+    }
+    set arcType(value) {
+      super.arcType = value;
+    }
+    get reverse() {
+      return this[reverse$0];
+    }
+    set reverse(value) {
+      super.reverse = value;
+    }
+    get maskFilter() {
+      return this[maskFilter$0];
+    }
+    set maskFilter(value) {
+      super.maskFilter = value;
+    }
+    get rotateLinearGradient() {
+      return this[rotateLinearGradient$0];
+    }
+    set rotateLinearGradient(value) {
+      super.rotateLinearGradient = value;
+    }
+    paint(canvas, size) {
+      let center = new ui.Offset.new(dart.notNull(size.width) / 2, dart.notNull(size.height) / 2);
+      let fixedStartAngle = this.startAngle;
+      let rectForArc = new ui.Rect.fromCircle({center: center, radius: this.radius});
+      let startAngleFixedMargin = 1.0;
+      if (this.arcType != null) {
+        if (this.arcType == circular_percent_indicator.ArcType.FULL) {
+          fixedStartAngle = 220.0;
+          startAngleFixedMargin = 172 / dart.notNull(fixedStartAngle);
+        } else {
+          fixedStartAngle = 270.0;
+          startAngleFixedMargin = 135 / dart.notNull(fixedStartAngle);
+        }
+      }
+      if (this.arcType == circular_percent_indicator.ArcType.HALF) {
+        canvas.drawArc(rectForArc, circular_percent_indicator.radians(-90.0 + dart.notNull(fixedStartAngle)), circular_percent_indicator.radians(360 * startAngleFixedMargin), false, this[_paintBackground]);
+      } else {
+        canvas.drawCircle(center, this.radius, this[_paintBackground]);
+      }
+      if (this.maskFilter != null) {
+        this[_paintLine].maskFilter = this.maskFilter;
+      }
+      if (this.linearGradient != null) {
+        if (dart.test(this.rotateLinearGradient) && dart.notNull(this.progress) > 0) {
+          let correction = 0.0;
+          if (this[_paintLine].strokeCap == ui.StrokeCap.round || this[_paintLine].strokeCap == ui.StrokeCap.square) {
+            if (dart.test(this.reverse)) {
+              correction = math.atan(dart.notNull(this[_paintLine].strokeWidth) / 2 / dart.notNull(this.radius));
+            } else {
+              correction = math.atan(dart.notNull(this[_paintLine].strokeWidth) / 2 / dart.notNull(this.radius));
+            }
+          }
+          this[_paintLine].shader = new gradient.SweepGradient.new({transform: dart.test(this.reverse) ? new gradient.GradientRotation.new(dart.nullCast(dart.notNull(circular_percent_indicator.radians(-90 - dart.notNull(this.progress) + dart.notNull(this.startAngle))) - correction, core.double)) : new gradient.GradientRotation.new(dart.nullCast(dart.notNull(circular_percent_indicator.radians(-90.0 + dart.notNull(this.startAngle))) - correction, core.double)), startAngle: dart.nullCast(circular_percent_indicator.radians(0), core.double), endAngle: dart.nullCast(circular_percent_indicator.radians(this.progress), core.double), tileMode: ui.TileMode.clamp, colors: dart.test(this.reverse) ? this.linearGradient.colors[$reversed][$toList]() : this.linearGradient.colors}).createShader(new ui.Rect.fromCircle({center: center, radius: this.radius}));
+        } else if (!dart.test(this.rotateLinearGradient)) {
+          this[_paintLine].shader = this.linearGradient.createShader(new ui.Rect.fromCircle({center: center, radius: this.radius}));
+        }
+      }
+      fixedStartAngle = this.startAngle;
+      startAngleFixedMargin = 1.0;
+      if (this.arcType != null) {
+        if (this.arcType == circular_percent_indicator.ArcType.FULL) {
+          fixedStartAngle = 220.0;
+          startAngleFixedMargin = 172 / dart.notNull(fixedStartAngle);
+        } else {
+          fixedStartAngle = 270.0;
+          startAngleFixedMargin = 135 / dart.notNull(fixedStartAngle);
+        }
+      }
+      if (this.arcBackgroundColor != null) {
+        canvas.drawArc(new ui.Rect.fromCircle({center: center, radius: this.radius}), circular_percent_indicator.radians(-90.0 + dart.notNull(fixedStartAngle)), circular_percent_indicator.radians(360 * startAngleFixedMargin), false, this[_paintBackgroundStartAngle]);
+      }
+      if (dart.test(this.reverse)) {
+        let start = circular_percent_indicator.radians(360 * startAngleFixedMargin - 90.0 + dart.notNull(fixedStartAngle));
+        let end = circular_percent_indicator.radians(-dart.notNull(this.progress) * startAngleFixedMargin);
+        canvas.drawArc(new ui.Rect.fromCircle({center: center, radius: this.radius}), start, end, false, this[_paintLine]);
+      } else {
+        let start = circular_percent_indicator.radians(-90.0 + dart.notNull(fixedStartAngle));
+        let end = circular_percent_indicator.radians(dart.notNull(this.progress) * startAngleFixedMargin);
+        canvas.drawArc(new ui.Rect.fromCircle({center: center, radius: this.radius}), start, end, false, this[_paintLine]);
+      }
+    }
+    shouldRepaint(oldDelegate) {
+      T.CustomPainterL().as(oldDelegate);
+      return true;
+    }
+  };
+  (circular_percent_indicator.CirclePainter.new = function(opts) {
+    let lineWidth = opts && 'lineWidth' in opts ? opts.lineWidth : null;
+    let backgroundWidth = opts && 'backgroundWidth' in opts ? opts.backgroundWidth : null;
+    let progress = opts && 'progress' in opts ? opts.progress : null;
+    let radius = opts && 'radius' in opts ? opts.radius : null;
+    let progressColor = opts && 'progressColor' in opts ? opts.progressColor : null;
+    let backgroundColor = opts && 'backgroundColor' in opts ? opts.backgroundColor : null;
+    let startAngle = opts && 'startAngle' in opts ? opts.startAngle : 0;
+    let circularStrokeCap = opts && 'circularStrokeCap' in opts ? opts.circularStrokeCap : C[1] || CT.C1;
+    let linearGradient = opts && 'linearGradient' in opts ? opts.linearGradient : null;
+    let reverse = opts && 'reverse' in opts ? opts.reverse : null;
+    let arcBackgroundColor = opts && 'arcBackgroundColor' in opts ? opts.arcBackgroundColor : null;
+    let arcType = opts && 'arcType' in opts ? opts.arcType : null;
+    let maskFilter = opts && 'maskFilter' in opts ? opts.maskFilter : null;
+    let rotateLinearGradient = opts && 'rotateLinearGradient' in opts ? opts.rotateLinearGradient : null;
+    this[_paintBackground] = ui.Paint.new();
+    this[_paintLine] = ui.Paint.new();
+    this[_paintBackgroundStartAngle] = ui.Paint.new();
+    this[lineWidth$0] = lineWidth;
+    this[backgroundWidth$0] = backgroundWidth;
+    this[progress$] = progress;
+    this[radius$0] = radius;
+    this[progressColor$] = progressColor;
+    this[backgroundColor$0] = backgroundColor;
+    this[startAngle$0] = startAngle;
+    this[circularStrokeCap$0] = circularStrokeCap;
+    this[linearGradient$0] = linearGradient;
+    this[reverse$0] = reverse;
+    this[arcBackgroundColor$0] = arcBackgroundColor;
+    this[arcType$0] = arcType;
+    this[maskFilter$0] = maskFilter;
+    this[rotateLinearGradient$0] = rotateLinearGradient;
+    circular_percent_indicator.CirclePainter.__proto__.new.call(this);
+    this[_paintBackground].color = this.backgroundColor;
+    this[_paintBackground].style = ui.PaintingStyle.stroke;
+    this[_paintBackground].strokeWidth = this.backgroundWidth;
+    if (this.circularStrokeCap == circular_percent_indicator.CircularStrokeCap.round) {
+      this[_paintBackground].strokeCap = ui.StrokeCap.round;
+    } else if (this.circularStrokeCap == circular_percent_indicator.CircularStrokeCap.butt) {
+      this[_paintBackground].strokeCap = ui.StrokeCap.butt;
+    } else {
+      this[_paintBackground].strokeCap = ui.StrokeCap.square;
+    }
+    if (this.arcBackgroundColor != null) {
+      this[_paintBackgroundStartAngle].color = this.arcBackgroundColor;
+      this[_paintBackgroundStartAngle].style = ui.PaintingStyle.stroke;
+      this[_paintBackgroundStartAngle].strokeWidth = this.lineWidth;
+      if (this.circularStrokeCap == circular_percent_indicator.CircularStrokeCap.round) {
+        this[_paintBackgroundStartAngle].strokeCap = ui.StrokeCap.round;
+      } else if (this.circularStrokeCap == circular_percent_indicator.CircularStrokeCap.butt) {
+        this[_paintBackgroundStartAngle].strokeCap = ui.StrokeCap.butt;
+      } else {
+        this[_paintBackgroundStartAngle].strokeCap = ui.StrokeCap.square;
+      }
+    }
+    this[_paintLine].color = this.progressColor;
+    this[_paintLine].style = ui.PaintingStyle.stroke;
+    this[_paintLine].strokeWidth = this.lineWidth;
+    if (this.circularStrokeCap == circular_percent_indicator.CircularStrokeCap.round) {
+      this[_paintLine].strokeCap = ui.StrokeCap.round;
+    } else if (this.circularStrokeCap == circular_percent_indicator.CircularStrokeCap.butt) {
+      this[_paintLine].strokeCap = ui.StrokeCap.butt;
+    } else {
+      this[_paintLine].strokeCap = ui.StrokeCap.square;
+    }
+  }).prototype = circular_percent_indicator.CirclePainter.prototype;
+  dart.addTypeTests(circular_percent_indicator.CirclePainter);
+  dart.addTypeCaches(circular_percent_indicator.CirclePainter);
+  dart.setMethodSignature(circular_percent_indicator.CirclePainter, () => ({
+    __proto__: dart.getMethods(circular_percent_indicator.CirclePainter.__proto__),
+    paint: dart.fnType(dart.void, [dart.legacy(ui.Canvas), dart.legacy(ui.Size)]),
+    shouldRepaint: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)])
+  }));
+  dart.setLibraryUri(circular_percent_indicator.CirclePainter, I[0]);
+  dart.setFieldSignature(circular_percent_indicator.CirclePainter, () => ({
+    __proto__: dart.getFields(circular_percent_indicator.CirclePainter.__proto__),
+    [_paintBackground]: dart.finalFieldType(dart.legacy(ui.Paint)),
+    [_paintLine]: dart.finalFieldType(dart.legacy(ui.Paint)),
+    [_paintBackgroundStartAngle]: dart.finalFieldType(dart.legacy(ui.Paint)),
+    lineWidth: dart.finalFieldType(dart.legacy(core.double)),
+    backgroundWidth: dart.finalFieldType(dart.legacy(core.double)),
+    progress: dart.finalFieldType(dart.legacy(core.double)),
+    radius: dart.finalFieldType(dart.legacy(core.double)),
+    progressColor: dart.finalFieldType(dart.legacy(ui.Color)),
+    backgroundColor: dart.finalFieldType(dart.legacy(ui.Color)),
+    circularStrokeCap: dart.finalFieldType(dart.legacy(circular_percent_indicator.CircularStrokeCap)),
+    startAngle: dart.finalFieldType(dart.legacy(core.double)),
+    linearGradient: dart.finalFieldType(dart.legacy(gradient.LinearGradient)),
+    arcBackgroundColor: dart.finalFieldType(dart.legacy(ui.Color)),
+    arcType: dart.finalFieldType(dart.legacy(circular_percent_indicator.ArcType)),
+    reverse: dart.finalFieldType(dart.legacy(core.bool)),
+    maskFilter: dart.finalFieldType(dart.legacy(ui.MaskFilter)),
+    rotateLinearGradient: dart.finalFieldType(dart.legacy(core.bool))
+  }));
+  circular_percent_indicator.radians = function radians(deg) {
+    return dart.notNull(deg) * (3.141592653589793 / 180.0);
+  };
+  dart.trackLibraries("packages/percent_indicator/circular_percent_indicator.dart", {
+    "package:percent_indicator/circular_percent_indicator.dart": circular_percent_indicator
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["circular_percent_indicator.dart"],"names":[],"mappings":"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","file":"../../../../../../../../D:/packages/percent_indicator/circular_percent_indicator.dart.lib.js"}');
+  // Exports:
+  return {
+    circular_percent_indicator: circular_percent_indicator
+  };
+}));
+
+//# sourceMappingURL=circular_percent_indicator.dart.lib.js.map

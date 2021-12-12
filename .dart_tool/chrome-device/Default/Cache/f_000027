@@ -1,0 +1,378 @@
+define(['dart_sdk'], (function load__packages__hive__src__util__delegating_list_view_mixin_dart(dart_sdk) {
+  'use strict';
+  const core = dart_sdk.core;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  var delegating_list_view_mixin = Object.create(dart.library);
+  var $first = dartx.first;
+  var $last = dartx.last;
+  var $length = dartx.length;
+  var $plus = dartx['+'];
+  var $_get = dartx._get;
+  var $any = dartx.any;
+  var $asMap = dartx.asMap;
+  var $cast = dartx.cast;
+  var $contains = dartx.contains;
+  var $elementAt = dartx.elementAt;
+  var $every = dartx.every;
+  var $expand = dartx.expand;
+  var $firstWhere = dartx.firstWhere;
+  var $fold = dartx.fold;
+  var $followedBy = dartx.followedBy;
+  var $forEach = dartx.forEach;
+  var $getRange = dartx.getRange;
+  var $indexOf = dartx.indexOf;
+  var $indexWhere = dartx.indexWhere;
+  var $isEmpty = dartx.isEmpty;
+  var $isNotEmpty = dartx.isNotEmpty;
+  var $iterator = dartx.iterator;
+  var $join = dartx.join;
+  var $lastIndexOf = dartx.lastIndexOf;
+  var $lastIndexWhere = dartx.lastIndexWhere;
+  var $lastWhere = dartx.lastWhere;
+  var $map = dartx.map;
+  var $reduce = dartx.reduce;
+  var $reversed = dartx.reversed;
+  var $single = dartx.single;
+  var $singleWhere = dartx.singleWhere;
+  var $skip = dartx.skip;
+  var $skipWhile = dartx.skipWhile;
+  var $sublist = dartx.sublist;
+  var $take = dartx.take;
+  var $takeWhile = dartx.takeWhile;
+  var $toList = dartx.toList;
+  var $toSet = dartx.toSet;
+  var $where = dartx.where;
+  var $whereType = dartx.whereType;
+  dart._checkModuleNullSafetyMode(false);
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  var I = [
+    "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/hive-2.0.2/lib/src/util/delegating_list_view_mixin.dart",
+    "package:hive/src/util/delegating_list_view_mixin.dart"
+  ];
+  const _is_DelegatingListViewMixin_default = Symbol('_is_DelegatingListViewMixin_default');
+  delegating_list_view_mixin.DelegatingListViewMixin$ = dart.generic(E => {
+    var ListOfE = () => (ListOfE = dart.constFn(core.List$(E)))();
+    var VoidToE = () => (VoidToE = dart.constFn(dart.fnType(E, [])))();
+    var VoidToNE = () => (VoidToNE = dart.constFn(dart.nullable(VoidToE())))();
+    var IterableOfE = () => (IterableOfE = dart.constFn(core.Iterable$(E)))();
+    var EAndEToE = () => (EAndEToE = dart.constFn(dart.fnType(E, [E, E])))();
+    class DelegatingListViewMixin extends core.Object {
+      get first() {
+        return this.delegate[$first];
+      }
+      get last() {
+        return this.delegate[$last];
+      }
+      get length() {
+        return this.delegate[$length];
+      }
+      ['+'](other) {
+        ListOfE().as(other);
+        if (other == null) dart.nullFailed(I[0], 20, 30, "other");
+        return this.delegate[$plus](other);
+      }
+      _get(index) {
+        if (index == null) dart.nullFailed(I[0], 23, 21, "index");
+        return this.delegate[$_get](index);
+      }
+      any(test) {
+        if (test == null) dart.nullFailed(I[0], 26, 37, "test");
+        return this.delegate[$any](test);
+      }
+      asMap() {
+        return this.delegate[$asMap]();
+      }
+      cast(R) {
+        return this.delegate[$cast](R);
+      }
+      contains(element) {
+        return this.delegate[$contains](element);
+      }
+      elementAt(index) {
+        if (index == null) dart.nullFailed(I[0], 38, 19, "index");
+        return this.delegate[$elementAt](index);
+      }
+      every(test) {
+        if (test == null) dart.nullFailed(I[0], 41, 39, "test");
+        return this.delegate[$every](test);
+      }
+      expand(T, f) {
+        if (f == null) dart.nullFailed(I[0], 44, 57, "f");
+        return this.delegate[$expand](T, f);
+      }
+      firstWhere(test, opts) {
+        if (test == null) dart.nullFailed(I[0], 48, 41, "test");
+        let orElse = opts && 'orElse' in opts ? opts.orElse : null;
+        VoidToNE().as(orElse);
+        return this.delegate[$firstWhere](test, {orElse: orElse});
+      }
+      fold(T, initialValue, combine) {
+        if (combine == null) dart.nullFailed(I[0], 52, 68, "combine");
+        return this.delegate[$fold](T, initialValue, combine);
+      }
+      followedBy(other) {
+        IterableOfE().as(other);
+        if (other == null) dart.nullFailed(I[0], 56, 38, "other");
+        return this.delegate[$followedBy](other);
+      }
+      forEach(f) {
+        if (f == null) dart.nullFailed(I[0], 59, 41, "f");
+        return this.delegate[$forEach](f);
+      }
+      getRange(start, end) {
+        if (start == null) dart.nullFailed(I[0], 62, 28, "start");
+        if (end == null) dart.nullFailed(I[0], 62, 39, "end");
+        return this.delegate[$getRange](start, end);
+      }
+      indexOf(element, start = 0) {
+        if (start == null) dart.nullFailed(I[0], 65, 37, "start");
+        return this.delegate[$indexOf](E.as(element), start);
+      }
+      indexWhere(test, start = 0) {
+        if (test == null) dart.nullFailed(I[0], 69, 43, "test");
+        if (start == null) dart.nullFailed(I[0], 69, 54, "start");
+        return this.delegate[$indexWhere](test, start);
+      }
+      get isEmpty() {
+        return this.delegate[$isEmpty];
+      }
+      get isNotEmpty() {
+        return this.delegate[$isNotEmpty];
+      }
+      get iterator() {
+        return this.delegate[$iterator];
+      }
+      [Symbol.iterator]() {
+        return new dart.JsIterator(this[$iterator]);
+      }
+      join(separator = "") {
+        if (separator == null) dart.nullFailed(I[0], 82, 23, "separator");
+        return this.delegate[$join](separator);
+      }
+      lastIndexOf(element, start = null) {
+        return this.delegate[$lastIndexOf](E.as(element), start);
+      }
+      lastIndexWhere(test, start = null) {
+        if (test == null) dart.nullFailed(I[0], 89, 47, "test");
+        return this.delegate[$lastIndexWhere](test, start);
+      }
+      lastWhere(test, opts) {
+        if (test == null) dart.nullFailed(I[0], 93, 40, "test");
+        let orElse = opts && 'orElse' in opts ? opts.orElse : null;
+        VoidToNE().as(orElse);
+        return this.delegate[$lastWhere](test, {orElse: orElse});
+      }
+      map(T, f) {
+        if (f == null) dart.nullFailed(I[0], 97, 38, "f");
+        return this.delegate[$map](T, f);
+      }
+      reduce(combine) {
+        EAndEToE().as(combine);
+        if (combine == null) dart.nullFailed(I[0], 100, 43, "combine");
+        return this.delegate[$reduce](combine);
+      }
+      get reversed() {
+        return this.delegate[$reversed];
+      }
+      get single() {
+        return this.delegate[$single];
+      }
+      singleWhere(test, opts) {
+        if (test == null) dart.nullFailed(I[0], 109, 42, "test");
+        let orElse = opts && 'orElse' in opts ? opts.orElse : null;
+        VoidToNE().as(orElse);
+        return this.delegate[$singleWhere](test, {orElse: orElse});
+      }
+      skip(count) {
+        if (count == null) dart.nullFailed(I[0], 113, 24, "count");
+        return this.delegate[$skip](count);
+      }
+      skipWhile(test) {
+        if (test == null) dart.nullFailed(I[0], 116, 48, "test");
+        return this.delegate[$skipWhile](test);
+      }
+      sublist(start, end = null) {
+        if (start == null) dart.nullFailed(I[0], 120, 23, "start");
+        return this.delegate[$sublist](start, end);
+      }
+      take(count) {
+        if (count == null) dart.nullFailed(I[0], 123, 24, "count");
+        return this.delegate[$take](count);
+      }
+      takeWhile(test) {
+        if (test == null) dart.nullFailed(I[0], 126, 48, "test");
+        return this.delegate[$takeWhile](test);
+      }
+      toList(opts) {
+        let growable = opts && 'growable' in opts ? opts.growable : true;
+        if (growable == null) dart.nullFailed(I[0], 130, 24, "growable");
+        return this.delegate[$toList]({growable: growable});
+      }
+      toSet() {
+        return this.delegate[$toSet]();
+      }
+      where(test) {
+        if (test == null) dart.nullFailed(I[0], 136, 46, "test");
+        return this.delegate[$where](test);
+      }
+      whereType(T) {
+        return this.delegate[$whereType](T);
+      }
+    }
+    (DelegatingListViewMixin.new = function() {
+      ;
+    }).prototype = DelegatingListViewMixin.prototype;
+    DelegatingListViewMixin.prototype[dart.isList] = true;
+    dart.addTypeTests(DelegatingListViewMixin);
+    DelegatingListViewMixin.prototype[_is_DelegatingListViewMixin_default] = true;
+    dart.addTypeCaches(DelegatingListViewMixin);
+    DelegatingListViewMixin[dart.implements] = () => [core.List$(E)];
+    dart.setMethodSignature(DelegatingListViewMixin, () => ({
+      __proto__: dart.getMethods(DelegatingListViewMixin.__proto__),
+      '+': dart.fnType(core.List$(E), [dart.nullable(core.Object)]),
+      [$plus]: dart.fnType(core.List$(E), [dart.nullable(core.Object)]),
+      _get: dart.fnType(E, [core.int]),
+      [$_get]: dart.fnType(E, [core.int]),
+      any: dart.fnType(core.bool, [dart.fnType(core.bool, [E])]),
+      [$any]: dart.fnType(core.bool, [dart.fnType(core.bool, [E])]),
+      asMap: dart.fnType(core.Map$(core.int, E), []),
+      [$asMap]: dart.fnType(core.Map$(core.int, E), []),
+      cast: dart.gFnType(R => [core.List$(R), []], R => [dart.nullable(core.Object)]),
+      [$cast]: dart.gFnType(R => [core.List$(R), []], R => [dart.nullable(core.Object)]),
+      contains: dart.fnType(core.bool, [dart.nullable(core.Object)]),
+      [$contains]: dart.fnType(core.bool, [dart.nullable(core.Object)]),
+      elementAt: dart.fnType(E, [core.int]),
+      [$elementAt]: dart.fnType(E, [core.int]),
+      every: dart.fnType(core.bool, [dart.fnType(core.bool, [E])]),
+      [$every]: dart.fnType(core.bool, [dart.fnType(core.bool, [E])]),
+      expand: dart.gFnType(T => [core.Iterable$(T), [dart.fnType(core.Iterable$(T), [E])]], T => [dart.nullable(core.Object)]),
+      [$expand]: dart.gFnType(T => [core.Iterable$(T), [dart.fnType(core.Iterable$(T), [E])]], T => [dart.nullable(core.Object)]),
+      firstWhere: dart.fnType(E, [dart.fnType(core.bool, [E])], {orElse: dart.nullable(core.Object)}, {}),
+      [$firstWhere]: dart.fnType(E, [dart.fnType(core.bool, [E])], {orElse: dart.nullable(core.Object)}, {}),
+      fold: dart.gFnType(T => [T, [T, dart.fnType(T, [T, E])]], T => [dart.nullable(core.Object)]),
+      [$fold]: dart.gFnType(T => [T, [T, dart.fnType(T, [T, E])]], T => [dart.nullable(core.Object)]),
+      followedBy: dart.fnType(core.Iterable$(E), [dart.nullable(core.Object)]),
+      [$followedBy]: dart.fnType(core.Iterable$(E), [dart.nullable(core.Object)]),
+      forEach: dart.fnType(dart.void, [dart.fnType(dart.void, [E])]),
+      [$forEach]: dart.fnType(dart.void, [dart.fnType(dart.void, [E])]),
+      getRange: dart.fnType(core.Iterable$(E), [core.int, core.int]),
+      [$getRange]: dart.fnType(core.Iterable$(E), [core.int, core.int]),
+      indexOf: dart.fnType(core.int, [dart.nullable(core.Object)], [core.int]),
+      [$indexOf]: dart.fnType(core.int, [dart.nullable(core.Object)], [core.int]),
+      indexWhere: dart.fnType(core.int, [dart.fnType(core.bool, [E])], [core.int]),
+      [$indexWhere]: dart.fnType(core.int, [dart.fnType(core.bool, [E])], [core.int]),
+      join: dart.fnType(core.String, [], [core.String]),
+      [$join]: dart.fnType(core.String, [], [core.String]),
+      lastIndexOf: dart.fnType(core.int, [dart.nullable(core.Object)], [dart.nullable(core.int)]),
+      [$lastIndexOf]: dart.fnType(core.int, [dart.nullable(core.Object)], [dart.nullable(core.int)]),
+      lastIndexWhere: dart.fnType(core.int, [dart.fnType(core.bool, [E])], [dart.nullable(core.int)]),
+      [$lastIndexWhere]: dart.fnType(core.int, [dart.fnType(core.bool, [E])], [dart.nullable(core.int)]),
+      lastWhere: dart.fnType(E, [dart.fnType(core.bool, [E])], {orElse: dart.nullable(core.Object)}, {}),
+      [$lastWhere]: dart.fnType(E, [dart.fnType(core.bool, [E])], {orElse: dart.nullable(core.Object)}, {}),
+      map: dart.gFnType(T => [core.Iterable$(T), [dart.fnType(T, [E])]], T => [dart.nullable(core.Object)]),
+      [$map]: dart.gFnType(T => [core.Iterable$(T), [dart.fnType(T, [E])]], T => [dart.nullable(core.Object)]),
+      reduce: dart.fnType(E, [dart.nullable(core.Object)]),
+      [$reduce]: dart.fnType(E, [dart.nullable(core.Object)]),
+      singleWhere: dart.fnType(E, [dart.fnType(core.bool, [E])], {orElse: dart.nullable(core.Object)}, {}),
+      [$singleWhere]: dart.fnType(E, [dart.fnType(core.bool, [E])], {orElse: dart.nullable(core.Object)}, {}),
+      skip: dart.fnType(core.Iterable$(E), [core.int]),
+      [$skip]: dart.fnType(core.Iterable$(E), [core.int]),
+      skipWhile: dart.fnType(core.Iterable$(E), [dart.fnType(core.bool, [E])]),
+      [$skipWhile]: dart.fnType(core.Iterable$(E), [dart.fnType(core.bool, [E])]),
+      sublist: dart.fnType(core.List$(E), [core.int], [dart.nullable(core.int)]),
+      [$sublist]: dart.fnType(core.List$(E), [core.int], [dart.nullable(core.int)]),
+      take: dart.fnType(core.Iterable$(E), [core.int]),
+      [$take]: dart.fnType(core.Iterable$(E), [core.int]),
+      takeWhile: dart.fnType(core.Iterable$(E), [dart.fnType(core.bool, [E])]),
+      [$takeWhile]: dart.fnType(core.Iterable$(E), [dart.fnType(core.bool, [E])]),
+      toList: dart.fnType(core.List$(E), [], {growable: core.bool}, {}),
+      [$toList]: dart.fnType(core.List$(E), [], {growable: core.bool}, {}),
+      toSet: dart.fnType(core.Set$(E), []),
+      [$toSet]: dart.fnType(core.Set$(E), []),
+      where: dart.fnType(core.Iterable$(E), [dart.fnType(core.bool, [E])]),
+      [$where]: dart.fnType(core.Iterable$(E), [dart.fnType(core.bool, [E])]),
+      whereType: dart.gFnType(T => [core.Iterable$(T), []], T => [dart.nullable(core.Object)]),
+      [$whereType]: dart.gFnType(T => [core.Iterable$(T), []], T => [dart.nullable(core.Object)])
+    }));
+    dart.setGetterSignature(DelegatingListViewMixin, () => ({
+      __proto__: dart.getGetters(DelegatingListViewMixin.__proto__),
+      first: E,
+      [$first]: E,
+      last: E,
+      [$last]: E,
+      length: core.int,
+      [$length]: core.int,
+      isEmpty: core.bool,
+      [$isEmpty]: core.bool,
+      isNotEmpty: core.bool,
+      [$isNotEmpty]: core.bool,
+      iterator: core.Iterator$(E),
+      [$iterator]: core.Iterator$(E),
+      reversed: core.Iterable$(E),
+      [$reversed]: core.Iterable$(E),
+      single: E,
+      [$single]: E
+    }));
+    dart.setLibraryUri(DelegatingListViewMixin, I[1]);
+    dart.defineExtensionMethods(DelegatingListViewMixin, [
+      '+',
+      '_get',
+      'any',
+      'asMap',
+      'cast',
+      'contains',
+      'elementAt',
+      'every',
+      'expand',
+      'firstWhere',
+      'fold',
+      'followedBy',
+      'forEach',
+      'getRange',
+      'indexOf',
+      'indexWhere',
+      'join',
+      'lastIndexOf',
+      'lastIndexWhere',
+      'lastWhere',
+      'map',
+      'reduce',
+      'singleWhere',
+      'skip',
+      'skipWhile',
+      'sublist',
+      'take',
+      'takeWhile',
+      'toList',
+      'toSet',
+      'where',
+      'whereType'
+    ]);
+    dart.defineExtensionAccessors(DelegatingListViewMixin, [
+      'first',
+      'last',
+      'length',
+      'isEmpty',
+      'isNotEmpty',
+      'iterator',
+      'reversed',
+      'single'
+    ]);
+    return DelegatingListViewMixin;
+  });
+  delegating_list_view_mixin.DelegatingListViewMixin = delegating_list_view_mixin.DelegatingListViewMixin$();
+  dart.addTypeTests(delegating_list_view_mixin.DelegatingListViewMixin, _is_DelegatingListViewMixin_default);
+  dart.trackLibraries("packages/hive/src/util/delegating_list_view_mixin.dart", {
+    "package:hive/src/util/delegating_list_view_mixin.dart": delegating_list_view_mixin
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["delegating_list_view_mixin.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAUiB,cAAA,AAAS;MAAK;;AAGf,cAAA,AAAS;MAAI;;AAGT,cAAA,AAAS;MAAM;;qBAGN;;AAAU,cAAA,AAAS,sBAAE,KAAK;;;YAGnC;AAAU,cAAA,AAAQ,sBAAC,KAAK;MAAC;;YAGT;AAAS,cAAA,AAAS,qBAAI,IAAI;MAAC;;AAGtC,cAAA,AAAS;MAAO;;AAGlB,cAAA,AAAS;MAAS;eAGjB;AAAY,cAAA,AAAS,0BAAS,OAAO;MAAC;;YAG5C;AAAU,cAAA,AAAS,2BAAU,KAAK;MAAC;;YAGf;AAAS,cAAA,AAAS,uBAAM,IAAI;MAAC;;YAGX;AAClD,cAAA,AAAS,2BAAU,CAAC;MAAC;;YAGa;YAAqB;;AACvD,cAAA,AAAS,4BAAW,IAAI,WAAU,MAAM;MAAC;cAGjC;YAAqD;AAC7D,cAAA,AAAS,yBAAQ,YAAY,EAAE,OAAO;MAAC;;yBAGR;;AAAU,cAAA,AAAS,4BAAW,KAAK;MAAC;;YAGjC;AAAM,cAAA,AAAS,yBAAQ,CAAC;MAAC;eAGtC,OAAW;YAAX;YAAW;AAAQ,cAAA,AAAS,0BAAS,KAAK,EAAE,GAAG;MAAC;cAGrD;YAAc;AAC9B,cAAA,AAAS,yBAAgB,KAAR,OAAO,GAAO,KAAK;MAAC;iBAGD,MAAW;YAAX;YAAW;AAC/C,cAAA,AAAS,4BAAW,IAAI,EAAE,KAAK;MAAC;;AAGhB,cAAA,AAAS;MAAO;;AAGb,cAAA,AAAS;MAAU;;AAGd,cAAA,AAAS;MAAQ;;;;;YAGzB;AAAoB,cAAA,AAAS,sBAAK,SAAS;MAAC;kBAGxC,SAAe;AACnC,cAAA,AAAS,6BAAoB,KAAR,OAAO,GAAO,KAAK;MAAC;qBAGD,MAAY;YAAZ;AACxC,cAAA,AAAS,gCAAe,IAAI,EAAE,KAAK;MAAC;;YAGH;YAAqB;;AACtD,cAAA,AAAS,2BAAU,IAAI,WAAU,MAAM;MAAC;;YAGT;AAAM,cAAA,AAAS,wBAAO,CAAC;MAAC;;sBAGnB;;AAAY,cAAA,AAAS,wBAAO,OAAO;MAAC;;AAGhD,cAAA,AAAS;MAAQ;;AAG7B,cAAA,AAAS;MAAM;;YAGQ;YAAqB;;AACxD,cAAA,AAAS,6BAAY,IAAI,WAAU,MAAM;MAAC;;YAGzB;AAAU,cAAA,AAAS,sBAAK,KAAK;MAAC;;YAGN;AACzC,cAAA,AAAS,2BAAU,IAAI;MAAC;cAGR,OAAa;YAAb;AAAsB,cAAA,AAAS,yBAAQ,KAAK,EAAE,GAAG;MAAC;;YAGjD;AAAU,cAAA,AAAS,sBAAK,KAAK;MAAC;;YAGN;AACzC,cAAA,AAAS,2BAAU,IAAI;MAAC;;YAGP;;AAAqB,cAAA,AAAS,mCAAiB,QAAQ;MAAC;;AAG3D,cAAA,AAAS;MAAO;;YAGS;AAAS,cAAA,AAAS,uBAAM,IAAI;MAAC;;AAG1C,cAAA,AAAS;MAAc;;;;IACvD","file":"../../../../../../../../../../D:/packages/hive/src/util/delegating_list_view_mixin.dart.lib.js"}');
+  // Exports:
+  return {
+    src__util__delegating_list_view_mixin: delegating_list_view_mixin
+  };
+}));
+
+//# sourceMappingURL=delegating_list_view_mixin.dart.lib.js.map

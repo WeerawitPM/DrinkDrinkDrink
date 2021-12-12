@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "503734002179",
+    "project_id": "drinkdrinkdrink-project",
+    "storage_bucket": "drinkdrinkdrink-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:503734002179:android:53f755d03997ee8b952436",
+        "android_client_info": {
+          "package_name": "com.example.flutter_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "503734002179-cv88nm5hko8v421agprp6g8hiui7uia2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV34VGwShjiWUUhtV8vRff9R5FBLzbx4U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "503734002179-cv88nm5hko8v421agprp6g8hiui7uia2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:503734002179:android:3fffcf881d062b75952436",
+        "android_client_info": {
+          "package_name": "com.example.waterreminder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "503734002179-cv88nm5hko8v421agprp6g8hiui7uia2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV34VGwShjiWUUhtV8vRff9R5FBLzbx4U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "503734002179-cv88nm5hko8v421agprp6g8hiui7uia2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

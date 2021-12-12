@@ -1,0 +1,26 @@
+{
+	"title":"Water Reminder",
+
+	"notification":{
+		"notification_title":"Drink Water",
+		"notification_body":"Time to drink water"
+	},
+	
+	"home":{
+		"drink_button_text":"Drink Water",
+		"daily_info_text":"Today",
+		"daily_target_text":"Target",
+		"daily_records_title":"Records",
+		"daily_records_card_title":"Drinked",
+		"daily_records_card_date_title":"Today"
+	},
+
+	"statistics":{
+		"title":"Weekly Progress"
+	},
+
+	"settings":{
+		"title":"Settings",
+		"settings_language_route_name":"Languages"
+	}
+}

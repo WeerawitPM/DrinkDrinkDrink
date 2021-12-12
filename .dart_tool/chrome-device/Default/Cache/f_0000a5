@@ -1,0 +1,2552 @@
+define(['dart_sdk', 'packages/charts_common/src/chart/cartesian/axis/simple_ordinal_scale.dart', 'packages/flutter/src/rendering/layer.dart', 'packages/flutter/src/rendering/custom_layout.dart', 'packages/flutter/src/rendering/proxy_box.dart', 'packages/flutter/src/widgets/widget_span.dart', 'packages/flutter/src/gestures/tap.dart', 'packages/flutter/src/gestures/scale.dart', 'packages/charts_flutter/src/user_managed_state.dart', 'packages/charts_common/src/chart/cartesian/cartesian_chart.dart', 'packages/charts_common/src/chart/cartesian/axis/spec/numeric_axis_spec.dart', 'packages/charts_common/src/common/performance.dart', 'packages/charts_common/src/chart/common/behavior/selection/selection_trigger.dart', 'packages/charts_flutter/src/selection_model_config.dart', 'packages/charts_common/src/chart/common/series_renderer_config.dart', 'packages/charts_common/src/common/rtl_spec.dart', 'packages/charts_common/src/chart/common/behavior/line_point_highlighter.dart', 'packages/collection/src/equality.dart', 'packages/charts_common/src/chart/time_series/time_series_chart.dart', 'packages/charts_common/src/common/date_time_factory.dart', 'packages/flutter/src/rendering/custom_paint.dart', 'packages/charts_flutter/src/chart_state.dart', 'packages/logging/src/logger.dart', 'packages/charts_flutter/src/graphics_factory.dart', 'packages/flutter/src/scheduler/binding.dart', 'packages/flutter/src/semantics/semantics_service.dart', 'packages/charts_common/src/chart/common/behavior/a11y/a11y_node.dart', 'packages/charts_common/src/chart/common/chart_context.dart', 'packages/charts_common/src/common/proxy_gesture_listener.dart', 'packages/charts_flutter/src/chart_canvas.dart', 'packages/flutter/src/semantics/semantics.dart', 'packages/charts_common/src/chart/common/behavior/selection/select_nearest.dart', 'packages/charts_common/src/chart/layout/layout_config.dart', 'packages/flutter/src/animation/animation_controller.dart'], (function load__packages__charts_flutter__src__widget_layout_delegate_dart(dart_sdk, packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart, packages__flutter__src__rendering__layer$46dart, packages__flutter__src__rendering__custom_layout$46dart, packages__flutter__src__rendering__proxy_box$46dart, packages__flutter__src__widgets__widget_span$46dart, packages__flutter__src__gestures__tap$46dart, packages__flutter__src__gestures__scale$46dart, packages__charts_flutter__src__user_managed_state$46dart, packages__charts_common__src__chart__cartesian__cartesian_chart$46dart, packages__charts_common__src__chart__cartesian__axis__spec__numeric_axis_spec$46dart, packages__charts_common__src__common__performance$46dart, packages__charts_common__src__chart__common__behavior__selection__selection_trigger$46dart, packages__charts_flutter__src__selection_model_config$46dart, packages__charts_common__src__chart__common__series_renderer_config$46dart, packages__charts_common__src__common__rtl_spec$46dart, packages__charts_common__src__chart__common__behavior__line_point_highlighter$46dart, packages__collection__src__equality$46dart, packages__charts_common__src__chart__time_series__time_series_chart$46dart, packages__charts_common__src__common__date_time_factory$46dart, packages__flutter__src__rendering__custom_paint$46dart, packages__charts_flutter__src__chart_state$46dart, packages__logging__src__logger$46dart, packages__charts_flutter__src__graphics_factory$46dart, packages__flutter__src__scheduler__binding$46dart, packages__flutter__src__semantics__semantics_service$46dart, packages__charts_common__src__chart__common__behavior__a11y__a11y_node$46dart, packages__charts_common__src__chart__common__chart_context$46dart, packages__charts_common__src__common__proxy_gesture_listener$46dart, packages__charts_flutter__src__chart_canvas$46dart, packages__flutter__src__semantics__semantics$46dart, packages__charts_common__src__chart__common__behavior__selection__select_nearest$46dart, packages__charts_common__src__chart__layout__layout_config$46dart, packages__flutter__src__animation__animation_controller$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const ui = dart_sdk.ui;
+  const math = dart_sdk.math;
+  const async = dart_sdk.async;
+  const _js_helper = dart_sdk._js_helper;
+  const _interceptors = dart_sdk._interceptors;
+  const collection = dart_sdk.collection;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const chart_behavior = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__common__behavior__chart_behavior;
+  const axis = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__cartesian__axis__axis;
+  const base_chart = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__common__base_chart;
+  const selection_model = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__common__selection_model__selection_model;
+  const series = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__data__series;
+  const axis_spec = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__cartesian__axis__spec__axis_spec;
+  const symbol_renderer = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__common__symbol_renderer;
+  const box = packages__flutter__src__rendering__layer$46dart.src__rendering__box;
+  const custom_layout = packages__flutter__src__rendering__custom_layout$46dart.src__rendering__custom_layout;
+  const proxy_box = packages__flutter__src__rendering__proxy_box$46dart.src__rendering__proxy_box;
+  const gesture_detector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__gesture_detector;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const basic = packages__flutter__src__widgets__widget_span$46dart.src__widgets__basic;
+  const ticker_provider = packages__flutter__src__widgets__widget_span$46dart.src__widgets__ticker_provider;
+  const tap = packages__flutter__src__gestures__tap$46dart.src__gestures__tap;
+  const scale = packages__flutter__src__gestures__scale$46dart.src__gestures__scale;
+  const user_managed_state = packages__charts_flutter__src__user_managed_state$46dart.src__user_managed_state;
+  const cartesian_chart = packages__charts_common__src__chart__cartesian__cartesian_chart$46dart.src__chart__cartesian__cartesian_chart;
+  const numeric_axis_spec = packages__charts_common__src__chart__cartesian__axis__spec__numeric_axis_spec$46dart.src__chart__cartesian__axis__spec__numeric_axis_spec;
+  const performance = packages__charts_common__src__common__performance$46dart.src__common__performance;
+  const selection_trigger = packages__charts_common__src__chart__common__behavior__selection__selection_trigger$46dart.src__chart__common__behavior__selection__selection_trigger;
+  const selection_model_config = packages__charts_flutter__src__selection_model_config$46dart.src__selection_model_config;
+  const series_renderer_config = packages__charts_common__src__chart__common__series_renderer_config$46dart.src__chart__common__series_renderer_config;
+  const rtl_spec = packages__charts_common__src__common__rtl_spec$46dart.src__common__rtl_spec;
+  const line_point_highlighter = packages__charts_common__src__chart__common__behavior__line_point_highlighter$46dart.src__chart__common__behavior__line_point_highlighter;
+  const equality = packages__collection__src__equality$46dart.src__equality;
+  const time_series_chart = packages__charts_common__src__chart__time_series__time_series_chart$46dart.src__chart__time_series__time_series_chart;
+  const date_time_factory = packages__charts_common__src__common__date_time_factory$46dart.src__common__date_time_factory;
+  const custom_paint = packages__flutter__src__rendering__custom_paint$46dart.src__rendering__custom_paint;
+  const chart_state = packages__charts_flutter__src__chart_state$46dart.src__chart_state;
+  const logger = packages__logging__src__logger$46dart.src__logger;
+  const graphics_factory = packages__charts_flutter__src__graphics_factory$46dart.src__graphics_factory;
+  const binding = packages__flutter__src__scheduler__binding$46dart.src__scheduler__binding;
+  const semantics_service = packages__flutter__src__semantics__semantics_service$46dart.src__semantics__semantics_service;
+  const a11y_node = packages__charts_common__src__chart__common__behavior__a11y__a11y_node$46dart.src__chart__common__behavior__a11y__a11y_node;
+  const chart_context = packages__charts_common__src__chart__common__chart_context$46dart.src__chart__common__chart_context;
+  const proxy_gesture_listener = packages__charts_common__src__common__proxy_gesture_listener$46dart.src__common__proxy_gesture_listener;
+  const chart_canvas = packages__charts_flutter__src__chart_canvas$46dart.src__chart_canvas;
+  const semantics = packages__flutter__src__semantics__semantics$46dart.src__semantics__semantics;
+  const select_nearest = packages__charts_common__src__chart__common__behavior__selection__select_nearest$46dart.src__chart__common__behavior__selection__select_nearest;
+  const layout_config = packages__charts_common__src__chart__layout__layout_config$46dart.src__chart__layout__layout_config;
+  const animation_controller = packages__flutter__src__animation__animation_controller$46dart.src__animation__animation_controller;
+  var widget_layout_delegate = Object.create(dart.library);
+  var util = Object.create(dart.library);
+  var chart_gesture_detector = Object.create(dart.library);
+  var cartesian_chart$ = Object.create(dart.library);
+  var line_point_highlighter$ = Object.create(dart.library);
+  var time_series_chart$ = Object.create(dart.library);
+  var chart_container = Object.create(dart.library);
+  var select_nearest$ = Object.create(dart.library);
+  var base_chart$ = Object.create(dart.library);
+  var base_chart_state = Object.create(dart.library);
+  var chart_behavior$ = Object.create(dart.library);
+  var $isEmpty = dartx.isEmpty;
+  var $keys = dartx.keys;
+  var $length = dartx.length;
+  var $isNotEmpty = dartx.isNotEmpty;
+  var $first = dartx.first;
+  var $_get = dartx._get;
+  var $left = dartx.left;
+  var $toDouble = dartx.toDouble;
+  var $right = dartx.right;
+  var $top = dartx.top;
+  var $bottom = dartx.bottom;
+  var $toString = dartx.toString;
+  var $firstWhere = dartx.firstWhere;
+  var $_set = dartx._set;
+  var $forEach = dartx.forEach;
+  var $reversed = dartx.reversed;
+  var $where = dartx.where;
+  var $insert = dartx.insert;
+  var $remove = dartx.remove;
+  var $add = dartx.add;
+  var $any = dartx.any;
+  var $_equals = dartx._equals;
+  var $hashCode = dartx.hashCode;
+  var $toInt = dartx.toInt;
+  var $width = dartx.width;
+  var $height = dartx.height;
+  var $clear = dartx.clear;
+  dart._checkModuleNullSafetyMode(false);
+  var T = {
+    boolL: () => (T.boolL = dart.constFn(dart.legacy(core.bool)))(),
+    MultiChildLayoutDelegateL: () => (T.MultiChildLayoutDelegateL = dart.constFn(dart.legacy(custom_layout.MultiChildLayoutDelegate)))(),
+    WidgetLayoutDelegateL: () => (T.WidgetLayoutDelegateL = dart.constFn(dart.legacy(widget_layout_delegate.WidgetLayoutDelegate)))(),
+    _HorizontalJustificationL: () => (T._HorizontalJustificationL = dart.constFn(dart.legacy(widget_layout_delegate._HorizontalJustification)))(),
+    RenderCustomMultiChildLayoutBoxL: () => (T.RenderCustomMultiChildLayoutBoxL = dart.constFn(dart.legacy(custom_layout.RenderCustomMultiChildLayoutBox)))(),
+    RenderSemanticsGestureHandlerL: () => (T.RenderSemanticsGestureHandlerL = dart.constFn(dart.legacy(proxy_box.RenderSemanticsGestureHandler)))(),
+    RenderBoxL: () => (T.RenderBoxL = dart.constFn(dart.legacy(box.RenderBox)))(),
+    RenderBoxLToboolL: () => (T.RenderBoxLToboolL = dart.constFn(dart.fnType(T.boolL(), [T.RenderBoxL()])))(),
+    RenderPointerListenerL: () => (T.RenderPointerListenerL = dart.constFn(dart.legacy(proxy_box.RenderPointerListener)))(),
+    ChartContainerRenderObjectL: () => (T.ChartContainerRenderObjectL = dart.constFn(dart.legacy(chart_container.ChartContainerRenderObject)))(),
+    VoidToChartContainerRenderObjectL: () => (T.VoidToChartContainerRenderObjectL = dart.constFn(dart.fnType(T.ChartContainerRenderObjectL(), [])))(),
+    _LocationL: () => (T._LocationL = dart.constFn(dart.legacy(widget_inspector._Location)))(),
+    doubleL: () => (T.doubleL = dart.constFn(dart.legacy(core.double)))(),
+    PointOfdoubleL: () => (T.PointOfdoubleL = dart.constFn(math.Point$(T.doubleL())))(),
+    VoidToNull: () => (T.VoidToNull = dart.constFn(dart.fnType(core.Null, [])))(),
+    BaseChartL: () => (T.BaseChartL = dart.constFn(dart.legacy(base_chart$.BaseChart)))(),
+    BaseChartStateL: () => (T.BaseChartStateL = dart.constFn(dart.legacy(base_chart_state.BaseChartState)))(),
+    CartesianChartL: () => (T.CartesianChartL = dart.constFn(dart.legacy(cartesian_chart$.CartesianChart)))(),
+    CartesianChartL$1: () => (T.CartesianChartL$1 = dart.constFn(dart.legacy(cartesian_chart.CartesianChart)))(),
+    StringL: () => (T.StringL = dart.constFn(dart.legacy(core.String)))(),
+    NumericAxisL: () => (T.NumericAxisL = dart.constFn(dart.legacy(axis.NumericAxis)))(),
+    IdentityMapOfStringL$NumericAxisL: () => (T.IdentityMapOfStringL$NumericAxisL = dart.constFn(_js_helper.IdentityMap$(T.StringL(), T.NumericAxisL())))(),
+    NumericAxisSpecL: () => (T.NumericAxisSpecL = dart.constFn(dart.legacy(numeric_axis_spec.NumericAxisSpec)))(),
+    StringLAndNumericAxisSpecLToNull: () => (T.StringLAndNumericAxisSpecLToNull = dart.constFn(dart.fnType(core.Null, [T.StringL(), T.NumericAxisSpecL()])))(),
+    ChartBehaviorL: () => (T.ChartBehaviorL = dart.constFn(dart.legacy(chart_behavior.ChartBehavior)))(),
+    ChartBehaviorOfChartBehaviorL: () => (T.ChartBehaviorOfChartBehaviorL = dart.constFn(chart_behavior$.ChartBehavior$(T.ChartBehaviorL())))(),
+    ChartBehaviorLOfChartBehaviorL: () => (T.ChartBehaviorLOfChartBehaviorL = dart.constFn(dart.legacy(T.ChartBehaviorOfChartBehaviorL())))(),
+    ListOfChartBehaviorLOfChartBehaviorL: () => (T.ListOfChartBehaviorLOfChartBehaviorL = dart.constFn(core.List$(T.ChartBehaviorLOfChartBehaviorL())))(),
+    JSArrayOfChartBehaviorLOfChartBehaviorL: () => (T.JSArrayOfChartBehaviorLOfChartBehaviorL = dart.constFn(_interceptors.JSArray$(T.ChartBehaviorLOfChartBehaviorL())))(),
+    ChartBehaviorLOfChartBehaviorLToNull: () => (T.ChartBehaviorLOfChartBehaviorLToNull = dart.constFn(dart.fnType(core.Null, [T.ChartBehaviorLOfChartBehaviorL()])))(),
+    VoidToChartBehaviorLOfDL: () => (T.VoidToChartBehaviorLOfDL = dart.constFn(dart.gFnType(D => {
+      var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+      var ChartBehaviorOfDL = () => (ChartBehaviorOfDL = dart.constFn(chart_behavior.ChartBehavior$(DL())))();
+      var ChartBehaviorLOfDL = () => (ChartBehaviorLOfDL = dart.constFn(dart.legacy(ChartBehaviorOfDL())))();
+      return [ChartBehaviorLOfDL(), []];
+    })))(),
+    ChartStateBehaviorOfChartBehaviorL: () => (T.ChartStateBehaviorOfChartBehaviorL = dart.constFn(chart_behavior$.ChartStateBehavior$(T.ChartBehaviorL())))(),
+    ChartStateBehaviorLOfChartBehaviorL: () => (T.ChartStateBehaviorLOfChartBehaviorL = dart.constFn(dart.legacy(T.ChartStateBehaviorOfChartBehaviorL())))(),
+    ChartBehaviorLOfChartBehaviorLToboolL: () => (T.ChartBehaviorLOfChartBehaviorLToboolL = dart.constFn(dart.fnType(T.boolL(), [T.ChartBehaviorLOfChartBehaviorL()])))(),
+    SelectionModelTypeL: () => (T.SelectionModelTypeL = dart.constFn(dart.legacy(selection_model.SelectionModelType)))(),
+    ListOfSelectionModelTypeL: () => (T.ListOfSelectionModelTypeL = dart.constFn(core.List$(T.SelectionModelTypeL())))(),
+    SelectionModelTypeLToNull: () => (T.SelectionModelTypeLToNull = dart.constFn(dart.fnType(core.Null, [T.SelectionModelTypeL()])))(),
+    GestureTypeL: () => (T.GestureTypeL = dart.constFn(dart.legacy(chart_behavior$.GestureType)))(),
+    _HashSetOfGestureTypeL: () => (T._HashSetOfGestureTypeL = dart.constFn(collection._HashSet$(T.GestureTypeL())))(),
+    LinePointHighlighterL: () => (T.LinePointHighlighterL = dart.constFn(dart.legacy(line_point_highlighter.LinePointHighlighter)))(),
+    LinePointHighlighterL$1: () => (T.LinePointHighlighterL$1 = dart.constFn(dart.legacy(line_point_highlighter$.LinePointHighlighter)))(),
+    TimeSeriesChartL: () => (T.TimeSeriesChartL = dart.constFn(dart.legacy(time_series_chart$.TimeSeriesChart)))(),
+    dynamicTovoid: () => (T.dynamicTovoid = dart.constFn(dart.fnType(dart.void, [dart.dynamic])))(),
+    A11yNodeL: () => (T.A11yNodeL = dart.constFn(dart.legacy(a11y_node.A11yNode)))(),
+    JSArrayOfA11yNodeL: () => (T.JSArrayOfA11yNodeL = dart.constFn(_interceptors.JSArray$(T.A11yNodeL())))(),
+    ChartContainerCustomPaintL: () => (T.ChartContainerCustomPaintL = dart.constFn(dart.legacy(chart_container.ChartContainerCustomPaint)))(),
+    CustomPainterSemanticsL: () => (T.CustomPainterSemanticsL = dart.constFn(dart.legacy(custom_paint.CustomPainterSemantics)))(),
+    JSArrayOfCustomPainterSemanticsL: () => (T.JSArrayOfCustomPainterSemanticsL = dart.constFn(_interceptors.JSArray$(T.CustomPainterSemanticsL())))(),
+    SelectNearestL: () => (T.SelectNearestL = dart.constFn(dart.legacy(select_nearest$.SelectNearest)))(),
+    IdentityMapOfStringL$ChartBehaviorL: () => (T.IdentityMapOfStringL$ChartBehaviorL = dart.constFn(_js_helper.IdentityMap$(T.StringL(), T.ChartBehaviorL())))(),
+    AnimationControllerL: () => (T.AnimationControllerL = dart.constFn(dart.legacy(animation_controller.AnimationController)))(),
+    LinkedMapOfChartStateBehaviorLOfChartBehaviorL$AnimationControllerL: () => (T.LinkedMapOfChartStateBehaviorLOfChartBehaviorL$AnimationControllerL = dart.constFn(_js_helper.LinkedMap$(T.ChartStateBehaviorLOfChartBehaviorL(), T.AnimationControllerL())))(),
+    WidgetL: () => (T.WidgetL = dart.constFn(dart.legacy(framework.Widget)))(),
+    LayoutIdL: () => (T.LayoutIdL = dart.constFn(dart.legacy(basic.LayoutId)))(),
+    JSArrayOfLayoutIdL: () => (T.JSArrayOfLayoutIdL = dart.constFn(_interceptors.JSArray$(T.LayoutIdL())))(),
+    BuildableBehaviorOfChartBehaviorL: () => (T.BuildableBehaviorOfChartBehaviorL = dart.constFn(chart_behavior$.BuildableBehavior$(T.ChartBehaviorL())))(),
+    BuildableBehaviorLOfChartBehaviorL: () => (T.BuildableBehaviorLOfChartBehaviorL = dart.constFn(dart.legacy(T.BuildableBehaviorOfChartBehaviorL())))(),
+    IdentityMapOfStringL$BuildableBehaviorLOfChartBehaviorL: () => (T.IdentityMapOfStringL$BuildableBehaviorLOfChartBehaviorL = dart.constFn(_js_helper.IdentityMap$(T.StringL(), T.BuildableBehaviorLOfChartBehaviorL())))(),
+    StringLAndChartBehaviorLToNull: () => (T.StringLAndChartBehaviorLToNull = dart.constFn(dart.fnType(core.Null, [T.StringL(), T.ChartBehaviorL()])))(),
+    ChartStateBehaviorLOfChartBehaviorLAndAnimationControllerLTovoid: () => (T.ChartStateBehaviorLOfChartBehaviorLAndAnimationControllerLTovoid = dart.constFn(dart.fnType(dart.void, [T.ChartStateBehaviorLOfChartBehaviorL(), T.AnimationControllerL()])))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: widget_layout_delegate._HorizontalJustification.prototype,
+        [_name$]: "_HorizontalJustification.leftDrawArea",
+        index: 0
+      });
+    },
+    get C1() {
+      return C[1] = dart.const({
+        __proto__: widget_layout_delegate._HorizontalJustification.prototype,
+        [_name$]: "_HorizontalJustification.left",
+        index: 1
+      });
+    },
+    get C2() {
+      return C[2] = dart.const({
+        __proto__: widget_layout_delegate._HorizontalJustification.prototype,
+        [_name$]: "_HorizontalJustification.rightDrawArea",
+        index: 2
+      });
+    },
+    get C3() {
+      return C[3] = dart.const({
+        __proto__: widget_layout_delegate._HorizontalJustification.prototype,
+        [_name$]: "_HorizontalJustification.right",
+        index: 3
+      });
+    },
+    get C4() {
+      return C[4] = dart.const({
+        __proto__: chart_behavior.OutsideJustification.prototype,
+        [_name]: "OutsideJustification.startDrawArea",
+        index: 0
+      });
+    },
+    get C5() {
+      return C[5] = dart.const({
+        __proto__: chart_behavior.OutsideJustification.prototype,
+        [_name]: "OutsideJustification.middleDrawArea",
+        index: 2
+      });
+    },
+    get C6() {
+      return C[6] = dart.const({
+        __proto__: chart_behavior.OutsideJustification.prototype,
+        [_name]: "OutsideJustification.start",
+        index: 1
+      });
+    },
+    get C7() {
+      return C[7] = dart.const({
+        __proto__: chart_behavior.OutsideJustification.prototype,
+        [_name]: "OutsideJustification.middle",
+        index: 3
+      });
+    },
+    get C8() {
+      return C[8] = dart.const({
+        __proto__: chart_behavior.OutsideJustification.prototype,
+        [_name]: "OutsideJustification.endDrawArea",
+        index: 4
+      });
+    },
+    get C9() {
+      return C[9] = dart.const({
+        __proto__: chart_behavior.OutsideJustification.prototype,
+        [_name]: "OutsideJustification.end",
+        index: 5
+      });
+    },
+    get C10() {
+      return C[10] = dart.const({
+        __proto__: chart_behavior.InsideJustification.prototype,
+        [_name]: "InsideJustification.topStart",
+        index: 0
+      });
+    },
+    get C11() {
+      return C[11] = dart.const({
+        __proto__: chart_behavior.InsideJustification.prototype,
+        [_name]: "InsideJustification.topEnd",
+        index: 1
+      });
+    },
+    get C12() {
+      return C[12] = dart.constList([C[0] || CT.C0, C[1] || CT.C1, C[2] || CT.C2, C[3] || CT.C3], T._HorizontalJustificationL());
+    },
+    get C15() {
+      return C[15] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 7,
+        [_Location_line]: 62,
+        [_Location_file]: null
+      });
+    },
+    get C16() {
+      return C[16] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onTapDown",
+        [_Location_column]: 7,
+        [_Location_line]: 63,
+        [_Location_file]: null
+      });
+    },
+    get C17() {
+      return C[17] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onTapUp",
+        [_Location_column]: 7,
+        [_Location_line]: 64,
+        [_Location_file]: null
+      });
+    },
+    get C18() {
+      return C[18] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onScaleStart",
+        [_Location_column]: 7,
+        [_Location_line]: 65,
+        [_Location_file]: null
+      });
+    },
+    get C19() {
+      return C[19] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onScaleUpdate",
+        [_Location_column]: 7,
+        [_Location_line]: 66,
+        [_Location_file]: null
+      });
+    },
+    get C20() {
+      return C[20] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onScaleEnd",
+        [_Location_column]: 7,
+        [_Location_line]: 67,
+        [_Location_file]: null
+      });
+    },
+    get C14() {
+      return C[14] = dart.constList([C[15] || CT.C15, C[16] || CT.C16, C[17] || CT.C17, C[18] || CT.C18, C[19] || CT.C19, C[20] || CT.C20], T._LocationL());
+    },
+    get C13() {
+      return C[13] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[14] || CT.C14,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 61,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/charts_flutter-0.10.0/lib/src/chart_gesture_detector.dart"
+      });
+    },
+    get C21() {
+      return C[21] = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 500000
+      });
+    },
+    get C22() {
+      return C[22] = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 300000
+      });
+    },
+    get C23() {
+      return C[23] = dart.const({
+        __proto__: date_time_factory.LocalDateTimeFactory.prototype
+      });
+    },
+    get C25() {
+      return C[25] = dart.const({
+        __proto__: rtl_spec.AxisDirection.prototype,
+        [_name$0]: "AxisDirection.reversed",
+        index: 1
+      });
+    },
+    get C24() {
+      return C[24] = dart.const({
+        __proto__: rtl_spec.RTLSpec.prototype,
+        [RTLSpec_axisDirection]: C[25] || CT.C25
+      });
+    },
+    get C26() {
+      return C[26] = dart.const({
+        __proto__: select_nearest.SelectionMode.prototype,
+        [_name$1]: "SelectionMode.expandToDomain",
+        index: 0
+      });
+    },
+    get C27() {
+      return C[27] = dart.const({
+        __proto__: selection_model.SelectionModelType.prototype,
+        [_name$2]: "SelectionModelType.info",
+        index: 0
+      });
+    },
+    get C28() {
+      return C[28] = dart.const({
+        __proto__: selection_trigger.SelectionTrigger.prototype,
+        [_name$3]: "SelectionTrigger.tap",
+        index: 1
+      });
+    },
+    get C29() {
+      return C[29] = dart.const({
+        __proto__: selection_trigger.SelectionTrigger.prototype,
+        [_name$3]: "SelectionTrigger.tapAndDrag",
+        index: 2
+      });
+    },
+    get C30() {
+      return C[30] = dart.const({
+        __proto__: selection_trigger.SelectionTrigger.prototype,
+        [_name$3]: "SelectionTrigger.pressHold",
+        index: 3
+      });
+    },
+    get C31() {
+      return C[31] = dart.const({
+        __proto__: selection_trigger.SelectionTrigger.prototype,
+        [_name$3]: "SelectionTrigger.longPressHold",
+        index: 4
+      });
+    },
+    get C32() {
+      return C[32] = dart.const({
+        __proto__: selection_trigger.SelectionTrigger.prototype,
+        [_name$3]: "SelectionTrigger.hover",
+        index: 0
+      });
+    },
+    get C35() {
+      return C[35] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "oldChartWidget",
+        [_Location_column]: 7,
+        [_Location_line]: 97,
+        [_Location_file]: null
+      });
+    },
+    get C36() {
+      return C[36] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "chartWidget",
+        [_Location_column]: 7,
+        [_Location_line]: 98,
+        [_Location_file]: null
+      });
+    },
+    get C37() {
+      return C[37] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "chartState",
+        [_Location_column]: 7,
+        [_Location_line]: 99,
+        [_Location_file]: null
+      });
+    },
+    get C38() {
+      return C[38] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "animationValue",
+        [_Location_column]: 7,
+        [_Location_line]: 100,
+        [_Location_file]: null
+      });
+    },
+    get C39() {
+      return C[39] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "rtl",
+        [_Location_column]: 7,
+        [_Location_line]: 101,
+        [_Location_file]: null
+      });
+    },
+    get C40() {
+      return C[40] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "rtlSpec",
+        [_Location_column]: 7,
+        [_Location_line]: 102,
+        [_Location_file]: null
+      });
+    },
+    get C41() {
+      return C[41] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "userManagedState",
+        [_Location_column]: 7,
+        [_Location_line]: 103,
+        [_Location_file]: null
+      });
+    },
+    get C34() {
+      return C[34] = dart.constList([C[35] || CT.C35, C[36] || CT.C36, C[37] || CT.C37, C[38] || CT.C38, C[39] || CT.C39, C[40] || CT.C40, C[41] || CT.C41], T._LocationL());
+    },
+    get C33() {
+      return C[33] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[34] || CT.C34,
+        [_Location_name]: null,
+        [_Location_column]: 32,
+        [_Location_line]: 96,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/charts_flutter-0.10.0/lib/src/base_chart_state.dart"
+      });
+    },
+    get C44() {
+      return C[44] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "id",
+        [_Location_column]: 9,
+        [_Location_line]: 124,
+        [_Location_file]: null
+      });
+    },
+    get C45() {
+      return C[45] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 37,
+        [_Location_line]: 124,
+        [_Location_file]: null
+      });
+    },
+    get C43() {
+      return C[43] = dart.constList([C[44] || CT.C44, C[45] || CT.C45], T._LocationL());
+    },
+    get C42() {
+      return C[42] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[43] || CT.C43,
+        [_Location_name]: null,
+        [_Location_column]: 26,
+        [_Location_line]: 123,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/charts_flutter-0.10.0/lib/src/base_chart_state.dart"
+      });
+    },
+    get C48() {
+      return C[48] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "id",
+        [_Location_column]: 39,
+        [_Location_line]: 135,
+        [_Location_file]: null
+      });
+    },
+    get C49() {
+      return C[49] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 47,
+        [_Location_line]: 135,
+        [_Location_file]: null
+      });
+    },
+    get C47() {
+      return C[47] = dart.constList([C[48] || CT.C48, C[49] || CT.C49], T._LocationL());
+    },
+    get C46() {
+      return C[46] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[47] || CT.C47,
+        [_Location_name]: null,
+        [_Location_column]: 30,
+        [_Location_line]: 135,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/charts_flutter-0.10.0/lib/src/base_chart_state.dart"
+      });
+    },
+    get C52() {
+      return C[52] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "delegate",
+        [_Location_column]: 9,
+        [_Location_line]: 142,
+        [_Location_file]: null
+      });
+    },
+    get C53() {
+      return C[53] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 9,
+        [_Location_line]: 144,
+        [_Location_file]: null
+      });
+    },
+    get C51() {
+      return C[51] = dart.constList([C[52] || CT.C52, C[53] || CT.C53], T._LocationL());
+    },
+    get C50() {
+      return C[50] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[51] || CT.C51,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 141,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/charts_flutter-0.10.0/lib/src/base_chart_state.dart"
+      });
+    },
+    get C54() {
+      return C[54] = dart.const({
+        __proto__: chart_behavior$.GestureType.prototype,
+        [_name$4]: "GestureType.onLongPress",
+        index: 0
+      });
+    },
+    get C55() {
+      return C[55] = dart.const({
+        __proto__: chart_behavior$.GestureType.prototype,
+        [_name$4]: "GestureType.onTap",
+        index: 1
+      });
+    },
+    get C56() {
+      return C[56] = dart.const({
+        __proto__: chart_behavior$.GestureType.prototype,
+        [_name$4]: "GestureType.onHover",
+        index: 2
+      });
+    },
+    get C57() {
+      return C[57] = dart.const({
+        __proto__: chart_behavior$.GestureType.prototype,
+        [_name$4]: "GestureType.onDrag",
+        index: 3
+      });
+    },
+    get C58() {
+      return C[58] = dart.constList([C[54] || CT.C54, C[55] || CT.C55, C[56] || CT.C56, C[57] || CT.C57], T.GestureTypeL());
+    }
+  }, false);
+  var C = Array(59).fill(void 0);
+  var I = [
+    "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/charts_flutter-0.10.0/lib/src/widget_layout_delegate.dart",
+    "package:charts_flutter/src/widget_layout_delegate.dart",
+    "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/charts_flutter-0.10.0/lib/src/util.dart",
+    "package:charts_flutter/src/chart_gesture_detector.dart",
+    "package:charts_flutter/src/base_chart.dart",
+    "package:charts_flutter/src/cartesian_chart.dart",
+    "package:charts_flutter/src/behaviors/chart_behavior.dart",
+    "package:charts_flutter/src/behaviors/line_point_highlighter.dart",
+    "package:charts_flutter/src/time_series_chart.dart",
+    "package:charts_flutter/src/chart_container.dart",
+    "package:charts_flutter/src/behaviors/select_nearest.dart",
+    "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/charts_flutter-0.10.0/lib/src/base_chart_state.dart",
+    "package:charts_flutter/src/base_chart_state.dart"
+  ];
+  var chartID$ = dart.privateName(widget_layout_delegate, "WidgetLayoutDelegate.chartID");
+  var isRTL$ = dart.privateName(widget_layout_delegate, "WidgetLayoutDelegate.isRTL");
+  var idAndBehavior$ = dart.privateName(widget_layout_delegate, "WidgetLayoutDelegate.idAndBehavior");
+  var _getBehaviorOffset = dart.privateName(widget_layout_delegate, "_getBehaviorOffset");
+  var _name$ = dart.privateName(widget_layout_delegate, "_name");
+  var _name = dart.privateName(chart_behavior, "_name");
+  widget_layout_delegate.WidgetLayoutDelegate = class WidgetLayoutDelegate extends custom_layout.MultiChildLayoutDelegate {
+    get chartID() {
+      return this[chartID$];
+    }
+    set chartID(value) {
+      super.chartID = value;
+    }
+    get isRTL() {
+      return this[isRTL$];
+    }
+    set isRTL(value) {
+      super.isRTL = value;
+    }
+    get idAndBehavior() {
+      return this[idAndBehavior$];
+    }
+    set idAndBehavior(value) {
+      super.idAndBehavior = value;
+    }
+    performLayout(size) {
+      if (!(dart.test(this.idAndBehavior[$keys][$isEmpty]) || this.idAndBehavior[$keys][$length] === 1)) dart.assertFailed(null, I[0], 43, 12, "idAndBehavior.keys.isEmpty || idAndBehavior.keys.length == 1");
+      let availableWidth = size.width;
+      let availableHeight = size.height;
+      let chartOffset = ui.Offset.zero;
+      let behaviorID = dart.test(this.idAndBehavior[$keys][$isNotEmpty]) ? this.idAndBehavior[$keys][$first] : null;
+      let behaviorSize = ui.Size.zero;
+      if (behaviorID != null) {
+        if (dart.test(this.hasChild(behaviorID))) {
+          let leftPosition = dart.dtest(this.isRTL) ? chart_behavior.BehaviorPosition.end : chart_behavior.BehaviorPosition.start;
+          let rightPosition = dart.dtest(this.isRTL) ? chart_behavior.BehaviorPosition.start : chart_behavior.BehaviorPosition.end;
+          let behaviorPosition = this.idAndBehavior[$_get](behaviorID).position;
+          behaviorSize = this.layoutChild(behaviorID, new box.BoxConstraints.loose(size));
+          if (behaviorPosition == chart_behavior.BehaviorPosition.top) {
+            chartOffset = new ui.Offset.new(0.0, behaviorSize.height);
+            availableHeight = dart.notNull(availableHeight) - dart.notNull(behaviorSize.height);
+          } else if (behaviorPosition == chart_behavior.BehaviorPosition.bottom) {
+            availableHeight = dart.notNull(availableHeight) - dart.notNull(behaviorSize.height);
+          } else if (behaviorPosition == leftPosition) {
+            chartOffset = new ui.Offset.new(behaviorSize.width, 0.0);
+            availableWidth = dart.notNull(availableWidth) - dart.notNull(behaviorSize.width);
+          } else if (behaviorPosition == rightPosition) {
+            availableWidth = dart.notNull(availableWidth) - dart.notNull(behaviorSize.width);
+          }
+        }
+      }
+      let chartSize = new ui.Size.new(availableWidth, availableHeight);
+      if (dart.test(this.hasChild(this.chartID))) {
+        this.layoutChild(this.chartID, new box.BoxConstraints.tight(chartSize));
+        this.positionChild(this.chartID, chartOffset);
+      }
+      if (behaviorID != null) {
+        let behaviorOffset = this[_getBehaviorOffset](this.idAndBehavior[$_get](behaviorID), {behaviorSize: behaviorSize, chartSize: chartSize, isRTL: T.boolL().as(this.isRTL)});
+        this.positionChild(behaviorID, behaviorOffset);
+      }
+    }
+    shouldRelayout(oldDelegate) {
+      T.MultiChildLayoutDelegateL().as(oldDelegate);
+      return !dart.equals(this.idAndBehavior, T.WidgetLayoutDelegateL().as(oldDelegate).idAndBehavior);
+    }
+    [_getBehaviorOffset](behavior, opts) {
+      let behaviorSize = opts && 'behaviorSize' in opts ? opts.behaviorSize : null;
+      let chartSize = opts && 'chartSize' in opts ? opts.chartSize : null;
+      let isRTL = opts && 'isRTL' in opts ? opts.isRTL : null;
+      let behaviorOffset = null;
+      let behaviorPosition = behavior.position;
+      let outsideJustification = behavior.outsideJustification;
+      let insideJustification = behavior.insideJustification;
+      if (behaviorPosition == chart_behavior.BehaviorPosition.top || behaviorPosition == chart_behavior.BehaviorPosition.bottom) {
+        let heightOffset = behaviorPosition == chart_behavior.BehaviorPosition.bottom ? chartSize.height : 0.0;
+        let horizontalJustification = this.getOutsideJustification(outsideJustification, isRTL);
+        switch (horizontalJustification) {
+          case C[0] || CT.C0:
+          {
+            behaviorOffset = new ui.Offset.new(behavior.drawAreaBounds[$left][$toDouble](), heightOffset);
+            break;
+          }
+          case C[1] || CT.C1:
+          {
+            behaviorOffset = new ui.Offset.new(0.0, heightOffset);
+            break;
+          }
+          case C[2] || CT.C2:
+          {
+            behaviorOffset = new ui.Offset.new(dart.notNull(behavior.drawAreaBounds[$right]) - dart.notNull(behaviorSize.width), heightOffset);
+            break;
+          }
+          case C[3] || CT.C3:
+          {
+            behaviorOffset = new ui.Offset.new(dart.notNull(chartSize.width) - dart.notNull(behaviorSize.width), heightOffset);
+            break;
+          }
+        }
+      } else if (behaviorPosition == chart_behavior.BehaviorPosition.start || behaviorPosition == chart_behavior.BehaviorPosition.end) {
+        let widthOffset = dart.test(isRTL) && behaviorPosition == chart_behavior.BehaviorPosition.start || !dart.test(isRTL) && behaviorPosition == chart_behavior.BehaviorPosition.end ? chartSize.width : 0.0;
+        switch (outsideJustification) {
+          case C[4] || CT.C4:
+          case C[5] || CT.C5:
+          {
+            behaviorOffset = new ui.Offset.new(widthOffset, behavior.drawAreaBounds[$top][$toDouble]());
+            break;
+          }
+          case C[6] || CT.C6:
+          case C[7] || CT.C7:
+          {
+            behaviorOffset = new ui.Offset.new(widthOffset, 0.0);
+            break;
+          }
+          case C[8] || CT.C8:
+          {
+            behaviorOffset = new ui.Offset.new(widthOffset, dart.notNull(behavior.drawAreaBounds[$bottom]) - dart.notNull(behaviorSize.height));
+            break;
+          }
+          case C[9] || CT.C9:
+          {
+            behaviorOffset = new ui.Offset.new(widthOffset, dart.notNull(chartSize.height) - dart.notNull(behaviorSize.height));
+            break;
+          }
+        }
+      } else if (behaviorPosition == chart_behavior.BehaviorPosition.inside) {
+        let rightOffset = new ui.Offset.new(dart.notNull(chartSize.width) - dart.notNull(behaviorSize.width), 0.0);
+        switch (insideJustification) {
+          case C[10] || CT.C10:
+          {
+            behaviorOffset = dart.test(isRTL) ? rightOffset : ui.Offset.zero;
+            break;
+          }
+          case C[11] || CT.C11:
+          {
+            behaviorOffset = dart.test(isRTL) ? ui.Offset.zero : rightOffset;
+            break;
+          }
+        }
+      }
+      return behaviorOffset;
+    }
+    getOutsideJustification(justification, isRTL) {
+      let mappedJustification = null;
+      switch (justification) {
+        case C[4] || CT.C4:
+        case C[5] || CT.C5:
+        {
+          mappedJustification = dart.test(isRTL) ? widget_layout_delegate._HorizontalJustification.rightDrawArea : widget_layout_delegate._HorizontalJustification.leftDrawArea;
+          break;
+        }
+        case C[6] || CT.C6:
+        case C[7] || CT.C7:
+        {
+          mappedJustification = dart.test(isRTL) ? widget_layout_delegate._HorizontalJustification.right : widget_layout_delegate._HorizontalJustification.left;
+          break;
+        }
+        case C[8] || CT.C8:
+        {
+          mappedJustification = dart.test(isRTL) ? widget_layout_delegate._HorizontalJustification.leftDrawArea : widget_layout_delegate._HorizontalJustification.rightDrawArea;
+          break;
+        }
+        case C[9] || CT.C9:
+        {
+          mappedJustification = dart.test(isRTL) ? widget_layout_delegate._HorizontalJustification.left : widget_layout_delegate._HorizontalJustification.right;
+          break;
+        }
+      }
+      return mappedJustification;
+    }
+  };
+  (widget_layout_delegate.WidgetLayoutDelegate.new = function(chartID, idAndBehavior, isRTL) {
+    this[chartID$] = chartID;
+    this[idAndBehavior$] = idAndBehavior;
+    this[isRTL$] = isRTL;
+    widget_layout_delegate.WidgetLayoutDelegate.__proto__.new.call(this);
+    ;
+  }).prototype = widget_layout_delegate.WidgetLayoutDelegate.prototype;
+  dart.addTypeTests(widget_layout_delegate.WidgetLayoutDelegate);
+  dart.addTypeCaches(widget_layout_delegate.WidgetLayoutDelegate);
+  dart.setMethodSignature(widget_layout_delegate.WidgetLayoutDelegate, () => ({
+    __proto__: dart.getMethods(widget_layout_delegate.WidgetLayoutDelegate.__proto__),
+    performLayout: dart.fnType(dart.void, [dart.legacy(ui.Size)]),
+    shouldRelayout: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)]),
+    [_getBehaviorOffset]: dart.fnType(dart.legacy(ui.Offset), [dart.legacy(chart_behavior$.BuildableBehavior$(dart.legacy(chart_behavior.ChartBehavior)))], {behaviorSize: dart.legacy(ui.Size), chartSize: dart.legacy(ui.Size), isRTL: dart.legacy(core.bool)}, {}),
+    getOutsideJustification: dart.fnType(dart.legacy(widget_layout_delegate._HorizontalJustification), [dart.legacy(chart_behavior.OutsideJustification), dart.legacy(core.bool)])
+  }));
+  dart.setLibraryUri(widget_layout_delegate.WidgetLayoutDelegate, I[1]);
+  dart.setFieldSignature(widget_layout_delegate.WidgetLayoutDelegate, () => ({
+    __proto__: dart.getFields(widget_layout_delegate.WidgetLayoutDelegate.__proto__),
+    chartID: dart.finalFieldType(dart.legacy(core.String)),
+    isRTL: dart.finalFieldType(dart.dynamic),
+    idAndBehavior: dart.finalFieldType(dart.legacy(core.Map$(dart.legacy(core.String), dart.legacy(chart_behavior$.BuildableBehavior$(dart.legacy(chart_behavior.ChartBehavior))))))
+  }));
+  widget_layout_delegate._HorizontalJustification = class _HorizontalJustification extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (widget_layout_delegate._HorizontalJustification.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = widget_layout_delegate._HorizontalJustification.prototype;
+  dart.addTypeTests(widget_layout_delegate._HorizontalJustification);
+  dart.addTypeCaches(widget_layout_delegate._HorizontalJustification);
+  dart.setMethodSignature(widget_layout_delegate._HorizontalJustification, () => ({
+    __proto__: dart.getMethods(widget_layout_delegate._HorizontalJustification.__proto__),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setLibraryUri(widget_layout_delegate._HorizontalJustification, I[1]);
+  dart.setFieldSignature(widget_layout_delegate._HorizontalJustification, () => ({
+    __proto__: dart.getFields(widget_layout_delegate._HorizontalJustification.__proto__),
+    index: dart.finalFieldType(dart.legacy(core.int)),
+    [_name$]: dart.finalFieldType(dart.legacy(core.String))
+  }));
+  dart.defineExtensionMethods(widget_layout_delegate._HorizontalJustification, ['toString']);
+  widget_layout_delegate._HorizontalJustification.leftDrawArea = C[0] || CT.C0;
+  widget_layout_delegate._HorizontalJustification.left = C[1] || CT.C1;
+  widget_layout_delegate._HorizontalJustification.rightDrawArea = C[2] || CT.C2;
+  widget_layout_delegate._HorizontalJustification.right = C[3] || CT.C3;
+  widget_layout_delegate._HorizontalJustification.values = C[12] || CT.C12;
+  util.getChartContainerRenderObject = function getChartContainerRenderObject(box) {
+    if (!T.RenderCustomMultiChildLayoutBoxL().is(box)) dart.assertFailed(null, I[2], 29, 10, "box is RenderCustomMultiChildLayoutBox");
+    let semanticHandler = T.RenderCustomMultiChildLayoutBoxL().as(box).getChildrenAsList()[$firstWhere](dart.fn(child => T.RenderSemanticsGestureHandlerL().is(child), T.RenderBoxLToboolL()));
+    if (!T.RenderSemanticsGestureHandlerL().is(semanticHandler)) dart.assertFailed(null, I[2], 34, 10, "semanticHandler is RenderSemanticsGestureHandler");
+    let renderPointerListener = T.RenderSemanticsGestureHandlerL().as(semanticHandler).child;
+    if (!T.RenderPointerListenerL().is(renderPointerListener)) dart.assertFailed(null, I[2], 38, 10, "renderPointerListener is RenderPointerListener");
+    let chartContainerRenderObject = T.RenderPointerListenerL().as(renderPointerListener).child;
+    if (!T.ChartContainerRenderObjectL().is(chartContainerRenderObject)) dart.assertFailed(null, I[2], 42, 10, "chartContainerRenderObject is ChartContainerRenderObject");
+    return T.ChartContainerRenderObjectL().as(chartContainerRenderObject);
+  };
+  var _listeningForLongPress = dart.privateName(chart_gesture_detector, "_listeningForLongPress");
+  var _isDragging = dart.privateName(chart_gesture_detector, "_isDragging");
+  var _longPressTimer = dart.privateName(chart_gesture_detector, "_longPressTimer");
+  var _lastTapPoint = dart.privateName(chart_gesture_detector, "_lastTapPoint");
+  var _lastScale = dart.privateName(chart_gesture_detector, "_lastScale");
+  var _containerResolver = dart.privateName(chart_gesture_detector, "_containerResolver");
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  chart_gesture_detector.ChartGestureDetector = class ChartGestureDetector extends core.Object {
+    makeWidget(context, chartContainer, desiredGestures) {
+      this[_containerResolver] = dart.fn(() => util.getChartContainerRenderObject(T.RenderBoxL().as(context.findRenderObject())), T.VoidToChartContainerRenderObjectL());
+      let wantTapDown = desiredGestures[$isNotEmpty];
+      let wantTap = desiredGestures.contains(chart_behavior$.GestureType.onTap);
+      let wantDrag = desiredGestures.contains(chart_behavior$.GestureType.onDrag);
+      this[_listeningForLongPress] = desiredGestures.contains(chart_behavior$.GestureType.onLongPress);
+      return new gesture_detector.GestureDetector.new({child: chartContainer, onTapDown: dart.test(wantTapDown) ? dart.bind(this, 'onTapDown') : null, onTapUp: dart.test(wantTap) ? dart.bind(this, 'onTapUp') : null, onScaleStart: dart.test(wantDrag) ? dart.bind(this, 'onScaleStart') : null, onScaleUpdate: dart.test(wantDrag) ? dart.bind(this, 'onScaleUpdate') : null, onScaleEnd: dart.test(wantDrag) ? dart.bind(this, 'onScaleEnd') : null, $creationLocationd_0dea112b090073317d4: C[13] || CT.C13});
+    }
+    onTapDown(d) {
+      let container = this[_containerResolver]();
+      let localPosition = container.globalToLocal(d.globalPosition);
+      this[_lastTapPoint] = new (T.PointOfdoubleL()).new(localPosition.dx, localPosition.dy);
+      container.gestureProxy.onTapTest(this[_lastTapPoint]);
+      if (dart.test(this[_listeningForLongPress])) {
+        this[_longPressTimer] = async.Timer.new(chart_gesture_detector._kLongPressTimeout, dart.fn(() => {
+          this.onLongPress();
+          this[_longPressTimer] = null;
+        }, T.VoidToNull()));
+      }
+    }
+    onTapUp(d) {
+      let t0;
+      t0 = this[_longPressTimer];
+      t0 == null ? null : t0.cancel();
+      let container = this[_containerResolver]();
+      let localPosition = container.globalToLocal(d.globalPosition);
+      this[_lastTapPoint] = new (T.PointOfdoubleL()).new(localPosition.dx, localPosition.dy);
+      container.gestureProxy.onTap(this[_lastTapPoint]);
+    }
+    onLongPress() {
+      let container = this[_containerResolver]();
+      container.gestureProxy.onLongPress(this[_lastTapPoint]);
+    }
+    onScaleStart(d) {
+      let t0;
+      t0 = this[_longPressTimer];
+      t0 == null ? null : t0.cancel();
+      let container = this[_containerResolver]();
+      let localPosition = container.globalToLocal(d.focalPoint);
+      this[_lastTapPoint] = new (T.PointOfdoubleL()).new(localPosition.dx, localPosition.dy);
+      this[_isDragging] = container.gestureProxy.onDragStart(this[_lastTapPoint]);
+    }
+    onScaleUpdate(d) {
+      if (!dart.test(this[_isDragging])) {
+        return;
+      }
+      let container = this[_containerResolver]();
+      let localPosition = container.globalToLocal(d.focalPoint);
+      this[_lastTapPoint] = new (T.PointOfdoubleL()).new(localPosition.dx, localPosition.dy);
+      this[_lastScale] = d.scale;
+      container.gestureProxy.onDragUpdate(this[_lastTapPoint], d.scale);
+    }
+    onScaleEnd(d) {
+      if (!dart.test(this[_isDragging])) {
+        return;
+      }
+      let container = this[_containerResolver]();
+      container.gestureProxy.onDragEnd(this[_lastTapPoint], this[_lastScale], d.velocity.pixelsPerSecond.dx);
+    }
+  };
+  (chart_gesture_detector.ChartGestureDetector.new = function() {
+    this[_listeningForLongPress] = null;
+    this[_isDragging] = false;
+    this[_longPressTimer] = null;
+    this[_lastTapPoint] = null;
+    this[_lastScale] = null;
+    this[_containerResolver] = null;
+    ;
+  }).prototype = chart_gesture_detector.ChartGestureDetector.prototype;
+  dart.addTypeTests(chart_gesture_detector.ChartGestureDetector);
+  dart.addTypeCaches(chart_gesture_detector.ChartGestureDetector);
+  dart.setMethodSignature(chart_gesture_detector.ChartGestureDetector, () => ({
+    __proto__: dart.getMethods(chart_gesture_detector.ChartGestureDetector.__proto__),
+    makeWidget: dart.fnType(dart.dynamic, [dart.legacy(framework.BuildContext), dart.legacy(chart_container.ChartContainer), dart.legacy(core.Set$(dart.legacy(chart_behavior$.GestureType)))]),
+    onTapDown: dart.fnType(dart.void, [dart.legacy(tap.TapDownDetails)]),
+    onTapUp: dart.fnType(dart.void, [dart.legacy(tap.TapUpDetails)]),
+    onLongPress: dart.fnType(dart.void, []),
+    onScaleStart: dart.fnType(dart.void, [dart.legacy(scale.ScaleStartDetails)]),
+    onScaleUpdate: dart.fnType(dart.void, [dart.legacy(scale.ScaleUpdateDetails)]),
+    onScaleEnd: dart.fnType(dart.void, [dart.legacy(scale.ScaleEndDetails)])
+  }));
+  dart.setLibraryUri(chart_gesture_detector.ChartGestureDetector, I[3]);
+  dart.setFieldSignature(chart_gesture_detector.ChartGestureDetector, () => ({
+    __proto__: dart.getFields(chart_gesture_detector.ChartGestureDetector.__proto__),
+    [_listeningForLongPress]: dart.fieldType(dart.legacy(core.bool)),
+    [_isDragging]: dart.fieldType(dart.legacy(core.bool)),
+    [_longPressTimer]: dart.fieldType(dart.legacy(async.Timer)),
+    [_lastTapPoint]: dart.fieldType(dart.legacy(math.Point$(dart.legacy(core.double)))),
+    [_lastScale]: dart.fieldType(dart.legacy(core.double)),
+    [_containerResolver]: dart.fieldType(dart.legacy(dart.fnType(dart.legacy(chart_container.ChartContainerRenderObject), [])))
+  }));
+  var Duration__duration = dart.privateName(core, "Duration._duration");
+  dart.defineLazy(chart_gesture_detector, {
+    /*chart_gesture_detector._kLongPressTimeout*/get _kLongPressTimeout() {
+      return C[21] || CT.C21;
+    }
+  }, true);
+  var domainAxis$ = dart.privateName(cartesian_chart$, "CartesianChart.domainAxis");
+  var primaryMeasureAxis$ = dart.privateName(cartesian_chart$, "CartesianChart.primaryMeasureAxis");
+  var secondaryMeasureAxis$ = dart.privateName(cartesian_chart$, "CartesianChart.secondaryMeasureAxis");
+  var disjointMeasureAxes$ = dart.privateName(cartesian_chart$, "CartesianChart.disjointMeasureAxes");
+  var flipVerticalAxis$ = dart.privateName(cartesian_chart$, "CartesianChart.flipVerticalAxis");
+  var seriesList$ = dart.privateName(base_chart$, "BaseChart.seriesList");
+  var animate$ = dart.privateName(base_chart$, "BaseChart.animate");
+  var animationDuration$ = dart.privateName(base_chart$, "BaseChart.animationDuration");
+  var layoutConfig$ = dart.privateName(base_chart$, "BaseChart.layoutConfig");
+  var defaultRenderer$ = dart.privateName(base_chart$, "BaseChart.defaultRenderer");
+  var defaultInteractions$ = dart.privateName(base_chart$, "BaseChart.defaultInteractions");
+  var behaviors$ = dart.privateName(base_chart$, "BaseChart.behaviors");
+  var selectionModels$ = dart.privateName(base_chart$, "BaseChart.selectionModels");
+  var customSeriesRenderers$ = dart.privateName(base_chart$, "BaseChart.customSeriesRenderers");
+  var rtlSpec$ = dart.privateName(base_chart$, "BaseChart.rtlSpec");
+  var userManagedState$ = dart.privateName(base_chart$, "BaseChart.userManagedState");
+  var _updateBehaviors = dart.privateName(base_chart$, "_updateBehaviors");
+  var _updateSelectionModel = dart.privateName(base_chart$, "_updateSelectionModel");
+  var _notACustomBehavior = dart.privateName(base_chart$, "_notACustomBehavior");
+  const _is_BaseChart_default = Symbol('_is_BaseChart_default');
+  base_chart$.BaseChart$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    var BaseChartStateOfDL = () => (BaseChartStateOfDL = dart.constFn(base_chart_state.BaseChartState$(DL())))();
+    var BaseChartOfDL = () => (BaseChartOfDL = dart.constFn(base_chart$.BaseChart$(DL())))();
+    var BaseChartLOfDL = () => (BaseChartLOfDL = dart.constFn(dart.legacy(BaseChartOfDL())))();
+    var BaseChartStateLOfDL = () => (BaseChartStateLOfDL = dart.constFn(dart.legacy(BaseChartStateOfDL())))();
+    var BaseChartOfDL$ = () => (BaseChartOfDL$ = dart.constFn(base_chart.BaseChart$(DL())))();
+    var BaseChartLOfDL$ = () => (BaseChartLOfDL$ = dart.constFn(dart.legacy(BaseChartOfDL$())))();
+    var SelectionModelOfDL = () => (SelectionModelOfDL = dart.constFn(selection_model.SelectionModel$(DL())))();
+    var SelectionModelLOfDL = () => (SelectionModelLOfDL = dart.constFn(dart.legacy(SelectionModelOfDL())))();
+    var SelectionModelLOfDLTovoid = () => (SelectionModelLOfDLTovoid = dart.constFn(dart.fnType(dart.void, [SelectionModelLOfDL()])))();
+    var SelectionModelLOfDLToLvoid = () => (SelectionModelLOfDLToLvoid = dart.constFn(dart.legacy(SelectionModelLOfDLTovoid())))();
+    var MapOfSelectionModelTypeL$SelectionModelLOfDLToLvoid = () => (MapOfSelectionModelTypeL$SelectionModelLOfDLToLvoid = dart.constFn(core.Map$(T.SelectionModelTypeL(), SelectionModelLOfDLToLvoid())))();
+    var MapLOfSelectionModelTypeL$SelectionModelLOfDLToLvoid = () => (MapLOfSelectionModelTypeL$SelectionModelLOfDLToLvoid = dart.constFn(dart.legacy(MapOfSelectionModelTypeL$SelectionModelLOfDLToLvoid())))();
+    var SelectionModelConfigOfDL = () => (SelectionModelConfigOfDL = dart.constFn(selection_model_config.SelectionModelConfig$(DL())))();
+    var SelectionModelConfigLOfDL = () => (SelectionModelConfigLOfDL = dart.constFn(dart.legacy(SelectionModelConfigOfDL())))();
+    var SelectionModelConfigLOfDLToNull = () => (SelectionModelConfigLOfDLToNull = dart.constFn(dart.fnType(core.Null, [SelectionModelConfigLOfDL()])))();
+    class BaseChart extends framework.StatefulWidget {
+      get seriesList() {
+        return this[seriesList$];
+      }
+      set seriesList(value) {
+        super.seriesList = value;
+      }
+      get animate() {
+        return this[animate$];
+      }
+      set animate(value) {
+        super.animate = value;
+      }
+      get animationDuration() {
+        return this[animationDuration$];
+      }
+      set animationDuration(value) {
+        super.animationDuration = value;
+      }
+      get layoutConfig() {
+        return this[layoutConfig$];
+      }
+      set layoutConfig(value) {
+        super.layoutConfig = value;
+      }
+      get defaultRenderer() {
+        return this[defaultRenderer$];
+      }
+      set defaultRenderer(value) {
+        super.defaultRenderer = value;
+      }
+      get defaultInteractions() {
+        return this[defaultInteractions$];
+      }
+      set defaultInteractions(value) {
+        super.defaultInteractions = value;
+      }
+      get behaviors() {
+        return this[behaviors$];
+      }
+      set behaviors(value) {
+        super.behaviors = value;
+      }
+      get selectionModels() {
+        return this[selectionModels$];
+      }
+      set selectionModels(value) {
+        super.selectionModels = value;
+      }
+      get customSeriesRenderers() {
+        return this[customSeriesRenderers$];
+      }
+      set customSeriesRenderers(value) {
+        super.customSeriesRenderers = value;
+      }
+      get rtlSpec() {
+        return this[rtlSpec$];
+      }
+      set rtlSpec(value) {
+        super.rtlSpec = value;
+      }
+      get userManagedState() {
+        return this[userManagedState$];
+      }
+      set userManagedState(value) {
+        super.userManagedState = value;
+      }
+      createState() {
+        return new (BaseChartStateOfDL()).new();
+      }
+      updateCommonChart(chart, oldWidget, chartState) {
+        let t0;
+        BaseChartLOfDL().as(oldWidget);
+        BaseChartStateLOfDL().as(chartState);
+        performance.Performance.time("chartsUpdateRenderers");
+        if (this.defaultRenderer != null && !dart.equals(this.defaultRenderer, (t0 = oldWidget, t0 == null ? null : t0.defaultRenderer))) {
+          chart.defaultRenderer = this.defaultRenderer.build();
+          chartState.markChartDirty();
+        }
+        if (this.customSeriesRenderers != null) {
+          for (let i = 0; i < dart.notNull(this.customSeriesRenderers[$length]); i = i + 1) {
+            if (oldWidget == null || oldWidget.customSeriesRenderers != null && i > dart.notNull(oldWidget.customSeriesRenderers[$length]) || !dart.equals(this.customSeriesRenderers[$_get](i), oldWidget.customSeriesRenderers[$_get](i))) {
+              chart.addSeriesRenderer(this.customSeriesRenderers[$_get](i).build());
+              chartState.markChartDirty();
+            }
+          }
+        }
+        performance.Performance.timeEnd("chartsUpdateRenderers");
+        performance.Performance.time("chartsUpdateBehaviors");
+        this[_updateBehaviors](chart, chartState);
+        performance.Performance.timeEnd("chartsUpdateBehaviors");
+        this[_updateSelectionModel](BaseChartLOfDL$().as(chart), chartState);
+        chart.transition = dart.test(this.animate) ? this.animationDuration : core.Duration.zero;
+      }
+      [_updateBehaviors](chart, chartState) {
+        let behaviorList = this.behaviors != null ? T.ListOfChartBehaviorLOfChartBehaviorL().from(this.behaviors) : T.JSArrayOfChartBehaviorLOfChartBehaviorL().of([]);
+        if (dart.test(this.defaultInteractions)) {
+          if (dart.test(chartState.autoBehaviorWidgets[$isEmpty])) {
+            this.addDefaultInteractions(chartState.autoBehaviorWidgets);
+          }
+          chartState.autoBehaviorWidgets[$reversed][$where](dart.bind(this, _notACustomBehavior))[$forEach](dart.fn(behavior => {
+            behaviorList[$insert](0, behavior);
+          }, T.ChartBehaviorLOfChartBehaviorLToNull()));
+        }
+        for (let i = dart.notNull(chartState.addedBehaviorWidgets[$length]) - 1; i >= 0; i = i - 1) {
+          let addedBehavior = chartState.addedBehaviorWidgets[$_get](i);
+          if (!dart.test(behaviorList[$remove](addedBehavior))) {
+            let role = addedBehavior.role;
+            chartState.addedBehaviorWidgets[$remove](addedBehavior);
+            chartState.addedCommonBehaviorsByRole[$remove](role);
+            chart.removeBehavior(chartState.addedCommonBehaviorsByRole[$_get](role));
+            chartState.markChartDirty();
+          }
+        }
+        behaviorList[$forEach](dart.fn(behaviorWidget => {
+          let commonBehavior = chart.createBehavior(dart.fn(D => dart.legacy(chart_behavior.ChartBehavior$(dart.legacy(D))).as(behaviorWidget.createCommonBehavior(dart.legacy(D))), T.VoidToChartBehaviorLOfDL()));
+          if (T.ChartStateBehaviorLOfChartBehaviorL().is(commonBehavior)) {
+            T.ChartStateBehaviorLOfChartBehaviorL().as(commonBehavior).chartState = chartState;
+          }
+          chart.addBehavior(commonBehavior);
+          chartState.addedBehaviorWidgets[$add](behaviorWidget);
+          chartState.addedCommonBehaviorsByRole[$_set](behaviorWidget.role, commonBehavior);
+          chartState.markChartDirty();
+        }, T.ChartBehaviorLOfChartBehaviorLToNull()));
+      }
+      addDefaultInteractions(behaviors) {
+        behaviors[$add](select_nearest$.SelectNearest.new({eventTrigger: selection_trigger.SelectionTrigger.tap, selectionModelType: selection_model.SelectionModelType.info, selectClosestSeries: true}));
+      }
+      [_notACustomBehavior](behavior) {
+        return this.behaviors == null || !dart.test(this.behaviors[$any](dart.fn(userBehavior => userBehavior.role == behavior.role, T.ChartBehaviorLOfChartBehaviorLToboolL())));
+      }
+      [_updateSelectionModel](chart, chartState) {
+        let t0;
+        let prevTypes = T.ListOfSelectionModelTypeL().from(MapLOfSelectionModelTypeL$SelectionModelLOfDLToLvoid().as(chartState.addedSelectionChangedListenersByType)[$keys]);
+        t0 = this.selectionModels;
+        t0 == null ? null : t0[$forEach](dart.fn(model => {
+          let selectionModel = chart.getSelectionModel(model.type);
+          let prevChangedListener = MapLOfSelectionModelTypeL$SelectionModelLOfDLToLvoid().as(chartState.addedSelectionChangedListenersByType)[$_get](model.type);
+          if (SelectionModelLOfDLToLvoid().as(model.changedListener) != prevChangedListener) {
+            selectionModel.removeSelectionChangedListener(prevChangedListener);
+            selectionModel.addSelectionChangedListener(SelectionModelLOfDLToLvoid().as(model.changedListener));
+            MapLOfSelectionModelTypeL$SelectionModelLOfDLToLvoid().as(chartState.addedSelectionChangedListenersByType)[$_set](model.type, SelectionModelLOfDLToLvoid().as(model.changedListener));
+          }
+          let prevUpdatedListener = MapLOfSelectionModelTypeL$SelectionModelLOfDLToLvoid().as(chartState.addedSelectionUpdatedListenersByType)[$_get](model.type);
+          if (SelectionModelLOfDLToLvoid().as(model.updatedListener) != prevUpdatedListener) {
+            selectionModel.removeSelectionUpdatedListener(prevUpdatedListener);
+            selectionModel.addSelectionUpdatedListener(SelectionModelLOfDLToLvoid().as(model.updatedListener));
+            MapLOfSelectionModelTypeL$SelectionModelLOfDLToLvoid().as(chartState.addedSelectionUpdatedListenersByType)[$_set](model.type, SelectionModelLOfDLToLvoid().as(model.updatedListener));
+          }
+          prevTypes[$remove](model.type);
+        }, SelectionModelConfigLOfDLToNull()));
+        prevTypes[$forEach](dart.fn(type => {
+          let t0;
+          t0 = chart.getSelectionModel(type);
+          (() => {
+            t0.removeSelectionChangedListener(MapLOfSelectionModelTypeL$SelectionModelLOfDLToLvoid().as(chartState.addedSelectionChangedListenersByType)[$_get](type));
+            t0.removeSelectionUpdatedListener(MapLOfSelectionModelTypeL$SelectionModelLOfDLToLvoid().as(chartState.addedSelectionUpdatedListenersByType)[$_get](type));
+            return t0;
+          })();
+        }, T.SelectionModelTypeLToNull()));
+      }
+      getDesiredGestures(chartState) {
+        let t0;
+        let types = new (T._HashSetOfGestureTypeL()).new();
+        t0 = this.behaviors;
+        t0 == null ? null : t0[$forEach](dart.fn(behavior => {
+          types.addAll(behavior.desiredGestures);
+        }, T.ChartBehaviorLOfChartBehaviorLToNull()));
+        if (dart.test(this.defaultInteractions) && dart.test(chartState.autoBehaviorWidgets[$isEmpty])) {
+          this.addDefaultInteractions(chartState.autoBehaviorWidgets);
+        }
+        chartState.autoBehaviorWidgets[$forEach](dart.fn(behavior => {
+          types.addAll(behavior.desiredGestures);
+        }, T.ChartBehaviorLOfChartBehaviorLToNull()));
+        return types;
+      }
+    }
+    (BaseChart.new = function(seriesList, opts) {
+      let t0, t0$;
+      let animate = opts && 'animate' in opts ? opts.animate : null;
+      let animationDuration = opts && 'animationDuration' in opts ? opts.animationDuration : null;
+      let defaultRenderer = opts && 'defaultRenderer' in opts ? opts.defaultRenderer : null;
+      let customSeriesRenderers = opts && 'customSeriesRenderers' in opts ? opts.customSeriesRenderers : null;
+      let behaviors = opts && 'behaviors' in opts ? opts.behaviors : null;
+      let selectionModels = opts && 'selectionModels' in opts ? opts.selectionModels : null;
+      let rtlSpec = opts && 'rtlSpec' in opts ? opts.rtlSpec : null;
+      let defaultInteractions = opts && 'defaultInteractions' in opts ? opts.defaultInteractions : true;
+      let layoutConfig = opts && 'layoutConfig' in opts ? opts.layoutConfig : null;
+      let userManagedState = opts && 'userManagedState' in opts ? opts.userManagedState : null;
+      let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+      this[seriesList$] = seriesList;
+      this[defaultRenderer$] = defaultRenderer;
+      this[customSeriesRenderers$] = customSeriesRenderers;
+      this[behaviors$] = behaviors;
+      this[selectionModels$] = selectionModels;
+      this[rtlSpec$] = rtlSpec;
+      this[defaultInteractions$] = defaultInteractions;
+      this[layoutConfig$] = layoutConfig;
+      this[userManagedState$] = userManagedState;
+      this[animate$] = (t0 = animate, t0 == null ? true : t0);
+      this[animationDuration$] = (t0$ = animationDuration, t0$ == null ? C[22] || CT.C22 : t0$);
+      BaseChart.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+      ;
+    }).prototype = BaseChart.prototype;
+    dart.addTypeTests(BaseChart);
+    BaseChart.prototype[_is_BaseChart_default] = true;
+    dart.addTypeCaches(BaseChart);
+    dart.setMethodSignature(BaseChart, () => ({
+      __proto__: dart.getMethods(BaseChart.__proto__),
+      createState: dart.fnType(dart.legacy(base_chart_state.BaseChartState$(dart.legacy(D))), []),
+      updateCommonChart: dart.fnType(dart.void, [dart.legacy(base_chart.BaseChart), dart.legacy(core.Object), dart.legacy(core.Object)]),
+      [_updateBehaviors]: dart.fnType(dart.void, [dart.legacy(base_chart.BaseChart), dart.legacy(base_chart_state.BaseChartState)]),
+      addDefaultInteractions: dart.fnType(dart.void, [dart.legacy(core.List$(dart.legacy(chart_behavior$.ChartBehavior$(dart.legacy(chart_behavior.ChartBehavior)))))]),
+      [_notACustomBehavior]: dart.fnType(dart.legacy(core.bool), [dart.legacy(chart_behavior$.ChartBehavior$(dart.legacy(chart_behavior.ChartBehavior)))]),
+      [_updateSelectionModel]: dart.fnType(dart.void, [dart.legacy(base_chart.BaseChart$(dart.legacy(D))), dart.legacy(base_chart_state.BaseChartState$(dart.legacy(D)))]),
+      getDesiredGestures: dart.fnType(dart.legacy(core.Set$(dart.legacy(chart_behavior$.GestureType))), [dart.legacy(base_chart_state.BaseChartState)])
+    }));
+    dart.setLibraryUri(BaseChart, I[4]);
+    dart.setFieldSignature(BaseChart, () => ({
+      __proto__: dart.getFields(BaseChart.__proto__),
+      seriesList: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(series.Series$(dart.dynamic, dart.legacy(D)))))),
+      animate: dart.finalFieldType(dart.legacy(core.bool)),
+      animationDuration: dart.finalFieldType(dart.legacy(core.Duration)),
+      layoutConfig: dart.finalFieldType(dart.legacy(base_chart$.LayoutConfig)),
+      defaultRenderer: dart.finalFieldType(dart.legacy(series_renderer_config.SeriesRendererConfig$(dart.legacy(D)))),
+      defaultInteractions: dart.finalFieldType(dart.legacy(core.bool)),
+      behaviors: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(chart_behavior$.ChartBehavior$(dart.legacy(chart_behavior.ChartBehavior)))))),
+      selectionModels: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(selection_model_config.SelectionModelConfig$(dart.legacy(D)))))),
+      customSeriesRenderers: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(series_renderer_config.SeriesRendererConfig$(dart.legacy(D)))))),
+      rtlSpec: dart.finalFieldType(dart.legacy(rtl_spec.RTLSpec)),
+      userManagedState: dart.finalFieldType(dart.legacy(user_managed_state.UserManagedState$(dart.legacy(D))))
+    }));
+    return BaseChart;
+  });
+  base_chart$.BaseChart = base_chart$.BaseChart$();
+  dart.addTypeTests(base_chart$.BaseChart, _is_BaseChart_default);
+  const _is_CartesianChart_default = Symbol('_is_CartesianChart_default');
+  cartesian_chart$.CartesianChart$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    var UserManagedStateOfDL = () => (UserManagedStateOfDL = dart.constFn(user_managed_state.UserManagedState$(DL())))();
+    var UserManagedStateLOfDL = () => (UserManagedStateLOfDL = dart.constFn(dart.legacy(UserManagedStateOfDL())))();
+    var BaseChartOfDL = () => (BaseChartOfDL = dart.constFn(base_chart$.BaseChart$(DL())))();
+    var BaseChartLOfDL = () => (BaseChartLOfDL = dart.constFn(dart.legacy(BaseChartOfDL())))();
+    var BaseChartStateOfDL = () => (BaseChartStateOfDL = dart.constFn(base_chart_state.BaseChartState$(DL())))();
+    var BaseChartStateLOfDL = () => (BaseChartStateLOfDL = dart.constFn(dart.legacy(BaseChartStateOfDL())))();
+    class CartesianChart extends base_chart$.BaseChart$(dart.legacy(D)) {
+      get domainAxis() {
+        return this[domainAxis$];
+      }
+      set domainAxis(value) {
+        super.domainAxis = value;
+      }
+      get primaryMeasureAxis() {
+        return this[primaryMeasureAxis$];
+      }
+      set primaryMeasureAxis(value) {
+        super.primaryMeasureAxis = value;
+      }
+      get secondaryMeasureAxis() {
+        return this[secondaryMeasureAxis$];
+      }
+      set secondaryMeasureAxis(value) {
+        super.secondaryMeasureAxis = value;
+      }
+      get disjointMeasureAxes() {
+        return this[disjointMeasureAxes$];
+      }
+      set disjointMeasureAxes(value) {
+        super.disjointMeasureAxes = value;
+      }
+      get flipVerticalAxis() {
+        return this[flipVerticalAxis$];
+      }
+      set flipVerticalAxis(value) {
+        super.flipVerticalAxis = value;
+      }
+      updateCommonChart(baseChart, oldWidget, chartState) {
+        let t0, t0$, t0$0, t0$1;
+        T.BaseChartL().as(oldWidget);
+        T.BaseChartStateL().as(chartState);
+        super.updateCommonChart(baseChart, BaseChartLOfDL().as(oldWidget), BaseChartStateLOfDL().as(chartState));
+        let prev = T.CartesianChartL().as(oldWidget);
+        let chart = T.CartesianChartL$1().as(baseChart);
+        if (this.flipVerticalAxis != null) {
+          chart.flipVerticalAxisOutput = this.flipVerticalAxis;
+        }
+        if (this.domainAxis != null && !dart.equals(this.domainAxis, (t0 = prev, t0 == null ? null : t0.domainAxis))) {
+          chart.domainAxisSpec = this.domainAxis;
+          chartState.markChartDirty();
+        }
+        if (!dart.equals(this.primaryMeasureAxis, (t0$ = prev, t0$ == null ? null : t0$.primaryMeasureAxis))) {
+          chart.primaryMeasureAxisSpec = this.primaryMeasureAxis;
+          chartState.markChartDirty();
+        }
+        if (!dart.equals(this.secondaryMeasureAxis, (t0$0 = prev, t0$0 == null ? null : t0$0.secondaryMeasureAxis))) {
+          chart.secondaryMeasureAxisSpec = this.secondaryMeasureAxis;
+          chartState.markChartDirty();
+        }
+        if (!dart.equals(this.disjointMeasureAxes, (t0$1 = prev, t0$1 == null ? null : t0$1.disjointMeasureAxes))) {
+          chart.disjointMeasureAxisSpecs = this.disjointMeasureAxes;
+          chartState.markChartDirty();
+        }
+      }
+      createDisjointMeasureAxes() {
+        if (this.disjointMeasureAxes != null) {
+          let disjointAxes = new (T.IdentityMapOfStringL$NumericAxisL()).new();
+          this.disjointMeasureAxes[$forEach](dart.fn((axisId, axisSpec) => {
+            disjointAxes[$_set](axisId, axisSpec.createAxis());
+          }, T.StringLAndNumericAxisSpecLToNull()));
+          return disjointAxes;
+        } else {
+          return null;
+        }
+      }
+    }
+    (CartesianChart.new = function(seriesList, opts) {
+      let animate = opts && 'animate' in opts ? opts.animate : null;
+      let animationDuration = opts && 'animationDuration' in opts ? opts.animationDuration : null;
+      let domainAxis = opts && 'domainAxis' in opts ? opts.domainAxis : null;
+      let primaryMeasureAxis = opts && 'primaryMeasureAxis' in opts ? opts.primaryMeasureAxis : null;
+      let secondaryMeasureAxis = opts && 'secondaryMeasureAxis' in opts ? opts.secondaryMeasureAxis : null;
+      let disjointMeasureAxes = opts && 'disjointMeasureAxes' in opts ? opts.disjointMeasureAxes : null;
+      let defaultRenderer = opts && 'defaultRenderer' in opts ? opts.defaultRenderer : null;
+      let customSeriesRenderers = opts && 'customSeriesRenderers' in opts ? opts.customSeriesRenderers : null;
+      let behaviors = opts && 'behaviors' in opts ? opts.behaviors : null;
+      let selectionModels = opts && 'selectionModels' in opts ? opts.selectionModels : null;
+      let rtlSpec = opts && 'rtlSpec' in opts ? opts.rtlSpec : null;
+      let defaultInteractions = opts && 'defaultInteractions' in opts ? opts.defaultInteractions : true;
+      let layoutConfig = opts && 'layoutConfig' in opts ? opts.layoutConfig : null;
+      let userManagedState = opts && 'userManagedState' in opts ? opts.userManagedState : null;
+      let flipVerticalAxis = opts && 'flipVerticalAxis' in opts ? opts.flipVerticalAxis : null;
+      let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+      this[domainAxis$] = domainAxis;
+      this[primaryMeasureAxis$] = primaryMeasureAxis;
+      this[secondaryMeasureAxis$] = secondaryMeasureAxis;
+      this[disjointMeasureAxes$] = disjointMeasureAxes;
+      this[flipVerticalAxis$] = flipVerticalAxis;
+      CartesianChart.__proto__.new.call(this, seriesList, {animate: animate, animationDuration: animationDuration, defaultRenderer: defaultRenderer, customSeriesRenderers: customSeriesRenderers, behaviors: behaviors, selectionModels: selectionModels, rtlSpec: rtlSpec, defaultInteractions: defaultInteractions, layoutConfig: layoutConfig, userManagedState: UserManagedStateLOfDL().as(userManagedState), $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+      ;
+    }).prototype = CartesianChart.prototype;
+    dart.addTypeTests(CartesianChart);
+    CartesianChart.prototype[_is_CartesianChart_default] = true;
+    dart.addTypeCaches(CartesianChart);
+    dart.setMethodSignature(CartesianChart, () => ({
+      __proto__: dart.getMethods(CartesianChart.__proto__),
+      createDisjointMeasureAxes: dart.fnType(dart.legacy(collection.LinkedHashMap$(dart.legacy(core.String), dart.legacy(axis.NumericAxis))), [])
+    }));
+    dart.setLibraryUri(CartesianChart, I[5]);
+    dart.setFieldSignature(CartesianChart, () => ({
+      __proto__: dart.getFields(CartesianChart.__proto__),
+      domainAxis: dart.finalFieldType(dart.legacy(axis_spec.AxisSpec)),
+      primaryMeasureAxis: dart.finalFieldType(dart.legacy(axis_spec.AxisSpec)),
+      secondaryMeasureAxis: dart.finalFieldType(dart.legacy(axis_spec.AxisSpec)),
+      disjointMeasureAxes: dart.finalFieldType(dart.legacy(collection.LinkedHashMap$(dart.legacy(core.String), dart.legacy(numeric_axis_spec.NumericAxisSpec)))),
+      flipVerticalAxis: dart.finalFieldType(dart.legacy(core.bool))
+    }));
+    return CartesianChart;
+  });
+  cartesian_chart$.CartesianChart = cartesian_chart$.CartesianChart$();
+  dart.addTypeTests(cartesian_chart$.CartesianChart, _is_CartesianChart_default);
+  var desiredGestures = dart.privateName(line_point_highlighter$, "LinePointHighlighter.desiredGestures");
+  var selectionModelType$ = dart.privateName(line_point_highlighter$, "LinePointHighlighter.selectionModelType");
+  var defaultRadiusPx$ = dart.privateName(line_point_highlighter$, "LinePointHighlighter.defaultRadiusPx");
+  var radiusPaddingPx$ = dart.privateName(line_point_highlighter$, "LinePointHighlighter.radiusPaddingPx");
+  var showHorizontalFollowLine$ = dart.privateName(line_point_highlighter$, "LinePointHighlighter.showHorizontalFollowLine");
+  var showVerticalFollowLine$ = dart.privateName(line_point_highlighter$, "LinePointHighlighter.showVerticalFollowLine");
+  var dashPattern$ = dart.privateName(line_point_highlighter$, "LinePointHighlighter.dashPattern");
+  var drawFollowLinesAcrossChart$ = dart.privateName(line_point_highlighter$, "LinePointHighlighter.drawFollowLinesAcrossChart");
+  var symbolRenderer$ = dart.privateName(line_point_highlighter$, "LinePointHighlighter.symbolRenderer");
+  const _is_ChartBehavior_default = Symbol('_is_ChartBehavior_default');
+  chart_behavior$.ChartBehavior$ = dart.generic(B => {
+    class ChartBehavior extends core.Object {}
+    (ChartBehavior.new = function() {
+      ;
+    }).prototype = ChartBehavior.prototype;
+    dart.addTypeTests(ChartBehavior);
+    ChartBehavior.prototype[_is_ChartBehavior_default] = true;
+    dart.addTypeCaches(ChartBehavior);
+    dart.setLibraryUri(ChartBehavior, I[6]);
+    return ChartBehavior;
+  });
+  chart_behavior$.ChartBehavior = chart_behavior$.ChartBehavior$();
+  dart.addTypeTests(chart_behavior$.ChartBehavior, _is_ChartBehavior_default);
+  line_point_highlighter$.LinePointHighlighter = class LinePointHighlighter extends chart_behavior$.ChartBehavior$(dart.legacy(line_point_highlighter.LinePointHighlighter)) {
+    get desiredGestures() {
+      return this[desiredGestures];
+    }
+    set desiredGestures(value) {
+      super.desiredGestures = value;
+    }
+    get selectionModelType() {
+      return this[selectionModelType$];
+    }
+    set selectionModelType(value) {
+      super.selectionModelType = value;
+    }
+    get defaultRadiusPx() {
+      return this[defaultRadiusPx$];
+    }
+    set defaultRadiusPx(value) {
+      super.defaultRadiusPx = value;
+    }
+    get radiusPaddingPx() {
+      return this[radiusPaddingPx$];
+    }
+    set radiusPaddingPx(value) {
+      super.radiusPaddingPx = value;
+    }
+    get showHorizontalFollowLine() {
+      return this[showHorizontalFollowLine$];
+    }
+    set showHorizontalFollowLine(value) {
+      super.showHorizontalFollowLine = value;
+    }
+    get showVerticalFollowLine() {
+      return this[showVerticalFollowLine$];
+    }
+    set showVerticalFollowLine(value) {
+      super.showVerticalFollowLine = value;
+    }
+    get dashPattern() {
+      return this[dashPattern$];
+    }
+    set dashPattern(value) {
+      super.dashPattern = value;
+    }
+    get drawFollowLinesAcrossChart() {
+      return this[drawFollowLinesAcrossChart$];
+    }
+    set drawFollowLinesAcrossChart(value) {
+      super.drawFollowLinesAcrossChart = value;
+    }
+    get symbolRenderer() {
+      return this[symbolRenderer$];
+    }
+    set symbolRenderer(value) {
+      super.symbolRenderer = value;
+    }
+    createCommonBehavior(D) {
+      return new (line_point_highlighter.LinePointHighlighter$(dart.legacy(D))).new({selectionModelType: this.selectionModelType, defaultRadiusPx: this.defaultRadiusPx, radiusPaddingPx: this.radiusPaddingPx, showHorizontalFollowLine: this.showHorizontalFollowLine, showVerticalFollowLine: this.showVerticalFollowLine, dashPattern: this.dashPattern, drawFollowLinesAcrossChart: this.drawFollowLinesAcrossChart, symbolRenderer: this.symbolRenderer});
+    }
+    updateCommonBehavior(commonBehavior) {
+      T.LinePointHighlighterL().as(commonBehavior);
+    }
+    get role() {
+      return "LinePointHighlighter-" + dart.str(dart.toString(this.selectionModelType));
+    }
+    _equals(o) {
+      if (o == null) return false;
+      return T.LinePointHighlighterL$1().is(o) && this.defaultRadiusPx == o.defaultRadiusPx && this.radiusPaddingPx == o.radiusPaddingPx && this.showHorizontalFollowLine == o.showHorizontalFollowLine && this.showVerticalFollowLine == o.showVerticalFollowLine && this.selectionModelType == o.selectionModelType && dart.test(new equality.ListEquality.new().equals(this.dashPattern, o.dashPattern)) && this.drawFollowLinesAcrossChart == o.drawFollowLinesAcrossChart;
+    }
+    get hashCode() {
+      return ui.hashValues(this.selectionModelType, this.defaultRadiusPx, this.radiusPaddingPx, this.showHorizontalFollowLine, this.showVerticalFollowLine, this.dashPattern, this.drawFollowLinesAcrossChart);
+    }
+  };
+  (line_point_highlighter$.LinePointHighlighter.new = function(opts) {
+    let selectionModelType = opts && 'selectionModelType' in opts ? opts.selectionModelType : null;
+    let defaultRadiusPx = opts && 'defaultRadiusPx' in opts ? opts.defaultRadiusPx : null;
+    let radiusPaddingPx = opts && 'radiusPaddingPx' in opts ? opts.radiusPaddingPx : null;
+    let showHorizontalFollowLine = opts && 'showHorizontalFollowLine' in opts ? opts.showHorizontalFollowLine : null;
+    let showVerticalFollowLine = opts && 'showVerticalFollowLine' in opts ? opts.showVerticalFollowLine : null;
+    let dashPattern = opts && 'dashPattern' in opts ? opts.dashPattern : null;
+    let drawFollowLinesAcrossChart = opts && 'drawFollowLinesAcrossChart' in opts ? opts.drawFollowLinesAcrossChart : null;
+    let symbolRenderer = opts && 'symbolRenderer' in opts ? opts.symbolRenderer : null;
+    this[desiredGestures] = new (T._HashSetOfGestureTypeL()).new();
+    this[selectionModelType$] = selectionModelType;
+    this[defaultRadiusPx$] = defaultRadiusPx;
+    this[radiusPaddingPx$] = radiusPaddingPx;
+    this[showHorizontalFollowLine$] = showHorizontalFollowLine;
+    this[showVerticalFollowLine$] = showVerticalFollowLine;
+    this[dashPattern$] = dashPattern;
+    this[drawFollowLinesAcrossChart$] = drawFollowLinesAcrossChart;
+    this[symbolRenderer$] = symbolRenderer;
+    ;
+  }).prototype = line_point_highlighter$.LinePointHighlighter.prototype;
+  dart.addTypeTests(line_point_highlighter$.LinePointHighlighter);
+  dart.addTypeCaches(line_point_highlighter$.LinePointHighlighter);
+  dart.setMethodSignature(line_point_highlighter$.LinePointHighlighter, () => ({
+    __proto__: dart.getMethods(line_point_highlighter$.LinePointHighlighter.__proto__),
+    createCommonBehavior: dart.gFnType(D => [dart.legacy(line_point_highlighter.LinePointHighlighter$(dart.legacy(D))), []]),
+    updateCommonBehavior: dart.fnType(dart.void, [dart.legacy(core.Object)]),
+    _equals: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)]),
+    [$_equals]: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)])
+  }));
+  dart.setGetterSignature(line_point_highlighter$.LinePointHighlighter, () => ({
+    __proto__: dart.getGetters(line_point_highlighter$.LinePointHighlighter.__proto__),
+    role: dart.legacy(core.String),
+    hashCode: dart.legacy(core.int),
+    [$hashCode]: dart.legacy(core.int)
+  }));
+  dart.setLibraryUri(line_point_highlighter$.LinePointHighlighter, I[7]);
+  dart.setFieldSignature(line_point_highlighter$.LinePointHighlighter, () => ({
+    __proto__: dart.getFields(line_point_highlighter$.LinePointHighlighter.__proto__),
+    desiredGestures: dart.finalFieldType(dart.legacy(core.Set$(dart.legacy(chart_behavior$.GestureType)))),
+    selectionModelType: dart.finalFieldType(dart.legacy(selection_model.SelectionModelType)),
+    defaultRadiusPx: dart.finalFieldType(dart.legacy(core.double)),
+    radiusPaddingPx: dart.finalFieldType(dart.legacy(core.double)),
+    showHorizontalFollowLine: dart.finalFieldType(dart.legacy(line_point_highlighter.LinePointHighlighterFollowLineType)),
+    showVerticalFollowLine: dart.finalFieldType(dart.legacy(line_point_highlighter.LinePointHighlighterFollowLineType)),
+    dashPattern: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(core.int)))),
+    drawFollowLinesAcrossChart: dart.finalFieldType(dart.legacy(core.bool)),
+    symbolRenderer: dart.finalFieldType(dart.legacy(symbol_renderer.SymbolRenderer))
+  }));
+  dart.defineExtensionMethods(line_point_highlighter$.LinePointHighlighter, ['_equals']);
+  dart.defineExtensionAccessors(line_point_highlighter$.LinePointHighlighter, ['hashCode']);
+  var dateTimeFactory$ = dart.privateName(time_series_chart$, "TimeSeriesChart.dateTimeFactory");
+  time_series_chart$.TimeSeriesChart = class TimeSeriesChart extends cartesian_chart$.CartesianChart$(dart.legacy(core.DateTime)) {
+    get dateTimeFactory() {
+      return this[dateTimeFactory$];
+    }
+    set dateTimeFactory(value) {
+      super.dateTimeFactory = value;
+    }
+    createCommonChart(chartState) {
+      let t0, t0$, t0$0, t0$1;
+      T.BaseChartStateL().as(chartState);
+      return new time_series_chart.TimeSeriesChart.new({layoutConfig: (t0 = this.layoutConfig, t0 == null ? null : t0.commonLayoutConfig), primaryMeasureAxis: T.NumericAxisL().as((t0$ = this.primaryMeasureAxis, t0$ == null ? null : t0$.createAxis())), secondaryMeasureAxis: T.NumericAxisL().as((t0$0 = this.secondaryMeasureAxis, t0$0 == null ? null : t0$0.createAxis())), disjointMeasureAxes: this.createDisjointMeasureAxes(), dateTimeFactory: (t0$1 = this.dateTimeFactory, t0$1 == null ? C[23] || CT.C23 : t0$1)});
+    }
+    addDefaultInteractions(behaviors) {
+      super.addDefaultInteractions(behaviors);
+      behaviors[$add](new line_point_highlighter$.LinePointHighlighter.new());
+    }
+  };
+  (time_series_chart$.TimeSeriesChart.new = function(seriesList, opts) {
+    let animate = opts && 'animate' in opts ? opts.animate : null;
+    let animationDuration = opts && 'animationDuration' in opts ? opts.animationDuration : null;
+    let domainAxis = opts && 'domainAxis' in opts ? opts.domainAxis : null;
+    let primaryMeasureAxis = opts && 'primaryMeasureAxis' in opts ? opts.primaryMeasureAxis : null;
+    let secondaryMeasureAxis = opts && 'secondaryMeasureAxis' in opts ? opts.secondaryMeasureAxis : null;
+    let disjointMeasureAxes = opts && 'disjointMeasureAxes' in opts ? opts.disjointMeasureAxes : null;
+    let defaultRenderer = opts && 'defaultRenderer' in opts ? opts.defaultRenderer : null;
+    let customSeriesRenderers = opts && 'customSeriesRenderers' in opts ? opts.customSeriesRenderers : null;
+    let behaviors = opts && 'behaviors' in opts ? opts.behaviors : null;
+    let selectionModels = opts && 'selectionModels' in opts ? opts.selectionModels : null;
+    let layoutConfig = opts && 'layoutConfig' in opts ? opts.layoutConfig : null;
+    let dateTimeFactory = opts && 'dateTimeFactory' in opts ? opts.dateTimeFactory : null;
+    let defaultInteractions = opts && 'defaultInteractions' in opts ? opts.defaultInteractions : true;
+    let flipVerticalAxis = opts && 'flipVerticalAxis' in opts ? opts.flipVerticalAxis : null;
+    let userManagedState = opts && 'userManagedState' in opts ? opts.userManagedState : null;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[dateTimeFactory$] = dateTimeFactory;
+    time_series_chart$.TimeSeriesChart.__proto__.new.call(this, seriesList, {animate: animate, animationDuration: animationDuration, domainAxis: domainAxis, primaryMeasureAxis: primaryMeasureAxis, secondaryMeasureAxis: secondaryMeasureAxis, disjointMeasureAxes: disjointMeasureAxes, defaultRenderer: defaultRenderer, customSeriesRenderers: customSeriesRenderers, behaviors: behaviors, selectionModels: selectionModels, layoutConfig: layoutConfig, defaultInteractions: defaultInteractions, flipVerticalAxis: flipVerticalAxis, userManagedState: userManagedState, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = time_series_chart$.TimeSeriesChart.prototype;
+  dart.addTypeTests(time_series_chart$.TimeSeriesChart);
+  dart.addTypeCaches(time_series_chart$.TimeSeriesChart);
+  dart.setMethodSignature(time_series_chart$.TimeSeriesChart, () => ({
+    __proto__: dart.getMethods(time_series_chart$.TimeSeriesChart.__proto__),
+    createCommonChart: dart.fnType(dart.legacy(time_series_chart.TimeSeriesChart), [dart.legacy(core.Object)])
+  }));
+  dart.setLibraryUri(time_series_chart$.TimeSeriesChart, I[8]);
+  dart.setFieldSignature(time_series_chart$.TimeSeriesChart, () => ({
+    __proto__: dart.getFields(time_series_chart$.TimeSeriesChart.__proto__),
+    dateTimeFactory: dart.finalFieldType(dart.legacy(date_time_factory.DateTimeFactory))
+  }));
+  var chartWidget$ = dart.privateName(chart_container, "ChartContainer.chartWidget");
+  var oldChartWidget$ = dart.privateName(chart_container, "ChartContainer.oldChartWidget");
+  var chartState$ = dart.privateName(chart_container, "ChartContainer.chartState");
+  var animationValue$ = dart.privateName(chart_container, "ChartContainer.animationValue");
+  var rtl$ = dart.privateName(chart_container, "ChartContainer.rtl");
+  var rtlSpec$0 = dart.privateName(chart_container, "ChartContainer.rtlSpec");
+  var userManagedState$0 = dart.privateName(chart_container, "ChartContainer.userManagedState");
+  const _is_ChartContainer_default = Symbol('_is_ChartContainer_default');
+  chart_container.ChartContainer$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    var ChartContainerRenderObjectOfDL = () => (ChartContainerRenderObjectOfDL = dart.constFn(chart_container.ChartContainerRenderObject$(DL())))();
+    class ChartContainer extends basic.CustomPaint {
+      get chartWidget() {
+        return this[chartWidget$];
+      }
+      set chartWidget(value) {
+        super.chartWidget = value;
+      }
+      get oldChartWidget() {
+        return this[oldChartWidget$];
+      }
+      set oldChartWidget(value) {
+        super.oldChartWidget = value;
+      }
+      get chartState() {
+        return this[chartState$];
+      }
+      set chartState(value) {
+        super.chartState = value;
+      }
+      get animationValue() {
+        return this[animationValue$];
+      }
+      set animationValue(value) {
+        super.animationValue = value;
+      }
+      get rtl() {
+        return this[rtl$];
+      }
+      set rtl(value) {
+        super.rtl = value;
+      }
+      get rtlSpec() {
+        return this[rtlSpec$0];
+      }
+      set rtlSpec(value) {
+        super.rtlSpec = value;
+      }
+      get userManagedState() {
+        return this[userManagedState$0];
+      }
+      set userManagedState(value) {
+        super.userManagedState = value;
+      }
+      createRenderObject(context) {
+        let t0;
+        t0 = new (ChartContainerRenderObjectOfDL()).new();
+        return (() => {
+          t0.reconfigure(this, context);
+          return t0;
+        })();
+      }
+      updateRenderObject(context, renderObject) {
+        T.ChartContainerRenderObjectL().as(renderObject);
+        renderObject.reconfigure(this, context);
+      }
+    }
+    (ChartContainer.new = function(opts) {
+      let oldChartWidget = opts && 'oldChartWidget' in opts ? opts.oldChartWidget : null;
+      let chartWidget = opts && 'chartWidget' in opts ? opts.chartWidget : null;
+      let chartState = opts && 'chartState' in opts ? opts.chartState : null;
+      let animationValue = opts && 'animationValue' in opts ? opts.animationValue : null;
+      let rtl = opts && 'rtl' in opts ? opts.rtl : null;
+      let rtlSpec = opts && 'rtlSpec' in opts ? opts.rtlSpec : null;
+      let userManagedState = opts && 'userManagedState' in opts ? opts.userManagedState : null;
+      let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+      this[oldChartWidget$] = oldChartWidget;
+      this[chartWidget$] = chartWidget;
+      this[chartState$] = chartState;
+      this[animationValue$] = animationValue;
+      this[rtl$] = rtl;
+      this[rtlSpec$0] = rtlSpec;
+      this[userManagedState$0] = userManagedState;
+      ChartContainer.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+      ;
+    }).prototype = ChartContainer.prototype;
+    dart.addTypeTests(ChartContainer);
+    ChartContainer.prototype[_is_ChartContainer_default] = true;
+    dart.addTypeCaches(ChartContainer);
+    dart.setMethodSignature(ChartContainer, () => ({
+      __proto__: dart.getMethods(ChartContainer.__proto__),
+      createRenderObject: dart.fnType(dart.legacy(custom_paint.RenderCustomPaint), [dart.legacy(framework.BuildContext)]),
+      updateRenderObject: dart.fnType(dart.void, [dart.legacy(framework.BuildContext), dart.legacy(core.Object)])
+    }));
+    dart.setLibraryUri(ChartContainer, I[9]);
+    dart.setFieldSignature(ChartContainer, () => ({
+      __proto__: dart.getFields(ChartContainer.__proto__),
+      chartWidget: dart.finalFieldType(dart.legacy(base_chart$.BaseChart$(dart.legacy(D)))),
+      oldChartWidget: dart.finalFieldType(dart.legacy(base_chart$.BaseChart$(dart.legacy(D)))),
+      chartState: dart.finalFieldType(dart.legacy(chart_state.ChartState)),
+      animationValue: dart.finalFieldType(dart.legacy(core.double)),
+      rtl: dart.finalFieldType(dart.legacy(core.bool)),
+      rtlSpec: dart.finalFieldType(dart.legacy(rtl_spec.RTLSpec)),
+      userManagedState: dart.finalFieldType(dart.legacy(user_managed_state.UserManagedState$(dart.legacy(D))))
+    }));
+    return ChartContainer;
+  });
+  chart_container.ChartContainer = chart_container.ChartContainer$();
+  dart.addTypeTests(chart_container.ChartContainer, _is_ChartContainer_default);
+  var _chart = dart.privateName(chart_container, "_chart");
+  var _seriesList = dart.privateName(chart_container, "_seriesList");
+  var _chartState = dart.privateName(chart_container, "_chartState");
+  var _chartContainerIsRtl = dart.privateName(chart_container, "_chartContainerIsRtl");
+  var _rtlSpec = dart.privateName(chart_container, "_rtlSpec");
+  var _dateTimeFactory = dart.privateName(chart_container, "_dateTimeFactory");
+  var _exploreMode = dart.privateName(chart_container, "_exploreMode");
+  var _a11yNodes = dart.privateName(chart_container, "_a11yNodes");
+  var _log = dart.privateName(chart_container, "_log");
+  var _lastConfigurationChangeTime = dart.privateName(chart_container, "_lastConfigurationChangeTime");
+  var _name$0 = dart.privateName(rtl_spec, "_name");
+  var RTLSpec_axisDirection = dart.privateName(rtl_spec, "RTLSpec.axisDirection");
+  var _updateUserManagedState = dart.privateName(chart_container, "_updateUserManagedState");
+  var _setNewPainter = dart.privateName(chart_container, "_setNewPainter");
+  const _is_ChartContainerRenderObject_default = Symbol('_is_ChartContainerRenderObject_default');
+  chart_container.ChartContainerRenderObject$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    var BaseChartOfDL = () => (BaseChartOfDL = dart.constFn(base_chart.BaseChart$(DL())))();
+    var BaseChartLOfDL = () => (BaseChartLOfDL = dart.constFn(dart.legacy(BaseChartOfDL())))();
+    var SeriesOfdynamic$DL = () => (SeriesOfdynamic$DL = dart.constFn(series.Series$(dart.dynamic, DL())))();
+    var SeriesLOfdynamic$DL = () => (SeriesLOfdynamic$DL = dart.constFn(dart.legacy(SeriesOfdynamic$DL())))();
+    var ListOfSeriesLOfdynamic$DL = () => (ListOfSeriesLOfdynamic$DL = dart.constFn(core.List$(SeriesLOfdynamic$DL())))();
+    var ListLOfSeriesLOfdynamic$DL = () => (ListLOfSeriesLOfdynamic$DL = dart.constFn(dart.legacy(ListOfSeriesLOfdynamic$DL())))();
+    var UserManagedStateOfDL = () => (UserManagedStateOfDL = dart.constFn(user_managed_state.UserManagedState$(DL())))();
+    var UserManagedStateLOfDL = () => (UserManagedStateLOfDL = dart.constFn(dart.legacy(UserManagedStateOfDL())))();
+    class ChartContainerRenderObject extends custom_paint.RenderCustomPaint {
+      reconfigure(config, context) {
+        let t0, t0$;
+        this[_chartState] = config.chartState;
+        this[_dateTimeFactory] = T.TimeSeriesChartL().is(config.chartWidget) ? T.TimeSeriesChartL().as(config.chartWidget).dateTimeFactory : null;
+        this[_dateTimeFactory] == null ? this[_dateTimeFactory] = new date_time_factory.LocalDateTimeFactory.new() : null;
+        if (this[_chart] == null) {
+          performance.Performance.time("chartsCreate");
+          this[_chart] = BaseChartLOfDL().as(config.chartWidget.createCommonChart(T.BaseChartStateL().as(this[_chartState])));
+          this[_chart].init(this, new graphics_factory.GraphicsFactory.new(context));
+          performance.Performance.timeEnd("chartsCreate");
+        }
+        performance.Performance.time("chartsConfig");
+        config.chartWidget.updateCommonChart(this[_chart], config.oldChartWidget, T.BaseChartStateL().as(this[_chartState]));
+        this[_rtlSpec] = (t0 = config.rtlSpec, t0 == null ? C[24] || CT.C24 : t0);
+        this[_chartContainerIsRtl] = (t0$ = config.rtl, t0$ == null ? false : t0$);
+        performance.Performance.timeEnd("chartsConfig");
+        if (dart.test(this[_chartState].chartIsDirty)) {
+          let currentTime = new core.DateTime.now();
+          let lastConfigurationBelowThreshold = this[_lastConfigurationChangeTime] != null && dart.notNull(currentTime.difference(this[_lastConfigurationChangeTime]).inMilliseconds) < 500;
+          this[_lastConfigurationChangeTime] = currentTime;
+          if (lastConfigurationBelowThreshold) {
+            this[_chartState].resetChartDirtyFlag();
+            this[_log].warning("Chart configuration is changing more frequent than threshold" + " of " + dart.str(500) + ". Check if your behavior, axis," + " or renderer config is missing equality checks that may be causing" + " configuration to be detected as changed. ");
+          }
+        }
+        if (dart.test(this[_chartState].chartIsDirty)) {
+          this[_chart].configurationChanged();
+        }
+        if (!dart.equals(this[_seriesList], config.chartWidget.seriesList) || dart.test(this[_chartState].chartIsDirty)) {
+          this[_chartState].resetChartDirtyFlag();
+          this[_seriesList] = ListLOfSeriesLOfdynamic$DL().as(config.chartWidget.seriesList);
+          this[_a11yNodes] = null;
+          performance.Performance.time("chartsDraw");
+          this[_chart].draw(this[_seriesList]);
+          performance.Performance.timeEnd("chartsDraw");
+          this[_chart].animationPercent = 0.0;
+          this.markNeedsLayout();
+        } else {
+          this[_chart].animationPercent = config.animationValue;
+          this.markNeedsPaint();
+        }
+        this[_updateUserManagedState](UserManagedStateLOfDL().as(config.userManagedState));
+        this[_setNewPainter]();
+      }
+      [_updateUserManagedState](newState) {
+        if (newState == null) {
+          return;
+        }
+        for (let type of newState.selectionModels[$keys]) {
+          let model = this[_chart].getSelectionModel(type);
+          let userModel = newState.selectionModels[$_get](type).getModel(this[_chart].currentSeriesList);
+          if (!dart.equals(model, userModel)) {
+            model.updateSelection(userModel.selectedDatum, userModel.selectedSeries);
+          }
+        }
+      }
+      performLayout() {
+        performance.Performance.time("chartsLayout");
+        this[_chart].measure(this.constraints.maxWidth[$toInt](), this.constraints.maxHeight[$toInt]());
+        this[_chart].layout(this.constraints.maxWidth[$toInt](), this.constraints.maxHeight[$toInt]());
+        performance.Performance.timeEnd("chartsLayout");
+        this.size = this.constraints.biggest;
+      }
+      markNeedsLayout() {
+        super.markNeedsLayout();
+        if (this.parent != null) {
+          this.markParentNeedsLayout();
+        }
+      }
+      hitTestSelf(position) {
+        return true;
+      }
+      requestRedraw() {
+      }
+      requestAnimation(transition) {
+        const startAnimationController = _ => {
+          this[_chartState].setAnimation(transition);
+        };
+        dart.fn(startAnimationController, T.dynamicTovoid());
+        if (!dart.test(binding.SchedulerBinding.instance.hasScheduledFrame)) {
+          binding.SchedulerBinding.instance.scheduleFrame();
+        }
+        binding.SchedulerBinding.instance.addPostFrameCallback(startAnimationController);
+      }
+      requestRebuild() {
+        const doRebuild = _ => {
+          this[_chartState].requestRebuild();
+        };
+        dart.fn(doRebuild, T.dynamicTovoid());
+        binding.SchedulerBinding.instance.addPostFrameCallback(doRebuild);
+      }
+      requestPaint() {
+        this.markNeedsPaint();
+      }
+      get pixelsPerDp() {
+        return 1.0;
+      }
+      get chartContainerIsRtl() {
+        return this[_chartContainerIsRtl];
+      }
+      get rtlSpec() {
+        return this[_rtlSpec];
+      }
+      get isRtl() {
+        let t0;
+        return dart.test(this[_chartContainerIsRtl]) && (t0 = this[_rtlSpec], t0 == null ? null : t0.axisDirection) == rtl_spec.AxisDirection.reversed;
+      }
+      get isTappable() {
+        return this[_chart].isTappable;
+      }
+      get dateTimeFactory() {
+        return this[_dateTimeFactory];
+      }
+      get gestureProxy() {
+        return this[_chart].gestureProxy;
+      }
+      get textDirection() {
+        return dart.test(this[_chartContainerIsRtl]) ? ui.TextDirection.rtl : ui.TextDirection.ltr;
+      }
+      enableA11yExploreMode(nodes, opts) {
+        let announcement = opts && 'announcement' in opts ? opts.announcement : null;
+        this[_a11yNodes] = nodes;
+        this[_exploreMode] = true;
+        this[_setNewPainter]();
+        this.requestRebuild();
+        if (announcement != null) {
+          semantics_service.SemanticsService.announce(announcement, this.textDirection);
+        }
+      }
+      disableA11yExploreMode(opts) {
+        let announcement = opts && 'announcement' in opts ? opts.announcement : null;
+        this[_a11yNodes] = T.JSArrayOfA11yNodeL().of([]);
+        this[_exploreMode] = false;
+        this[_setNewPainter]();
+        this.requestRebuild();
+        if (announcement != null) {
+          semantics_service.SemanticsService.announce(announcement, this.textDirection);
+        }
+      }
+      [_setNewPainter]() {
+        this.painter = chart_container.ChartContainerCustomPaint.new({oldPainter: T.ChartContainerCustomPaintL().as(this.painter), chart: this[_chart], exploreMode: this[_exploreMode], a11yNodes: this[_a11yNodes], textDirection: this.textDirection});
+      }
+    }
+    (ChartContainerRenderObject.new = function() {
+      this[_chart] = null;
+      this[_seriesList] = null;
+      this[_chartState] = null;
+      this[_chartContainerIsRtl] = false;
+      this[_rtlSpec] = null;
+      this[_dateTimeFactory] = null;
+      this[_exploreMode] = false;
+      this[_a11yNodes] = null;
+      this[_log] = logger.Logger.new("charts_flutter.charts_container");
+      this[_lastConfigurationChangeTime] = null;
+      ChartContainerRenderObject.__proto__.new.call(this);
+      ;
+    }).prototype = ChartContainerRenderObject.prototype;
+    dart.addTypeTests(ChartContainerRenderObject);
+    ChartContainerRenderObject.prototype[_is_ChartContainerRenderObject_default] = true;
+    dart.addTypeCaches(ChartContainerRenderObject);
+    ChartContainerRenderObject[dart.implements] = () => [chart_context.ChartContext];
+    dart.setMethodSignature(ChartContainerRenderObject, () => ({
+      __proto__: dart.getMethods(ChartContainerRenderObject.__proto__),
+      reconfigure: dart.fnType(dart.void, [dart.legacy(chart_container.ChartContainer), dart.legacy(framework.BuildContext)]),
+      [_updateUserManagedState]: dart.fnType(dart.dynamic, [dart.legacy(user_managed_state.UserManagedState$(dart.legacy(D)))]),
+      hitTestSelf: dart.fnType(dart.legacy(core.bool), [dart.legacy(ui.Offset)]),
+      requestRedraw: dart.fnType(dart.void, []),
+      requestAnimation: dart.fnType(dart.void, [dart.legacy(core.Duration)]),
+      requestRebuild: dart.fnType(dart.void, []),
+      requestPaint: dart.fnType(dart.void, []),
+      enableA11yExploreMode: dart.fnType(dart.void, [dart.legacy(core.List$(dart.legacy(a11y_node.A11yNode)))], {announcement: dart.legacy(core.String)}, {}),
+      disableA11yExploreMode: dart.fnType(dart.void, [], {announcement: dart.legacy(core.String)}, {}),
+      [_setNewPainter]: dart.fnType(dart.void, [])
+    }));
+    dart.setGetterSignature(ChartContainerRenderObject, () => ({
+      __proto__: dart.getGetters(ChartContainerRenderObject.__proto__),
+      pixelsPerDp: dart.legacy(core.double),
+      chartContainerIsRtl: dart.legacy(core.bool),
+      rtlSpec: dart.legacy(rtl_spec.RTLSpec),
+      isRtl: dart.legacy(core.bool),
+      isTappable: dart.legacy(core.bool),
+      dateTimeFactory: dart.legacy(date_time_factory.DateTimeFactory),
+      gestureProxy: dart.legacy(proxy_gesture_listener.ProxyGestureListener),
+      textDirection: dart.legacy(ui.TextDirection)
+    }));
+    dart.setLibraryUri(ChartContainerRenderObject, I[9]);
+    dart.setFieldSignature(ChartContainerRenderObject, () => ({
+      __proto__: dart.getFields(ChartContainerRenderObject.__proto__),
+      [_chart]: dart.fieldType(dart.legacy(base_chart.BaseChart$(dart.legacy(D)))),
+      [_seriesList]: dart.fieldType(dart.legacy(core.List$(dart.legacy(series.Series$(dart.dynamic, dart.legacy(D)))))),
+      [_chartState]: dart.fieldType(dart.legacy(chart_state.ChartState)),
+      [_chartContainerIsRtl]: dart.fieldType(dart.legacy(core.bool)),
+      [_rtlSpec]: dart.fieldType(dart.legacy(rtl_spec.RTLSpec)),
+      [_dateTimeFactory]: dart.fieldType(dart.legacy(date_time_factory.DateTimeFactory)),
+      [_exploreMode]: dart.fieldType(dart.legacy(core.bool)),
+      [_a11yNodes]: dart.fieldType(dart.legacy(core.List$(dart.legacy(a11y_node.A11yNode)))),
+      [_log]: dart.finalFieldType(dart.legacy(logger.Logger)),
+      [_lastConfigurationChangeTime]: dart.fieldType(dart.legacy(core.DateTime))
+    }));
+    return ChartContainerRenderObject;
+  });
+  chart_container.ChartContainerRenderObject = chart_container.ChartContainerRenderObject$();
+  dart.defineLazy(chart_container.ChartContainerRenderObject, {
+    /*chart_container.ChartContainerRenderObject.configurationChangeThresholdMs*/get configurationChangeThresholdMs() {
+      return 500;
+    }
+  }, true);
+  dart.addTypeTests(chart_container.ChartContainerRenderObject, _is_ChartContainerRenderObject_default);
+  var chart$ = dart.privateName(chart_container, "ChartContainerCustomPaint.chart");
+  var exploreMode$ = dart.privateName(chart_container, "ChartContainerCustomPaint.exploreMode");
+  var a11yNodes$ = dart.privateName(chart_container, "ChartContainerCustomPaint.a11yNodes");
+  var textDirection$ = dart.privateName(chart_container, "ChartContainerCustomPaint.textDirection");
+  var _buildSemantics = dart.privateName(chart_container, "_buildSemantics");
+  chart_container.ChartContainerCustomPaint = class ChartContainerCustomPaint extends custom_paint.CustomPainter {
+    get chart() {
+      return this[chart$];
+    }
+    set chart(value) {
+      super.chart = value;
+    }
+    get exploreMode() {
+      return this[exploreMode$];
+    }
+    set exploreMode(value) {
+      super.exploreMode = value;
+    }
+    get a11yNodes() {
+      return this[a11yNodes$];
+    }
+    set a11yNodes(value) {
+      super.a11yNodes = value;
+    }
+    get textDirection() {
+      return this[textDirection$];
+    }
+    set textDirection(value) {
+      super.textDirection = value;
+    }
+    static new(opts) {
+      let t0, t0$, t0$0;
+      let oldPainter = opts && 'oldPainter' in opts ? opts.oldPainter : null;
+      let chart = opts && 'chart' in opts ? opts.chart : null;
+      let exploreMode = opts && 'exploreMode' in opts ? opts.exploreMode : null;
+      let a11yNodes = opts && 'a11yNodes' in opts ? opts.a11yNodes : null;
+      let textDirection = opts && 'textDirection' in opts ? opts.textDirection : null;
+      if (oldPainter != null && oldPainter.exploreMode == exploreMode && dart.equals(oldPainter.a11yNodes, a11yNodes) && oldPainter.textDirection == textDirection) {
+        return oldPainter;
+      } else {
+        return new chart_container.ChartContainerCustomPaint._internal({chart: chart, exploreMode: (t0 = exploreMode, t0 == null ? false : t0), a11yNodes: (t0$ = a11yNodes, t0$ == null ? T.JSArrayOfA11yNodeL().of([]) : t0$), textDirection: (t0$0 = textDirection, t0$0 == null ? ui.TextDirection.ltr : t0$0)});
+      }
+    }
+    paint(canvas, size) {
+      performance.Performance.time("chartsPaint");
+      let chartsCanvas = new chart_canvas.ChartCanvas.new(canvas, this.chart.graphicsFactory);
+      this.chart.paint(chartsCanvas);
+      performance.Performance.timeEnd("chartsPaint");
+    }
+    shouldRepaint(oldPainter) {
+      T.ChartContainerCustomPaintL().as(oldPainter);
+      return false;
+    }
+    shouldRebuildSemantics(oldDelegate) {
+      T.ChartContainerCustomPaintL().as(oldDelegate);
+      return this.exploreMode != oldDelegate.exploreMode || !dart.equals(this.a11yNodes, oldDelegate.a11yNodes) || this.textDirection != this.textDirection;
+    }
+    get semanticsBuilder() {
+      return dart.bind(this, _buildSemantics);
+    }
+    [_buildSemantics](size) {
+      let nodes = T.JSArrayOfCustomPainterSemanticsL().of([]);
+      for (let node of this.a11yNodes) {
+        let rect = new ui.Rect.fromLTWH(node.boundingBox[$left][$toDouble](), node.boundingBox[$top][$toDouble](), node.boundingBox[$width][$toDouble](), node.boundingBox[$height][$toDouble]());
+        nodes[$add](new custom_paint.CustomPainterSemantics.new({rect: rect, properties: new semantics.SemanticsProperties.new({value: node.label, textDirection: this.textDirection, onDidGainAccessibilityFocus: node.onFocus})}));
+      }
+      return nodes;
+    }
+  };
+  (chart_container.ChartContainerCustomPaint._internal = function(opts) {
+    let chart = opts && 'chart' in opts ? opts.chart : null;
+    let exploreMode = opts && 'exploreMode' in opts ? opts.exploreMode : null;
+    let a11yNodes = opts && 'a11yNodes' in opts ? opts.a11yNodes : null;
+    let textDirection = opts && 'textDirection' in opts ? opts.textDirection : null;
+    this[chart$] = chart;
+    this[exploreMode$] = exploreMode;
+    this[a11yNodes$] = a11yNodes;
+    this[textDirection$] = textDirection;
+    chart_container.ChartContainerCustomPaint.__proto__.new.call(this);
+    ;
+  }).prototype = chart_container.ChartContainerCustomPaint.prototype;
+  dart.addTypeTests(chart_container.ChartContainerCustomPaint);
+  dart.addTypeCaches(chart_container.ChartContainerCustomPaint);
+  dart.setMethodSignature(chart_container.ChartContainerCustomPaint, () => ({
+    __proto__: dart.getMethods(chart_container.ChartContainerCustomPaint.__proto__),
+    paint: dart.fnType(dart.void, [dart.legacy(ui.Canvas), dart.legacy(ui.Size)]),
+    shouldRepaint: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)]),
+    shouldRebuildSemantics: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)]),
+    [_buildSemantics]: dart.fnType(dart.legacy(core.List$(dart.legacy(custom_paint.CustomPainterSemantics))), [dart.legacy(ui.Size)])
+  }));
+  dart.setGetterSignature(chart_container.ChartContainerCustomPaint, () => ({
+    __proto__: dart.getGetters(chart_container.ChartContainerCustomPaint.__proto__),
+    semanticsBuilder: dart.legacy(dart.fnType(dart.legacy(core.List$(dart.legacy(custom_paint.CustomPainterSemantics))), [dart.legacy(ui.Size)]))
+  }));
+  dart.setLibraryUri(chart_container.ChartContainerCustomPaint, I[9]);
+  dart.setFieldSignature(chart_container.ChartContainerCustomPaint, () => ({
+    __proto__: dart.getFields(chart_container.ChartContainerCustomPaint.__proto__),
+    chart: dart.finalFieldType(dart.legacy(base_chart.BaseChart)),
+    exploreMode: dart.finalFieldType(dart.legacy(core.bool)),
+    a11yNodes: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(a11y_node.A11yNode)))),
+    textDirection: dart.finalFieldType(dart.legacy(ui.TextDirection))
+  }));
+  var desiredGestures$ = dart.privateName(select_nearest$, "SelectNearest.desiredGestures");
+  var selectionModelType$0 = dart.privateName(select_nearest$, "SelectNearest.selectionModelType");
+  var eventTrigger$ = dart.privateName(select_nearest$, "SelectNearest.eventTrigger");
+  var selectionMode$ = dart.privateName(select_nearest$, "SelectNearest.selectionMode");
+  var selectAcrossAllDrawAreaComponents$ = dart.privateName(select_nearest$, "SelectNearest.selectAcrossAllDrawAreaComponents");
+  var selectClosestSeries$ = dart.privateName(select_nearest$, "SelectNearest.selectClosestSeries");
+  var maximumDomainDistancePx$ = dart.privateName(select_nearest$, "SelectNearest.maximumDomainDistancePx");
+  var _name$1 = dart.privateName(select_nearest, "_name");
+  var _name$2 = dart.privateName(selection_model, "_name");
+  var _name$3 = dart.privateName(selection_trigger, "_name");
+  select_nearest$.SelectNearest = class SelectNearest extends chart_behavior$.ChartBehavior$(dart.legacy(select_nearest.SelectNearest)) {
+    get desiredGestures() {
+      return this[desiredGestures$];
+    }
+    set desiredGestures(value) {
+      super.desiredGestures = value;
+    }
+    get selectionModelType() {
+      return this[selectionModelType$0];
+    }
+    set selectionModelType(value) {
+      super.selectionModelType = value;
+    }
+    get eventTrigger() {
+      return this[eventTrigger$];
+    }
+    set eventTrigger(value) {
+      super.eventTrigger = value;
+    }
+    get selectionMode() {
+      return this[selectionMode$];
+    }
+    set selectionMode(value) {
+      super.selectionMode = value;
+    }
+    get selectAcrossAllDrawAreaComponents() {
+      return this[selectAcrossAllDrawAreaComponents$];
+    }
+    set selectAcrossAllDrawAreaComponents(value) {
+      super.selectAcrossAllDrawAreaComponents = value;
+    }
+    get selectClosestSeries() {
+      return this[selectClosestSeries$];
+    }
+    set selectClosestSeries(value) {
+      super.selectClosestSeries = value;
+    }
+    get maximumDomainDistancePx() {
+      return this[maximumDomainDistancePx$];
+    }
+    set maximumDomainDistancePx(value) {
+      super.maximumDomainDistancePx = value;
+    }
+    static new(opts) {
+      let selectionModelType = opts && 'selectionModelType' in opts ? opts.selectionModelType : C[27] || CT.C27;
+      let selectionMode = opts && 'selectionMode' in opts ? opts.selectionMode : C[26] || CT.C26;
+      let selectAcrossAllDrawAreaComponents = opts && 'selectAcrossAllDrawAreaComponents' in opts ? opts.selectAcrossAllDrawAreaComponents : false;
+      let selectClosestSeries = opts && 'selectClosestSeries' in opts ? opts.selectClosestSeries : true;
+      let eventTrigger = opts && 'eventTrigger' in opts ? opts.eventTrigger : C[28] || CT.C28;
+      let maximumDomainDistancePx = opts && 'maximumDomainDistancePx' in opts ? opts.maximumDomainDistancePx : null;
+      return new select_nearest$.SelectNearest._internal({selectionModelType: selectionModelType, selectionMode: selectionMode, selectAcrossAllDrawAreaComponents: selectAcrossAllDrawAreaComponents, selectClosestSeries: selectClosestSeries, eventTrigger: eventTrigger, desiredGestures: select_nearest$.SelectNearest._getDesiredGestures(eventTrigger), maximumDomainDistancePx: maximumDomainDistancePx});
+    }
+    static _getDesiredGestures(eventTrigger) {
+      let t0, t0$, t0$0, t0$1;
+      let desiredGestures = new (T._HashSetOfGestureTypeL()).new();
+      switch (eventTrigger) {
+        case C[28] || CT.C28:
+        {
+          t0 = desiredGestures;
+          (() => {
+            t0.add(chart_behavior$.GestureType.onTap);
+            return t0;
+          })();
+          break;
+        }
+        case C[29] || CT.C29:
+        {
+          t0$ = desiredGestures;
+          (() => {
+            t0$.add(chart_behavior$.GestureType.onTap);
+            t0$.add(chart_behavior$.GestureType.onDrag);
+            return t0$;
+          })();
+          break;
+        }
+        case C[30] || CT.C30:
+        case C[31] || CT.C31:
+        {
+          t0$0 = desiredGestures;
+          (() => {
+            t0$0.add(chart_behavior$.GestureType.onTap);
+            t0$0.add(chart_behavior$.GestureType.onLongPress);
+            t0$0.add(chart_behavior$.GestureType.onDrag);
+            return t0$0;
+          })();
+          break;
+        }
+        case C[32] || CT.C32:
+        default:
+        {
+          t0$1 = desiredGestures;
+          (() => {
+            t0$1.add(chart_behavior$.GestureType.onHover);
+            return t0$1;
+          })();
+          break;
+        }
+      }
+      return desiredGestures;
+    }
+    createCommonBehavior(D) {
+      return new (select_nearest.SelectNearest$(dart.legacy(D))).new({selectionModelType: this.selectionModelType, eventTrigger: this.eventTrigger, selectionMode: this.selectionMode, selectClosestSeries: this.selectClosestSeries, maximumDomainDistancePx: this.maximumDomainDistancePx});
+    }
+    updateCommonBehavior(commonBehavior) {
+      T.ChartBehaviorL().as(commonBehavior);
+    }
+    get role() {
+      return "SelectNearest-" + dart.str(dart.toString(this.selectionModelType)) + "}";
+    }
+    _equals(other) {
+      if (other == null) return false;
+      if (T.SelectNearestL().is(other)) {
+        return this.selectionModelType == other.selectionModelType && this.eventTrigger == other.eventTrigger && this.selectionMode == other.selectionMode && this.selectClosestSeries == other.selectClosestSeries && this.maximumDomainDistancePx == other.maximumDomainDistancePx;
+      } else {
+        return false;
+      }
+    }
+    get hashCode() {
+      let hashcode = dart.hashCode(this.selectionModelType);
+      hashcode = dart.notNull(hashcode) * 37 + dart.notNull(dart.hashCode(this.eventTrigger));
+      hashcode = dart.notNull(hashcode) * 37 + dart.notNull(dart.hashCode(this.selectionMode));
+      hashcode = dart.notNull(hashcode) * 37 + dart.hashCode(this.selectClosestSeries);
+      hashcode = dart.notNull(hashcode) * 37 + dart.hashCode(this.maximumDomainDistancePx);
+      return hashcode;
+    }
+  };
+  (select_nearest$.SelectNearest._internal = function(opts) {
+    let selectionModelType = opts && 'selectionModelType' in opts ? opts.selectionModelType : null;
+    let selectionMode = opts && 'selectionMode' in opts ? opts.selectionMode : C[26] || CT.C26;
+    let selectAcrossAllDrawAreaComponents = opts && 'selectAcrossAllDrawAreaComponents' in opts ? opts.selectAcrossAllDrawAreaComponents : false;
+    let selectClosestSeries = opts && 'selectClosestSeries' in opts ? opts.selectClosestSeries : true;
+    let eventTrigger = opts && 'eventTrigger' in opts ? opts.eventTrigger : null;
+    let desiredGestures = opts && 'desiredGestures' in opts ? opts.desiredGestures : null;
+    let maximumDomainDistancePx = opts && 'maximumDomainDistancePx' in opts ? opts.maximumDomainDistancePx : null;
+    this[selectionModelType$0] = selectionModelType;
+    this[selectionMode$] = selectionMode;
+    this[selectAcrossAllDrawAreaComponents$] = selectAcrossAllDrawAreaComponents;
+    this[selectClosestSeries$] = selectClosestSeries;
+    this[eventTrigger$] = eventTrigger;
+    this[desiredGestures$] = desiredGestures;
+    this[maximumDomainDistancePx$] = maximumDomainDistancePx;
+    ;
+  }).prototype = select_nearest$.SelectNearest.prototype;
+  dart.addTypeTests(select_nearest$.SelectNearest);
+  dart.addTypeCaches(select_nearest$.SelectNearest);
+  dart.setMethodSignature(select_nearest$.SelectNearest, () => ({
+    __proto__: dart.getMethods(select_nearest$.SelectNearest.__proto__),
+    createCommonBehavior: dart.gFnType(D => [dart.legacy(select_nearest.SelectNearest$(dart.legacy(D))), []]),
+    updateCommonBehavior: dart.fnType(dart.void, [dart.legacy(core.Object)]),
+    _equals: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)]),
+    [$_equals]: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)])
+  }));
+  dart.setGetterSignature(select_nearest$.SelectNearest, () => ({
+    __proto__: dart.getGetters(select_nearest$.SelectNearest.__proto__),
+    role: dart.legacy(core.String),
+    hashCode: dart.legacy(core.int),
+    [$hashCode]: dart.legacy(core.int)
+  }));
+  dart.setLibraryUri(select_nearest$.SelectNearest, I[10]);
+  dart.setFieldSignature(select_nearest$.SelectNearest, () => ({
+    __proto__: dart.getFields(select_nearest$.SelectNearest.__proto__),
+    desiredGestures: dart.finalFieldType(dart.legacy(core.Set$(dart.legacy(chart_behavior$.GestureType)))),
+    selectionModelType: dart.finalFieldType(dart.legacy(selection_model.SelectionModelType)),
+    eventTrigger: dart.finalFieldType(dart.legacy(selection_trigger.SelectionTrigger)),
+    selectionMode: dart.finalFieldType(dart.legacy(select_nearest.SelectionMode)),
+    selectAcrossAllDrawAreaComponents: dart.finalFieldType(dart.legacy(core.bool)),
+    selectClosestSeries: dart.finalFieldType(dart.legacy(core.bool)),
+    maximumDomainDistancePx: dart.finalFieldType(dart.legacy(core.int))
+  }));
+  dart.defineExtensionMethods(select_nearest$.SelectNearest, ['_equals']);
+  dart.defineExtensionAccessors(select_nearest$.SelectNearest, ['hashCode']);
+  var leftMarginSpec$ = dart.privateName(base_chart$, "LayoutConfig.leftMarginSpec");
+  var topMarginSpec$ = dart.privateName(base_chart$, "LayoutConfig.topMarginSpec");
+  var rightMarginSpec$ = dart.privateName(base_chart$, "LayoutConfig.rightMarginSpec");
+  var bottomMarginSpec$ = dart.privateName(base_chart$, "LayoutConfig.bottomMarginSpec");
+  base_chart$.LayoutConfig = class LayoutConfig extends core.Object {
+    get leftMarginSpec() {
+      return this[leftMarginSpec$];
+    }
+    set leftMarginSpec(value) {
+      super.leftMarginSpec = value;
+    }
+    get topMarginSpec() {
+      return this[topMarginSpec$];
+    }
+    set topMarginSpec(value) {
+      super.topMarginSpec = value;
+    }
+    get rightMarginSpec() {
+      return this[rightMarginSpec$];
+    }
+    set rightMarginSpec(value) {
+      super.rightMarginSpec = value;
+    }
+    get bottomMarginSpec() {
+      return this[bottomMarginSpec$];
+    }
+    set bottomMarginSpec(value) {
+      super.bottomMarginSpec = value;
+    }
+    get commonLayoutConfig() {
+      return new layout_config.LayoutConfig.new({leftSpec: this.leftMarginSpec, topSpec: this.topMarginSpec, rightSpec: this.rightMarginSpec, bottomSpec: this.bottomMarginSpec});
+    }
+  };
+  (base_chart$.LayoutConfig.new = function(opts) {
+    let leftMarginSpec = opts && 'leftMarginSpec' in opts ? opts.leftMarginSpec : null;
+    let topMarginSpec = opts && 'topMarginSpec' in opts ? opts.topMarginSpec : null;
+    let rightMarginSpec = opts && 'rightMarginSpec' in opts ? opts.rightMarginSpec : null;
+    let bottomMarginSpec = opts && 'bottomMarginSpec' in opts ? opts.bottomMarginSpec : null;
+    this[leftMarginSpec$] = leftMarginSpec;
+    this[topMarginSpec$] = topMarginSpec;
+    this[rightMarginSpec$] = rightMarginSpec;
+    this[bottomMarginSpec$] = bottomMarginSpec;
+    ;
+  }).prototype = base_chart$.LayoutConfig.prototype;
+  dart.addTypeTests(base_chart$.LayoutConfig);
+  dart.addTypeCaches(base_chart$.LayoutConfig);
+  dart.setGetterSignature(base_chart$.LayoutConfig, () => ({
+    __proto__: dart.getGetters(base_chart$.LayoutConfig.__proto__),
+    commonLayoutConfig: dart.legacy(layout_config.LayoutConfig)
+  }));
+  dart.setLibraryUri(base_chart$.LayoutConfig, I[4]);
+  dart.setFieldSignature(base_chart$.LayoutConfig, () => ({
+    __proto__: dart.getFields(base_chart$.LayoutConfig.__proto__),
+    leftMarginSpec: dart.finalFieldType(dart.legacy(layout_config.MarginSpec)),
+    topMarginSpec: dart.finalFieldType(dart.legacy(layout_config.MarginSpec)),
+    rightMarginSpec: dart.finalFieldType(dart.legacy(layout_config.MarginSpec)),
+    bottomMarginSpec: dart.finalFieldType(dart.legacy(layout_config.MarginSpec))
+  }));
+  var autoBehaviorWidgets = dart.privateName(base_chart_state, "BaseChartState.autoBehaviorWidgets");
+  var addedBehaviorWidgets = dart.privateName(base_chart_state, "BaseChartState.addedBehaviorWidgets");
+  var addedCommonBehaviorsByRole = dart.privateName(base_chart_state, "BaseChartState.addedCommonBehaviorsByRole");
+  var addedSelectionChangedListenersByType = dart.privateName(base_chart_state, "BaseChartState.addedSelectionChangedListenersByType");
+  var addedSelectionUpdatedListenersByType = dart.privateName(base_chart_state, "BaseChartState.addedSelectionUpdatedListenersByType");
+  var _animationController = dart.privateName(base_chart_state, "_animationController");
+  var _animationValue = dart.privateName(base_chart_state, "_animationValue");
+  var _oldWidget = dart.privateName(base_chart_state, "_oldWidget");
+  var _chartGestureDetector = dart.privateName(base_chart_state, "_chartGestureDetector");
+  var _configurationChanged = dart.privateName(base_chart_state, "_configurationChanged");
+  var _behaviorAnimationControllers = dart.privateName(base_chart_state, "_behaviorAnimationControllers");
+  var _animationTick = dart.privateName(base_chart_state, "_animationTick");
+  var _buildChartContainer = dart.privateName(base_chart_state, "_buildChartContainer");
+  var _playAnimation = dart.privateName(base_chart_state, "_playAnimation");
+  const _is_BaseChartState_default = Symbol('_is_BaseChartState_default');
+  base_chart_state.BaseChartState$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    var SelectionModelOfDL = () => (SelectionModelOfDL = dart.constFn(selection_model.SelectionModel$(DL())))();
+    var SelectionModelLOfDL = () => (SelectionModelLOfDL = dart.constFn(dart.legacy(SelectionModelOfDL())))();
+    var SelectionModelLOfDLTovoid = () => (SelectionModelLOfDLTovoid = dart.constFn(dart.fnType(dart.void, [SelectionModelLOfDL()])))();
+    var SelectionModelLOfDLToLvoid = () => (SelectionModelLOfDLToLvoid = dart.constFn(dart.legacy(SelectionModelLOfDLTovoid())))();
+    var LinkedMapOfSelectionModelTypeL$SelectionModelLOfDLToLvoid = () => (LinkedMapOfSelectionModelTypeL$SelectionModelLOfDLToLvoid = dart.constFn(_js_helper.LinkedMap$(T.SelectionModelTypeL(), SelectionModelLOfDLToLvoid())))();
+    var ChartContainerOfDL = () => (ChartContainerOfDL = dart.constFn(chart_container.ChartContainer$(DL())))();
+    var BaseChartOfDL = () => (BaseChartOfDL = dart.constFn(base_chart$.BaseChart$(DL())))();
+    var BaseChartLOfDL = () => (BaseChartLOfDL = dart.constFn(dart.legacy(BaseChartOfDL())))();
+    const State_TickerProviderStateMixin$36 = class State_TickerProviderStateMixin extends framework.State$(dart.legacy(base_chart$.BaseChart$(dart.legacy(D)))) {};
+    (State_TickerProviderStateMixin$36.new = function() {
+      ticker_provider.TickerProviderStateMixin$(dart.legacy(base_chart$.BaseChart$(dart.legacy(D))))[dart.mixinNew].call(this);
+      State_TickerProviderStateMixin$36.__proto__.new.call(this);
+    }).prototype = State_TickerProviderStateMixin$36.prototype;
+    dart.applyMixin(State_TickerProviderStateMixin$36, ticker_provider.TickerProviderStateMixin$(dart.legacy(base_chart$.BaseChart$(dart.legacy(D)))));
+    class BaseChartState extends State_TickerProviderStateMixin$36 {
+      get autoBehaviorWidgets() {
+        return this[autoBehaviorWidgets];
+      }
+      set autoBehaviorWidgets(value) {
+        super.autoBehaviorWidgets = value;
+      }
+      get addedBehaviorWidgets() {
+        return this[addedBehaviorWidgets];
+      }
+      set addedBehaviorWidgets(value) {
+        super.addedBehaviorWidgets = value;
+      }
+      get addedCommonBehaviorsByRole() {
+        return this[addedCommonBehaviorsByRole];
+      }
+      set addedCommonBehaviorsByRole(value) {
+        super.addedCommonBehaviorsByRole = value;
+      }
+      get addedSelectionChangedListenersByType() {
+        return this[addedSelectionChangedListenersByType];
+      }
+      set addedSelectionChangedListenersByType(value) {
+        super.addedSelectionChangedListenersByType = value;
+      }
+      get addedSelectionUpdatedListenersByType() {
+        return this[addedSelectionUpdatedListenersByType];
+      }
+      set addedSelectionUpdatedListenersByType(value) {
+        super.addedSelectionUpdatedListenersByType = value;
+      }
+      initState() {
+        let t0;
+        super.initState();
+        this[_animationController] = (t0 = new animation_controller.AnimationController.new({vsync: this}), (() => {
+          t0.addListener(dart.bind(this, _animationTick));
+          return t0;
+        })());
+      }
+      requestRebuild() {
+        this.setState(dart.fn(() => {
+        }, T.VoidToNull()));
+      }
+      markChartDirty() {
+        this[_configurationChanged] = true;
+      }
+      resetChartDirtyFlag() {
+        this[_configurationChanged] = false;
+      }
+      get chartIsDirty() {
+        return this[_configurationChanged];
+      }
+      setState(fn) {
+        if (dart.test(this.mounted)) {
+          super.setState(fn);
+        }
+      }
+      [_buildChartContainer]() {
+        let chartContainer = new (ChartContainerOfDL()).new({oldChartWidget: BaseChartLOfDL().as(this[_oldWidget]), chartWidget: this.widget, chartState: this, animationValue: this[_animationValue], rtl: basic.Directionality.of(this.context) == ui.TextDirection.rtl, rtlSpec: this.widget.rtlSpec, userManagedState: this.widget.userManagedState, $creationLocationd_0dea112b090073317d4: C[33] || CT.C33});
+        this[_oldWidget] = this.widget;
+        let desiredGestures = this.widget.getDesiredGestures(this);
+        if (dart.test(desiredGestures[$isNotEmpty])) {
+          this[_chartGestureDetector] == null ? this[_chartGestureDetector] = new chart_gesture_detector.ChartGestureDetector.new() : null;
+          return T.WidgetL().as(this[_chartGestureDetector].makeWidget(this.context, chartContainer, desiredGestures));
+        } else {
+          return chartContainer;
+        }
+      }
+      build(context) {
+        let chartWidgets = T.JSArrayOfLayoutIdL().of([]);
+        let idAndBehaviorMap = new (T.IdentityMapOfStringL$BuildableBehaviorLOfChartBehaviorL()).new();
+        chartWidgets[$add](new basic.LayoutId.new({id: "chartContainer", child: this[_buildChartContainer](), $creationLocationd_0dea112b090073317d4: C[42] || CT.C42}));
+        this.addedCommonBehaviorsByRole[$forEach](dart.fn((id, behavior) => {
+          if (T.BuildableBehaviorLOfChartBehaviorL().is(behavior)) {
+            if (!(id !== "chartContainer")) dart.assertFailed(null, I[11], 129, 16, "id != chartContainerLayoutID");
+            let buildableBehavior = T.BuildableBehaviorLOfChartBehaviorL().as(behavior);
+            idAndBehaviorMap[$_set](id, buildableBehavior);
+            let widget = buildableBehavior.build(context);
+            chartWidgets[$add](new basic.LayoutId.new({id: id, child: widget, $creationLocationd_0dea112b090073317d4: C[46] || CT.C46}));
+          }
+        }, T.StringLAndChartBehaviorLToNull()));
+        let isRTL = basic.Directionality.of(context) == ui.TextDirection.rtl;
+        return new basic.CustomMultiChildLayout.new({delegate: new widget_layout_delegate.WidgetLayoutDelegate.new("chartContainer", idAndBehaviorMap, isRTL), children: chartWidgets, $creationLocationd_0dea112b090073317d4: C[50] || CT.C50});
+      }
+      dispose() {
+        this[_animationController].dispose();
+        this[_behaviorAnimationControllers][$forEach](dart.fn((_, controller) => {
+          let t0;
+          t0 = controller;
+          return t0 == null ? null : t0.dispose();
+        }, T.ChartStateBehaviorLOfChartBehaviorLAndAnimationControllerLTovoid()));
+        this[_behaviorAnimationControllers][$clear]();
+        super.dispose();
+      }
+      setAnimation(transition) {
+        this[_playAnimation](transition);
+      }
+      [_playAnimation](duration) {
+        this[_animationController].duration = duration;
+        this[_animationController].forward({from: dart.equals(duration, core.Duration.zero) ? 1.0 : 0.0});
+        this[_animationValue] = this[_animationController].value;
+      }
+      [_animationTick]() {
+        this.setState(dart.fn(() => {
+          this[_animationValue] = this[_animationController].value;
+        }, T.VoidToNull()));
+      }
+      getAnimationController(behavior) {
+        let t1, t0;
+        t0 = this[_behaviorAnimationControllers];
+        t1 = behavior;
+        t0[$_get](t1) == null ? t0[$_set](t1, new animation_controller.AnimationController.new({vsync: this})) : null;
+        return this[_behaviorAnimationControllers][$_get](behavior);
+      }
+      disposeAnimationController(behavior) {
+        let t0;
+        let controller = this[_behaviorAnimationControllers][$remove](behavior);
+        t0 = controller;
+        t0 == null ? null : t0.dispose();
+      }
+    }
+    (BaseChartState.new = function() {
+      this[_animationController] = null;
+      this[_animationValue] = 0.0;
+      this[_oldWidget] = null;
+      this[_chartGestureDetector] = null;
+      this[_configurationChanged] = false;
+      this[autoBehaviorWidgets] = T.JSArrayOfChartBehaviorLOfChartBehaviorL().of([]);
+      this[addedBehaviorWidgets] = T.JSArrayOfChartBehaviorLOfChartBehaviorL().of([]);
+      this[addedCommonBehaviorsByRole] = new (T.IdentityMapOfStringL$ChartBehaviorL()).new();
+      this[addedSelectionChangedListenersByType] = new (LinkedMapOfSelectionModelTypeL$SelectionModelLOfDLToLvoid()).new();
+      this[addedSelectionUpdatedListenersByType] = new (LinkedMapOfSelectionModelTypeL$SelectionModelLOfDLToLvoid()).new();
+      this[_behaviorAnimationControllers] = new (T.LinkedMapOfChartStateBehaviorLOfChartBehaviorL$AnimationControllerL()).new();
+      BaseChartState.__proto__.new.call(this);
+      ;
+    }).prototype = BaseChartState.prototype;
+    dart.addTypeTests(BaseChartState);
+    BaseChartState.prototype[_is_BaseChartState_default] = true;
+    dart.addTypeCaches(BaseChartState);
+    BaseChartState[dart.implements] = () => [chart_state.ChartState];
+    dart.setMethodSignature(BaseChartState, () => ({
+      __proto__: dart.getMethods(BaseChartState.__proto__),
+      requestRebuild: dart.fnType(dart.void, []),
+      markChartDirty: dart.fnType(dart.void, []),
+      resetChartDirtyFlag: dart.fnType(dart.void, []),
+      setState: dart.fnType(dart.void, [dart.legacy(dart.fnType(dart.void, []))]),
+      [_buildChartContainer]: dart.fnType(dart.legacy(framework.Widget), []),
+      build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)]),
+      setAnimation: dart.fnType(dart.void, [dart.legacy(core.Duration)]),
+      [_playAnimation]: dart.fnType(dart.void, [dart.legacy(core.Duration)]),
+      [_animationTick]: dart.fnType(dart.void, []),
+      getAnimationController: dart.fnType(dart.legacy(animation_controller.AnimationController), [dart.legacy(chart_behavior$.ChartStateBehavior$(dart.legacy(chart_behavior.ChartBehavior)))]),
+      disposeAnimationController: dart.fnType(dart.void, [dart.legacy(chart_behavior$.ChartStateBehavior$(dart.legacy(chart_behavior.ChartBehavior)))])
+    }));
+    dart.setGetterSignature(BaseChartState, () => ({
+      __proto__: dart.getGetters(BaseChartState.__proto__),
+      chartIsDirty: dart.legacy(core.bool)
+    }));
+    dart.setLibraryUri(BaseChartState, I[12]);
+    dart.setFieldSignature(BaseChartState, () => ({
+      __proto__: dart.getFields(BaseChartState.__proto__),
+      [_animationController]: dart.fieldType(dart.legacy(animation_controller.AnimationController)),
+      [_animationValue]: dart.fieldType(dart.legacy(core.double)),
+      [_oldWidget]: dart.fieldType(dart.legacy(framework.Widget)),
+      [_chartGestureDetector]: dart.fieldType(dart.legacy(chart_gesture_detector.ChartGestureDetector)),
+      [_configurationChanged]: dart.fieldType(dart.legacy(core.bool)),
+      autoBehaviorWidgets: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(chart_behavior$.ChartBehavior$(dart.legacy(chart_behavior.ChartBehavior)))))),
+      addedBehaviorWidgets: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(chart_behavior$.ChartBehavior$(dart.legacy(chart_behavior.ChartBehavior)))))),
+      addedCommonBehaviorsByRole: dart.finalFieldType(dart.legacy(core.Map$(dart.legacy(core.String), dart.legacy(chart_behavior.ChartBehavior)))),
+      addedSelectionChangedListenersByType: dart.finalFieldType(dart.legacy(core.Map$(dart.legacy(selection_model.SelectionModelType), dart.legacy(dart.fnType(dart.void, [dart.legacy(selection_model.SelectionModel$(dart.legacy(D)))]))))),
+      addedSelectionUpdatedListenersByType: dart.finalFieldType(dart.legacy(core.Map$(dart.legacy(selection_model.SelectionModelType), dart.legacy(dart.fnType(dart.void, [dart.legacy(selection_model.SelectionModel$(dart.legacy(D)))]))))),
+      [_behaviorAnimationControllers]: dart.finalFieldType(dart.legacy(core.Map$(dart.legacy(chart_behavior$.ChartStateBehavior$(dart.legacy(chart_behavior.ChartBehavior))), dart.legacy(animation_controller.AnimationController))))
+    }));
+    return BaseChartState;
+  });
+  base_chart_state.BaseChartState = base_chart_state.BaseChartState$();
+  dart.defineLazy(base_chart_state.BaseChartState, {
+    /*base_chart_state.BaseChartState.chartContainerLayoutID*/get chartContainerLayoutID() {
+      return "chartContainer";
+    }
+  }, true);
+  dart.addTypeTests(base_chart_state.BaseChartState, _is_BaseChartState_default);
+  const _is_ChartStateBehavior_default = Symbol('_is_ChartStateBehavior_default');
+  chart_behavior$.ChartStateBehavior$ = dart.generic(B => {
+    class ChartStateBehavior extends core.Object {}
+    (ChartStateBehavior.new = function() {
+      ;
+    }).prototype = ChartStateBehavior.prototype;
+    dart.addTypeTests(ChartStateBehavior);
+    ChartStateBehavior.prototype[_is_ChartStateBehavior_default] = true;
+    dart.addTypeCaches(ChartStateBehavior);
+    dart.setLibraryUri(ChartStateBehavior, I[6]);
+    return ChartStateBehavior;
+  });
+  chart_behavior$.ChartStateBehavior = chart_behavior$.ChartStateBehavior$();
+  dart.addTypeTests(chart_behavior$.ChartStateBehavior, _is_ChartStateBehavior_default);
+  const _is_BuildableBehavior_default = Symbol('_is_BuildableBehavior_default');
+  chart_behavior$.BuildableBehavior$ = dart.generic(B => {
+    class BuildableBehavior extends core.Object {}
+    (BuildableBehavior.new = function() {
+      ;
+    }).prototype = BuildableBehavior.prototype;
+    dart.addTypeTests(BuildableBehavior);
+    BuildableBehavior.prototype[_is_BuildableBehavior_default] = true;
+    dart.addTypeCaches(BuildableBehavior);
+    dart.setLibraryUri(BuildableBehavior, I[6]);
+    return BuildableBehavior;
+  });
+  chart_behavior$.BuildableBehavior = chart_behavior$.BuildableBehavior$();
+  dart.addTypeTests(chart_behavior$.BuildableBehavior, _is_BuildableBehavior_default);
+  var _name$4 = dart.privateName(chart_behavior$, "_name");
+  chart_behavior$.GestureType = class GestureType extends core.Object {
+    toString() {
+      return this[_name$4];
+    }
+  };
+  (chart_behavior$.GestureType.new = function(index, _name) {
+    this.index = index;
+    this[_name$4] = _name;
+    ;
+  }).prototype = chart_behavior$.GestureType.prototype;
+  dart.addTypeTests(chart_behavior$.GestureType);
+  dart.addTypeCaches(chart_behavior$.GestureType);
+  dart.setMethodSignature(chart_behavior$.GestureType, () => ({
+    __proto__: dart.getMethods(chart_behavior$.GestureType.__proto__),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setLibraryUri(chart_behavior$.GestureType, I[6]);
+  dart.setFieldSignature(chart_behavior$.GestureType, () => ({
+    __proto__: dart.getFields(chart_behavior$.GestureType.__proto__),
+    index: dart.finalFieldType(dart.legacy(core.int)),
+    [_name$4]: dart.finalFieldType(dart.legacy(core.String))
+  }));
+  dart.defineExtensionMethods(chart_behavior$.GestureType, ['toString']);
+  chart_behavior$.GestureType.onLongPress = C[54] || CT.C54;
+  chart_behavior$.GestureType.onTap = C[55] || CT.C55;
+  chart_behavior$.GestureType.onHover = C[56] || CT.C56;
+  chart_behavior$.GestureType.onDrag = C[57] || CT.C57;
+  chart_behavior$.GestureType.values = C[58] || CT.C58;
+  dart.trackLibraries("packages/charts_flutter/src/widget_layout_delegate.dart", {
+    "package:charts_flutter/src/widget_layout_delegate.dart": widget_layout_delegate,
+    "package:charts_flutter/src/util.dart": util,
+    "package:charts_flutter/src/chart_gesture_detector.dart": chart_gesture_detector,
+    "package:charts_flutter/src/cartesian_chart.dart": cartesian_chart$,
+    "package:charts_flutter/src/behaviors/line_point_highlighter.dart": line_point_highlighter$,
+    "package:charts_flutter/src/time_series_chart.dart": time_series_chart$,
+    "package:charts_flutter/src/chart_container.dart": chart_container,
+    "package:charts_flutter/src/behaviors/select_nearest.dart": select_nearest$,
+    "package:charts_flutter/src/base_chart.dart": base_chart$,
+    "package:charts_flutter/src/base_chart_state.dart": base_chart_state,
+    "package:charts_flutter/src/behaviors/chart_behavior.dart": chart_behavior$
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["widget_layout_delegate.dart","util.dart","chart_gesture_detector.dart","base_chart.dart","cartesian_chart.dart","behaviors/chart_behavior.dart","behaviors/line_point_highlighter.dart","time_series_chart.dart","chart_container.dart","behaviors/select_nearest.dart","base_chart_state.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../D:/packages/charts_flutter/src/widget_layout_delegate.dart.lib.js"}');
+  // Exports:
+  return {
+    src__widget_layout_delegate: widget_layout_delegate,
+    src__util: util,
+    src__chart_gesture_detector: chart_gesture_detector,
+    src__cartesian_chart: cartesian_chart$,
+    src__behaviors__line_point_highlighter: line_point_highlighter$,
+    src__time_series_chart: time_series_chart$,
+    src__chart_container: chart_container,
+    src__behaviors__select_nearest: select_nearest$,
+    src__base_chart: base_chart$,
+    src__base_chart_state: base_chart_state,
+    src__behaviors__chart_behavior: chart_behavior$
+  };
+}));
+
+//# sourceMappingURL=widget_layout_delegate.dart.lib.js.map

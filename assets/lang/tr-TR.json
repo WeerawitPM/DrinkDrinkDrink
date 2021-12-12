@@ -1,0 +1,26 @@
+{
+	"title":"Su İçme Hatırlatıcısı",
+
+	"notification":{
+		"notification_title":"Su İç",
+		"notification_body":"Su içme zamanı geldi :)"
+	},
+	
+	"home":{
+		"drink_button_text":"Su Ekle",
+		"daily_info_text":"Bugün",
+		"daily_target_text":"Hedef",
+		"daily_records_title":"Kayıtlar",
+		"daily_records_card_title":"İçilen",
+		"daily_records_card_date_title":"Bugün"
+	},
+
+	"statistics":{
+		"title":"Haftalık Rapor"
+	},
+
+	"settings":{
+		"title":"Ayarlar",
+		"settings_language_route_name":"Diller"
+	}
+}

@@ -1,0 +1,442 @@
+define(['dart_sdk', 'packages/charts_common/src/chart/cartesian/axis/simple_ordinal_scale.dart', 'packages/charts_common/src/chart/common/behavior/selection/selection_trigger.dart', 'packages/charts_common/src/common/gesture_listener.dart', 'packages/charts_common/src/common/rate_limit_utils.dart'], (function load__packages__charts_common__src__chart__common__behavior__selection__select_nearest_dart(dart_sdk, packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart, packages__charts_common__src__chart__common__behavior__selection__selection_trigger$46dart, packages__charts_common__src__common__gesture_listener$46dart, packages__charts_common__src__common__rate_limit_utils$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const math = dart_sdk.math;
+  const _interceptors = dart_sdk._interceptors;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const selection_model = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__common__selection_model__selection_model;
+  const processed_series = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__common__processed_series;
+  const series_datum = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__common__series_datum;
+  const datum_details = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__common__datum_details;
+  const base_chart = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__common__base_chart;
+  const chart_behavior = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__common__behavior__chart_behavior;
+  const selection_trigger = packages__charts_common__src__chart__common__behavior__selection__selection_trigger$46dart.src__chart__common__behavior__selection__selection_trigger;
+  const gesture_listener = packages__charts_common__src__common__gesture_listener$46dart.src__common__gesture_listener;
+  const rate_limit_utils = packages__charts_common__src__common__rate_limit_utils$46dart.src__common__rate_limit_utils;
+  var select_nearest = Object.create(dart.library);
+  var $isNotEmpty = dartx.isNotEmpty;
+  var $compareTo = dartx.compareTo;
+  var $sort = dartx.sort;
+  var $_get = dartx._get;
+  var $removeWhere = dartx.removeWhere;
+  var $isEmpty = dartx.isEmpty;
+  var $first = dartx.first;
+  var $add = dartx.add;
+  var $map = dartx.map;
+  var $toList = dartx.toList;
+  var $length = dartx.length;
+  var $toString = dartx.toString;
+  dart._checkModuleNullSafetyMode(false);
+  var T = {
+    doubleL: () => (T.doubleL = dart.constFn(dart.legacy(core.double)))(),
+    PointOfdoubleL: () => (T.PointOfdoubleL = dart.constFn(math.Point$(T.doubleL())))(),
+    PointLOfdoubleL: () => (T.PointLOfdoubleL = dart.constFn(dart.legacy(T.PointOfdoubleL())))(),
+    boolL: () => (T.boolL = dart.constFn(dart.legacy(core.bool)))(),
+    intL: () => (T.intL = dart.constFn(dart.legacy(core.int)))(),
+    DateTimeL: () => (T.DateTimeL = dart.constFn(dart.legacy(core.DateTime)))(),
+    SelectionModeL: () => (T.SelectionModeL = dart.constFn(dart.legacy(select_nearest.SelectionMode)))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: selection_model.SelectionModelType.prototype,
+        [_name]: "SelectionModelType.info",
+        index: 0
+      });
+    },
+    get C1() {
+      return C[1] = dart.const({
+        __proto__: select_nearest.SelectionMode.prototype,
+        [_name$]: "SelectionMode.expandToDomain",
+        index: 0
+      });
+    },
+    get C2() {
+      return C[2] = dart.const({
+        __proto__: selection_trigger.SelectionTrigger.prototype,
+        [_name$0]: "SelectionTrigger.hover",
+        index: 0
+      });
+    },
+    get C3() {
+      return C[3] = dart.const({
+        __proto__: selection_trigger.SelectionTrigger.prototype,
+        [_name$0]: "SelectionTrigger.tap",
+        index: 1
+      });
+    },
+    get C4() {
+      return C[4] = dart.const({
+        __proto__: selection_trigger.SelectionTrigger.prototype,
+        [_name$0]: "SelectionTrigger.tapAndDrag",
+        index: 2
+      });
+    },
+    get C5() {
+      return C[5] = dart.const({
+        __proto__: selection_trigger.SelectionTrigger.prototype,
+        [_name$0]: "SelectionTrigger.pressHold",
+        index: 3
+      });
+    },
+    get C6() {
+      return C[6] = dart.const({
+        __proto__: selection_trigger.SelectionTrigger.prototype,
+        [_name$0]: "SelectionTrigger.longPressHold",
+        index: 4
+      });
+    },
+    get C7() {
+      return C[7] = dart.const({
+        __proto__: select_nearest.SelectionMode.prototype,
+        [_name$]: "SelectionMode.selectOverlapping",
+        index: 1
+      });
+    },
+    get C8() {
+      return C[8] = dart.const({
+        __proto__: select_nearest.SelectionMode.prototype,
+        [_name$]: "SelectionMode.single",
+        index: 2
+      });
+    },
+    get C9() {
+      return C[9] = dart.constList([C[1] || CT.C1, C[7] || CT.C7, C[8] || CT.C8], T.SelectionModeL());
+    }
+  }, false);
+  var C = Array(10).fill(void 0);
+  var I = ["package:charts_common/src/chart/common/behavior/selection/select_nearest.dart"];
+  var selectionModelType$ = dart.privateName(select_nearest, "SelectNearest.selectionModelType");
+  var eventTrigger$ = dart.privateName(select_nearest, "SelectNearest.eventTrigger");
+  var selectionMode$ = dart.privateName(select_nearest, "SelectNearest.selectionMode");
+  var selectAcrossAllSeriesRendererComponents$ = dart.privateName(select_nearest, "SelectNearest.selectAcrossAllSeriesRendererComponents");
+  var selectClosestSeries$ = dart.privateName(select_nearest, "SelectNearest.selectClosestSeries");
+  var maximumDomainDistancePx$ = dart.privateName(select_nearest, "SelectNearest.maximumDomainDistancePx");
+  var hoverEventDelay$ = dart.privateName(select_nearest, "SelectNearest.hoverEventDelay");
+  var _name = dart.privateName(selection_model, "_name");
+  var _name$ = dart.privateName(select_nearest, "_name");
+  var _name$0 = dart.privateName(selection_trigger, "_name");
+  var _listener = dart.privateName(select_nearest, "_listener");
+  var _chart = dart.privateName(select_nearest, "_chart");
+  var _delaySelect = dart.privateName(select_nearest, "_delaySelect");
+  var _onTapTest = dart.privateName(select_nearest, "_onTapTest");
+  var _onSelect = dart.privateName(select_nearest, "_onSelect");
+  var _onDeselectAll = dart.privateName(select_nearest, "_onDeselectAll");
+  var _onLongPressSelect = dart.privateName(select_nearest, "_onLongPressSelect");
+  var _extractSeriesFromNearestSelection = dart.privateName(select_nearest, "_extractSeriesFromNearestSelection");
+  var _expandToDomain = dart.privateName(select_nearest, "_expandToDomain");
+  const _is_SelectNearest_default = Symbol('_is_SelectNearest_default');
+  select_nearest.SelectNearest$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    var ImmutableSeriesOfDL = () => (ImmutableSeriesOfDL = dart.constFn(processed_series.ImmutableSeries$(DL())))();
+    var ImmutableSeriesLOfDL = () => (ImmutableSeriesLOfDL = dart.constFn(dart.legacy(ImmutableSeriesOfDL())))();
+    var JSArrayOfImmutableSeriesLOfDL = () => (JSArrayOfImmutableSeriesLOfDL = dart.constFn(_interceptors.JSArray$(ImmutableSeriesLOfDL())))();
+    var SeriesDatumOfDL = () => (SeriesDatumOfDL = dart.constFn(series_datum.SeriesDatum$(DL())))();
+    var SeriesDatumLOfDL = () => (SeriesDatumLOfDL = dart.constFn(dart.legacy(SeriesDatumOfDL())))();
+    var JSArrayOfSeriesDatumLOfDL = () => (JSArrayOfSeriesDatumLOfDL = dart.constFn(_interceptors.JSArray$(SeriesDatumLOfDL())))();
+    var DatumDetailsOfDL = () => (DatumDetailsOfDL = dart.constFn(datum_details.DatumDetails$(DL())))();
+    var DatumDetailsLOfDL = () => (DatumDetailsLOfDL = dart.constFn(dart.legacy(DatumDetailsOfDL())))();
+    var DatumDetailsLOfDLAndDatumDetailsLOfDLTointL = () => (DatumDetailsLOfDLAndDatumDetailsLOfDLTointL = dart.constFn(dart.fnType(T.intL(), [DatumDetailsLOfDL(), DatumDetailsLOfDL()])))();
+    var SeriesDatumLOfDLToboolL = () => (SeriesDatumLOfDLToboolL = dart.constFn(dart.fnType(T.boolL(), [SeriesDatumLOfDL()])))();
+    var ListOfSeriesDatumLOfDL = () => (ListOfSeriesDatumLOfDL = dart.constFn(core.List$(SeriesDatumLOfDL())))();
+    var SeriesDatumLOfDLAndSeriesDatumLOfDLTointL = () => (SeriesDatumLOfDLAndSeriesDatumLOfDLTointL = dart.constFn(dart.fnType(T.intL(), [SeriesDatumLOfDL(), SeriesDatumLOfDL()])))();
+    var DatumDetailsLOfDLToSeriesDatumLOfDL = () => (DatumDetailsLOfDLToSeriesDatumLOfDL = dart.constFn(dart.fnType(SeriesDatumLOfDL(), [DatumDetailsLOfDL()])))();
+    var BaseChartOfDL = () => (BaseChartOfDL = dart.constFn(base_chart.BaseChart$(DL())))();
+    var BaseChartLOfDL = () => (BaseChartLOfDL = dart.constFn(dart.legacy(BaseChartOfDL())))();
+    class SelectNearest extends core.Object {
+      get selectionModelType() {
+        return this[selectionModelType$];
+      }
+      set selectionModelType(value) {
+        super.selectionModelType = value;
+      }
+      get eventTrigger() {
+        return this[eventTrigger$];
+      }
+      set eventTrigger(value) {
+        super.eventTrigger = value;
+      }
+      get selectionMode() {
+        return this[selectionMode$];
+      }
+      set selectionMode(value) {
+        super.selectionMode = value;
+      }
+      get selectAcrossAllSeriesRendererComponents() {
+        return this[selectAcrossAllSeriesRendererComponents$];
+      }
+      set selectAcrossAllSeriesRendererComponents(value) {
+        super.selectAcrossAllSeriesRendererComponents = value;
+      }
+      get selectClosestSeries() {
+        return this[selectClosestSeries$];
+      }
+      set selectClosestSeries(value) {
+        super.selectClosestSeries = value;
+      }
+      get maximumDomainDistancePx() {
+        return this[maximumDomainDistancePx$];
+      }
+      set maximumDomainDistancePx(value) {
+        super.maximumDomainDistancePx = value;
+      }
+      get hoverEventDelay() {
+        return this[hoverEventDelay$];
+      }
+      set hoverEventDelay(value) {
+        super.hoverEventDelay = value;
+      }
+      [_onTapTest](chartPoint) {
+        this[_delaySelect] = this.eventTrigger == selection_trigger.SelectionTrigger.longPressHold;
+        return this[_chart].pointWithinRenderer(chartPoint);
+      }
+      [_onLongPressSelect](chartPoint) {
+        this[_delaySelect] = false;
+        return this[_onSelect](chartPoint);
+      }
+      [_onSelect](chartPoint, ignored = null) {
+        if (this[_chart] == null) return false;
+        if (dart.test(this[_delaySelect])) return false;
+        let details = this[_chart].getNearestDatumDetailPerSeries(chartPoint, this.selectAcrossAllSeriesRendererComponents);
+        let seriesList = JSArrayOfImmutableSeriesLOfDL().of([]);
+        let seriesDatumList = JSArrayOfSeriesDatumLOfDL().of([]);
+        if (details != null && dart.test(details[$isNotEmpty])) {
+          details[$sort](dart.fn((a, b) => a.domainDistance[$compareTo](b.domainDistance), DatumDetailsLOfDLAndDatumDetailsLOfDLTointL()));
+          if (this.maximumDomainDistancePx == null || dart.notNull(details[$_get](0).domainDistance) <= dart.notNull(this.maximumDomainDistancePx)) {
+            seriesDatumList = this[_extractSeriesFromNearestSelection](details);
+            seriesDatumList[$removeWhere](dart.fn(datum => datum.series.overlaySeries, SeriesDatumLOfDLToboolL()));
+            if (dart.test(this.selectClosestSeries) && dart.test(seriesList[$isEmpty])) {
+              if (dart.test(details[$first].series.overlaySeries)) {
+                let sortedSeriesDatumList = ListOfSeriesDatumLOfDL().from(seriesDatumList);
+                sortedSeriesDatumList[$sort](dart.fn((a, b) => T.intL().as(dart.dsend(dart.dload(a.datum, 'domainDistance'), 'compareTo', [dart.dload(b.datum, 'domainDistance')])), SeriesDatumLOfDLAndSeriesDatumLOfDLTointL()));
+                seriesList[$add](sortedSeriesDatumList[$first].series);
+              } else {
+                seriesList[$add](details[$first].series);
+              }
+            }
+          }
+        }
+        return this[_chart].getSelectionModel(this.selectionModelType).updateSelection(seriesDatumList, seriesList);
+      }
+      [_extractSeriesFromNearestSelection](details) {
+        switch (this.selectionMode) {
+          case C[1] || CT.C1:
+          {
+            return this[_expandToDomain](details[$first]);
+          }
+          case C[7] || CT.C7:
+          {
+            return details[$map](SeriesDatumLOfDL(), dart.fn(datumDetails => new (SeriesDatumOfDL()).new(datumDetails.series, datumDetails.datum), DatumDetailsLOfDLToSeriesDatumLOfDL()))[$toList]();
+          }
+          case C[8] || CT.C8:
+          {
+            return JSArrayOfSeriesDatumLOfDL().of([new (SeriesDatumOfDL()).new(details[$first].series, details[$first].datum)]);
+          }
+          default:
+          {
+            return null;
+          }
+        }
+      }
+      [_onDeselectAll](_, __, ___) {
+        if (dart.test(this[_delaySelect])) {
+          return false;
+        }
+        this[_chart].getSelectionModel(this.selectionModelType).updateSelection(JSArrayOfSeriesDatumLOfDL().of([]), JSArrayOfImmutableSeriesLOfDL().of([]));
+        return false;
+      }
+      [_expandToDomain](nearestDetails) {
+        let data = JSArrayOfSeriesDatumLOfDL().of([new (SeriesDatumOfDL()).new(nearestDetails.series, nearestDetails.datum)]);
+        let nearestDomain = nearestDetails.domain;
+        for (let series of this[_chart].currentSeriesList) {
+          let domainFn = series.domainFn;
+          let domainLowerBoundFn = series.domainLowerBoundFn;
+          let domainUpperBoundFn = series.domainUpperBoundFn;
+          let testBounds = domainLowerBoundFn != null && domainUpperBoundFn != null;
+          for (let i = 0; i < dart.notNull(series.data[$length]); i = i + 1) {
+            let datum = series.data[$_get](i);
+            let domain = domainFn(i);
+            if (dart.equals(nearestDetails.series, series) && dart.equals(nearestDetails.datum, datum)) {
+              continue;
+            }
+            if (dart.equals(domain, nearestDomain)) {
+              data[$add](new (SeriesDatumOfDL()).new(series, datum));
+            } else if (testBounds) {
+              let domainLowerBound = domainLowerBoundFn(i);
+              let domainUpperBound = domainUpperBoundFn(i);
+              let addDatum = false;
+              if (domainLowerBound != null && domainUpperBound != null) {
+                if (T.intL().is(domain)) {
+                  addDatum = dart.notNull(T.intL().as(domainLowerBound)) <= dart.notNull(T.intL().as(nearestDomain)) && dart.notNull(T.intL().as(nearestDomain)) <= dart.notNull(T.intL().as(domainUpperBound));
+                } else if (T.doubleL().is(domain)) {
+                  addDatum = dart.notNull(T.doubleL().as(domainLowerBound)) <= dart.notNull(T.doubleL().as(nearestDomain)) && dart.notNull(T.doubleL().as(nearestDomain)) <= dart.notNull(T.doubleL().as(domainUpperBound));
+                } else if (T.DateTimeL().is(domain)) {
+                  addDatum = dart.equals(domainLowerBound, nearestDomain) || dart.equals(domainUpperBound, nearestDomain) || dart.test(T.DateTimeL().as(domainLowerBound).isBefore(T.DateTimeL().as(nearestDomain))) && dart.test(T.DateTimeL().as(nearestDomain).isBefore(T.DateTimeL().as(domainUpperBound)));
+                }
+              }
+              if (addDatum) {
+                data[$add](new (SeriesDatumOfDL()).new(series, datum));
+              }
+            }
+          }
+        }
+        return data;
+      }
+      attachTo(chart) {
+        BaseChartLOfDL().as(chart);
+        this[_chart] = chart;
+        chart.addGestureListener(this[_listener]);
+        switch (this.eventTrigger) {
+          case C[3] || CT.C3:
+          case C[4] || CT.C4:
+          case C[5] || CT.C5:
+          case C[6] || CT.C6:
+          {
+            chart.registerTappable(this);
+            break;
+          }
+          case C[2] || CT.C2:
+          default:
+          {
+            chart.unregisterTappable(this);
+            break;
+          }
+        }
+      }
+      removeFrom(chart) {
+        BaseChartLOfDL().as(chart);
+        chart.removeGestureListener(this[_listener]);
+        chart.unregisterTappable(this);
+        this[_chart] = null;
+      }
+      get role() {
+        return "SelectNearest-" + dart.str(dart.toString(this.selectionModelType)) + "}";
+      }
+    }
+    (SelectNearest.new = function(opts) {
+      let selectionModelType = opts && 'selectionModelType' in opts ? opts.selectionModelType : C[0] || CT.C0;
+      let selectionMode = opts && 'selectionMode' in opts ? opts.selectionMode : C[1] || CT.C1;
+      let selectAcrossAllSeriesRendererComponents = opts && 'selectAcrossAllSeriesRendererComponents' in opts ? opts.selectAcrossAllSeriesRendererComponents : true;
+      let selectClosestSeries = opts && 'selectClosestSeries' in opts ? opts.selectClosestSeries : true;
+      let eventTrigger = opts && 'eventTrigger' in opts ? opts.eventTrigger : C[2] || CT.C2;
+      let maximumDomainDistancePx = opts && 'maximumDomainDistancePx' in opts ? opts.maximumDomainDistancePx : null;
+      let hoverEventDelay = opts && 'hoverEventDelay' in opts ? opts.hoverEventDelay : null;
+      this[_listener] = null;
+      this[_chart] = null;
+      this[_delaySelect] = false;
+      this[selectionModelType$] = selectionModelType;
+      this[selectionMode$] = selectionMode;
+      this[selectAcrossAllSeriesRendererComponents$] = selectAcrossAllSeriesRendererComponents;
+      this[selectClosestSeries$] = selectClosestSeries;
+      this[eventTrigger$] = eventTrigger;
+      this[maximumDomainDistancePx$] = maximumDomainDistancePx;
+      this[hoverEventDelay$] = hoverEventDelay;
+      switch (this.eventTrigger) {
+        case C[3] || CT.C3:
+        {
+          this[_listener] = new gesture_listener.GestureListener.new({onTapTest: dart.bind(this, _onTapTest), onTap: dart.bind(this, _onSelect)});
+          break;
+        }
+        case C[4] || CT.C4:
+        {
+          this[_listener] = new gesture_listener.GestureListener.new({onTapTest: dart.bind(this, _onTapTest), onTap: dart.bind(this, _onSelect), onDragStart: dart.bind(this, _onSelect), onDragUpdate: dart.bind(this, _onSelect)});
+          break;
+        }
+        case C[5] || CT.C5:
+        {
+          this[_listener] = new gesture_listener.GestureListener.new({onTapTest: dart.bind(this, _onTapTest), onLongPress: dart.bind(this, _onSelect), onDragStart: dart.bind(this, _onSelect), onDragUpdate: dart.bind(this, _onSelect), onDragEnd: dart.bind(this, _onDeselectAll)});
+          break;
+        }
+        case C[6] || CT.C6:
+        {
+          this[_listener] = new gesture_listener.GestureListener.new({onTapTest: dart.bind(this, _onTapTest), onLongPress: dart.bind(this, _onLongPressSelect), onDragStart: dart.bind(this, _onSelect), onDragUpdate: dart.bind(this, _onSelect), onDragEnd: dart.bind(this, _onDeselectAll)});
+          break;
+        }
+        case C[2] || CT.C2:
+        default:
+        {
+          this[_listener] = new gesture_listener.GestureListener.new({onHover: this.hoverEventDelay == null ? dart.bind(this, _onSelect) : rate_limit_utils.throttle(T.PointLOfdoubleL(), T.boolL(), dart.bind(this, _onSelect), {delay: new core.Duration.new({milliseconds: this.hoverEventDelay}), defaultReturn: false})});
+          break;
+        }
+      }
+    }).prototype = SelectNearest.prototype;
+    dart.addTypeTests(SelectNearest);
+    SelectNearest.prototype[_is_SelectNearest_default] = true;
+    dart.addTypeCaches(SelectNearest);
+    SelectNearest[dart.implements] = () => [chart_behavior.ChartBehavior$(dart.legacy(D))];
+    dart.setMethodSignature(SelectNearest, () => ({
+      __proto__: dart.getMethods(SelectNearest.__proto__),
+      [_onTapTest]: dart.fnType(dart.legacy(core.bool), [dart.legacy(math.Point$(dart.legacy(core.double)))]),
+      [_onLongPressSelect]: dart.fnType(dart.legacy(core.bool), [dart.legacy(math.Point$(dart.legacy(core.double)))]),
+      [_onSelect]: dart.fnType(dart.legacy(core.bool), [dart.legacy(math.Point$(dart.legacy(core.double)))], [dart.legacy(core.double)]),
+      [_extractSeriesFromNearestSelection]: dart.fnType(dart.legacy(core.List$(dart.legacy(series_datum.SeriesDatum$(dart.legacy(D))))), [dart.legacy(core.List$(dart.legacy(datum_details.DatumDetails$(dart.legacy(D)))))]),
+      [_onDeselectAll]: dart.fnType(dart.legacy(core.bool), [dart.dynamic, dart.dynamic, dart.dynamic]),
+      [_expandToDomain]: dart.fnType(dart.legacy(core.List$(dart.legacy(series_datum.SeriesDatum$(dart.legacy(D))))), [dart.legacy(datum_details.DatumDetails$(dart.legacy(D)))]),
+      attachTo: dart.fnType(dart.void, [dart.legacy(core.Object)]),
+      removeFrom: dart.fnType(dart.void, [dart.legacy(core.Object)])
+    }));
+    dart.setGetterSignature(SelectNearest, () => ({
+      __proto__: dart.getGetters(SelectNearest.__proto__),
+      role: dart.legacy(core.String)
+    }));
+    dart.setLibraryUri(SelectNearest, I[0]);
+    dart.setFieldSignature(SelectNearest, () => ({
+      __proto__: dart.getFields(SelectNearest.__proto__),
+      [_listener]: dart.fieldType(dart.legacy(gesture_listener.GestureListener)),
+      selectionModelType: dart.finalFieldType(dart.legacy(selection_model.SelectionModelType)),
+      eventTrigger: dart.finalFieldType(dart.legacy(selection_trigger.SelectionTrigger)),
+      selectionMode: dart.finalFieldType(dart.legacy(select_nearest.SelectionMode)),
+      selectAcrossAllSeriesRendererComponents: dart.finalFieldType(dart.legacy(core.bool)),
+      selectClosestSeries: dart.finalFieldType(dart.legacy(core.bool)),
+      maximumDomainDistancePx: dart.finalFieldType(dart.legacy(core.int)),
+      hoverEventDelay: dart.finalFieldType(dart.legacy(core.int)),
+      [_chart]: dart.fieldType(dart.legacy(base_chart.BaseChart$(dart.legacy(D)))),
+      [_delaySelect]: dart.fieldType(dart.legacy(core.bool))
+    }));
+    return SelectNearest;
+  });
+  select_nearest.SelectNearest = select_nearest.SelectNearest$();
+  dart.addTypeTests(select_nearest.SelectNearest, _is_SelectNearest_default);
+  select_nearest.SelectionMode = class SelectionMode extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (select_nearest.SelectionMode.new = function(index, _name) {
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = select_nearest.SelectionMode.prototype;
+  dart.addTypeTests(select_nearest.SelectionMode);
+  dart.addTypeCaches(select_nearest.SelectionMode);
+  dart.setMethodSignature(select_nearest.SelectionMode, () => ({
+    __proto__: dart.getMethods(select_nearest.SelectionMode.__proto__),
+    toString: dart.fnType(dart.legacy(core.String), []),
+    [$toString]: dart.fnType(dart.legacy(core.String), [])
+  }));
+  dart.setLibraryUri(select_nearest.SelectionMode, I[0]);
+  dart.setFieldSignature(select_nearest.SelectionMode, () => ({
+    __proto__: dart.getFields(select_nearest.SelectionMode.__proto__),
+    index: dart.finalFieldType(dart.legacy(core.int)),
+    [_name$]: dart.finalFieldType(dart.legacy(core.String))
+  }));
+  dart.defineExtensionMethods(select_nearest.SelectionMode, ['toString']);
+  select_nearest.SelectionMode.expandToDomain = C[1] || CT.C1;
+  select_nearest.SelectionMode.selectOverlapping = C[7] || CT.C7;
+  select_nearest.SelectionMode.single = C[8] || CT.C8;
+  select_nearest.SelectionMode.values = C[9] || CT.C9;
+  dart.trackLibraries("packages/charts_common/src/chart/common/behavior/selection/select_nearest.dart", {
+    "package:charts_common/src/chart/common/behavior/selection/select_nearest.dart": select_nearest
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["select_nearest.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../../../../../D:/packages/charts_common/src/chart/common/behavior/selection/select_nearest.dart.lib.js"}');
+  // Exports:
+  return {
+    src__chart__common__behavior__selection__select_nearest: select_nearest
+  };
+}));
+
+//# sourceMappingURL=select_nearest.dart.lib.js.map

@@ -1,0 +1,1 @@
+const iconWater = 'assets/icons/water_bottle.svg';

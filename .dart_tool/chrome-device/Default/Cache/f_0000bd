@@ -1,0 +1,1253 @@
+define(['dart_sdk', 'packages/charts_common/src/chart/common/series_renderer_config.dart', 'packages/charts_common/src/chart/cartesian/axis/simple_ordinal_scale.dart', 'packages/charts_common/src/chart/common/canvas_shapes.dart', 'packages/charts_common/src/common/graphics_factory.dart', 'packages/charts_common/src/common/math.dart', 'packages/vector_math/vector_math.dart', 'packages/charts_common/src/chart/cartesian/cartesian_chart.dart', 'packages/charts_common/src/common/color.dart', 'packages/charts_common/src/common/typed_registry.dart'], (function load__packages__charts_common__src__chart__scatter_plot__point_renderer_config_dart(dart_sdk, packages__charts_common__src__chart__common__series_renderer_config$46dart, packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart, packages__charts_common__src__chart__common__canvas_shapes$46dart, packages__charts_common__src__common__graphics_factory$46dart, packages__charts_common__src__common__math$46dart, packages__vector_math__vector_math$46dart, packages__charts_common__src__chart__cartesian__cartesian_chart$46dart, packages__charts_common__src__common__color$46dart, packages__charts_common__src__common__typed_registry$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const math = dart_sdk.math;
+  const _interceptors = dart_sdk._interceptors;
+  const _js_helper = dart_sdk._js_helper;
+  const collection = dart_sdk.collection;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const series_renderer_config = packages__charts_common__src__chart__common__series_renderer_config$46dart.src__chart__common__series_renderer_config;
+  const layout_view = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__layout__layout_view;
+  const symbol_renderer = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__common__symbol_renderer;
+  const processed_series = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__common__processed_series;
+  const axis = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__cartesian__axis__axis;
+  const base_chart = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__common__base_chart;
+  const datum_details = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__common__datum_details;
+  const series_datum = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__common__series_datum;
+  const series = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__data__series;
+  const chart_canvas = packages__charts_common__src__chart__common__canvas_shapes$46dart.src__chart__common__chart_canvas;
+  const graphics_factory = packages__charts_common__src__common__graphics_factory$46dart.src__common__graphics_factory;
+  const math$ = packages__charts_common__src__common__math$46dart.src__common__math;
+  const vector_math = packages__vector_math__vector_math$46dart.vector_math;
+  const cartesian_renderer = packages__charts_common__src__chart__cartesian__cartesian_chart$46dart.src__chart__cartesian__cartesian_renderer;
+  const color = packages__charts_common__src__common__color$46dart.src__common__color;
+  const typed_registry = packages__charts_common__src__common__typed_registry$46dart.src__common__typed_registry;
+  var point_renderer_config = Object.create(dart.library);
+  var point_renderer_decorator = Object.create(dart.library);
+  var comparison_points_decorator = Object.create(dart.library);
+  var point_renderer = Object.create(dart.library);
+  var $_get = dartx._get;
+  var $intersects = dartx.intersects;
+  var $containsPoint = dartx.containsPoint;
+  var $top = dartx.top;
+  var $toDouble = dartx.toDouble;
+  var $bottom = dartx.bottom;
+  var $left = dartx.left;
+  var $right = dartx.right;
+  var $length = dartx.length;
+  var $add = dartx.add;
+  var $forEach = dartx.forEach;
+  var $clear = dartx.clear;
+  var $putIfAbsent = dartx.putIfAbsent;
+  var $firstWhere = dartx.firstWhere;
+  var $contains = dartx.contains;
+  var $removeWhere = dartx.removeWhere;
+  var $isEmpty = dartx.isEmpty;
+  var $remove = dartx.remove;
+  var $map = dartx.map;
+  var $where = dartx.where;
+  var $containsKey = dartx.containsKey;
+  var $values = dartx.values;
+  var $isNotEmpty = dartx.isNotEmpty;
+  var $abs = dartx.abs;
+  var $roundToDouble = dartx.roundToDouble;
+  dart._checkModuleNullSafetyMode(false);
+  var T = {
+    PointRendererDecoratorL: () => (T.PointRendererDecoratorL = dart.constFn(dart.legacy(point_renderer_decorator.PointRendererDecorator)))(),
+    doubleL: () => (T.doubleL = dart.constFn(dart.legacy(core.double)))(),
+    PointOfdoubleL: () => (T.PointOfdoubleL = dart.constFn(math.Point$(T.doubleL())))(),
+    numL: () => (T.numL = dart.constFn(dart.legacy(core.num)))(),
+    RectangleOfnumL: () => (T.RectangleOfnumL = dart.constFn(math.Rectangle$(T.numL())))(),
+    PointLOfdoubleL: () => (T.PointLOfdoubleL = dart.constFn(dart.legacy(T.PointOfdoubleL())))(),
+    JSArrayOfPointLOfdoubleL: () => (T.JSArrayOfPointLOfdoubleL = dart.constFn(_interceptors.JSArray$(T.PointLOfdoubleL())))(),
+    StringL: () => (T.StringL = dart.constFn(dart.legacy(core.String)))(),
+    JSArrayOfStringL: () => (T.JSArrayOfStringL = dart.constFn(_interceptors.JSArray$(T.StringL())))(),
+    JSArrayOfPointRendererDecoratorL: () => (T.JSArrayOfPointRendererDecoratorL = dart.constFn(_interceptors.JSArray$(T.PointRendererDecoratorL())))(),
+    intL: () => (T.intL = dart.constFn(dart.legacy(core.int)))(),
+    intLTodoubleL: () => (T.intLTodoubleL = dart.constFn(dart.fnType(T.doubleL(), [T.intL()])))(),
+    intLToLdoubleL: () => (T.intLToLdoubleL = dart.constFn(dart.legacy(T.intLTodoubleL())))(),
+    intLToStringL: () => (T.intLToStringL = dart.constFn(dart.fnType(T.StringL(), [T.intL()])))(),
+    intLToLStringL: () => (T.intLToLStringL = dart.constFn(dart.legacy(T.intLToStringL())))(),
+    dynamicAndintLTodynamic: () => (T.dynamicAndintLTodynamic = dart.constFn(dart.fnType(dart.dynamic, [dart.dynamic, T.intL()])))(),
+    dynamicAndintLToLdynamic: () => (T.dynamicAndintLToLdynamic = dart.constFn(dart.legacy(T.dynamicAndintLTodynamic())))(),
+    PointRendererElementL: () => (T.PointRendererElementL = dart.constFn(dart.legacy(point_renderer.PointRendererElement)))(),
+    ListOfPointRendererElementL: () => (T.ListOfPointRendererElementL = dart.constFn(core.List$(T.PointRendererElementL())))(),
+    ListLOfPointRendererElementL: () => (T.ListLOfPointRendererElementL = dart.constFn(dart.legacy(T.ListOfPointRendererElementL())))(),
+    AxisL: () => (T.AxisL = dart.constFn(dart.legacy(axis.Axis)))(),
+    ImmutableAxisOfnumL: () => (T.ImmutableAxisOfnumL = dart.constFn(axis.ImmutableAxis$(T.numL())))(),
+    ImmutableAxisLOfnumL: () => (T.ImmutableAxisLOfnumL = dart.constFn(dart.legacy(T.ImmutableAxisOfnumL())))(),
+    boolL: () => (T.boolL = dart.constFn(dart.legacy(core.bool)))(),
+    AnimatedPointL: () => (T.AnimatedPointL = dart.constFn(dart.legacy(point_renderer.AnimatedPoint)))(),
+    AnimatedPointLToboolL: () => (T.AnimatedPointLToboolL = dart.constFn(dart.fnType(T.boolL(), [T.AnimatedPointL()])))(),
+    VoidToNull: () => (T.VoidToNull = dart.constFn(dart.fnType(core.Null, [])))(),
+    dynamicToStringL: () => (T.dynamicToStringL = dart.constFn(dart.fnType(T.StringL(), [dart.dynamic])))(),
+    PointRendererDecoratorLToboolL: () => (T.PointRendererDecoratorLToboolL = dart.constFn(dart.fnType(T.boolL(), [T.PointRendererDecoratorL()])))(),
+    PointRendererDecoratorLToNull: () => (T.PointRendererDecoratorLToNull = dart.constFn(dart.fnType(core.Null, [T.PointRendererDecoratorL()])))(),
+    RectangleOfdoubleL: () => (T.RectangleOfdoubleL = dart.constFn(math.Rectangle$(T.doubleL())))(),
+    PointRendererElementLToNull: () => (T.PointRendererElementLToNull = dart.constFn(dart.fnType(core.Null, [T.PointRendererElementL()])))(),
+    AttributeKeyOfListLOfPointRendererElementL: () => (T.AttributeKeyOfListLOfPointRendererElementL = dart.constFn(series.AttributeKey$(T.ListLOfPointRendererElementL())))(),
+    AttributeKeyOfintLToLStringL: () => (T.AttributeKeyOfintLToLStringL = dart.constFn(series.AttributeKey$(T.intLToLStringL())))(),
+    AttributeKeyOfStringL: () => (T.AttributeKeyOfStringL = dart.constFn(series.AttributeKey$(T.StringL())))(),
+    AttributeKeyOfdoubleL: () => (T.AttributeKeyOfdoubleL = dart.constFn(series.AttributeKey$(T.doubleL())))(),
+    AttributeKeyOfintLToLdoubleL: () => (T.AttributeKeyOfintLToLdoubleL = dart.constFn(series.AttributeKey$(T.intLToLdoubleL())))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.constList([], T.PointRendererDecoratorL());
+    },
+    get C1() {
+      return C[1] = dart.const({
+        __proto__: T.AttributeKeyOfListLOfPointRendererElementL().prototype,
+        [TypedKey_uniqueKey]: "PointRenderer.elements"
+      });
+    },
+    get C2() {
+      return C[2] = dart.const({
+        __proto__: T.AttributeKeyOfintLToLStringL().prototype,
+        [TypedKey_uniqueKey]: "PointRenderer.symbolRendererFn"
+      });
+    },
+    get C3() {
+      return C[3] = dart.const({
+        __proto__: T.AttributeKeyOfStringL().prototype,
+        [TypedKey_uniqueKey]: "PointRenderer.symbolRendererId"
+      });
+    },
+    get C4() {
+      return C[4] = dart.const({
+        __proto__: T.AttributeKeyOfdoubleL().prototype,
+        [TypedKey_uniqueKey]: "SymbolAnnotationRenderer.boundsLineRadiusPx"
+      });
+    },
+    get C5() {
+      return C[5] = dart.const({
+        __proto__: T.AttributeKeyOfintLToLdoubleL().prototype,
+        [TypedKey_uniqueKey]: "SymbolAnnotationRenderer.boundsLineRadiusPxFn"
+      });
+    }
+  }, false);
+  var C = Array(6).fill(void 0);
+  var I = [
+    "package:charts_common/src/chart/scatter_plot/point_renderer_config.dart",
+    "package:charts_common/src/chart/scatter_plot/point_renderer_decorator.dart",
+    "package:charts_common/src/chart/scatter_plot/comparison_points_decorator.dart",
+    "package:charts_common/src/chart/scatter_plot/point_renderer.dart"
+  ];
+  var customRendererId$ = dart.privateName(point_renderer_config, "PointRendererConfig.customRendererId");
+  var layoutPaintOrder$ = dart.privateName(point_renderer_config, "PointRendererConfig.layoutPaintOrder");
+  var pointRendererDecorators$ = dart.privateName(point_renderer_config, "PointRendererConfig.pointRendererDecorators");
+  var symbolRenderer$ = dart.privateName(point_renderer_config, "PointRendererConfig.symbolRenderer");
+  var customSymbolRenderers$ = dart.privateName(point_renderer_config, "PointRendererConfig.customSymbolRenderers");
+  var rendererAttributes = dart.privateName(point_renderer_config, "PointRendererConfig.rendererAttributes");
+  var radiusPx$ = dart.privateName(point_renderer_config, "PointRendererConfig.radiusPx");
+  var strokeWidthPx$ = dart.privateName(point_renderer_config, "PointRendererConfig.strokeWidthPx");
+  var boundsLineRadiusPx$ = dart.privateName(point_renderer_config, "PointRendererConfig.boundsLineRadiusPx");
+  const _is_PointRendererConfig_default = Symbol('_is_PointRendererConfig_default');
+  point_renderer_config.PointRendererConfig$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    var PointRendererOfDL = () => (PointRendererOfDL = dart.constFn(point_renderer.PointRenderer$(DL())))();
+    class PointRendererConfig extends layout_view.LayoutViewConfig {
+      get customRendererId() {
+        return this[customRendererId$];
+      }
+      set customRendererId(value) {
+        super.customRendererId = value;
+      }
+      get layoutPaintOrder() {
+        return this[layoutPaintOrder$];
+      }
+      set layoutPaintOrder(value) {
+        super.layoutPaintOrder = value;
+      }
+      get pointRendererDecorators() {
+        return this[pointRendererDecorators$];
+      }
+      set pointRendererDecorators(value) {
+        super.pointRendererDecorators = value;
+      }
+      get symbolRenderer() {
+        return this[symbolRenderer$];
+      }
+      set symbolRenderer(value) {
+        super.symbolRenderer = value;
+      }
+      get customSymbolRenderers() {
+        return this[customSymbolRenderers$];
+      }
+      set customSymbolRenderers(value) {
+        super.customSymbolRenderers = value;
+      }
+      get rendererAttributes() {
+        return this[rendererAttributes];
+      }
+      set rendererAttributes(value) {
+        super.rendererAttributes = value;
+      }
+      get radiusPx() {
+        return this[radiusPx$];
+      }
+      set radiusPx(value) {
+        super.radiusPx = value;
+      }
+      get strokeWidthPx() {
+        return this[strokeWidthPx$];
+      }
+      set strokeWidthPx(value) {
+        super.strokeWidthPx = value;
+      }
+      get boundsLineRadiusPx() {
+        return this[boundsLineRadiusPx$];
+      }
+      set boundsLineRadiusPx(value) {
+        super.boundsLineRadiusPx = value;
+      }
+      build() {
+        return new (PointRendererOfDL()).new({config: this, rendererId: this.customRendererId});
+      }
+    }
+    (PointRendererConfig.new = function(opts) {
+      let customRendererId = opts && 'customRendererId' in opts ? opts.customRendererId : null;
+      let layoutPaintOrder = opts && 'layoutPaintOrder' in opts ? opts.layoutPaintOrder : 25;
+      let pointRendererDecorators = opts && 'pointRendererDecorators' in opts ? opts.pointRendererDecorators : C[0] || CT.C0;
+      let radiusPx = opts && 'radiusPx' in opts ? opts.radiusPx : 3.5;
+      let boundsLineRadiusPx = opts && 'boundsLineRadiusPx' in opts ? opts.boundsLineRadiusPx : null;
+      let strokeWidthPx = opts && 'strokeWidthPx' in opts ? opts.strokeWidthPx : 0;
+      let symbolRenderer = opts && 'symbolRenderer' in opts ? opts.symbolRenderer : null;
+      let customSymbolRenderers = opts && 'customSymbolRenderers' in opts ? opts.customSymbolRenderers : null;
+      this[rendererAttributes] = new series_renderer_config.RendererAttributes.new();
+      this[customRendererId$] = customRendererId;
+      this[layoutPaintOrder$] = layoutPaintOrder;
+      this[pointRendererDecorators$] = pointRendererDecorators;
+      this[radiusPx$] = radiusPx;
+      this[boundsLineRadiusPx$] = boundsLineRadiusPx;
+      this[strokeWidthPx$] = strokeWidthPx;
+      this[symbolRenderer$] = symbolRenderer;
+      this[customSymbolRenderers$] = customSymbolRenderers;
+      PointRendererConfig.__proto__.new.call(this);
+      ;
+    }).prototype = PointRendererConfig.prototype;
+    dart.addTypeTests(PointRendererConfig);
+    PointRendererConfig.prototype[_is_PointRendererConfig_default] = true;
+    dart.addTypeCaches(PointRendererConfig);
+    PointRendererConfig[dart.implements] = () => [series_renderer_config.SeriesRendererConfig$(dart.legacy(D))];
+    dart.setMethodSignature(PointRendererConfig, () => ({
+      __proto__: dart.getMethods(PointRendererConfig.__proto__),
+      build: dart.fnType(dart.legacy(point_renderer.PointRenderer$(dart.legacy(D))), [])
+    }));
+    dart.setLibraryUri(PointRendererConfig, I[0]);
+    dart.setFieldSignature(PointRendererConfig, () => ({
+      __proto__: dart.getFields(PointRendererConfig.__proto__),
+      customRendererId: dart.finalFieldType(dart.legacy(core.String)),
+      layoutPaintOrder: dart.finalFieldType(dart.legacy(core.int)),
+      pointRendererDecorators: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(point_renderer_decorator.PointRendererDecorator)))),
+      symbolRenderer: dart.finalFieldType(dart.legacy(symbol_renderer.SymbolRenderer)),
+      customSymbolRenderers: dart.finalFieldType(dart.legacy(core.Map$(dart.legacy(core.String), dart.legacy(symbol_renderer.SymbolRenderer)))),
+      rendererAttributes: dart.finalFieldType(dart.legacy(series_renderer_config.RendererAttributes)),
+      radiusPx: dart.finalFieldType(dart.legacy(core.double)),
+      strokeWidthPx: dart.finalFieldType(dart.legacy(core.double)),
+      boundsLineRadiusPx: dart.finalFieldType(dart.legacy(core.double))
+    }));
+    return PointRendererConfig;
+  });
+  point_renderer_config.PointRendererConfig = point_renderer_config.PointRendererConfig$();
+  dart.addTypeTests(point_renderer_config.PointRendererConfig, _is_PointRendererConfig_default);
+  const _is_PointRendererDecorator_default = Symbol('_is_PointRendererDecorator_default');
+  point_renderer_decorator.PointRendererDecorator$ = dart.generic(D => {
+    class PointRendererDecorator extends core.Object {}
+    (PointRendererDecorator.new = function() {
+      ;
+    }).prototype = PointRendererDecorator.prototype;
+    dart.addTypeTests(PointRendererDecorator);
+    PointRendererDecorator.prototype[_is_PointRendererDecorator_default] = true;
+    dart.addTypeCaches(PointRendererDecorator);
+    dart.setLibraryUri(PointRendererDecorator, I[1]);
+    return PointRendererDecorator;
+  });
+  point_renderer_decorator.PointRendererDecorator = point_renderer_decorator.PointRendererDecorator$();
+  dart.addTypeTests(point_renderer_decorator.PointRendererDecorator, _is_PointRendererDecorator_default);
+  var symbolRenderer$0 = dart.privateName(comparison_points_decorator, "ComparisonPointsDecorator.symbolRenderer");
+  var renderAbove = dart.privateName(comparison_points_decorator, "ComparisonPointsDecorator.renderAbove");
+  var _clampPointAlongLineToBoundingBox = dart.privateName(comparison_points_decorator, "_clampPointAlongLineToBoundingBox");
+  const _is_ComparisonPointsDecorator_default = Symbol('_is_ComparisonPointsDecorator_default');
+  comparison_points_decorator.ComparisonPointsDecorator$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    var PointRendererElementOfDL = () => (PointRendererElementOfDL = dart.constFn(point_renderer.PointRendererElement$(DL())))();
+    var PointRendererElementLOfDL = () => (PointRendererElementLOfDL = dart.constFn(dart.legacy(PointRendererElementOfDL())))();
+    class ComparisonPointsDecorator extends point_renderer_decorator.PointRendererDecorator$(dart.legacy(D)) {
+      get symbolRenderer() {
+        return this[symbolRenderer$0];
+      }
+      set symbolRenderer(value) {
+        super.symbolRenderer = value;
+      }
+      get renderAbove() {
+        return this[renderAbove];
+      }
+      set renderAbove(value) {
+        super.renderAbove = value;
+      }
+      decorate(pointElement, canvas, graphicsFactory, opts) {
+        PointRendererElementLOfDL().as(pointElement);
+        let drawBounds = opts && 'drawBounds' in opts ? opts.drawBounds : null;
+        let animationPercent = opts && 'animationPercent' in opts ? opts.animationPercent : null;
+        let rtl = opts && 'rtl' in opts ? opts.rtl : false;
+        let points = this.computeBoundedPointsForElement(pointElement, drawBounds);
+        if (points == null) {
+          return;
+        }
+        let color = pointElement.color.lighter;
+        this.symbolRenderer.paint(canvas, points[$_get](0), pointElement.boundsLineRadiusPx, {fillColor: color, strokeColor: color, p2: points[$_get](1)});
+      }
+      computeBoundedPointsForElement(pointElement, drawBounds) {
+        PointRendererElementLOfDL().as(pointElement);
+        if (pointElement.point.xLower == null || pointElement.point.xUpper == null || pointElement.point.yLower == null || pointElement.point.yUpper == null) {
+          return null;
+        }
+        let p1 = new (T.PointOfdoubleL()).new(pointElement.point.xLower, pointElement.point.yLower);
+        let p2 = new (T.PointOfdoubleL()).new(pointElement.point.xUpper, pointElement.point.yUpper);
+        let dataBoundsRect = T.RectangleOfnumL().fromPoints(p1, p2);
+        if (!dart.test(drawBounds[$intersects](dataBoundsRect))) {
+          return null;
+        }
+        let p1p2 = comparison_points_decorator._Line.fromPoints(p1, p2);
+        if (!dart.test(drawBounds[$containsPoint](p1))) {
+          let p = this[_clampPointAlongLineToBoundingBox](p1, p1p2, drawBounds);
+          if (p != null) {
+            p1 = p;
+          }
+        }
+        if (!dart.test(drawBounds[$containsPoint](p2))) {
+          let p = this[_clampPointAlongLineToBoundingBox](p2, p1p2, drawBounds);
+          if (p != null) {
+            p2 = p;
+          }
+        }
+        return T.JSArrayOfPointLOfdoubleL().of([p1, p2]);
+      }
+      [_clampPointAlongLineToBoundingBox](p1, line, bounds) {
+        if (dart.notNull(p1.y) < dart.notNull(bounds[$top])) {
+          let p = line.intersection(new comparison_points_decorator._Line.new(0.0, bounds[$top][$toDouble]()));
+          if (p != null && dart.test(bounds[$containsPoint](p))) {
+            return p;
+          }
+        }
+        if (dart.notNull(p1.y) > dart.notNull(bounds[$bottom])) {
+          let p = line.intersection(new comparison_points_decorator._Line.new(0.0, bounds[$bottom][$toDouble]()));
+          if (p != null && dart.test(bounds[$containsPoint](p))) {
+            return p;
+          }
+        }
+        if (dart.notNull(p1.x) < dart.notNull(bounds[$left])) {
+          let p = line.intersection(comparison_points_decorator._Line.fromVertical(bounds[$left][$toDouble]()));
+          if (p != null && dart.test(bounds[$containsPoint](p))) {
+            return p;
+          }
+        }
+        if (dart.notNull(p1.x) > dart.notNull(bounds[$right])) {
+          let p = line.intersection(comparison_points_decorator._Line.fromVertical(bounds[$right][$toDouble]()));
+          if (p != null && dart.test(bounds[$containsPoint](p))) {
+            return p;
+          }
+        }
+        return null;
+      }
+    }
+    (ComparisonPointsDecorator.new = function(opts) {
+      let t0;
+      let symbolRenderer = opts && 'symbolRenderer' in opts ? opts.symbolRenderer : null;
+      this[renderAbove] = false;
+      this[symbolRenderer$0] = (t0 = symbolRenderer, t0 == null ? new symbol_renderer.CylinderSymbolRenderer.new() : t0);
+      ComparisonPointsDecorator.__proto__.new.call(this);
+      ;
+    }).prototype = ComparisonPointsDecorator.prototype;
+    dart.addTypeTests(ComparisonPointsDecorator);
+    ComparisonPointsDecorator.prototype[_is_ComparisonPointsDecorator_default] = true;
+    dart.addTypeCaches(ComparisonPointsDecorator);
+    dart.setMethodSignature(ComparisonPointsDecorator, () => ({
+      __proto__: dart.getMethods(ComparisonPointsDecorator.__proto__),
+      decorate: dart.fnType(dart.void, [dart.legacy(core.Object), dart.legacy(chart_canvas.ChartCanvas), dart.legacy(graphics_factory.GraphicsFactory)], {animationPercent: dart.legacy(core.double), drawBounds: dart.legacy(math.Rectangle$(dart.legacy(core.num))), rtl: dart.legacy(core.bool)}, {}),
+      computeBoundedPointsForElement: dart.fnType(dart.legacy(core.List$(dart.legacy(math.Point$(dart.legacy(core.double))))), [dart.legacy(core.Object), dart.legacy(math.Rectangle$(dart.legacy(core.num)))]),
+      [_clampPointAlongLineToBoundingBox]: dart.fnType(dart.legacy(math.Point$(dart.legacy(core.double))), [dart.legacy(math.Point$(dart.legacy(core.double))), dart.legacy(comparison_points_decorator._Line), dart.legacy(math.Rectangle$(dart.legacy(core.num)))])
+    }));
+    dart.setLibraryUri(ComparisonPointsDecorator, I[2]);
+    dart.setFieldSignature(ComparisonPointsDecorator, () => ({
+      __proto__: dart.getFields(ComparisonPointsDecorator.__proto__),
+      symbolRenderer: dart.finalFieldType(dart.legacy(symbol_renderer.PointSymbolRenderer)),
+      renderAbove: dart.finalFieldType(dart.legacy(core.bool))
+    }));
+    return ComparisonPointsDecorator;
+  });
+  comparison_points_decorator.ComparisonPointsDecorator = comparison_points_decorator.ComparisonPointsDecorator$();
+  dart.addTypeTests(comparison_points_decorator.ComparisonPointsDecorator, _is_ComparisonPointsDecorator_default);
+  comparison_points_decorator._Line = class _Line extends core.Object {
+    get vertical() {
+      return this.slope == null && this.xIntercept != null;
+    }
+    static fromPoints(p1, p2) {
+      if (p1.x == p2.x) {
+        return comparison_points_decorator._Line.fromVertical(p1.x);
+      }
+      let m = ((dart.notNull(p2.y) - dart.notNull(p1.y)) / (dart.notNull(p2.x) - dart.notNull(p1.x)))[$toDouble]();
+      let b = (dart.notNull(p1.y) - m * dart.notNull(p1.x))[$toDouble]();
+      return new comparison_points_decorator._Line.new(m, b);
+    }
+    static fromVertical(xIntercept) {
+      return new comparison_points_decorator._Line.new(null, null, xIntercept[$toDouble]());
+    }
+    intersection(other) {
+      if (this.slope == other.slope || dart.test(this.vertical) && dart.test(other.vertical)) {
+        return null;
+      }
+      if (dart.test(other.vertical)) {
+        return new (T.PointOfdoubleL()).new(other.xIntercept, dart.notNull(this.slope) * dart.notNull(other.xIntercept) + dart.notNull(this.yIntercept));
+      }
+      if (dart.test(this.vertical)) {
+        return new (T.PointOfdoubleL()).new(this.xIntercept, dart.notNull(other.slope) * dart.notNull(this.xIntercept) + dart.notNull(other.yIntercept));
+      }
+      let x = (dart.notNull(other.yIntercept) - dart.notNull(this.yIntercept)) / (dart.notNull(this.slope) - dart.notNull(other.slope));
+      let y = dart.notNull(this.slope) * (dart.notNull(other.yIntercept) - dart.notNull(this.yIntercept)) / (dart.notNull(this.slope) - dart.notNull(other.slope)) + dart.notNull(this.yIntercept);
+      return new (T.PointOfdoubleL()).new(x, y);
+    }
+  };
+  (comparison_points_decorator._Line.new = function(slope, yIntercept, xIntercept = null) {
+    this.slope = slope;
+    this.yIntercept = yIntercept;
+    this.xIntercept = xIntercept;
+    ;
+  }).prototype = comparison_points_decorator._Line.prototype;
+  dart.addTypeTests(comparison_points_decorator._Line);
+  dart.addTypeCaches(comparison_points_decorator._Line);
+  dart.setMethodSignature(comparison_points_decorator._Line, () => ({
+    __proto__: dart.getMethods(comparison_points_decorator._Line.__proto__),
+    intersection: dart.fnType(dart.legacy(math.Point$(dart.legacy(core.double))), [dart.legacy(comparison_points_decorator._Line)])
+  }));
+  dart.setGetterSignature(comparison_points_decorator._Line, () => ({
+    __proto__: dart.getGetters(comparison_points_decorator._Line.__proto__),
+    vertical: dart.legacy(core.bool)
+  }));
+  dart.setLibraryUri(comparison_points_decorator._Line, I[2]);
+  dart.setFieldSignature(comparison_points_decorator._Line, () => ({
+    __proto__: dart.getFields(comparison_points_decorator._Line.__proto__),
+    slope: dart.fieldType(dart.legacy(core.double)),
+    yIntercept: dart.fieldType(dart.legacy(core.double)),
+    xIntercept: dart.fieldType(dart.legacy(core.double))
+  }));
+  var config$ = dart.privateName(point_renderer, "PointRenderer.config");
+  var pointRendererDecorators = dart.privateName(point_renderer, "PointRenderer.pointRendererDecorators");
+  var seriesPointMap = dart.privateName(point_renderer, "PointRenderer.seriesPointMap");
+  var _chart = dart.privateName(point_renderer, "_chart");
+  var _currentKeys = dart.privateName(point_renderer, "_currentKeys");
+  var _currentPoint = dart.privateName(point_renderer, "_currentPoint");
+  var _getDatumDistance = dart.privateName(point_renderer, "_getDatumDistance");
+  var _createDatumDetails = dart.privateName(point_renderer, "_createDatumDetails");
+  const _is_PointRenderer_default = Symbol('_is_PointRenderer_default');
+  point_renderer.PointRenderer$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    var AnimatedPointOfDL = () => (AnimatedPointOfDL = dart.constFn(point_renderer.AnimatedPoint$(DL())))();
+    var AnimatedPointLOfDL = () => (AnimatedPointLOfDL = dart.constFn(dart.legacy(AnimatedPointOfDL())))();
+    var ListOfAnimatedPointLOfDL = () => (ListOfAnimatedPointLOfDL = dart.constFn(core.List$(AnimatedPointLOfDL())))();
+    var ListLOfAnimatedPointLOfDL = () => (ListLOfAnimatedPointLOfDL = dart.constFn(dart.legacy(ListOfAnimatedPointLOfDL())))();
+    var IdentityMapOfStringL$ListLOfAnimatedPointLOfDL = () => (IdentityMapOfStringL$ListLOfAnimatedPointLOfDL = dart.constFn(_js_helper.IdentityMap$(T.StringL(), ListLOfAnimatedPointLOfDL())))();
+    var LinkedHashMapOfStringL$ListLOfAnimatedPointLOfDL = () => (LinkedHashMapOfStringL$ListLOfAnimatedPointLOfDL = dart.constFn(collection.LinkedHashMap$(T.StringL(), ListLOfAnimatedPointLOfDL())))();
+    var LinkedHashMapLOfStringL$ListLOfAnimatedPointLOfDL = () => (LinkedHashMapLOfStringL$ListLOfAnimatedPointLOfDL = dart.constFn(dart.legacy(LinkedHashMapOfStringL$ListLOfAnimatedPointLOfDL())))();
+    var MutableSeriesOfDL = () => (MutableSeriesOfDL = dart.constFn(processed_series.MutableSeries$(DL())))();
+    var MutableSeriesLOfDL = () => (MutableSeriesLOfDL = dart.constFn(dart.legacy(MutableSeriesOfDL())))();
+    var ListOfMutableSeriesLOfDL = () => (ListOfMutableSeriesLOfDL = dart.constFn(core.List$(MutableSeriesLOfDL())))();
+    var ListLOfMutableSeriesLOfDL = () => (ListLOfMutableSeriesLOfDL = dart.constFn(dart.legacy(ListOfMutableSeriesLOfDL())))();
+    var PointRendererElementOfDL = () => (PointRendererElementOfDL = dart.constFn(point_renderer.PointRendererElement$(DL())))();
+    var PointRendererElementLOfDL = () => (PointRendererElementLOfDL = dart.constFn(dart.legacy(PointRendererElementOfDL())))();
+    var JSArrayOfPointRendererElementLOfDL = () => (JSArrayOfPointRendererElementLOfDL = dart.constFn(_interceptors.JSArray$(PointRendererElementLOfDL())))();
+    var MutableSeriesLOfDLToNull = () => (MutableSeriesLOfDLToNull = dart.constFn(dart.fnType(core.Null, [MutableSeriesLOfDL()])))();
+    var ImmutableSeriesOfDL = () => (ImmutableSeriesOfDL = dart.constFn(processed_series.ImmutableSeries$(DL())))();
+    var ImmutableSeriesLOfDL = () => (ImmutableSeriesLOfDL = dart.constFn(dart.legacy(ImmutableSeriesOfDL())))();
+    var ListOfImmutableSeriesLOfDL = () => (ListOfImmutableSeriesLOfDL = dart.constFn(core.List$(ImmutableSeriesLOfDL())))();
+    var ListLOfImmutableSeriesLOfDL = () => (ListLOfImmutableSeriesLOfDL = dart.constFn(dart.legacy(ListOfImmutableSeriesLOfDL())))();
+    var ImmutableAxisOfDL = () => (ImmutableAxisOfDL = dart.constFn(axis.ImmutableAxis$(DL())))();
+    var ImmutableAxisLOfDL = () => (ImmutableAxisLOfDL = dart.constFn(dart.legacy(ImmutableAxisOfDL())))();
+    var JSArrayOfAnimatedPointLOfDL = () => (JSArrayOfAnimatedPointLOfDL = dart.constFn(_interceptors.JSArray$(AnimatedPointLOfDL())))();
+    var VoidToListLOfAnimatedPointLOfDL = () => (VoidToListLOfAnimatedPointLOfDL = dart.constFn(dart.fnType(ListLOfAnimatedPointLOfDL(), [])))();
+    var ImmutableSeriesLOfDLToNull = () => (ImmutableSeriesLOfDLToNull = dart.constFn(dart.fnType(core.Null, [ImmutableSeriesLOfDL()])))();
+    var dynamicToListLOfAnimatedPointLOfDL = () => (dynamicToListLOfAnimatedPointLOfDL = dart.constFn(dart.fnType(ListLOfAnimatedPointLOfDL(), [dart.dynamic])))();
+    var StringLAndListLOfAnimatedPointLOfDLToNull = () => (StringLAndListLOfAnimatedPointLOfDLToNull = dart.constFn(dart.fnType(core.Null, [T.StringL(), ListLOfAnimatedPointLOfDL()])))();
+    var BaseChartOfDL = () => (BaseChartOfDL = dart.constFn(base_chart.BaseChart$(DL())))();
+    var BaseChartLOfDL = () => (BaseChartLOfDL = dart.constFn(dart.legacy(BaseChartOfDL())))();
+    var AnimatedPointLOfDLToboolL = () => (AnimatedPointLOfDLToboolL = dart.constFn(dart.fnType(T.boolL(), [AnimatedPointLOfDL()])))();
+    var StringLToListLOfAnimatedPointLOfDL = () => (StringLToListLOfAnimatedPointLOfDL = dart.constFn(dart.fnType(ListLOfAnimatedPointLOfDL(), [T.StringL()])))();
+    var AnimatedPointLOfDLToPointRendererElementLOfDL = () => (AnimatedPointLOfDLToPointRendererElementLOfDL = dart.constFn(dart.fnType(PointRendererElementLOfDL(), [AnimatedPointLOfDL()])))();
+    var DatumPointOfDL = () => (DatumPointOfDL = dart.constFn(point_renderer.DatumPoint$(DL())))();
+    var DatumDetailsOfDL = () => (DatumDetailsOfDL = dart.constFn(datum_details.DatumDetails$(DL())))();
+    var DatumDetailsLOfDL = () => (DatumDetailsLOfDL = dart.constFn(dart.legacy(DatumDetailsOfDL())))();
+    var JSArrayOfDatumDetailsLOfDL = () => (JSArrayOfDatumDetailsLOfDL = dart.constFn(_interceptors.JSArray$(DatumDetailsLOfDL())))();
+    var AnimatedPointLOfDLToNull = () => (AnimatedPointLOfDLToNull = dart.constFn(dart.fnType(core.Null, [AnimatedPointLOfDL()])))();
+    var ListLOfAnimatedPointLOfDLToNull = () => (ListLOfAnimatedPointLOfDLToNull = dart.constFn(dart.fnType(core.Null, [ListLOfAnimatedPointLOfDL()])))();
+    var SeriesDatumOfDL = () => (SeriesDatumOfDL = dart.constFn(series_datum.SeriesDatum$(DL())))();
+    var SeriesDatumLOfDL = () => (SeriesDatumLOfDL = dart.constFn(dart.legacy(SeriesDatumOfDL())))();
+    class PointRenderer extends cartesian_renderer.BaseCartesianRenderer$(dart.legacy(D)) {
+      get config() {
+        return this[config$];
+      }
+      set config(value) {
+        super.config = value;
+      }
+      get pointRendererDecorators() {
+        return this[pointRendererDecorators];
+      }
+      set pointRendererDecorators(value) {
+        super.pointRendererDecorators = value;
+      }
+      get seriesPointMap() {
+        return this[seriesPointMap];
+      }
+      set seriesPointMap(value) {
+        this[seriesPointMap] = LinkedHashMapLOfStringL$ListLOfAnimatedPointLOfDL().as(value);
+      }
+      configureSeries(seriesList) {
+        ListLOfMutableSeriesLOfDL().as(seriesList);
+        this.assignMissingColors(seriesList, {emptyCategoryUsesSinglePalette: false});
+      }
+      preprocessSeries(seriesList) {
+        ListLOfMutableSeriesLOfDL().as(seriesList);
+        seriesList[$forEach](dart.fn(series => {
+          let t0, t0$, t1, t0$0, t1$, t0$1, t0$2, t0$3;
+          let elements = JSArrayOfPointRendererElementLOfDL().of([]);
+          t0 = series;
+          t0.radiusPxFn == null ? t0.radiusPxFn = dart.fn(_ => this.config.radiusPx, T.intLTodoubleL()) : null;
+          let boundsLineRadiusPxFn = series.getAttr(T.intLToLdoubleL(), point_renderer.boundsLineRadiusPxFnKey);
+          if (boundsLineRadiusPxFn == null) {
+            let boundsLineRadiusPx = series.getAttr(T.doubleL(), point_renderer.boundsLineRadiusPxKey);
+            boundsLineRadiusPx == null ? boundsLineRadiusPx = this.config.boundsLineRadiusPx : null;
+            if (boundsLineRadiusPx != null) {
+              boundsLineRadiusPxFn = dart.fn(_ => boundsLineRadiusPx[$toDouble](), T.intLTodoubleL());
+              series.setAttr(T.intLToLdoubleL(), point_renderer.boundsLineRadiusPxFnKey, boundsLineRadiusPxFn);
+            }
+          }
+          let symbolRendererFn = series.getAttr(T.intLToLStringL(), point_renderer.pointSymbolRendererFnKey);
+          t0$ = series;
+          t0$.keyFn == null ? t0$.keyFn = dart.fn(index => {
+            let t2, t1, t2$, t1$;
+            return dart.str(series.id) + "__" + dart.str((t1 = series, t2 = index, t1.domainFn(t2))) + "__" + dart.str((t1$ = series, t2$ = index, t1$.measureFn(t2$)));
+          }, T.intLToStringL()) : null;
+          for (let index = 0; index < dart.notNull(series.data[$length]); index = index + 1) {
+            let radiusPx = (t0$0 = series, t1 = index, t0$0.radiusPxFn(t1));
+            radiusPx == null ? radiusPx = this.config.radiusPx : null;
+            let boundsLineRadiusPx = null;
+            if (boundsLineRadiusPxFn != null) {
+              boundsLineRadiusPx = T.numL().as(T.dynamicAndintLToLdynamic().is(boundsLineRadiusPxFn) ? T.dynamicAndintLToLdynamic().as(boundsLineRadiusPxFn)(series.data[$_get](index), index) : boundsLineRadiusPxFn(index));
+            }
+            boundsLineRadiusPx == null ? boundsLineRadiusPx = this.config.boundsLineRadiusPx : null;
+            boundsLineRadiusPx == null ? boundsLineRadiusPx = radiusPx : null;
+            let strokeWidthPx = series.strokeWidthPxFn != null ? (t0$1 = series, t1$ = index, t0$1.strokeWidthPxFn(t1$)) : null;
+            strokeWidthPx == null ? strokeWidthPx = this.config.strokeWidthPx : null;
+            let symbolRendererId = null;
+            if (symbolRendererFn != null) {
+              symbolRendererId = symbolRendererFn(index);
+            }
+            symbolRendererId == null ? symbolRendererId = series.getAttr(T.StringL(), point_renderer.pointSymbolRendererIdKey) : null;
+            symbolRendererId == null ? symbolRendererId = "__default__" : null;
+            let colorFn = series.colorFn;
+            let fillColorFn = (t0$2 = series.fillColorFn, t0$2 == null ? colorFn : t0$2);
+            let color = colorFn(index);
+            let fillColor = fillColorFn(index);
+            fillColor == null ? fillColor = color : null;
+            let details = (t0$3 = new (PointRendererElementOfDL()).new(), (() => {
+              t0$3.index = index;
+              t0$3.color = color;
+              t0$3.fillColor = fillColor;
+              t0$3.radiusPx = radiusPx[$toDouble]();
+              t0$3.boundsLineRadiusPx = boundsLineRadiusPx[$toDouble]();
+              t0$3.strokeWidthPx = strokeWidthPx[$toDouble]();
+              t0$3.symbolRendererId = symbolRendererId;
+              return t0$3;
+            })());
+            elements[$add](details);
+          }
+          series.setAttr(T.ListLOfPointRendererElementL(), point_renderer.pointElementsKey, elements);
+        }, MutableSeriesLOfDLToNull()));
+      }
+      update(seriesList, isAnimatingThisDraw) {
+        ListLOfImmutableSeriesLOfDL().as(seriesList);
+        this[_currentKeys][$clear]();
+        let sortedSeriesIds = [];
+        seriesList[$forEach](dart.fn(series => {
+          let t1, t0, t0$;
+          sortedSeriesIds[$add](series.id);
+          let domainAxis = ImmutableAxisLOfDL().as(series.getAttr(T.AxisL(), axis.domainAxisKey));
+          let domainFn = series.domainFn;
+          let domainLowerBoundFn = series.domainLowerBoundFn;
+          let domainUpperBoundFn = series.domainUpperBoundFn;
+          let measureAxis = T.ImmutableAxisLOfnumL().as(series.getAttr(T.AxisL(), axis.measureAxisKey));
+          let measureFn = series.measureFn;
+          let measureLowerBoundFn = series.measureLowerBoundFn;
+          let measureUpperBoundFn = series.measureUpperBoundFn;
+          let measureOffsetFn = series.measureOffsetFn;
+          let seriesKey = series.id;
+          let keyFn = series.keyFn;
+          let pointList = this.seriesPointMap[$putIfAbsent](seriesKey, dart.fn(() => JSArrayOfAnimatedPointLOfDL().of([]), VoidToListLOfAnimatedPointLOfDL()));
+          let elementsList = series.getAttr(T.ListLOfPointRendererElementL(), point_renderer.pointElementsKey);
+          for (let index = 0; index < dart.notNull(series.data[$length]); index = index + 1) {
+            let datum = series.data[$_get](index);
+            let details = elementsList[$_get](index);
+            let domainValue = domainFn(index);
+            let domainLowerBoundValue = domainLowerBoundFn != null ? domainLowerBoundFn(index) : null;
+            let domainUpperBoundValue = domainUpperBoundFn != null ? domainUpperBoundFn(index) : null;
+            let measureValue = measureFn(index);
+            let measureLowerBoundValue = measureLowerBoundFn != null ? measureLowerBoundFn(index) : null;
+            let measureUpperBoundValue = measureUpperBoundFn != null ? measureUpperBoundFn(index) : null;
+            let measureOffsetValue = measureOffsetFn(index);
+            let point = this.getPoint(datum, domainValue, domainLowerBoundValue, domainUpperBoundValue, series, domainAxis, measureValue, measureLowerBoundValue, measureUpperBoundValue, measureOffsetValue, measureAxis);
+            let pointKey = keyFn(index);
+            let animatingPoint = pointList[$firstWhere](dart.fn(point => point.key == pointKey, T.AnimatedPointLToboolL()), {orElse: dart.fn(() => null, T.VoidToNull())});
+            if (animatingPoint == null) {
+              let point = this.getPoint(datum, domainValue, domainLowerBoundValue, domainUpperBoundValue, series, domainAxis, 0.0, 0.0, 0.0, 0.0, measureAxis);
+              animatingPoint = (t0 = new (AnimatedPointOfDL()).new({key: pointKey, overlaySeries: series.overlaySeries}), (() => {
+                t0.setNewTarget((t1 = new (PointRendererElementOfDL()).new(), (() => {
+                  t1.index = details.index;
+                  t1.color = details.color;
+                  t1.fillColor = details.fillColor;
+                  t1.measureAxisPosition = measureAxis.getLocation(0.0);
+                  t1.point = point;
+                  t1.radiusPx = details.radiusPx;
+                  t1.boundsLineRadiusPx = details.boundsLineRadiusPx;
+                  t1.strokeWidthPx = details.strokeWidthPx;
+                  t1.symbolRendererId = details.symbolRendererId;
+                  return t1;
+                })()));
+                return t0;
+              })());
+              pointList[$add](animatingPoint);
+            }
+            this[_currentKeys][$add](pointKey);
+            let pointElement = (t0$ = new (PointRendererElementOfDL()).new(), (() => {
+              t0$.index = index;
+              t0$.color = details.color;
+              t0$.fillColor = details.fillColor;
+              t0$.measureAxisPosition = measureAxis.getLocation(0.0);
+              t0$.point = point;
+              t0$.radiusPx = details.radiusPx;
+              t0$.boundsLineRadiusPx = details.boundsLineRadiusPx;
+              t0$.strokeWidthPx = details.strokeWidthPx;
+              t0$.symbolRendererId = details.symbolRendererId;
+              return t0$;
+            })());
+            animatingPoint.setNewTarget(pointElement);
+          }
+        }, ImmutableSeriesLOfDLToNull()));
+        this.seriesPointMap = LinkedHashMapOfStringL$ListLOfAnimatedPointLOfDL().fromIterable(sortedSeriesIds, {key: dart.fn(k => T.StringL().as(k), T.dynamicToStringL()), value: dart.fn(k => this.seriesPointMap[$_get](k), dynamicToListLOfAnimatedPointLOfDL())});
+        this.seriesPointMap[$forEach](dart.fn((key, points) => {
+          for (let point of points) {
+            if (this[_currentKeys][$contains](point.key) !== true) {
+              point.animateOut();
+            }
+          }
+        }, StringLAndListLOfAnimatedPointLOfDLToNull()));
+      }
+      onAttach(chart) {
+        BaseChartLOfDL().as(chart);
+        super.onAttach(chart);
+        this[_chart] = chart;
+      }
+      paint(canvas, animationPercent) {
+        if (animationPercent === 1.0) {
+          let keysToRemove = T.JSArrayOfStringL().of([]);
+          this.seriesPointMap[$forEach](dart.fn((key, points) => {
+            points[$removeWhere](dart.fn(point => point.animatingOut, AnimatedPointLOfDLToboolL()));
+            if (dart.test(points[$isEmpty])) {
+              keysToRemove[$add](key);
+            }
+          }, StringLAndListLOfAnimatedPointLOfDLToNull()));
+          keysToRemove[$forEach](dart.fn(key => this.seriesPointMap[$remove](key), StringLToListLOfAnimatedPointLOfDL()));
+        }
+        this.seriesPointMap[$forEach](dart.fn((key, points) => {
+          points[$map](PointRendererElementLOfDL(), dart.fn(animatingPoint => animatingPoint.getCurrentPoint(animationPercent), AnimatedPointLOfDLToPointRendererElementLOfDL()))[$forEach](dart.fn(point => {
+            this.pointRendererDecorators[$where](dart.fn(decorator => !dart.test(decorator.renderAbove), T.PointRendererDecoratorLToboolL()))[$forEach](dart.fn(decorator => {
+              decorator.decorate(point, canvas, this.graphicsFactory, {drawBounds: this.componentBounds, animationPercent: animationPercent, rtl: this.isRtl});
+            }, T.PointRendererDecoratorLToNull()));
+            if (point.point.y != null && dart.test(this.componentBounds[$containsPoint](point.point))) {
+              let bounds = new (T.RectangleOfdoubleL()).new(dart.notNull(point.point.x) - dart.notNull(point.radiusPx), dart.notNull(point.point.y) - dart.notNull(point.radiusPx), dart.notNull(point.radiusPx) * 2, dart.notNull(point.radiusPx) * 2);
+              if (point.symbolRendererId === "__default__") {
+                this.symbolRenderer.paint(canvas, bounds, {fillColor: point.fillColor, strokeColor: point.color, strokeWidthPx: point.strokeWidthPx});
+              } else {
+                let id = point.symbolRendererId;
+                if (!dart.test(this.config.customSymbolRenderers[$containsKey](id))) {
+                  dart.throw(new core.ArgumentError.new("Invalid custom symbol renderer id \"" + dart.str(id) + "\""));
+                }
+                let customRenderer = this.config.customSymbolRenderers[$_get](id);
+                customRenderer.paint(canvas, bounds, {fillColor: point.fillColor, strokeColor: point.color, strokeWidthPx: point.strokeWidthPx});
+              }
+            }
+            this.pointRendererDecorators[$where](dart.fn(decorator => decorator.renderAbove, T.PointRendererDecoratorLToboolL()))[$forEach](dart.fn(decorator => {
+              decorator.decorate(point, canvas, this.graphicsFactory, {drawBounds: this.componentBounds, animationPercent: animationPercent, rtl: this.isRtl});
+            }, T.PointRendererDecoratorLToNull()));
+          }, T.PointRendererElementLToNull()));
+        }, StringLAndListLOfAnimatedPointLOfDLToNull()));
+      }
+      get isRtl() {
+        let t0, t0$, t0$0;
+        t0$0 = (t0$ = (t0 = this[_chart], t0 == null ? null : t0.context), t0$ == null ? null : t0$.isRtl);
+        return t0$0 == null ? false : t0$0;
+      }
+      getPoint(datum, domainValue, domainLowerBoundValue, domainUpperBoundValue, series, domainAxis, measureValue, measureLowerBoundValue, measureUpperBoundValue, measureOffsetValue, measureAxis) {
+        DL().as(domainValue);
+        DL().as(domainLowerBoundValue);
+        DL().as(domainUpperBoundValue);
+        ImmutableSeriesLOfDL().as(series);
+        ImmutableAxisLOfDL().as(domainAxis);
+        let domainPosition = domainAxis.getLocation(domainValue);
+        let domainLowerBoundPosition = domainLowerBoundValue != null ? domainAxis.getLocation(domainLowerBoundValue) : null;
+        let domainUpperBoundPosition = domainUpperBoundValue != null ? domainAxis.getLocation(domainUpperBoundValue) : null;
+        let measurePosition = measureValue != null && measureOffsetValue != null ? measureAxis.getLocation(dart.notNull(measureValue) + dart.notNull(measureOffsetValue)) : null;
+        let measureLowerBoundPosition = measureLowerBoundValue != null ? measureAxis.getLocation(dart.notNull(measureLowerBoundValue) + dart.notNull(measureOffsetValue)) : null;
+        let measureUpperBoundPosition = measureUpperBoundValue != null ? measureAxis.getLocation(dart.notNull(measureUpperBoundValue) + dart.notNull(measureOffsetValue)) : null;
+        return new (DatumPointOfDL()).new({datum: datum, domain: domainValue, series: series, x: domainPosition, xLower: domainLowerBoundPosition, xUpper: domainUpperBoundPosition, y: measurePosition, yLower: measureLowerBoundPosition, yUpper: measureUpperBoundPosition});
+      }
+      getNearestDatumDetailPerSeries(chartPoint, byDomain, boundsOverride, opts) {
+        let selectOverlappingPoints = opts && 'selectOverlappingPoints' in opts ? opts.selectOverlappingPoints : false;
+        let selectExactEventLocation = opts && 'selectExactEventLocation' in opts ? opts.selectExactEventLocation : false;
+        let nearest = JSArrayOfDatumDetailsLOfDL().of([]);
+        let inside = JSArrayOfDatumDetailsLOfDL().of([]);
+        if (!dart.test(this.isPointWithinBounds(chartPoint, boundsOverride))) {
+          return nearest;
+        }
+        this.seriesPointMap[$values][$forEach](dart.fn(points => {
+          let nearestPoint = null;
+          let nearestDistances = new point_renderer._Distances.new({domainDistance: 10000, measureDistance: 10000, relativeDistance: 10000});
+          points[$forEach](dart.fn(point => {
+            if (dart.test(point.overlaySeries)) {
+              return;
+            }
+            let p = point[_currentPoint].point;
+            if (dart.notNull(p.x) < dart.notNull(this.componentBounds[$left]) || dart.notNull(p.x) > dart.notNull(this.componentBounds[$right])) {
+              return;
+            }
+            let distances = this[_getDatumDistance](point, chartPoint);
+            if (dart.test(selectOverlappingPoints)) {
+              if (dart.test(distances.insidePoint)) {
+                inside[$add](this[_createDatumDetails](point[_currentPoint], distances));
+              }
+            }
+            if (dart.test(inside[$isEmpty])) {
+              if (!dart.test(selectExactEventLocation) || dart.test(distances.insidePoint)) {
+                if (dart.test(byDomain)) {
+                  if (dart.notNull(distances.domainDistance) < dart.notNull(nearestDistances.domainDistance) || distances.domainDistance == nearestDistances.domainDistance && dart.notNull(distances.measureDistance) < dart.notNull(nearestDistances.measureDistance)) {
+                    nearestPoint = point[_currentPoint];
+                    nearestDistances = distances;
+                  }
+                } else {
+                  if (dart.notNull(distances.relativeDistance) < dart.notNull(nearestDistances.relativeDistance)) {
+                    nearestPoint = point[_currentPoint];
+                    nearestDistances = distances;
+                  }
+                }
+              }
+            }
+          }, AnimatedPointLOfDLToNull()));
+          if (nearestPoint != null) {
+            nearest[$add](this[_createDatumDetails](nearestPoint, nearestDistances));
+          }
+        }, ListLOfAnimatedPointLOfDLToNull()));
+        return dart.test(selectOverlappingPoints) && dart.test(inside[$isNotEmpty]) ? inside : nearest;
+      }
+      [_createDatumDetails](point, distances) {
+        let pointSymbolRenderer = null;
+        if (point.symbolRendererId === "__default__") {
+          pointSymbolRenderer = this.symbolRenderer;
+        } else {
+          let id = point.symbolRendererId;
+          if (!dart.test(this.config.customSymbolRenderers[$containsKey](id))) {
+            dart.throw(new core.ArgumentError.new("Invalid custom symbol renderer id \"" + dart.str(id) + "\""));
+          }
+          pointSymbolRenderer = this.config.customSymbolRenderers[$_get](id);
+        }
+        return new (DatumDetailsOfDL()).new({datum: point.point.datum, domain: point.point.domain, series: point.point.series, domainDistance: distances.domainDistance, measureDistance: distances.measureDistance, relativeDistance: distances.relativeDistance, symbolRenderer: pointSymbolRenderer});
+      }
+      [_getDatumDistance](point, chartPoint) {
+        let datumPoint = point[_currentPoint].point;
+        let radiusPx = point[_currentPoint].radiusPx;
+        let boundsLineRadiusPx = point[_currentPoint].boundsLineRadiusPx;
+        let domainDistance = (dart.notNull(chartPoint.x) - dart.notNull(datumPoint.x))[$abs]();
+        let measureDistance = datumPoint.y != null ? (dart.notNull(chartPoint.y) - dart.notNull(datumPoint.y))[$abs]() : 10000;
+        let relativeDistance = datumPoint.y != null ? chartPoint.distanceTo(datumPoint) : 10000;
+        let insidePoint = false;
+        if (datumPoint.xLower != null && datumPoint.xUpper != null && datumPoint.yLower != null && datumPoint.yUpper != null) {
+          let relativeDistanceBounds = math$.distanceBetweenPointAndLineSegment(vector_math.Vector2.new(chartPoint.x, chartPoint.y), vector_math.Vector2.new(datumPoint.xLower, datumPoint.yLower), vector_math.Vector2.new(datumPoint.xUpper, datumPoint.yUpper));
+          insidePoint = dart.notNull(relativeDistance) < dart.notNull(radiusPx) || boundsLineRadiusPx != null && dart.notNull(relativeDistanceBounds) < dart.notNull(boundsLineRadiusPx);
+          relativeDistance = math.min(T.doubleL(), relativeDistance, relativeDistanceBounds);
+        } else {
+          insidePoint = dart.notNull(relativeDistance) < dart.notNull(radiusPx);
+        }
+        return new point_renderer._Distances.new({domainDistance: domainDistance, measureDistance: measureDistance, relativeDistance: relativeDistance, insidePoint: insidePoint});
+      }
+      addPositionToDetailsForSeriesDatum(details, seriesDatum) {
+        DatumDetailsLOfDL().as(details);
+        SeriesDatumLOfDL().as(seriesDatum);
+        let series = details.series;
+        let domainAxis = ImmutableAxisLOfDL().as(series.getAttr(T.AxisL(), axis.domainAxisKey));
+        let measureAxis = T.ImmutableAxisLOfnumL().as(series.getAttr(T.AxisL(), axis.measureAxisKey));
+        let point = this.getPoint(seriesDatum.datum, details.domain, details.domainLowerBound, details.domainUpperBound, series, domainAxis, details.measure, details.measureLowerBound, details.measureUpperBound, details.measureOffset, measureAxis);
+        let symbolRendererFn = series.getAttr(T.intLToLStringL(), point_renderer.pointSymbolRendererFnKey);
+        let symbolRendererId = null;
+        if (symbolRendererFn != null) {
+          symbolRendererId = symbolRendererFn(details.index);
+        }
+        symbolRendererId == null ? symbolRendererId = series.getAttr(T.StringL(), point_renderer.pointSymbolRendererIdKey) : null;
+        symbolRendererId == null ? symbolRendererId = "__default__" : null;
+        let nearestSymbolRenderer = null;
+        if (symbolRendererId === "__default__") {
+          nearestSymbolRenderer = this.symbolRenderer;
+        } else {
+          let id = symbolRendererId;
+          if (!dart.test(this.config.customSymbolRenderers[$containsKey](id))) {
+            dart.throw(new core.ArgumentError.new("Invalid custom symbol renderer id \"" + dart.str(id) + "\""));
+          }
+          nearestSymbolRenderer = this.config.customSymbolRenderers[$_get](id);
+        }
+        return DatumDetailsOfDL().from(details, {chartPosition: new (T.PointOfdoubleL()).new(point.x, point.y), chartPositionLower: new (T.PointOfdoubleL()).new(point.xLower, point.yLower), chartPositionUpper: new (T.PointOfdoubleL()).new(point.xUpper, point.yUpper), symbolRenderer: nearestSymbolRenderer});
+      }
+    }
+    (PointRenderer.new = function(opts) {
+      let t0, t0$, t0$0, t0$1, t0$2, t0$3, t0$4, t0$5;
+      let rendererId = opts && 'rendererId' in opts ? opts.rendererId : null;
+      let config = opts && 'config' in opts ? opts.config : null;
+      this[_chart] = null;
+      this[seriesPointMap] = new (IdentityMapOfStringL$ListLOfAnimatedPointLOfDL()).new();
+      this[_currentKeys] = T.JSArrayOfStringL().of([]);
+      this[config$] = (t0 = config, t0 == null ? new point_renderer_config.PointRendererConfig.new() : t0);
+      this[pointRendererDecorators] = (t0$0 = (t0$ = config, t0$ == null ? null : t0$.pointRendererDecorators), t0$0 == null ? T.JSArrayOfPointRendererDecoratorL().of([]) : t0$0);
+      PointRenderer.__proto__.new.call(this, {rendererId: (t0$1 = rendererId, t0$1 == null ? "point" : t0$1), layoutPaintOrder: (t0$3 = (t0$2 = config, t0$2 == null ? null : t0$2.layoutPaintOrder), t0$3 == null ? 25 : t0$3), symbolRenderer: (t0$5 = (t0$4 = config, t0$4 == null ? null : t0$4.symbolRenderer), t0$5 == null ? new symbol_renderer.CircleSymbolRenderer.new() : t0$5)});
+      ;
+    }).prototype = PointRenderer.prototype;
+    dart.addTypeTests(PointRenderer);
+    PointRenderer.prototype[_is_PointRenderer_default] = true;
+    dart.addTypeCaches(PointRenderer);
+    dart.setMethodSignature(PointRenderer, () => ({
+      __proto__: dart.getMethods(PointRenderer.__proto__),
+      update: dart.fnType(dart.void, [dart.legacy(core.Object), dart.legacy(core.bool)]),
+      paint: dart.fnType(dart.void, [dart.legacy(chart_canvas.ChartCanvas), dart.legacy(core.double)]),
+      getPoint: dart.fnType(dart.legacy(point_renderer.DatumPoint$(dart.legacy(D))), [dart.dynamic, dart.legacy(core.Object), dart.legacy(core.Object), dart.legacy(core.Object), dart.legacy(core.Object), dart.legacy(core.Object), dart.legacy(core.num), dart.legacy(core.num), dart.legacy(core.num), dart.legacy(core.num), dart.legacy(axis.ImmutableAxis$(dart.legacy(core.num)))]),
+      getNearestDatumDetailPerSeries: dart.fnType(dart.legacy(core.List$(dart.legacy(datum_details.DatumDetails$(dart.legacy(D))))), [dart.legacy(math.Point$(dart.legacy(core.double))), dart.legacy(core.bool), dart.legacy(math.Rectangle$(dart.legacy(core.int)))], {selectExactEventLocation: dart.legacy(core.bool), selectOverlappingPoints: dart.legacy(core.bool)}, {}),
+      [_createDatumDetails]: dart.fnType(dart.legacy(datum_details.DatumDetails$(dart.legacy(D))), [dart.legacy(point_renderer.PointRendererElement$(dart.legacy(D))), dart.legacy(point_renderer._Distances)]),
+      [_getDatumDistance]: dart.fnType(dart.legacy(point_renderer._Distances), [dart.legacy(point_renderer.AnimatedPoint$(dart.legacy(D))), dart.legacy(math.Point$(dart.legacy(core.double)))]),
+      addPositionToDetailsForSeriesDatum: dart.fnType(dart.legacy(datum_details.DatumDetails$(dart.legacy(D))), [dart.legacy(core.Object), dart.legacy(core.Object)])
+    }));
+    dart.setGetterSignature(PointRenderer, () => ({
+      __proto__: dart.getGetters(PointRenderer.__proto__),
+      isRtl: dart.legacy(core.bool)
+    }));
+    dart.setLibraryUri(PointRenderer, I[3]);
+    dart.setFieldSignature(PointRenderer, () => ({
+      __proto__: dart.getFields(PointRenderer.__proto__),
+      config: dart.finalFieldType(dart.legacy(point_renderer_config.PointRendererConfig)),
+      pointRendererDecorators: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(point_renderer_decorator.PointRendererDecorator)))),
+      [_chart]: dart.fieldType(dart.legacy(base_chart.BaseChart$(dart.legacy(D)))),
+      seriesPointMap: dart.fieldType(dart.legacy(collection.LinkedHashMap$(dart.legacy(core.String), dart.legacy(core.List$(dart.legacy(point_renderer.AnimatedPoint$(dart.legacy(D)))))))),
+      [_currentKeys]: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(core.String))))
+    }));
+    return PointRenderer;
+  });
+  point_renderer.PointRenderer = point_renderer.PointRenderer$();
+  dart.addTypeTests(point_renderer.PointRenderer, _is_PointRenderer_default);
+  var datum$ = dart.privateName(point_renderer, "DatumPoint.datum");
+  var domain$ = dart.privateName(point_renderer, "DatumPoint.domain");
+  var series$ = dart.privateName(point_renderer, "DatumPoint.series");
+  var xLower$ = dart.privateName(point_renderer, "DatumPoint.xLower");
+  var xUpper$ = dart.privateName(point_renderer, "DatumPoint.xUpper");
+  var yLower$ = dart.privateName(point_renderer, "DatumPoint.yLower");
+  var yUpper$ = dart.privateName(point_renderer, "DatumPoint.yUpper");
+  const _is_DatumPoint_default = Symbol('_is_DatumPoint_default');
+  point_renderer.DatumPoint$ = dart.generic(D => {
+    class DatumPoint extends math.Point$(dart.legacy(core.double)) {
+      get datum() {
+        return this[datum$];
+      }
+      set datum(value) {
+        super.datum = value;
+      }
+      get domain() {
+        return this[domain$];
+      }
+      set domain(value) {
+        super.domain = value;
+      }
+      get series() {
+        return this[series$];
+      }
+      set series(value) {
+        super.series = value;
+      }
+      get xLower() {
+        return this[xLower$];
+      }
+      set xLower(value) {
+        super.xLower = value;
+      }
+      get xUpper() {
+        return this[xUpper$];
+      }
+      set xUpper(value) {
+        super.xUpper = value;
+      }
+      get yLower() {
+        return this[yLower$];
+      }
+      set yLower(value) {
+        super.yLower = value;
+      }
+      get yUpper() {
+        return this[yUpper$];
+      }
+      set yUpper(value) {
+        super.yUpper = value;
+      }
+      static from(other, opts) {
+        let t0, t0$, t0$0, t0$1, t0$2, t0$3;
+        let x = opts && 'x' in opts ? opts.x : null;
+        let xLower = opts && 'xLower' in opts ? opts.xLower : null;
+        let xUpper = opts && 'xUpper' in opts ? opts.xUpper : null;
+        let y = opts && 'y' in opts ? opts.y : null;
+        let yLower = opts && 'yLower' in opts ? opts.yLower : null;
+        let yUpper = opts && 'yUpper' in opts ? opts.yUpper : null;
+        return new (point_renderer.DatumPoint$(dart.legacy(D))).new({datum: other.datum, domain: other.domain, series: other.series, x: (t0 = x, t0 == null ? other.x : t0), xLower: (t0$ = xLower, t0$ == null ? other.xLower : t0$), xUpper: (t0$0 = xUpper, t0$0 == null ? other.xUpper : t0$0), y: (t0$1 = y, t0$1 == null ? other.y : t0$1), yLower: (t0$2 = yLower, t0$2 == null ? other.yLower : t0$2), yUpper: (t0$3 = yUpper, t0$3 == null ? other.yUpper : t0$3)});
+      }
+    }
+    (DatumPoint.new = function(opts) {
+      let datum = opts && 'datum' in opts ? opts.datum : null;
+      let domain = opts && 'domain' in opts ? opts.domain : null;
+      let series = opts && 'series' in opts ? opts.series : null;
+      let x = opts && 'x' in opts ? opts.x : null;
+      let xLower = opts && 'xLower' in opts ? opts.xLower : null;
+      let xUpper = opts && 'xUpper' in opts ? opts.xUpper : null;
+      let y = opts && 'y' in opts ? opts.y : null;
+      let yLower = opts && 'yLower' in opts ? opts.yLower : null;
+      let yUpper = opts && 'yUpper' in opts ? opts.yUpper : null;
+      this[datum$] = datum;
+      this[domain$] = domain;
+      this[series$] = series;
+      this[xLower$] = xLower;
+      this[xUpper$] = xUpper;
+      this[yLower$] = yLower;
+      this[yUpper$] = yUpper;
+      DatumPoint.__proto__.new.call(this, x, y);
+      ;
+    }).prototype = DatumPoint.prototype;
+    dart.addTypeTests(DatumPoint);
+    DatumPoint.prototype[_is_DatumPoint_default] = true;
+    dart.addTypeCaches(DatumPoint);
+    dart.setLibraryUri(DatumPoint, I[3]);
+    dart.setFieldSignature(DatumPoint, () => ({
+      __proto__: dart.getFields(DatumPoint.__proto__),
+      datum: dart.finalFieldType(dart.legacy(core.Object)),
+      domain: dart.finalFieldType(dart.legacy(D)),
+      series: dart.finalFieldType(dart.legacy(processed_series.ImmutableSeries$(dart.legacy(D)))),
+      xLower: dart.finalFieldType(dart.legacy(core.double)),
+      xUpper: dart.finalFieldType(dart.legacy(core.double)),
+      yLower: dart.finalFieldType(dart.legacy(core.double)),
+      yUpper: dart.finalFieldType(dart.legacy(core.double))
+    }));
+    return DatumPoint;
+  });
+  point_renderer.DatumPoint = point_renderer.DatumPoint$();
+  dart.addTypeTests(point_renderer.DatumPoint, _is_DatumPoint_default);
+  var point = dart.privateName(point_renderer, "PointRendererElement.point");
+  var index = dart.privateName(point_renderer, "PointRendererElement.index");
+  var color$ = dart.privateName(point_renderer, "PointRendererElement.color");
+  var fillColor = dart.privateName(point_renderer, "PointRendererElement.fillColor");
+  var measureAxisPosition = dart.privateName(point_renderer, "PointRendererElement.measureAxisPosition");
+  var radiusPx = dart.privateName(point_renderer, "PointRendererElement.radiusPx");
+  var boundsLineRadiusPx = dart.privateName(point_renderer, "PointRendererElement.boundsLineRadiusPx");
+  var strokeWidthPx = dart.privateName(point_renderer, "PointRendererElement.strokeWidthPx");
+  var symbolRendererId = dart.privateName(point_renderer, "PointRendererElement.symbolRendererId");
+  const _is_PointRendererElement_default = Symbol('_is_PointRendererElement_default');
+  point_renderer.PointRendererElement$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    var DatumPointOfDL = () => (DatumPointOfDL = dart.constFn(point_renderer.DatumPoint$(DL())))();
+    var DatumPointLOfDL = () => (DatumPointLOfDL = dart.constFn(dart.legacy(DatumPointOfDL())))();
+    var PointRendererElementOfDL = () => (PointRendererElementOfDL = dart.constFn(point_renderer.PointRendererElement$(DL())))();
+    class PointRendererElement extends core.Object {
+      get point() {
+        return this[point];
+      }
+      set point(value) {
+        this[point] = DatumPointLOfDL().as(value);
+      }
+      get index() {
+        return this[index];
+      }
+      set index(value) {
+        this[index] = value;
+      }
+      get color() {
+        return this[color$];
+      }
+      set color(value) {
+        this[color$] = value;
+      }
+      get fillColor() {
+        return this[fillColor];
+      }
+      set fillColor(value) {
+        this[fillColor] = value;
+      }
+      get measureAxisPosition() {
+        return this[measureAxisPosition];
+      }
+      set measureAxisPosition(value) {
+        this[measureAxisPosition] = value;
+      }
+      get radiusPx() {
+        return this[radiusPx];
+      }
+      set radiusPx(value) {
+        this[radiusPx] = value;
+      }
+      get boundsLineRadiusPx() {
+        return this[boundsLineRadiusPx];
+      }
+      set boundsLineRadiusPx(value) {
+        this[boundsLineRadiusPx] = value;
+      }
+      get strokeWidthPx() {
+        return this[strokeWidthPx];
+      }
+      set strokeWidthPx(value) {
+        this[strokeWidthPx] = value;
+      }
+      get symbolRendererId() {
+        return this[symbolRendererId];
+      }
+      set symbolRendererId(value) {
+        this[symbolRendererId] = value;
+      }
+      clone() {
+        let t0;
+        t0 = new (PointRendererElementOfDL()).new();
+        return (() => {
+          t0.point = DatumPointOfDL().from(this.point);
+          t0.index = this.index;
+          t0.color = this.color != null ? new color.Color.fromOther({color: this.color}) : null;
+          t0.fillColor = this.fillColor != null ? new color.Color.fromOther({color: this.fillColor}) : null;
+          t0.measureAxisPosition = this.measureAxisPosition;
+          t0.radiusPx = this.radiusPx;
+          t0.boundsLineRadiusPx = this.boundsLineRadiusPx;
+          t0.strokeWidthPx = this.strokeWidthPx;
+          t0.symbolRendererId = this.symbolRendererId;
+          return t0;
+        })();
+      }
+      updateAnimationPercent(previous, target, animationPercent) {
+        let targetPoint = target.point;
+        let previousPoint = previous.point;
+        let x = (dart.notNull(targetPoint.x) - dart.notNull(previousPoint.x)) * dart.notNull(animationPercent) + dart.notNull(previousPoint.x);
+        let xLower = targetPoint.xLower != null && previousPoint.xLower != null ? (dart.notNull(targetPoint.xLower) - dart.notNull(previousPoint.xLower)) * dart.notNull(animationPercent) + dart.notNull(previousPoint.xLower) : null;
+        let xUpper = targetPoint.xUpper != null && previousPoint.xUpper != null ? (dart.notNull(targetPoint.xUpper) - dart.notNull(previousPoint.xUpper)) * dart.notNull(animationPercent) + dart.notNull(previousPoint.xUpper) : null;
+        let y = null;
+        if (targetPoint.y != null && previousPoint.y != null) {
+          y = (dart.notNull(targetPoint.y) - dart.notNull(previousPoint.y)) * dart.notNull(animationPercent) + dart.notNull(previousPoint.y);
+        } else if (targetPoint.y != null) {
+          y = targetPoint.y;
+        } else {
+          y = null;
+        }
+        let yLower = targetPoint.yLower != null && previousPoint.yLower != null ? (dart.notNull(targetPoint.yLower) - dart.notNull(previousPoint.yLower)) * dart.notNull(animationPercent) + dart.notNull(previousPoint.yLower) : null;
+        let yUpper = targetPoint.yUpper != null && previousPoint.yUpper != null ? (dart.notNull(targetPoint.yUpper) - dart.notNull(previousPoint.yUpper)) * dart.notNull(animationPercent) + dart.notNull(previousPoint.yUpper) : null;
+        this.point = DatumPointOfDL().from(DatumPointLOfDL().as(targetPoint), {x: x, xLower: xLower, xUpper: xUpper, y: y, yLower: yLower, yUpper: yUpper});
+        this.color = chart_canvas.getAnimatedColor(previous.color, target.color, animationPercent);
+        this.fillColor = chart_canvas.getAnimatedColor(previous.fillColor, target.fillColor, animationPercent);
+        this.radiusPx = (dart.notNull(target.radiusPx) - dart.notNull(previous.radiusPx)) * dart.notNull(animationPercent) + dart.notNull(previous.radiusPx);
+        this.boundsLineRadiusPx = (dart.notNull(target.boundsLineRadiusPx) - dart.notNull(previous.boundsLineRadiusPx)) * dart.notNull(animationPercent) + dart.notNull(previous.boundsLineRadiusPx);
+        this.strokeWidthPx = (dart.notNull(target.strokeWidthPx) - dart.notNull(previous.strokeWidthPx)) * dart.notNull(animationPercent) + dart.notNull(previous.strokeWidthPx);
+      }
+    }
+    (PointRendererElement.new = function() {
+      this[point] = null;
+      this[index] = null;
+      this[color$] = null;
+      this[fillColor] = null;
+      this[measureAxisPosition] = null;
+      this[radiusPx] = null;
+      this[boundsLineRadiusPx] = null;
+      this[strokeWidthPx] = null;
+      this[symbolRendererId] = null;
+      ;
+    }).prototype = PointRendererElement.prototype;
+    dart.addTypeTests(PointRendererElement);
+    PointRendererElement.prototype[_is_PointRendererElement_default] = true;
+    dart.addTypeCaches(PointRendererElement);
+    dart.setMethodSignature(PointRendererElement, () => ({
+      __proto__: dart.getMethods(PointRendererElement.__proto__),
+      clone: dart.fnType(dart.legacy(point_renderer.PointRendererElement$(dart.legacy(D))), []),
+      updateAnimationPercent: dart.fnType(dart.void, [dart.legacy(point_renderer.PointRendererElement), dart.legacy(point_renderer.PointRendererElement), dart.legacy(core.double)])
+    }));
+    dart.setLibraryUri(PointRendererElement, I[3]);
+    dart.setFieldSignature(PointRendererElement, () => ({
+      __proto__: dart.getFields(PointRendererElement.__proto__),
+      point: dart.fieldType(dart.legacy(point_renderer.DatumPoint$(dart.legacy(D)))),
+      index: dart.fieldType(dart.legacy(core.int)),
+      color: dart.fieldType(dart.legacy(color.Color)),
+      fillColor: dart.fieldType(dart.legacy(color.Color)),
+      measureAxisPosition: dart.fieldType(dart.legacy(core.double)),
+      radiusPx: dart.fieldType(dart.legacy(core.double)),
+      boundsLineRadiusPx: dart.fieldType(dart.legacy(core.double)),
+      strokeWidthPx: dart.fieldType(dart.legacy(core.double)),
+      symbolRendererId: dart.fieldType(dart.legacy(core.String))
+    }));
+    return PointRendererElement;
+  });
+  point_renderer.PointRendererElement = point_renderer.PointRendererElement$();
+  dart.addTypeTests(point_renderer.PointRendererElement, _is_PointRendererElement_default);
+  var key$ = dart.privateName(point_renderer, "AnimatedPoint.key");
+  var overlaySeries$ = dart.privateName(point_renderer, "AnimatedPoint.overlaySeries");
+  var animatingOut = dart.privateName(point_renderer, "AnimatedPoint.animatingOut");
+  var _previousPoint = dart.privateName(point_renderer, "_previousPoint");
+  var _targetPoint = dart.privateName(point_renderer, "_targetPoint");
+  const _is_AnimatedPoint_default = Symbol('_is_AnimatedPoint_default');
+  point_renderer.AnimatedPoint$ = dart.generic(D => {
+    var DL = () => (DL = dart.constFn(dart.legacy(D)))();
+    var DatumPointOfDL = () => (DatumPointOfDL = dart.constFn(point_renderer.DatumPoint$(DL())))();
+    var PointRendererElementOfDL = () => (PointRendererElementOfDL = dart.constFn(point_renderer.PointRendererElement$(DL())))();
+    var PointRendererElementLOfDL = () => (PointRendererElementLOfDL = dart.constFn(dart.legacy(PointRendererElementOfDL())))();
+    class AnimatedPoint extends core.Object {
+      get key() {
+        return this[key$];
+      }
+      set key(value) {
+        super.key = value;
+      }
+      get overlaySeries() {
+        return this[overlaySeries$];
+      }
+      set overlaySeries(value) {
+        super.overlaySeries = value;
+      }
+      get animatingOut() {
+        return this[animatingOut];
+      }
+      set animatingOut(value) {
+        this[animatingOut] = value;
+      }
+      animateOut() {
+        let newTarget = this[_currentPoint].clone();
+        let targetPoint = newTarget.point;
+        newTarget.point = DatumPointOfDL().from(targetPoint, {x: targetPoint.x, y: newTarget.measureAxisPosition[$roundToDouble](), yLower: newTarget.measureAxisPosition[$roundToDouble](), yUpper: newTarget.measureAxisPosition[$roundToDouble]()});
+        newTarget.radiusPx = 0.0;
+        newTarget.strokeWidthPx = 0.0;
+        this.setNewTarget(newTarget);
+        this.animatingOut = true;
+      }
+      setNewTarget(newTarget) {
+        PointRendererElementLOfDL().as(newTarget);
+        this.animatingOut = false;
+        this[_currentPoint] == null ? this[_currentPoint] = newTarget.clone() : null;
+        this[_previousPoint] = this[_currentPoint].clone();
+        this[_targetPoint] = newTarget;
+      }
+      getCurrentPoint(animationPercent) {
+        if (animationPercent === 1.0 || this[_previousPoint] == null) {
+          this[_currentPoint] = this[_targetPoint];
+          this[_previousPoint] = this[_targetPoint];
+          return this[_currentPoint];
+        }
+        this[_currentPoint].updateAnimationPercent(this[_previousPoint], this[_targetPoint], animationPercent);
+        return this[_currentPoint];
+      }
+    }
+    (AnimatedPoint.new = function(opts) {
+      let key = opts && 'key' in opts ? opts.key : null;
+      let overlaySeries = opts && 'overlaySeries' in opts ? opts.overlaySeries : null;
+      this[_previousPoint] = null;
+      this[_targetPoint] = null;
+      this[_currentPoint] = null;
+      this[animatingOut] = false;
+      this[key$] = key;
+      this[overlaySeries$] = overlaySeries;
+      ;
+    }).prototype = AnimatedPoint.prototype;
+    dart.addTypeTests(AnimatedPoint);
+    AnimatedPoint.prototype[_is_AnimatedPoint_default] = true;
+    dart.addTypeCaches(AnimatedPoint);
+    dart.setMethodSignature(AnimatedPoint, () => ({
+      __proto__: dart.getMethods(AnimatedPoint.__proto__),
+      animateOut: dart.fnType(dart.void, []),
+      setNewTarget: dart.fnType(dart.void, [dart.legacy(core.Object)]),
+      getCurrentPoint: dart.fnType(dart.legacy(point_renderer.PointRendererElement$(dart.legacy(D))), [dart.legacy(core.double)])
+    }));
+    dart.setLibraryUri(AnimatedPoint, I[3]);
+    dart.setFieldSignature(AnimatedPoint, () => ({
+      __proto__: dart.getFields(AnimatedPoint.__proto__),
+      key: dart.finalFieldType(dart.legacy(core.String)),
+      overlaySeries: dart.finalFieldType(dart.legacy(core.bool)),
+      [_previousPoint]: dart.fieldType(dart.legacy(point_renderer.PointRendererElement$(dart.legacy(D)))),
+      [_targetPoint]: dart.fieldType(dart.legacy(point_renderer.PointRendererElement$(dart.legacy(D)))),
+      [_currentPoint]: dart.fieldType(dart.legacy(point_renderer.PointRendererElement$(dart.legacy(D)))),
+      animatingOut: dart.fieldType(dart.legacy(core.bool))
+    }));
+    return AnimatedPoint;
+  });
+  point_renderer.AnimatedPoint = point_renderer.AnimatedPoint$();
+  dart.addTypeTests(point_renderer.AnimatedPoint, _is_AnimatedPoint_default);
+  point_renderer._Distances = class _Distances extends core.Object {};
+  (point_renderer._Distances.new = function(opts) {
+    let domainDistance = opts && 'domainDistance' in opts ? opts.domainDistance : null;
+    let measureDistance = opts && 'measureDistance' in opts ? opts.measureDistance : null;
+    let relativeDistance = opts && 'relativeDistance' in opts ? opts.relativeDistance : null;
+    let insidePoint = opts && 'insidePoint' in opts ? opts.insidePoint : null;
+    this.domainDistance = domainDistance;
+    this.measureDistance = measureDistance;
+    this.relativeDistance = relativeDistance;
+    this.insidePoint = insidePoint;
+    ;
+  }).prototype = point_renderer._Distances.prototype;
+  dart.addTypeTests(point_renderer._Distances);
+  dart.addTypeCaches(point_renderer._Distances);
+  dart.setLibraryUri(point_renderer._Distances, I[3]);
+  dart.setFieldSignature(point_renderer._Distances, () => ({
+    __proto__: dart.getFields(point_renderer._Distances.__proto__),
+    domainDistance: dart.finalFieldType(dart.legacy(core.double)),
+    measureDistance: dart.finalFieldType(dart.legacy(core.double)),
+    relativeDistance: dart.finalFieldType(dart.legacy(core.double)),
+    insidePoint: dart.finalFieldType(dart.legacy(core.bool))
+  }));
+  var TypedKey_uniqueKey = dart.privateName(typed_registry, "TypedKey.uniqueKey");
+  dart.defineLazy(point_renderer, {
+    /*point_renderer.pointElementsKey*/get pointElementsKey() {
+      return C[1] || CT.C1;
+    },
+    /*point_renderer.pointSymbolRendererFnKey*/get pointSymbolRendererFnKey() {
+      return C[2] || CT.C2;
+    },
+    /*point_renderer.pointSymbolRendererIdKey*/get pointSymbolRendererIdKey() {
+      return C[3] || CT.C3;
+    },
+    /*point_renderer.boundsLineRadiusPxKey*/get boundsLineRadiusPxKey() {
+      return C[4] || CT.C4;
+    },
+    /*point_renderer.boundsLineRadiusPxFnKey*/get boundsLineRadiusPxFnKey() {
+      return C[5] || CT.C5;
+    },
+    /*point_renderer.defaultSymbolRendererId*/get defaultSymbolRendererId() {
+      return "__default__";
+    },
+    /*point_renderer._maxInitialDistance*/get _maxInitialDistance() {
+      return 10000;
+    }
+  }, true);
+  dart.trackLibraries("packages/charts_common/src/chart/scatter_plot/point_renderer_config.dart", {
+    "package:charts_common/src/chart/scatter_plot/point_renderer_config.dart": point_renderer_config,
+    "package:charts_common/src/chart/scatter_plot/point_renderer_decorator.dart": point_renderer_decorator,
+    "package:charts_common/src/chart/scatter_plot/comparison_points_decorator.dart": comparison_points_decorator,
+    "package:charts_common/src/chart/scatter_plot/point_renderer.dart": point_renderer
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["point_renderer_config.dart","point_renderer_decorator.dart","comparison_points_decorator.dart","point_renderer.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../../../D:/packages/charts_common/src/chart/scatter_plot/point_renderer_config.dart.lib.js"}');
+  // Exports:
+  return {
+    src__chart__scatter_plot__point_renderer_config: point_renderer_config,
+    src__chart__scatter_plot__point_renderer_decorator: point_renderer_decorator,
+    src__chart__scatter_plot__comparison_points_decorator: comparison_points_decorator,
+    src__chart__scatter_plot__point_renderer: point_renderer
+  };
+}));
+
+//# sourceMappingURL=point_renderer_config.dart.lib.js.map

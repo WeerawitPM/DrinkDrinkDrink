@@ -1,0 +1,544 @@
+define(['dart_sdk', 'packages/charts_common/src/chart/cartesian/axis/simple_ordinal_scale.dart', 'packages/charts_common/src/chart/cartesian/axis/time/date_time_axis.dart', 'packages/charts_common/src/common/date_time_factory.dart', 'packages/charts_common/src/chart/cartesian/axis/time/date_time_extents.dart', 'packages/charts_common/src/chart/cartesian/axis/time/auto_adjusting_date_time_tick_provider.dart', 'packages/charts_common/src/chart/common/chart_context.dart', 'packages/charts_common/src/chart/cartesian/axis/time/time_range_tick_provider_impl.dart', 'packages/charts_common/src/chart/cartesian/axis/time/day_time_stepper.dart', 'packages/charts_common/src/chart/cartesian/axis/time/time_range_tick_provider.dart', 'packages/charts_common/src/chart/cartesian/axis/end_points_tick_provider.dart', 'packages/charts_common/src/chart/cartesian/axis/static_tick_provider.dart', 'packages/charts_common/src/chart/cartesian/axis/spec/tick_spec.dart', 'packages/charts_common/src/chart/cartesian/axis/time/date_time_tick_formatter.dart', 'packages/charts_common/src/chart/cartesian/axis/time/simple_time_tick_formatter.dart', 'packages/intl/src/intl/date_format.dart', 'packages/charts_common/src/chart/cartesian/axis/time/time_tick_formatter.dart', 'packages/charts_common/src/chart/cartesian/axis/time/time_tick_formatter_impl.dart', 'packages/charts_common/src/chart/cartesian/axis/time/hour_tick_formatter.dart'], (function load__packages__charts_common__src__chart__cartesian__axis__spec__date_time_axis_spec_dart(dart_sdk, packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart, packages__charts_common__src__chart__cartesian__axis__time__date_time_axis$46dart, packages__charts_common__src__common__date_time_factory$46dart, packages__charts_common__src__chart__cartesian__axis__time__date_time_extents$46dart, packages__charts_common__src__chart__cartesian__axis__time__auto_adjusting_date_time_tick_provider$46dart, packages__charts_common__src__chart__common__chart_context$46dart, packages__charts_common__src__chart__cartesian__axis__time__time_range_tick_provider_impl$46dart, packages__charts_common__src__chart__cartesian__axis__time__day_time_stepper$46dart, packages__charts_common__src__chart__cartesian__axis__time__time_range_tick_provider$46dart, packages__charts_common__src__chart__cartesian__axis__end_points_tick_provider$46dart, packages__charts_common__src__chart__cartesian__axis__static_tick_provider$46dart, packages__charts_common__src__chart__cartesian__axis__spec__tick_spec$46dart, packages__charts_common__src__chart__cartesian__axis__time__date_time_tick_formatter$46dart, packages__charts_common__src__chart__cartesian__axis__time__simple_time_tick_formatter$46dart, packages__intl__src__intl__date_format$46dart, packages__charts_common__src__chart__cartesian__axis__time__time_tick_formatter$46dart, packages__charts_common__src__chart__cartesian__axis__time__time_tick_formatter_impl$46dart, packages__charts_common__src__chart__cartesian__axis__time__hour_tick_formatter$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const _interceptors = dart_sdk._interceptors;
+  const _js_helper = dart_sdk._js_helper;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const axis = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__cartesian__axis__axis;
+  const axis_spec = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__chart__cartesian__axis__spec__axis_spec;
+  const date_time_axis = packages__charts_common__src__chart__cartesian__axis__time__date_time_axis$46dart.src__chart__cartesian__axis__time__date_time_axis;
+  const date_time_factory = packages__charts_common__src__common__date_time_factory$46dart.src__common__date_time_factory;
+  const date_time_extents = packages__charts_common__src__chart__cartesian__axis__time__date_time_extents$46dart.src__chart__cartesian__axis__time__date_time_extents;
+  const auto_adjusting_date_time_tick_provider = packages__charts_common__src__chart__cartesian__axis__time__auto_adjusting_date_time_tick_provider$46dart.src__chart__cartesian__axis__time__auto_adjusting_date_time_tick_provider;
+  const chart_context = packages__charts_common__src__chart__common__chart_context$46dart.src__chart__common__chart_context;
+  const time_range_tick_provider_impl = packages__charts_common__src__chart__cartesian__axis__time__time_range_tick_provider_impl$46dart.src__chart__cartesian__axis__time__time_range_tick_provider_impl;
+  const day_time_stepper = packages__charts_common__src__chart__cartesian__axis__time__day_time_stepper$46dart.src__chart__cartesian__axis__time__day_time_stepper;
+  const time_range_tick_provider = packages__charts_common__src__chart__cartesian__axis__time__time_range_tick_provider$46dart.src__chart__cartesian__axis__time__time_range_tick_provider;
+  const end_points_tick_provider = packages__charts_common__src__chart__cartesian__axis__end_points_tick_provider$46dart.src__chart__cartesian__axis__end_points_tick_provider;
+  const static_tick_provider = packages__charts_common__src__chart__cartesian__axis__static_tick_provider$46dart.src__chart__cartesian__axis__static_tick_provider;
+  const tick_spec = packages__charts_common__src__chart__cartesian__axis__spec__tick_spec$46dart.src__chart__cartesian__axis__spec__tick_spec;
+  const date_time_tick_formatter = packages__charts_common__src__chart__cartesian__axis__time__date_time_tick_formatter$46dart.src__chart__cartesian__axis__time__date_time_tick_formatter;
+  const simple_time_tick_formatter = packages__charts_common__src__chart__cartesian__axis__time__simple_time_tick_formatter$46dart.src__chart__cartesian__axis__time__simple_time_tick_formatter;
+  const date_format = packages__intl__src__intl__date_format$46dart.src__intl__date_format;
+  const time_tick_formatter = packages__charts_common__src__chart__cartesian__axis__time__time_tick_formatter$46dart.src__chart__cartesian__axis__time__time_tick_formatter;
+  const time_tick_formatter_impl = packages__charts_common__src__chart__cartesian__axis__time__time_tick_formatter_impl$46dart.src__chart__cartesian__axis__time__time_tick_formatter_impl;
+  const hour_tick_formatter = packages__charts_common__src__chart__cartesian__axis__time__hour_tick_formatter$46dart.src__chart__cartesian__axis__time__hour_tick_formatter;
+  var date_time_axis_spec = Object.create(dart.library);
+  var $hashCode = dartx.hashCode;
+  var $_equals = dartx._equals;
+  var $_set = dartx._set;
+  dart._checkModuleNullSafetyMode(false);
+  var T = {
+    DateTimeL: () => (T.DateTimeL = dart.constFn(dart.legacy(core.DateTime)))(),
+    AxisOfDateTimeL: () => (T.AxisOfDateTimeL = dart.constFn(axis.Axis$(T.DateTimeL())))(),
+    AxisLOfDateTimeL: () => (T.AxisLOfDateTimeL = dart.constFn(dart.legacy(T.AxisOfDateTimeL())))(),
+    DateTimeAxisL: () => (T.DateTimeAxisL = dart.constFn(dart.legacy(date_time_axis.DateTimeAxis)))(),
+    DateTimeAxisSpecL: () => (T.DateTimeAxisSpecL = dart.constFn(dart.legacy(date_time_axis_spec.DateTimeAxisSpec)))(),
+    AutoDateTimeTickProviderSpecL: () => (T.AutoDateTimeTickProviderSpecL = dart.constFn(dart.legacy(date_time_axis_spec.AutoDateTimeTickProviderSpec)))(),
+    TimeRangeTickProviderL: () => (T.TimeRangeTickProviderL = dart.constFn(dart.legacy(time_range_tick_provider.TimeRangeTickProvider)))(),
+    JSArrayOfTimeRangeTickProviderL: () => (T.JSArrayOfTimeRangeTickProviderL = dart.constFn(_interceptors.JSArray$(T.TimeRangeTickProviderL())))(),
+    DayTickProviderSpecL: () => (T.DayTickProviderSpecL = dart.constFn(dart.legacy(date_time_axis_spec.DayTickProviderSpec)))(),
+    EndPointsTickProviderOfDateTimeL: () => (T.EndPointsTickProviderOfDateTimeL = dart.constFn(end_points_tick_provider.EndPointsTickProvider$(T.DateTimeL())))(),
+    DateTimeEndPointsTickProviderSpecL: () => (T.DateTimeEndPointsTickProviderSpecL = dart.constFn(dart.legacy(date_time_axis_spec.DateTimeEndPointsTickProviderSpec)))(),
+    StaticTickProviderOfDateTimeL: () => (T.StaticTickProviderOfDateTimeL = dart.constFn(static_tick_provider.StaticTickProvider$(T.DateTimeL())))(),
+    StaticDateTimeTickProviderSpecL: () => (T.StaticDateTimeTickProviderSpecL = dart.constFn(dart.legacy(date_time_axis_spec.StaticDateTimeTickProviderSpec)))(),
+    TimeFormatterSpecL: () => (T.TimeFormatterSpecL = dart.constFn(dart.legacy(date_time_axis_spec.TimeFormatterSpec)))(),
+    BasicDateTimeTickFormatterSpecL: () => (T.BasicDateTimeTickFormatterSpecL = dart.constFn(dart.legacy(date_time_axis_spec.BasicDateTimeTickFormatterSpec)))(),
+    intL: () => (T.intL = dart.constFn(dart.legacy(core.int)))(),
+    TimeTickFormatterL: () => (T.TimeTickFormatterL = dart.constFn(dart.legacy(time_tick_formatter.TimeTickFormatter)))(),
+    IdentityMapOfintL$TimeTickFormatterL: () => (T.IdentityMapOfintL$TimeTickFormatterL = dart.constFn(_js_helper.IdentityMap$(T.intL(), T.TimeTickFormatterL())))(),
+    AutoDateTimeTickFormatterSpecL: () => (T.AutoDateTimeTickFormatterSpecL = dart.constFn(dart.legacy(date_time_axis_spec.AutoDateTimeTickFormatterSpec)))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  var I = [
+    "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/charts_common-0.10.0/lib/src/chart/cartesian/axis/spec/date_time_axis_spec.dart",
+    "package:charts_common/src/chart/cartesian/axis/spec/date_time_axis_spec.dart"
+  ];
+  var viewport$ = dart.privateName(date_time_axis_spec, "DateTimeAxisSpec.viewport");
+  date_time_axis_spec.DateTimeAxisSpec = class DateTimeAxisSpec extends axis_spec.AxisSpec$(dart.legacy(core.DateTime)) {
+    get viewport() {
+      return this[viewport$];
+    }
+    set viewport(value) {
+      super.viewport = value;
+    }
+    configure(axis, context, graphicsFactory) {
+      T.AxisLOfDateTimeL().as(axis);
+      super.configure(axis, context, graphicsFactory);
+      if (T.DateTimeAxisL().is(axis) && this.viewport != null) {
+        axis.setScaleViewport(this.viewport);
+      }
+    }
+    createAxis() {
+      if (!false) dart.assertFailed("Call createDateTimeAxis() to create a DateTimeAxis.", I[0], 86, 12, "false");
+      return null;
+    }
+    createDateTimeAxis(dateTimeFactory) {
+      return new date_time_axis.DateTimeAxis.new(dateTimeFactory);
+    }
+    _equals(other) {
+      if (other == null) return false;
+      return T.DateTimeAxisSpecL().is(other) && dart.equals(this.viewport, other.viewport) && super._equals(other);
+    }
+    get hashCode() {
+      let hashcode = super.hashCode;
+      hashcode = dart.notNull(hashcode) * 37 + dart.notNull(dart.hashCode(this.viewport));
+      return hashcode;
+    }
+  };
+  (date_time_axis_spec.DateTimeAxisSpec.new = function(opts) {
+    let renderSpec = opts && 'renderSpec' in opts ? opts.renderSpec : null;
+    let tickProviderSpec = opts && 'tickProviderSpec' in opts ? opts.tickProviderSpec : null;
+    let tickFormatterSpec = opts && 'tickFormatterSpec' in opts ? opts.tickFormatterSpec : null;
+    let showAxisLine = opts && 'showAxisLine' in opts ? opts.showAxisLine : null;
+    let viewport = opts && 'viewport' in opts ? opts.viewport : null;
+    this[viewport$] = viewport;
+    date_time_axis_spec.DateTimeAxisSpec.__proto__.new.call(this, {renderSpec: renderSpec, tickProviderSpec: tickProviderSpec, tickFormatterSpec: tickFormatterSpec, showAxisLine: showAxisLine});
+    ;
+  }).prototype = date_time_axis_spec.DateTimeAxisSpec.prototype;
+  dart.addTypeTests(date_time_axis_spec.DateTimeAxisSpec);
+  dart.addTypeCaches(date_time_axis_spec.DateTimeAxisSpec);
+  dart.setMethodSignature(date_time_axis_spec.DateTimeAxisSpec, () => ({
+    __proto__: dart.getMethods(date_time_axis_spec.DateTimeAxisSpec.__proto__),
+    createDateTimeAxis: dart.fnType(dart.legacy(date_time_axis.DateTimeAxis), [dart.legacy(date_time_factory.DateTimeFactory)])
+  }));
+  dart.setLibraryUri(date_time_axis_spec.DateTimeAxisSpec, I[1]);
+  dart.setFieldSignature(date_time_axis_spec.DateTimeAxisSpec, () => ({
+    __proto__: dart.getFields(date_time_axis_spec.DateTimeAxisSpec.__proto__),
+    viewport: dart.finalFieldType(dart.legacy(date_time_extents.DateTimeExtents))
+  }));
+  dart.defineExtensionMethods(date_time_axis_spec.DateTimeAxisSpec, ['_equals']);
+  dart.defineExtensionAccessors(date_time_axis_spec.DateTimeAxisSpec, ['hashCode']);
+  date_time_axis_spec.DateTimeTickProviderSpec = class DateTimeTickProviderSpec extends axis_spec.TickProviderSpec$(dart.legacy(core.DateTime)) {};
+  (date_time_axis_spec.DateTimeTickProviderSpec.new = function() {
+    ;
+  }).prototype = date_time_axis_spec.DateTimeTickProviderSpec.prototype;
+  dart.addTypeTests(date_time_axis_spec.DateTimeTickProviderSpec);
+  dart.addTypeCaches(date_time_axis_spec.DateTimeTickProviderSpec);
+  dart.setLibraryUri(date_time_axis_spec.DateTimeTickProviderSpec, I[1]);
+  date_time_axis_spec.DateTimeTickFormatterSpec = class DateTimeTickFormatterSpec extends axis_spec.TickFormatterSpec$(dart.legacy(core.DateTime)) {};
+  (date_time_axis_spec.DateTimeTickFormatterSpec.new = function() {
+    ;
+  }).prototype = date_time_axis_spec.DateTimeTickFormatterSpec.prototype;
+  dart.addTypeTests(date_time_axis_spec.DateTimeTickFormatterSpec);
+  dart.addTypeCaches(date_time_axis_spec.DateTimeTickFormatterSpec);
+  dart.setLibraryUri(date_time_axis_spec.DateTimeTickFormatterSpec, I[1]);
+  var includeTime$ = dart.privateName(date_time_axis_spec, "AutoDateTimeTickProviderSpec.includeTime");
+  date_time_axis_spec.AutoDateTimeTickProviderSpec = class AutoDateTimeTickProviderSpec extends core.Object {
+    get includeTime() {
+      return this[includeTime$];
+    }
+    set includeTime(value) {
+      super.includeTime = value;
+    }
+    createTickProvider(context) {
+      if (dart.test(this.includeTime)) {
+        return auto_adjusting_date_time_tick_provider.AutoAdjustingDateTimeTickProvider.createDefault(context.dateTimeFactory);
+      } else {
+        return auto_adjusting_date_time_tick_provider.AutoAdjustingDateTimeTickProvider.createWithoutTime(context.dateTimeFactory);
+      }
+    }
+    _equals(other) {
+      if (other == null) return false;
+      return T.AutoDateTimeTickProviderSpecL().is(other) && this.includeTime == other.includeTime;
+    }
+    get hashCode() {
+      let t0, t0$;
+      t0$ = (t0 = this.includeTime, t0 == null ? null : dart.hashCode(t0));
+      return t0$ == null ? 0 : t0$;
+    }
+  };
+  (date_time_axis_spec.AutoDateTimeTickProviderSpec.new = function(opts) {
+    let includeTime = opts && 'includeTime' in opts ? opts.includeTime : true;
+    this[includeTime$] = includeTime;
+    ;
+  }).prototype = date_time_axis_spec.AutoDateTimeTickProviderSpec.prototype;
+  dart.addTypeTests(date_time_axis_spec.AutoDateTimeTickProviderSpec);
+  dart.addTypeCaches(date_time_axis_spec.AutoDateTimeTickProviderSpec);
+  date_time_axis_spec.AutoDateTimeTickProviderSpec[dart.implements] = () => [date_time_axis_spec.DateTimeTickProviderSpec];
+  dart.setMethodSignature(date_time_axis_spec.AutoDateTimeTickProviderSpec, () => ({
+    __proto__: dart.getMethods(date_time_axis_spec.AutoDateTimeTickProviderSpec.__proto__),
+    createTickProvider: dart.fnType(dart.legacy(auto_adjusting_date_time_tick_provider.AutoAdjustingDateTimeTickProvider), [dart.legacy(chart_context.ChartContext)]),
+    _equals: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)]),
+    [$_equals]: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)])
+  }));
+  dart.setGetterSignature(date_time_axis_spec.AutoDateTimeTickProviderSpec, () => ({
+    __proto__: dart.getGetters(date_time_axis_spec.AutoDateTimeTickProviderSpec.__proto__),
+    hashCode: dart.legacy(core.int),
+    [$hashCode]: dart.legacy(core.int)
+  }));
+  dart.setLibraryUri(date_time_axis_spec.AutoDateTimeTickProviderSpec, I[1]);
+  dart.setFieldSignature(date_time_axis_spec.AutoDateTimeTickProviderSpec, () => ({
+    __proto__: dart.getFields(date_time_axis_spec.AutoDateTimeTickProviderSpec.__proto__),
+    includeTime: dart.finalFieldType(dart.legacy(core.bool))
+  }));
+  dart.defineExtensionMethods(date_time_axis_spec.AutoDateTimeTickProviderSpec, ['_equals']);
+  dart.defineExtensionAccessors(date_time_axis_spec.AutoDateTimeTickProviderSpec, ['hashCode']);
+  var increments$ = dart.privateName(date_time_axis_spec, "DayTickProviderSpec.increments");
+  date_time_axis_spec.DayTickProviderSpec = class DayTickProviderSpec extends core.Object {
+    get increments() {
+      return this[increments$];
+    }
+    set increments(value) {
+      super.increments = value;
+    }
+    createTickProvider(context) {
+      return auto_adjusting_date_time_tick_provider.AutoAdjustingDateTimeTickProvider.createWith(T.JSArrayOfTimeRangeTickProviderL().of([new time_range_tick_provider_impl.TimeRangeTickProviderImpl.new(day_time_stepper.DayTimeStepper.new(context.dateTimeFactory, {allowedTickIncrements: this.increments}))]));
+    }
+    _equals(other) {
+      if (other == null) return false;
+      return T.DayTickProviderSpecL().is(other) && dart.equals(this.increments, other.increments);
+    }
+    get hashCode() {
+      let t0, t0$;
+      t0$ = (t0 = this.increments, t0 == null ? null : dart.hashCode(t0));
+      return t0$ == null ? 0 : t0$;
+    }
+  };
+  (date_time_axis_spec.DayTickProviderSpec.new = function(opts) {
+    let increments = opts && 'increments' in opts ? opts.increments : null;
+    this[increments$] = increments;
+    ;
+  }).prototype = date_time_axis_spec.DayTickProviderSpec.prototype;
+  dart.addTypeTests(date_time_axis_spec.DayTickProviderSpec);
+  dart.addTypeCaches(date_time_axis_spec.DayTickProviderSpec);
+  date_time_axis_spec.DayTickProviderSpec[dart.implements] = () => [date_time_axis_spec.DateTimeTickProviderSpec];
+  dart.setMethodSignature(date_time_axis_spec.DayTickProviderSpec, () => ({
+    __proto__: dart.getMethods(date_time_axis_spec.DayTickProviderSpec.__proto__),
+    createTickProvider: dart.fnType(dart.legacy(auto_adjusting_date_time_tick_provider.AutoAdjustingDateTimeTickProvider), [dart.legacy(chart_context.ChartContext)]),
+    _equals: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)]),
+    [$_equals]: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)])
+  }));
+  dart.setGetterSignature(date_time_axis_spec.DayTickProviderSpec, () => ({
+    __proto__: dart.getGetters(date_time_axis_spec.DayTickProviderSpec.__proto__),
+    hashCode: dart.legacy(core.int),
+    [$hashCode]: dart.legacy(core.int)
+  }));
+  dart.setLibraryUri(date_time_axis_spec.DayTickProviderSpec, I[1]);
+  dart.setFieldSignature(date_time_axis_spec.DayTickProviderSpec, () => ({
+    __proto__: dart.getFields(date_time_axis_spec.DayTickProviderSpec.__proto__),
+    increments: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(core.int))))
+  }));
+  dart.defineExtensionMethods(date_time_axis_spec.DayTickProviderSpec, ['_equals']);
+  dart.defineExtensionAccessors(date_time_axis_spec.DayTickProviderSpec, ['hashCode']);
+  date_time_axis_spec.DateTimeEndPointsTickProviderSpec = class DateTimeEndPointsTickProviderSpec extends core.Object {
+    createTickProvider(context) {
+      return new (T.EndPointsTickProviderOfDateTimeL()).new();
+    }
+    _equals(other) {
+      if (other == null) return false;
+      return T.DateTimeEndPointsTickProviderSpecL().is(other);
+    }
+  };
+  (date_time_axis_spec.DateTimeEndPointsTickProviderSpec.new = function() {
+    ;
+  }).prototype = date_time_axis_spec.DateTimeEndPointsTickProviderSpec.prototype;
+  dart.addTypeTests(date_time_axis_spec.DateTimeEndPointsTickProviderSpec);
+  dart.addTypeCaches(date_time_axis_spec.DateTimeEndPointsTickProviderSpec);
+  date_time_axis_spec.DateTimeEndPointsTickProviderSpec[dart.implements] = () => [date_time_axis_spec.DateTimeTickProviderSpec];
+  dart.setMethodSignature(date_time_axis_spec.DateTimeEndPointsTickProviderSpec, () => ({
+    __proto__: dart.getMethods(date_time_axis_spec.DateTimeEndPointsTickProviderSpec.__proto__),
+    createTickProvider: dart.fnType(dart.legacy(end_points_tick_provider.EndPointsTickProvider$(dart.legacy(core.DateTime))), [dart.legacy(chart_context.ChartContext)]),
+    _equals: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)]),
+    [$_equals]: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)])
+  }));
+  dart.setLibraryUri(date_time_axis_spec.DateTimeEndPointsTickProviderSpec, I[1]);
+  dart.defineExtensionMethods(date_time_axis_spec.DateTimeEndPointsTickProviderSpec, ['_equals']);
+  var tickSpecs$ = dart.privateName(date_time_axis_spec, "StaticDateTimeTickProviderSpec.tickSpecs");
+  date_time_axis_spec.StaticDateTimeTickProviderSpec = class StaticDateTimeTickProviderSpec extends core.Object {
+    get tickSpecs() {
+      return this[tickSpecs$];
+    }
+    set tickSpecs(value) {
+      super.tickSpecs = value;
+    }
+    createTickProvider(context) {
+      return new (T.StaticTickProviderOfDateTimeL()).new(this.tickSpecs);
+    }
+    _equals(other) {
+      if (other == null) return false;
+      return T.StaticDateTimeTickProviderSpecL().is(other) && dart.equals(this.tickSpecs, other.tickSpecs);
+    }
+    get hashCode() {
+      return dart.hashCode(this.tickSpecs);
+    }
+  };
+  (date_time_axis_spec.StaticDateTimeTickProviderSpec.new = function(tickSpecs) {
+    this[tickSpecs$] = tickSpecs;
+    ;
+  }).prototype = date_time_axis_spec.StaticDateTimeTickProviderSpec.prototype;
+  dart.addTypeTests(date_time_axis_spec.StaticDateTimeTickProviderSpec);
+  dart.addTypeCaches(date_time_axis_spec.StaticDateTimeTickProviderSpec);
+  date_time_axis_spec.StaticDateTimeTickProviderSpec[dart.implements] = () => [date_time_axis_spec.DateTimeTickProviderSpec];
+  dart.setMethodSignature(date_time_axis_spec.StaticDateTimeTickProviderSpec, () => ({
+    __proto__: dart.getMethods(date_time_axis_spec.StaticDateTimeTickProviderSpec.__proto__),
+    createTickProvider: dart.fnType(dart.legacy(static_tick_provider.StaticTickProvider$(dart.legacy(core.DateTime))), [dart.legacy(chart_context.ChartContext)]),
+    _equals: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)]),
+    [$_equals]: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)])
+  }));
+  dart.setGetterSignature(date_time_axis_spec.StaticDateTimeTickProviderSpec, () => ({
+    __proto__: dart.getGetters(date_time_axis_spec.StaticDateTimeTickProviderSpec.__proto__),
+    hashCode: dart.legacy(core.int),
+    [$hashCode]: dart.legacy(core.int)
+  }));
+  dart.setLibraryUri(date_time_axis_spec.StaticDateTimeTickProviderSpec, I[1]);
+  dart.setFieldSignature(date_time_axis_spec.StaticDateTimeTickProviderSpec, () => ({
+    __proto__: dart.getFields(date_time_axis_spec.StaticDateTimeTickProviderSpec.__proto__),
+    tickSpecs: dart.finalFieldType(dart.legacy(core.List$(dart.legacy(tick_spec.TickSpec$(dart.legacy(core.DateTime))))))
+  }));
+  dart.defineExtensionMethods(date_time_axis_spec.StaticDateTimeTickProviderSpec, ['_equals']);
+  dart.defineExtensionAccessors(date_time_axis_spec.StaticDateTimeTickProviderSpec, ['hashCode']);
+  var format$ = dart.privateName(date_time_axis_spec, "TimeFormatterSpec.format");
+  var transitionFormat$ = dart.privateName(date_time_axis_spec, "TimeFormatterSpec.transitionFormat");
+  var noonFormat$ = dart.privateName(date_time_axis_spec, "TimeFormatterSpec.noonFormat");
+  date_time_axis_spec.TimeFormatterSpec = class TimeFormatterSpec extends core.Object {
+    get format() {
+      return this[format$];
+    }
+    set format(value) {
+      super.format = value;
+    }
+    get transitionFormat() {
+      return this[transitionFormat$];
+    }
+    set transitionFormat(value) {
+      super.transitionFormat = value;
+    }
+    get noonFormat() {
+      return this[noonFormat$];
+    }
+    set noonFormat(value) {
+      super.noonFormat = value;
+    }
+    _equals(other) {
+      if (other == null) return false;
+      return T.TimeFormatterSpecL().is(other) && this.format == other.format && this.transitionFormat == other.transitionFormat && this.noonFormat == other.noonFormat;
+    }
+    get hashCode() {
+      let t0, t0$, t0$0, t0$1, t0$2, t0$3;
+      let hashcode = (t0$ = (t0 = this.format, t0 == null ? null : dart.hashCode(t0)), t0$ == null ? 0 : t0$);
+      hashcode = (t0$1 = dart.notNull(hashcode) * 37 + dart.notNull((t0$0 = this.transitionFormat, t0$0 == null ? null : dart.hashCode(t0$0))), t0$1 === null ? 0 : t0$1);
+      hashcode = (t0$3 = dart.notNull(hashcode) * 37 + dart.notNull((t0$2 = this.noonFormat, t0$2 == null ? null : dart.hashCode(t0$2))), t0$3 === null ? 0 : t0$3);
+      return hashcode;
+    }
+  };
+  (date_time_axis_spec.TimeFormatterSpec.new = function(opts) {
+    let format = opts && 'format' in opts ? opts.format : null;
+    let transitionFormat = opts && 'transitionFormat' in opts ? opts.transitionFormat : null;
+    let noonFormat = opts && 'noonFormat' in opts ? opts.noonFormat : null;
+    this[format$] = format;
+    this[transitionFormat$] = transitionFormat;
+    this[noonFormat$] = noonFormat;
+    ;
+  }).prototype = date_time_axis_spec.TimeFormatterSpec.prototype;
+  dart.addTypeTests(date_time_axis_spec.TimeFormatterSpec);
+  dart.addTypeCaches(date_time_axis_spec.TimeFormatterSpec);
+  dart.setMethodSignature(date_time_axis_spec.TimeFormatterSpec, () => ({
+    __proto__: dart.getMethods(date_time_axis_spec.TimeFormatterSpec.__proto__),
+    _equals: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)]),
+    [$_equals]: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)])
+  }));
+  dart.setGetterSignature(date_time_axis_spec.TimeFormatterSpec, () => ({
+    __proto__: dart.getGetters(date_time_axis_spec.TimeFormatterSpec.__proto__),
+    hashCode: dart.legacy(core.int),
+    [$hashCode]: dart.legacy(core.int)
+  }));
+  dart.setLibraryUri(date_time_axis_spec.TimeFormatterSpec, I[1]);
+  dart.setFieldSignature(date_time_axis_spec.TimeFormatterSpec, () => ({
+    __proto__: dart.getFields(date_time_axis_spec.TimeFormatterSpec.__proto__),
+    format: dart.finalFieldType(dart.legacy(core.String)),
+    transitionFormat: dart.finalFieldType(dart.legacy(core.String)),
+    noonFormat: dart.finalFieldType(dart.legacy(core.String))
+  }));
+  dart.defineExtensionMethods(date_time_axis_spec.TimeFormatterSpec, ['_equals']);
+  dart.defineExtensionAccessors(date_time_axis_spec.TimeFormatterSpec, ['hashCode']);
+  var formatter$ = dart.privateName(date_time_axis_spec, "BasicDateTimeTickFormatterSpec.formatter");
+  var dateFormat$ = dart.privateName(date_time_axis_spec, "BasicDateTimeTickFormatterSpec.dateFormat");
+  date_time_axis_spec.BasicDateTimeTickFormatterSpec = class BasicDateTimeTickFormatterSpec extends core.Object {
+    get formatter() {
+      return this[formatter$];
+    }
+    set formatter(value) {
+      super.formatter = value;
+    }
+    get dateFormat() {
+      return this[dateFormat$];
+    }
+    set dateFormat(value) {
+      super.dateFormat = value;
+    }
+    createTickFormatter(context) {
+      return date_time_tick_formatter.DateTimeTickFormatter.uniform(new simple_time_tick_formatter.SimpleTimeTickFormatter.new({formatter: this.dateFormat != null ? dart.bind(this.dateFormat, 'format') : this.formatter}));
+    }
+    _equals(other) {
+      if (other == null) return false;
+      return this === other || T.BasicDateTimeTickFormatterSpecL().is(other) && dart.equals(this.formatter, other.formatter) && dart.equals(this.dateFormat, other.dateFormat);
+    }
+    get hashCode() {
+      let hash = dart.hashCode(this.formatter);
+      hash = dart.notNull(hash) * 37 * dart.notNull(dart.hashCode(this.dateFormat));
+      return hash;
+    }
+  };
+  (date_time_axis_spec.BasicDateTimeTickFormatterSpec.new = function(formatter) {
+    this[formatter$] = formatter;
+    this[dateFormat$] = null;
+    ;
+  }).prototype = date_time_axis_spec.BasicDateTimeTickFormatterSpec.prototype;
+  (date_time_axis_spec.BasicDateTimeTickFormatterSpec.fromDateFormat = function(dateFormat) {
+    this[dateFormat$] = dateFormat;
+    this[formatter$] = null;
+    ;
+  }).prototype = date_time_axis_spec.BasicDateTimeTickFormatterSpec.prototype;
+  dart.addTypeTests(date_time_axis_spec.BasicDateTimeTickFormatterSpec);
+  dart.addTypeCaches(date_time_axis_spec.BasicDateTimeTickFormatterSpec);
+  date_time_axis_spec.BasicDateTimeTickFormatterSpec[dart.implements] = () => [date_time_axis_spec.DateTimeTickFormatterSpec];
+  dart.setMethodSignature(date_time_axis_spec.BasicDateTimeTickFormatterSpec, () => ({
+    __proto__: dart.getMethods(date_time_axis_spec.BasicDateTimeTickFormatterSpec.__proto__),
+    createTickFormatter: dart.fnType(dart.legacy(date_time_tick_formatter.DateTimeTickFormatter), [dart.legacy(chart_context.ChartContext)]),
+    _equals: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)]),
+    [$_equals]: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)])
+  }));
+  dart.setGetterSignature(date_time_axis_spec.BasicDateTimeTickFormatterSpec, () => ({
+    __proto__: dart.getGetters(date_time_axis_spec.BasicDateTimeTickFormatterSpec.__proto__),
+    hashCode: dart.legacy(core.int),
+    [$hashCode]: dart.legacy(core.int)
+  }));
+  dart.setLibraryUri(date_time_axis_spec.BasicDateTimeTickFormatterSpec, I[1]);
+  dart.setFieldSignature(date_time_axis_spec.BasicDateTimeTickFormatterSpec, () => ({
+    __proto__: dart.getFields(date_time_axis_spec.BasicDateTimeTickFormatterSpec.__proto__),
+    formatter: dart.finalFieldType(dart.legacy(dart.fnType(dart.legacy(core.String), [dart.legacy(core.DateTime)]))),
+    dateFormat: dart.finalFieldType(dart.legacy(date_format.DateFormat))
+  }));
+  dart.defineExtensionMethods(date_time_axis_spec.BasicDateTimeTickFormatterSpec, ['_equals']);
+  dart.defineExtensionAccessors(date_time_axis_spec.BasicDateTimeTickFormatterSpec, ['hashCode']);
+  var minute$ = dart.privateName(date_time_axis_spec, "AutoDateTimeTickFormatterSpec.minute");
+  var hour$ = dart.privateName(date_time_axis_spec, "AutoDateTimeTickFormatterSpec.hour");
+  var day$ = dart.privateName(date_time_axis_spec, "AutoDateTimeTickFormatterSpec.day");
+  var month$ = dart.privateName(date_time_axis_spec, "AutoDateTimeTickFormatterSpec.month");
+  var year$ = dart.privateName(date_time_axis_spec, "AutoDateTimeTickFormatterSpec.year");
+  var _makeFormatter = dart.privateName(date_time_axis_spec, "_makeFormatter");
+  date_time_axis_spec.AutoDateTimeTickFormatterSpec = class AutoDateTimeTickFormatterSpec extends core.Object {
+    get minute() {
+      return this[minute$];
+    }
+    set minute(value) {
+      super.minute = value;
+    }
+    get hour() {
+      return this[hour$];
+    }
+    set hour(value) {
+      super.hour = value;
+    }
+    get day() {
+      return this[day$];
+    }
+    set day(value) {
+      super.day = value;
+    }
+    get month() {
+      return this[month$];
+    }
+    set month(value) {
+      super.month = value;
+    }
+    get year() {
+      return this[year$];
+    }
+    set year(value) {
+      super.year = value;
+    }
+    createTickFormatter(context) {
+      let map = new (T.IdentityMapOfintL$TimeTickFormatterL()).new();
+      if (this.minute != null) {
+        map[$_set](60000, this[_makeFormatter](this.minute, time_tick_formatter_impl.CalendarField.hourOfDay, context));
+      }
+      if (this.hour != null) {
+        map[$_set](3600000, this[_makeFormatter](this.hour, time_tick_formatter_impl.CalendarField.date, context));
+      }
+      if (this.day != null) {
+        map[$_set](23 * 3600000, this[_makeFormatter](this.day, time_tick_formatter_impl.CalendarField.month, context));
+      }
+      if (this.month != null) {
+        map[$_set](28 * 86400000, this[_makeFormatter](this.month, time_tick_formatter_impl.CalendarField.year, context));
+      }
+      if (this.year != null) {
+        map[$_set](364 * 86400000, this[_makeFormatter](this.year, time_tick_formatter_impl.CalendarField.year, context));
+      }
+      return date_time_tick_formatter.DateTimeTickFormatter.new(context.dateTimeFactory, {overrides: map});
+    }
+    [_makeFormatter](spec, transitionField, context) {
+      if (spec.noonFormat != null) {
+        return new hour_tick_formatter.HourTickFormatter.new({dateTimeFactory: context.dateTimeFactory, simpleFormat: spec.format, transitionFormat: spec.transitionFormat, noonFormat: spec.noonFormat});
+      } else {
+        return new time_tick_formatter_impl.TimeTickFormatterImpl.new({dateTimeFactory: context.dateTimeFactory, simpleFormat: spec.format, transitionFormat: spec.transitionFormat, transitionField: transitionField});
+      }
+    }
+    _equals(other) {
+      if (other == null) return false;
+      return this === other || T.AutoDateTimeTickFormatterSpecL().is(other) && dart.equals(this.minute, other.minute) && dart.equals(this.hour, other.hour) && dart.equals(this.day, other.day) && dart.equals(this.month, other.month) && dart.equals(this.year, other.year);
+    }
+    get hashCode() {
+      let t0, t0$, t0$0, t0$1, t0$2, t0$3, t0$4, t0$5, t0$6, t0$7;
+      let hashcode = (t0$ = (t0 = this.minute, t0 == null ? null : dart.hashCode(t0)), t0$ == null ? 0 : t0$);
+      hashcode = (t0$1 = dart.notNull(hashcode) * 37 + dart.notNull((t0$0 = this.hour, t0$0 == null ? null : dart.hashCode(t0$0))), t0$1 === null ? 0 : t0$1);
+      hashcode = (t0$3 = dart.notNull(hashcode) * 37 + dart.notNull((t0$2 = this.day, t0$2 == null ? null : dart.hashCode(t0$2))), t0$3 === null ? 0 : t0$3);
+      hashcode = (t0$5 = dart.notNull(hashcode) * 37 + dart.notNull((t0$4 = this.month, t0$4 == null ? null : dart.hashCode(t0$4))), t0$5 === null ? 0 : t0$5);
+      hashcode = (t0$7 = dart.notNull(hashcode) * 37 + dart.notNull((t0$6 = this.year, t0$6 == null ? null : dart.hashCode(t0$6))), t0$7 === null ? 0 : t0$7);
+      return hashcode;
+    }
+  };
+  (date_time_axis_spec.AutoDateTimeTickFormatterSpec.new = function(opts) {
+    let minute = opts && 'minute' in opts ? opts.minute : null;
+    let hour = opts && 'hour' in opts ? opts.hour : null;
+    let day = opts && 'day' in opts ? opts.day : null;
+    let month = opts && 'month' in opts ? opts.month : null;
+    let year = opts && 'year' in opts ? opts.year : null;
+    this[minute$] = minute;
+    this[hour$] = hour;
+    this[day$] = day;
+    this[month$] = month;
+    this[year$] = year;
+    ;
+  }).prototype = date_time_axis_spec.AutoDateTimeTickFormatterSpec.prototype;
+  dart.addTypeTests(date_time_axis_spec.AutoDateTimeTickFormatterSpec);
+  dart.addTypeCaches(date_time_axis_spec.AutoDateTimeTickFormatterSpec);
+  date_time_axis_spec.AutoDateTimeTickFormatterSpec[dart.implements] = () => [date_time_axis_spec.DateTimeTickFormatterSpec];
+  dart.setMethodSignature(date_time_axis_spec.AutoDateTimeTickFormatterSpec, () => ({
+    __proto__: dart.getMethods(date_time_axis_spec.AutoDateTimeTickFormatterSpec.__proto__),
+    createTickFormatter: dart.fnType(dart.legacy(date_time_tick_formatter.DateTimeTickFormatter), [dart.legacy(chart_context.ChartContext)]),
+    [_makeFormatter]: dart.fnType(dart.legacy(time_tick_formatter_impl.TimeTickFormatterImpl), [dart.legacy(date_time_axis_spec.TimeFormatterSpec), dart.legacy(time_tick_formatter_impl.CalendarField), dart.legacy(chart_context.ChartContext)]),
+    _equals: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)]),
+    [$_equals]: dart.fnType(dart.legacy(core.bool), [dart.legacy(core.Object)])
+  }));
+  dart.setGetterSignature(date_time_axis_spec.AutoDateTimeTickFormatterSpec, () => ({
+    __proto__: dart.getGetters(date_time_axis_spec.AutoDateTimeTickFormatterSpec.__proto__),
+    hashCode: dart.legacy(core.int),
+    [$hashCode]: dart.legacy(core.int)
+  }));
+  dart.setLibraryUri(date_time_axis_spec.AutoDateTimeTickFormatterSpec, I[1]);
+  dart.setFieldSignature(date_time_axis_spec.AutoDateTimeTickFormatterSpec, () => ({
+    __proto__: dart.getFields(date_time_axis_spec.AutoDateTimeTickFormatterSpec.__proto__),
+    minute: dart.finalFieldType(dart.legacy(date_time_axis_spec.TimeFormatterSpec)),
+    hour: dart.finalFieldType(dart.legacy(date_time_axis_spec.TimeFormatterSpec)),
+    day: dart.finalFieldType(dart.legacy(date_time_axis_spec.TimeFormatterSpec)),
+    month: dart.finalFieldType(dart.legacy(date_time_axis_spec.TimeFormatterSpec)),
+    year: dart.finalFieldType(dart.legacy(date_time_axis_spec.TimeFormatterSpec))
+  }));
+  dart.defineExtensionMethods(date_time_axis_spec.AutoDateTimeTickFormatterSpec, ['_equals']);
+  dart.defineExtensionAccessors(date_time_axis_spec.AutoDateTimeTickFormatterSpec, ['hashCode']);
+  dart.trackLibraries("packages/charts_common/src/chart/cartesian/axis/spec/date_time_axis_spec.dart", {
+    "package:charts_common/src/chart/cartesian/axis/spec/date_time_axis_spec.dart": date_time_axis_spec
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["date_time_axis_spec.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../../../../../D:/packages/charts_common/src/chart/cartesian/axis/spec/date_time_axis_spec.dart.lib.js"}');
+  // Exports:
+  return {
+    src__chart__cartesian__axis__spec__date_time_axis_spec: date_time_axis_spec
+  };
+}));
+
+//# sourceMappingURL=date_time_axis_spec.dart.lib.js.map

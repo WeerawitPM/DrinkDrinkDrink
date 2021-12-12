@@ -1,0 +1,1142 @@
+define(['dart_sdk', 'packages/flutter/src/widgets/icon.dart', 'packages/flutter/src/widgets/widget_span.dart', 'packages/flutter/src/widgets/icon_data.dart', 'packages/flutter/src/painting/edge_insets.dart', 'packages/flutter/src/material/icon_button.dart', 'packages/flutter/src/foundation/_platform_web.dart', 'packages/settings_ui/src/cupertino_settings_item.dart', 'packages/flutter/src/material/switch_list_tile.dart', 'packages/flutter/src/rendering/paragraph.dart', 'packages/flutter/src/painting/strut_style.dart'], (function load__packages__settings_ui__src__settings_tile_dart(dart_sdk, packages__flutter__src__widgets__icon$46dart, packages__flutter__src__widgets__widget_span$46dart, packages__flutter__src__widgets__icon_data$46dart, packages__flutter__src__painting__edge_insets$46dart, packages__flutter__src__material__icon_button$46dart, packages__flutter__src__foundation___platform_web$46dart, packages__settings_ui__src__cupertino_settings_item$46dart, packages__flutter__src__material__switch_list_tile$46dart, packages__flutter__src__rendering__paragraph$46dart, packages__flutter__src__painting__strut_style$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const ui = dart_sdk.ui;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const icon = packages__flutter__src__widgets__icon$46dart.src__widgets__icon;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const text = packages__flutter__src__widgets__widget_span$46dart.src__widgets__text;
+  const icon_data = packages__flutter__src__widgets__icon_data$46dart.src__widgets__icon_data;
+  const edge_insets = packages__flutter__src__painting__edge_insets$46dart.src__painting__edge_insets;
+  const theme = packages__flutter__src__material__icon_button$46dart.src__material__theme;
+  const list_tile = packages__flutter__src__material__icon_button$46dart.src__material__list_tile;
+  const platform = packages__flutter__src__foundation___platform_web$46dart.src__foundation__platform;
+  const cupertino_settings_item = packages__settings_ui__src__cupertino_settings_item$46dart.src__cupertino_settings_item;
+  const switch_list_tile = packages__flutter__src__material__switch_list_tile$46dart.src__material__switch_list_tile;
+  const paragraph = packages__flutter__src__rendering__paragraph$46dart.src__rendering__paragraph;
+  const text_style = packages__flutter__src__painting__strut_style$46dart.src__painting__text_style;
+  var settings_tile = Object.create(dart.library);
+  dart._checkModuleNullSafetyMode(false);
+  var T = {
+    _SettingsTileTypeL: () => (T._SettingsTileTypeL = dart.constFn(dart.legacy(settings_tile._SettingsTileType)))(),
+    _LocationL: () => (T._LocationL = dart.constFn(dart.legacy(widget_inspector._Location)))(),
+    VoidTovoid: () => (T.VoidTovoid = dart.constFn(dart.fnType(dart.void, [])))(),
+    VoidToNvoid: () => (T.VoidToNvoid = dart.constFn(dart.nullable(T.VoidTovoid())))(),
+    VoidToNull: () => (T.VoidToNull = dart.constFn(dart.fnType(core.Null, [])))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: settings_tile._SettingsTileType.prototype,
+        [_name$]: "_SettingsTileType.simple",
+        index: 0
+      });
+    },
+    get C1() {
+      return C[1] = dart.const({
+        __proto__: settings_tile._SettingsTileType.prototype,
+        [_name$]: "_SettingsTileType.switchTile",
+        index: 1
+      });
+    },
+    get C2() {
+      return C[2] = dart.constList([C[0] || CT.C0, C[1] || CT.C1], T._SettingsTileTypeL());
+    },
+    get C6() {
+      return C[6] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 18,
+        [_Location_line]: 13,
+        [_Location_file]: null
+      });
+    },
+    get C7() {
+      return C[7] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "size",
+        [_Location_column]: 3,
+        [_Location_line]: 14,
+        [_Location_file]: null
+      });
+    },
+    get C8() {
+      return C[8] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "color",
+        [_Location_column]: 3,
+        [_Location_line]: 15,
+        [_Location_file]: null
+      });
+    },
+    get C5() {
+      return C[5] = dart.constList([C[6] || CT.C6, C[7] || CT.C7, C[8] || CT.C8], T._LocationL());
+    },
+    get C4() {
+      return C[4] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[5] || CT.C5,
+        [_Location_name]: null,
+        [_Location_column]: 37,
+        [_Location_line]: 12,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/settings_ui-1.0.0/lib/src/defines.dart"
+      });
+    },
+    get C9() {
+      return C[9] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4291282892.0
+      });
+    },
+    get C10() {
+      return C[10] = dart.const({
+        __proto__: icon_data.IconData.prototype,
+        [IconData_matchTextDirection]: true,
+        [IconData_fontPackage]: "cupertino_icons",
+        [IconData_fontFamily]: "CupertinoIcons",
+        [IconData_codePoint]: 62417
+      });
+    },
+    get C3() {
+      return C[3] = dart.const({
+        __proto__: icon.Icon.prototype,
+        [Widget__location]: C[4] || CT.C4,
+        [Widget_key]: null,
+        [Icon_textDirection]: null,
+        [Icon_semanticLabel]: null,
+        [Icon_color]: C[9] || CT.C9,
+        [Icon_size]: 21,
+        [Icon_icon]: C[10] || CT.C10
+      });
+    },
+    get C11() {
+      return C[11] = dart.const({
+        __proto__: edge_insets.EdgeInsetsDirectional.prototype,
+        [EdgeInsetsDirectional_bottom]: 0,
+        [EdgeInsetsDirectional_end]: 0,
+        [EdgeInsetsDirectional_top]: 0,
+        [EdgeInsetsDirectional_start]: 2.25
+      });
+    },
+    get C12() {
+      return C[12] = dart.const({
+        __proto__: platform.TargetPlatform.prototype,
+        [_name]: "TargetPlatform.iOS",
+        index: 2
+      });
+    },
+    get C13() {
+      return C[13] = dart.const({
+        __proto__: platform.TargetPlatform.prototype,
+        [_name]: "TargetPlatform.macOS",
+        index: 4
+      });
+    },
+    get C14() {
+      return C[14] = dart.const({
+        __proto__: platform.TargetPlatform.prototype,
+        [_name]: "TargetPlatform.android",
+        index: 0
+      });
+    },
+    get C15() {
+      return C[15] = dart.const({
+        __proto__: platform.TargetPlatform.prototype,
+        [_name]: "TargetPlatform.fuchsia",
+        index: 1
+      });
+    },
+    get C18() {
+      return C[18] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "enabled",
+        [_Location_column]: 9,
+        [_Location_line]: 95,
+        [_Location_file]: null
+      });
+    },
+    get C19() {
+      return C[19] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "type",
+        [_Location_column]: 9,
+        [_Location_line]: 96,
+        [_Location_file]: null
+      });
+    },
+    get C20() {
+      return C[20] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "label",
+        [_Location_column]: 9,
+        [_Location_line]: 97,
+        [_Location_file]: null
+      });
+    },
+    get C21() {
+      return C[21] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "labelMaxLines",
+        [_Location_column]: 9,
+        [_Location_line]: 98,
+        [_Location_file]: null
+      });
+    },
+    get C22() {
+      return C[22] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "leading",
+        [_Location_column]: 9,
+        [_Location_line]: 99,
+        [_Location_file]: null
+      });
+    },
+    get C23() {
+      return C[23] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "subtitle",
+        [_Location_column]: 9,
+        [_Location_line]: 100,
+        [_Location_file]: null
+      });
+    },
+    get C24() {
+      return C[24] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "subtitleMaxLines",
+        [_Location_column]: 9,
+        [_Location_line]: 101,
+        [_Location_file]: null
+      });
+    },
+    get C25() {
+      return C[25] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "switchValue",
+        [_Location_column]: 9,
+        [_Location_line]: 102,
+        [_Location_file]: null
+      });
+    },
+    get C26() {
+      return C[26] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onToggle",
+        [_Location_column]: 9,
+        [_Location_line]: 103,
+        [_Location_file]: null
+      });
+    },
+    get C27() {
+      return C[27] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "labelTextStyle",
+        [_Location_column]: 9,
+        [_Location_line]: 104,
+        [_Location_file]: null
+      });
+    },
+    get C28() {
+      return C[28] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "switchActiveColor",
+        [_Location_column]: 9,
+        [_Location_line]: 105,
+        [_Location_file]: null
+      });
+    },
+    get C29() {
+      return C[29] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "subtitleTextStyle",
+        [_Location_column]: 9,
+        [_Location_line]: 106,
+        [_Location_file]: null
+      });
+    },
+    get C30() {
+      return C[30] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "valueTextStyle",
+        [_Location_column]: 9,
+        [_Location_line]: 107,
+        [_Location_file]: null
+      });
+    },
+    get C31() {
+      return C[31] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "trailing",
+        [_Location_column]: 9,
+        [_Location_line]: 108,
+        [_Location_file]: null
+      });
+    },
+    get C17() {
+      return C[17] = dart.constList([C[18] || CT.C18, C[19] || CT.C19, C[20] || CT.C20, C[21] || CT.C21, C[22] || CT.C22, C[23] || CT.C23, C[24] || CT.C24, C[25] || CT.C25, C[26] || CT.C26, C[27] || CT.C27, C[28] || CT.C28, C[29] || CT.C29, C[30] || CT.C30, C[31] || CT.C31], T._LocationL());
+    },
+    get C16() {
+      return C[16] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[17] || CT.C17,
+        [_Location_name]: null,
+        [_Location_column]: 14,
+        [_Location_line]: 94,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/settings_ui-1.0.0/lib/src/settings_tile.dart"
+      });
+    },
+    get C34() {
+      return C[34] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "enabled",
+        [_Location_column]: 9,
+        [_Location_line]: 112,
+        [_Location_file]: null
+      });
+    },
+    get C35() {
+      return C[35] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "type",
+        [_Location_column]: 9,
+        [_Location_line]: 113,
+        [_Location_file]: null
+      });
+    },
+    get C36() {
+      return C[36] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "label",
+        [_Location_column]: 9,
+        [_Location_line]: 114,
+        [_Location_file]: null
+      });
+    },
+    get C37() {
+      return C[37] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "labelMaxLines",
+        [_Location_column]: 9,
+        [_Location_line]: 115,
+        [_Location_file]: null
+      });
+    },
+    get C38() {
+      return C[38] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "value",
+        [_Location_column]: 9,
+        [_Location_line]: 116,
+        [_Location_file]: null
+      });
+    },
+    get C39() {
+      return C[39] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "trailing",
+        [_Location_column]: 9,
+        [_Location_line]: 117,
+        [_Location_file]: null
+      });
+    },
+    get C40() {
+      return C[40] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "iosChevron",
+        [_Location_column]: 9,
+        [_Location_line]: 118,
+        [_Location_file]: null
+      });
+    },
+    get C41() {
+      return C[41] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "iosChevronPadding",
+        [_Location_column]: 9,
+        [_Location_line]: 119,
+        [_Location_file]: null
+      });
+    },
+    get C42() {
+      return C[42] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "hasDetails",
+        [_Location_column]: 9,
+        [_Location_line]: 120,
+        [_Location_file]: null
+      });
+    },
+    get C43() {
+      return C[43] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "leading",
+        [_Location_column]: 9,
+        [_Location_line]: 121,
+        [_Location_file]: null
+      });
+    },
+    get C44() {
+      return C[44] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onPress",
+        [_Location_column]: 9,
+        [_Location_line]: 122,
+        [_Location_file]: null
+      });
+    },
+    get C45() {
+      return C[45] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "labelTextStyle",
+        [_Location_column]: 9,
+        [_Location_line]: 123,
+        [_Location_file]: null
+      });
+    },
+    get C46() {
+      return C[46] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "subtitleTextStyle",
+        [_Location_column]: 9,
+        [_Location_line]: 124,
+        [_Location_file]: null
+      });
+    },
+    get C47() {
+      return C[47] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "valueTextStyle",
+        [_Location_column]: 9,
+        [_Location_line]: 125,
+        [_Location_file]: null
+      });
+    },
+    get C33() {
+      return C[33] = dart.constList([C[34] || CT.C34, C[35] || CT.C35, C[36] || CT.C36, C[37] || CT.C37, C[38] || CT.C38, C[39] || CT.C39, C[40] || CT.C40, C[41] || CT.C41, C[42] || CT.C42, C[43] || CT.C43, C[44] || CT.C44, C[45] || CT.C45, C[46] || CT.C46, C[47] || CT.C47], T._LocationL());
+    },
+    get C32() {
+      return C[32] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[33] || CT.C33,
+        [_Location_name]: null,
+        [_Location_column]: 14,
+        [_Location_line]: 111,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/settings_ui-1.0.0/lib/src/settings_tile.dart"
+      });
+    },
+    get C50() {
+      return C[50] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 11,
+        [_Location_line]: 138,
+        [_Location_file]: null
+      });
+    },
+    get C51() {
+      return C[51] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 11,
+        [_Location_line]: 139,
+        [_Location_file]: null
+      });
+    },
+    get C52() {
+      return C[52] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "maxLines",
+        [_Location_column]: 11,
+        [_Location_line]: 140,
+        [_Location_file]: null
+      });
+    },
+    get C53() {
+      return C[53] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "overflow",
+        [_Location_column]: 11,
+        [_Location_line]: 141,
+        [_Location_file]: null
+      });
+    },
+    get C49() {
+      return C[49] = dart.constList([C[50] || CT.C50, C[51] || CT.C51, C[52] || CT.C52, C[53] || CT.C53], T._LocationL());
+    },
+    get C48() {
+      return C[48] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[49] || CT.C49,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 137,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/settings_ui-1.0.0/lib/src/settings_tile.dart"
+      });
+    },
+    get C56() {
+      return C[56] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 25,
+        [_Location_line]: 145,
+        [_Location_file]: null
+      });
+    },
+    get C57() {
+      return C[57] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 17,
+        [_Location_line]: 146,
+        [_Location_file]: null
+      });
+    },
+    get C58() {
+      return C[58] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "maxLines",
+        [_Location_column]: 17,
+        [_Location_line]: 147,
+        [_Location_file]: null
+      });
+    },
+    get C59() {
+      return C[59] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "overflow",
+        [_Location_column]: 17,
+        [_Location_line]: 148,
+        [_Location_file]: null
+      });
+    },
+    get C55() {
+      return C[55] = dart.constList([C[56] || CT.C56, C[57] || CT.C57, C[58] || CT.C58, C[59] || CT.C59], T._LocationL());
+    },
+    get C54() {
+      return C[54] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[55] || CT.C55,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 144,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/settings_ui-1.0.0/lib/src/settings_tile.dart"
+      });
+    },
+    get C62() {
+      return C[62] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "secondary",
+        [_Location_column]: 9,
+        [_Location_line]: 133,
+        [_Location_file]: null
+      });
+    },
+    get C63() {
+      return C[63] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "value",
+        [_Location_column]: 9,
+        [_Location_line]: 134,
+        [_Location_file]: null
+      });
+    },
+    get C64() {
+      return C[64] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "activeColor",
+        [_Location_column]: 9,
+        [_Location_line]: 135,
+        [_Location_file]: null
+      });
+    },
+    get C65() {
+      return C[65] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onChanged",
+        [_Location_column]: 9,
+        [_Location_line]: 136,
+        [_Location_file]: null
+      });
+    },
+    get C66() {
+      return C[66] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "title",
+        [_Location_column]: 9,
+        [_Location_line]: 137,
+        [_Location_file]: null
+      });
+    },
+    get C67() {
+      return C[67] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "subtitle",
+        [_Location_column]: 9,
+        [_Location_line]: 143,
+        [_Location_file]: null
+      });
+    },
+    get C61() {
+      return C[61] = dart.constList([C[62] || CT.C62, C[63] || CT.C63, C[64] || CT.C64, C[65] || CT.C65, C[66] || CT.C66, C[67] || CT.C67], T._LocationL());
+    },
+    get C60() {
+      return C[60] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[61] || CT.C61,
+        [_Location_name]: null,
+        [_Location_column]: 14,
+        [_Location_line]: 132,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/settings_ui-1.0.0/lib/src/settings_tile.dart"
+      });
+    },
+    get C70() {
+      return C[70] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 21,
+        [_Location_line]: 154,
+        [_Location_file]: null
+      });
+    },
+    get C71() {
+      return C[71] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 28,
+        [_Location_line]: 154,
+        [_Location_file]: null
+      });
+    },
+    get C69() {
+      return C[69] = dart.constList([C[70] || CT.C70, C[71] || CT.C71], T._LocationL());
+    },
+    get C68() {
+      return C[68] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[69] || CT.C69,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 154,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/settings_ui-1.0.0/lib/src/settings_tile.dart"
+      });
+    },
+    get C74() {
+      return C[74] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 25,
+        [_Location_line]: 157,
+        [_Location_file]: null
+      });
+    },
+    get C75() {
+      return C[75] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 17,
+        [_Location_line]: 158,
+        [_Location_file]: null
+      });
+    },
+    get C76() {
+      return C[76] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "maxLines",
+        [_Location_column]: 17,
+        [_Location_line]: 159,
+        [_Location_file]: null
+      });
+    },
+    get C77() {
+      return C[77] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "overflow",
+        [_Location_column]: 17,
+        [_Location_line]: 160,
+        [_Location_file]: null
+      });
+    },
+    get C73() {
+      return C[73] = dart.constList([C[74] || CT.C74, C[75] || CT.C75, C[76] || CT.C76, C[77] || CT.C77], T._LocationL());
+    },
+    get C72() {
+      return C[72] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[73] || CT.C73,
+        [_Location_name]: null,
+        [_Location_column]: 15,
+        [_Location_line]: 156,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/settings_ui-1.0.0/lib/src/settings_tile.dart"
+      });
+    },
+    get C80() {
+      return C[80] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "title",
+        [_Location_column]: 9,
+        [_Location_line]: 154,
+        [_Location_file]: null
+      });
+    },
+    get C81() {
+      return C[81] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "subtitle",
+        [_Location_column]: 9,
+        [_Location_line]: 155,
+        [_Location_file]: null
+      });
+    },
+    get C82() {
+      return C[82] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "leading",
+        [_Location_column]: 9,
+        [_Location_line]: 163,
+        [_Location_file]: null
+      });
+    },
+    get C83() {
+      return C[83] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "enabled",
+        [_Location_column]: 9,
+        [_Location_line]: 164,
+        [_Location_file]: null
+      });
+    },
+    get C84() {
+      return C[84] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "trailing",
+        [_Location_column]: 9,
+        [_Location_line]: 165,
+        [_Location_file]: null
+      });
+    },
+    get C85() {
+      return C[85] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onTap",
+        [_Location_column]: 9,
+        [_Location_line]: 166,
+        [_Location_file]: null
+      });
+    },
+    get C79() {
+      return C[79] = dart.constList([C[80] || CT.C80, C[81] || CT.C81, C[82] || CT.C82, C[83] || CT.C83, C[84] || CT.C84, C[85] || CT.C85], T._LocationL());
+    },
+    get C78() {
+      return C[78] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[79] || CT.C79,
+        [_Location_name]: null,
+        [_Location_column]: 14,
+        [_Location_line]: 153,
+        [_Location_file]: "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/settings_ui-1.0.0/lib/src/settings_tile.dart"
+      });
+    }
+  }, false);
+  var C = Array(86).fill(void 0);
+  var I = [
+    "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/settings_ui-1.0.0/lib/src/settings_tile.dart",
+    "package:settings_ui/src/settings_tile.dart"
+  ];
+  var _name$ = dart.privateName(settings_tile, "_name");
+  settings_tile._SettingsTileType = class _SettingsTileType extends core.Object {
+    toString() {
+      return this[_name$];
+    }
+  };
+  (settings_tile._SettingsTileType.new = function(index, _name) {
+    if (index == null) dart.nullFailed(I[0], 7, 6, "index");
+    if (_name == null) dart.nullFailed(I[0], 7, 6, "_name");
+    this.index = index;
+    this[_name$] = _name;
+    ;
+  }).prototype = settings_tile._SettingsTileType.prototype;
+  dart.addTypeTests(settings_tile._SettingsTileType);
+  dart.addTypeCaches(settings_tile._SettingsTileType);
+  dart.setLibraryUri(settings_tile._SettingsTileType, I[1]);
+  dart.setFieldSignature(settings_tile._SettingsTileType, () => ({
+    __proto__: dart.getFields(settings_tile._SettingsTileType.__proto__),
+    index: dart.finalFieldType(core.int),
+    [_name$]: dart.finalFieldType(core.String)
+  }));
+  dart.defineExtensionMethods(settings_tile._SettingsTileType, ['toString']);
+  settings_tile._SettingsTileType.simple = C[0] || CT.C0;
+  settings_tile._SettingsTileType.switchTile = C[1] || CT.C1;
+  settings_tile._SettingsTileType.values = C[2] || CT.C2;
+  var title$ = dart.privateName(settings_tile, "SettingsTile.title");
+  var titleMaxLines$ = dart.privateName(settings_tile, "SettingsTile.titleMaxLines");
+  var subtitle$ = dart.privateName(settings_tile, "SettingsTile.subtitle");
+  var subtitleMaxLines$ = dart.privateName(settings_tile, "SettingsTile.subtitleMaxLines");
+  var leading$ = dart.privateName(settings_tile, "SettingsTile.leading");
+  var trailing$ = dart.privateName(settings_tile, "SettingsTile.trailing");
+  var iosChevron$ = dart.privateName(settings_tile, "SettingsTile.iosChevron");
+  var iosChevronPadding$ = dart.privateName(settings_tile, "SettingsTile.iosChevronPadding");
+  var onTap$ = dart.privateName(settings_tile, "SettingsTile.onTap");
+  var onPressed$ = dart.privateName(settings_tile, "SettingsTile.onPressed");
+  var onToggle$ = dart.privateName(settings_tile, "SettingsTile.onToggle");
+  var switchValue$ = dart.privateName(settings_tile, "SettingsTile.switchValue");
+  var enabled$ = dart.privateName(settings_tile, "SettingsTile.enabled");
+  var titleTextStyle$ = dart.privateName(settings_tile, "SettingsTile.titleTextStyle");
+  var subtitleTextStyle$ = dart.privateName(settings_tile, "SettingsTile.subtitleTextStyle");
+  var switchActiveColor$ = dart.privateName(settings_tile, "SettingsTile.switchActiveColor");
+  var _tileType = dart.privateName(settings_tile, "SettingsTile._tileType");
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  var Widget__location = dart.privateName(framework, "Widget._location");
+  var Widget_key = dart.privateName(framework, "Widget.key");
+  var Icon_textDirection = dart.privateName(icon, "Icon.textDirection");
+  var Icon_semanticLabel = dart.privateName(icon, "Icon.semanticLabel");
+  var Color_value = dart.privateName(ui, "Color.value");
+  var Icon_color = dart.privateName(icon, "Icon.color");
+  var Icon_size = dart.privateName(icon, "Icon.size");
+  var IconData_matchTextDirection = dart.privateName(icon_data, "IconData.matchTextDirection");
+  var IconData_fontPackage = dart.privateName(icon_data, "IconData.fontPackage");
+  var IconData_fontFamily = dart.privateName(icon_data, "IconData.fontFamily");
+  var IconData_codePoint = dart.privateName(icon_data, "IconData.codePoint");
+  var Icon_icon = dart.privateName(icon, "Icon.icon");
+  var EdgeInsetsDirectional_bottom = dart.privateName(edge_insets, "EdgeInsetsDirectional.bottom");
+  var EdgeInsetsDirectional_end = dart.privateName(edge_insets, "EdgeInsetsDirectional.end");
+  var EdgeInsetsDirectional_top = dart.privateName(edge_insets, "EdgeInsetsDirectional.top");
+  var EdgeInsetsDirectional_start = dart.privateName(edge_insets, "EdgeInsetsDirectional.start");
+  var _tileType$ = dart.privateName(settings_tile, "_tileType");
+  var _name = dart.privateName(platform, "_name");
+  settings_tile.SettingsTile = class SettingsTile extends framework.StatelessWidget {
+    get title() {
+      return this[title$];
+    }
+    set title(value) {
+      super.title = value;
+    }
+    get titleMaxLines() {
+      return this[titleMaxLines$];
+    }
+    set titleMaxLines(value) {
+      super.titleMaxLines = value;
+    }
+    get subtitle() {
+      return this[subtitle$];
+    }
+    set subtitle(value) {
+      super.subtitle = value;
+    }
+    get subtitleMaxLines() {
+      return this[subtitleMaxLines$];
+    }
+    set subtitleMaxLines(value) {
+      super.subtitleMaxLines = value;
+    }
+    get leading() {
+      return this[leading$];
+    }
+    set leading(value) {
+      super.leading = value;
+    }
+    get trailing() {
+      return this[trailing$];
+    }
+    set trailing(value) {
+      super.trailing = value;
+    }
+    get iosChevron() {
+      return this[iosChevron$];
+    }
+    set iosChevron(value) {
+      super.iosChevron = value;
+    }
+    get iosChevronPadding() {
+      return this[iosChevronPadding$];
+    }
+    set iosChevronPadding(value) {
+      super.iosChevronPadding = value;
+    }
+    get onTap() {
+      return this[onTap$];
+    }
+    set onTap(value) {
+      super.onTap = value;
+    }
+    get onPressed() {
+      return this[onPressed$];
+    }
+    set onPressed(value) {
+      super.onPressed = value;
+    }
+    get onToggle() {
+      return this[onToggle$];
+    }
+    set onToggle(value) {
+      super.onToggle = value;
+    }
+    get switchValue() {
+      return this[switchValue$];
+    }
+    set switchValue(value) {
+      super.switchValue = value;
+    }
+    get enabled() {
+      return this[enabled$];
+    }
+    set enabled(value) {
+      super.enabled = value;
+    }
+    get titleTextStyle() {
+      return this[titleTextStyle$];
+    }
+    set titleTextStyle(value) {
+      super.titleTextStyle = value;
+    }
+    get subtitleTextStyle() {
+      return this[subtitleTextStyle$];
+    }
+    set subtitleTextStyle(value) {
+      super.subtitleTextStyle = value;
+    }
+    get switchActiveColor() {
+      return this[switchActiveColor$];
+    }
+    set switchActiveColor(value) {
+      super.switchActiveColor = value;
+    }
+    get [_tileType$]() {
+      return this[_tileType];
+    }
+    set [_tileType$](value) {
+      super[_tileType$] = value;
+    }
+    build(context) {
+      if (context == null) dart.nullFailed(I[0], 75, 29, "context");
+      let platform = theme.Theme.of(context).platform;
+      switch (platform) {
+        case C[12] || CT.C12:
+        case C[13] || CT.C13:
+        {
+          return this.iosTile(context);
+        }
+        case C[14] || CT.C14:
+        case C[15] || CT.C15:
+        {
+          return this.androidTile(context);
+        }
+        default:
+        {
+          return this.iosTile(context);
+        }
+      }
+    }
+    iosTile(context) {
+      if (context == null) dart.nullFailed(I[0], 92, 31, "context");
+      if (this[_tileType$] == settings_tile._SettingsTileType.switchTile) {
+        return new cupertino_settings_item.CupertinoSettingsItem.new({enabled: this.enabled, type: cupertino_settings_item.SettingsItemType.toggle, label: this.title, labelMaxLines: this.titleMaxLines, leading: this.leading, subtitle: this.subtitle, subtitleMaxLines: this.subtitleMaxLines, switchValue: this.switchValue, onToggle: this.onToggle, labelTextStyle: this.titleTextStyle, switchActiveColor: this.switchActiveColor, subtitleTextStyle: this.subtitleTextStyle, valueTextStyle: this.subtitleTextStyle, trailing: this.trailing, $creationLocationd_0dea112b090073317d4: C[16] || CT.C16});
+      } else {
+        return new cupertino_settings_item.CupertinoSettingsItem.new({enabled: this.enabled, type: cupertino_settings_item.SettingsItemType.modal, label: this.title, labelMaxLines: this.titleMaxLines, value: this.subtitle, trailing: this.trailing, iosChevron: this.iosChevron, iosChevronPadding: this.iosChevronPadding, hasDetails: false, leading: this.leading, onPress: T.VoidToNvoid().as(this.onTapFunction(context)), labelTextStyle: this.titleTextStyle, subtitleTextStyle: this.subtitleTextStyle, valueTextStyle: this.subtitleTextStyle, $creationLocationd_0dea112b090073317d4: C[32] || CT.C32});
+      }
+    }
+    androidTile(context) {
+      if (context == null) dart.nullFailed(I[0], 130, 35, "context");
+      if (this[_tileType$] == settings_tile._SettingsTileType.switchTile) {
+        return new switch_list_tile.SwitchListTile.new({secondary: this.leading, value: dart.nullCheck(this.switchValue), activeColor: this.switchActiveColor, onChanged: dart.test(this.enabled) ? this.onToggle : null, title: new text.Text.new(this.title, {style: this.titleTextStyle, maxLines: this.titleMaxLines, overflow: paragraph.TextOverflow.ellipsis, $creationLocationd_0dea112b090073317d4: C[48] || CT.C48}), subtitle: this.subtitle != null ? new text.Text.new(dart.nullCheck(this.subtitle), {style: this.subtitleTextStyle, maxLines: this.subtitleMaxLines, overflow: paragraph.TextOverflow.ellipsis, $creationLocationd_0dea112b090073317d4: C[54] || CT.C54}) : null, $creationLocationd_0dea112b090073317d4: C[60] || CT.C60});
+      } else {
+        return new list_tile.ListTile.new({title: new text.Text.new(this.title, {style: this.titleTextStyle, $creationLocationd_0dea112b090073317d4: C[68] || CT.C68}), subtitle: this.subtitle != null ? new text.Text.new(dart.nullCheck(this.subtitle), {style: this.subtitleTextStyle, maxLines: this.subtitleMaxLines, overflow: paragraph.TextOverflow.ellipsis, $creationLocationd_0dea112b090073317d4: C[72] || CT.C72}) : null, leading: this.leading, enabled: this.enabled, trailing: this.trailing, onTap: T.VoidToNvoid().as(this.onTapFunction(context)), $creationLocationd_0dea112b090073317d4: C[78] || CT.C78});
+      }
+    }
+    onTapFunction(context) {
+      if (context == null) dart.nullFailed(I[0], 171, 40, "context");
+      return this.onTap != null || this.onPressed != null ? dart.fn(() => {
+        if (this.onPressed != null) {
+          dart.nullCheck(this.onPressed)(context);
+        } else {
+          dart.nullCheck(this.onTap)();
+        }
+      }, T.VoidToNull()) : null;
+    }
+  };
+  (settings_tile.SettingsTile.new = function(opts) {
+    let key = opts && 'key' in opts ? opts.key : null;
+    let title = opts && 'title' in opts ? opts.title : null;
+    if (title == null) dart.nullFailed(I[0], 30, 19, "title");
+    let titleMaxLines = opts && 'titleMaxLines' in opts ? opts.titleMaxLines : null;
+    let subtitle = opts && 'subtitle' in opts ? opts.subtitle : null;
+    let subtitleMaxLines = opts && 'subtitleMaxLines' in opts ? opts.subtitleMaxLines : null;
+    let leading = opts && 'leading' in opts ? opts.leading : null;
+    let trailing = opts && 'trailing' in opts ? opts.trailing : null;
+    let iosChevron = opts && 'iosChevron' in opts ? opts.iosChevron : C[3] || CT.C3;
+    let iosChevronPadding = opts && 'iosChevronPadding' in opts ? opts.iosChevronPadding : C[11] || CT.C11;
+    let onTap = opts && 'onTap' in opts ? opts.onTap : null;
+    let titleTextStyle = opts && 'titleTextStyle' in opts ? opts.titleTextStyle : null;
+    let subtitleTextStyle = opts && 'subtitleTextStyle' in opts ? opts.subtitleTextStyle : null;
+    let enabled = opts && 'enabled' in opts ? opts.enabled : true;
+    if (enabled == null) dart.nullFailed(I[0], 41, 10, "enabled");
+    let onPressed = opts && 'onPressed' in opts ? opts.onPressed : null;
+    let switchActiveColor = opts && 'switchActiveColor' in opts ? opts.switchActiveColor : null;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[title$] = title;
+    this[titleMaxLines$] = titleMaxLines;
+    this[subtitle$] = subtitle;
+    this[subtitleMaxLines$] = subtitleMaxLines;
+    this[leading$] = leading;
+    this[trailing$] = trailing;
+    this[iosChevron$] = iosChevron;
+    this[iosChevronPadding$] = iosChevronPadding;
+    this[onTap$] = onTap;
+    this[titleTextStyle$] = titleTextStyle;
+    this[subtitleTextStyle$] = subtitleTextStyle;
+    this[enabled$] = enabled;
+    this[onPressed$] = onPressed;
+    this[switchActiveColor$] = switchActiveColor;
+    this[_tileType] = settings_tile._SettingsTileType.simple;
+    this[onToggle$] = null;
+    this[switchValue$] = null;
+    if (!(titleMaxLines == null || dart.notNull(titleMaxLines) > 0)) dart.assertFailed(null, I[0], 47, 16, "titleMaxLines == null || titleMaxLines > 0");
+    if (!(subtitleMaxLines == null || dart.notNull(subtitleMaxLines) > 0)) dart.assertFailed(null, I[0], 48, 16, "subtitleMaxLines == null || subtitleMaxLines > 0");
+    settings_tile.SettingsTile.__proto__.new.call(this, {key: key, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = settings_tile.SettingsTile.prototype;
+  (settings_tile.SettingsTile.switchTile = function(opts) {
+    let key = opts && 'key' in opts ? opts.key : null;
+    let title = opts && 'title' in opts ? opts.title : null;
+    if (title == null) dart.nullFailed(I[0], 53, 19, "title");
+    let titleMaxLines = opts && 'titleMaxLines' in opts ? opts.titleMaxLines : null;
+    let subtitle = opts && 'subtitle' in opts ? opts.subtitle : null;
+    let subtitleMaxLines = opts && 'subtitleMaxLines' in opts ? opts.subtitleMaxLines : null;
+    let leading = opts && 'leading' in opts ? opts.leading : null;
+    let enabled = opts && 'enabled' in opts ? opts.enabled : true;
+    if (enabled == null) dart.nullFailed(I[0], 58, 10, "enabled");
+    let trailing = opts && 'trailing' in opts ? opts.trailing : null;
+    let onToggle = opts && 'onToggle' in opts ? opts.onToggle : null;
+    let switchValue = opts && 'switchValue' in opts ? opts.switchValue : null;
+    let titleTextStyle = opts && 'titleTextStyle' in opts ? opts.titleTextStyle : null;
+    let subtitleTextStyle = opts && 'subtitleTextStyle' in opts ? opts.subtitleTextStyle : null;
+    let switchActiveColor = opts && 'switchActiveColor' in opts ? opts.switchActiveColor : null;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[title$] = title;
+    this[titleMaxLines$] = titleMaxLines;
+    this[subtitle$] = subtitle;
+    this[subtitleMaxLines$] = subtitleMaxLines;
+    this[leading$] = leading;
+    this[enabled$] = enabled;
+    this[trailing$] = trailing;
+    this[onToggle$] = onToggle;
+    this[switchValue$] = switchValue;
+    this[titleTextStyle$] = titleTextStyle;
+    this[subtitleTextStyle$] = subtitleTextStyle;
+    this[switchActiveColor$] = switchActiveColor;
+    this[_tileType] = settings_tile._SettingsTileType.switchTile;
+    this[onTap$] = null;
+    this[onPressed$] = null;
+    this[iosChevron$] = null;
+    this[iosChevronPadding$] = null;
+    if (!(titleMaxLines == null || dart.notNull(titleMaxLines) > 0)) dart.assertFailed(null, I[0], 70, 16, "titleMaxLines == null || titleMaxLines > 0");
+    if (!(subtitleMaxLines == null || dart.notNull(subtitleMaxLines) > 0)) dart.assertFailed(null, I[0], 71, 16, "subtitleMaxLines == null || subtitleMaxLines > 0");
+    settings_tile.SettingsTile.__proto__.new.call(this, {key: key, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = settings_tile.SettingsTile.prototype;
+  dart.addTypeTests(settings_tile.SettingsTile);
+  dart.addTypeCaches(settings_tile.SettingsTile);
+  dart.setMethodSignature(settings_tile.SettingsTile, () => ({
+    __proto__: dart.getMethods(settings_tile.SettingsTile.__proto__),
+    build: dart.fnType(framework.Widget, [framework.BuildContext]),
+    iosTile: dart.fnType(framework.Widget, [framework.BuildContext]),
+    androidTile: dart.fnType(framework.Widget, [framework.BuildContext]),
+    onTapFunction: dart.fnType(dart.nullable(core.Function), [framework.BuildContext])
+  }));
+  dart.setLibraryUri(settings_tile.SettingsTile, I[1]);
+  dart.setFieldSignature(settings_tile.SettingsTile, () => ({
+    __proto__: dart.getFields(settings_tile.SettingsTile.__proto__),
+    title: dart.finalFieldType(core.String),
+    titleMaxLines: dart.finalFieldType(dart.nullable(core.int)),
+    subtitle: dart.finalFieldType(dart.nullable(core.String)),
+    subtitleMaxLines: dart.finalFieldType(dart.nullable(core.int)),
+    leading: dart.finalFieldType(dart.nullable(framework.Widget)),
+    trailing: dart.finalFieldType(dart.nullable(framework.Widget)),
+    iosChevron: dart.finalFieldType(dart.nullable(icon.Icon)),
+    iosChevronPadding: dart.finalFieldType(dart.nullable(edge_insets.EdgeInsetsGeometry)),
+    onTap: dart.finalFieldType(dart.nullable(dart.fnType(dart.void, []))),
+    onPressed: dart.finalFieldType(dart.nullable(dart.fnType(dart.dynamic, [framework.BuildContext]))),
+    onToggle: dart.finalFieldType(dart.nullable(dart.fnType(dart.dynamic, [core.bool]))),
+    switchValue: dart.finalFieldType(dart.nullable(core.bool)),
+    enabled: dart.finalFieldType(core.bool),
+    titleTextStyle: dart.finalFieldType(dart.nullable(text_style.TextStyle)),
+    subtitleTextStyle: dart.finalFieldType(dart.nullable(text_style.TextStyle)),
+    switchActiveColor: dart.finalFieldType(dart.nullable(ui.Color)),
+    [_tileType$]: dart.finalFieldType(settings_tile._SettingsTileType)
+  }));
+  dart.trackLibraries("packages/settings_ui/src/settings_tile.dart", {
+    "package:settings_ui/src/settings_tile.dart": settings_tile
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["settings_tile.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAM4C;;;QAAvC;;;;;EAAuC;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAG7B;;;;;;IACF;;;;;;IACG;;;;;;IACH;;;;;;IACG;;;;;;IACA;;;;;;IACF;;;;;;IACc;;;;;;IACN;;;;;;IACkB;;;;;;IACV;;;;;;IAChB;;;;;;IACD;;;;;;IACM;;;;;;IACA;;;;;;IACJ;;;;;;IACW;;;;;;;UAiDE;AAClB,qBAAiB,AAAY,eAAT,OAAO;AAEjC,cAAQ,QAAQ;;;;AAGZ,gBAAO,cAAQ,OAAO;;;;;AAItB,gBAAO,kBAAY,OAAO;;;;AAG1B,gBAAO,cAAQ,OAAO;;;IAE5B;;UAE4B;AAC1B,UAAI,AAAU,oBAAqB;AACjC,cAAO,iEACI,oBACc,wDAChB,2BACQ,6BACN,wBACC,iCACQ,oCACL,4BACH,+BACM,wCACG,2CACA,wCACH,kCACN;;AAGZ,cAAO,iEACI,oBACc,uDAChB,2BACQ,2BACR,yBACG,2BACE,oCACO,oCACP,gBACH,uBACuB,mBAAvB,mBAAc,OAAO,oBACd,wCACG,wCACH;;IAGtB;;UAEgC;AAC9B,UAAI,AAAU,oBAAqB;AACjC,cAAO,qDACM,qBACO,eAAX,gCACM,6CACF,gBAAU,gBAAW,aACzB,kBACL,oBACO,+BACG,8BACa,sGAEf,AAAS,wBACb,kBACU,eAAR,wBACO,kCACG,iCACa,6FAEzB;;AAGR,cAAO,oCACE,kBAAK,oBAAc,0FAChB,AAAS,wBACb,kBACU,eAAR,wBACO,kCACG,iCACa,6FAEzB,eACG,uBACA,wBACC,sBACoB,mBAAvB,mBAAc,OAAO;;IAGlC;;UAEqC;AACjC,YAAA,AAAc,uBAAG,yBACX;AACE,YAAI;AACsB,UAAf,AAAE,eAAX,gBAAgB,OAAO;;AAEV,UAAR,AAAE,eAAP;;2BAGJ;IAAI;;;QAvJP;QACS;;QACT;QACA;QACA;QACA;QACA;QACA;QACA;QACqC;QACrC;QACA;QACA;;QACA;QACA;;IAbS;IACT;IACA;IACA;IACA;IACA;IACA;IACA;IACqC;IACrC;IACA;IACA;IACA;IACA;IACS,kBAAoB;IACrB,kBAAE;IACC,qBAAE;UACP,AAAc,AAAQ,aAAT,YAA0B,aAAd,aAAa,IAAG;UACzC,AAAiB,AAAQ,gBAAT,YAA6B,aAAjB,gBAAgB,IAAG;AACtD,8DAAW,GAAG;;EAAC;;QAGd;QACS;;QACT;QACA;QACA;QACA;QACA;;QACA;QACS;QACA;QACT;QACA;QACA;;IAXS;IACT;IACA;IACA;IACA;IACA;IACA;IACS;IACA;IACT;IACA;IACA;IACS,kBAAoB;IACxB,eAAE;IACE,mBAAE;IACD,oBAAE;IACK,2BAAE;UACb,AAAc,AAAQ,aAAT,YAA0B,aAAd,aAAa,IAAG;UACzC,AAAiB,AAAQ,gBAAT,YAA6B,aAAjB,gBAAgB,IAAG;AACtD,8DAAW,GAAG;;EAAC","file":"../../../../../../../../../D:/packages/settings_ui/src/settings_tile.dart.lib.js"}');
+  // Exports:
+  return {
+    src__settings_tile: settings_tile
+  };
+}));
+
+//# sourceMappingURL=settings_tile.dart.lib.js.map

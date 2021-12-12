@@ -1,0 +1,362 @@
+define(['dart_sdk', 'packages/charts_flutter/src/canvas/circle_sector_painter.dart', 'packages/charts_flutter/src/canvas/line_painter.dart', 'packages/charts_flutter/src/canvas/pie_painter.dart', 'packages/charts_flutter/src/canvas/point_painter.dart', 'packages/charts_flutter/src/canvas/polygon_painter.dart', 'packages/charts_common/src/chart/common/canvas_shapes.dart', 'packages/charts_flutter/src/text_element.dart', 'packages/charts_common/src/common/text_element.dart', 'packages/charts_common/src/chart/cartesian/axis/simple_ordinal_scale.dart', 'packages/charts_common/src/common/color.dart', 'packages/charts_common/src/common/graphics_factory.dart'], (function load__packages__charts_flutter__src__chart_canvas_dart(dart_sdk, packages__charts_flutter__src__canvas__circle_sector_painter$46dart, packages__charts_flutter__src__canvas__line_painter$46dart, packages__charts_flutter__src__canvas__pie_painter$46dart, packages__charts_flutter__src__canvas__point_painter$46dart, packages__charts_flutter__src__canvas__polygon_painter$46dart, packages__charts_common__src__chart__common__canvas_shapes$46dart, packages__charts_flutter__src__text_element$46dart, packages__charts_common__src__common__text_element$46dart, packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart, packages__charts_common__src__common__color$46dart, packages__charts_common__src__common__graphics_factory$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const ui = dart_sdk.ui;
+  const _interceptors = dart_sdk._interceptors;
+  const math = dart_sdk.math;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const circle_sector_painter = packages__charts_flutter__src__canvas__circle_sector_painter$46dart.src__canvas__circle_sector_painter;
+  const line_painter = packages__charts_flutter__src__canvas__line_painter$46dart.src__canvas__line_painter;
+  const pie_painter = packages__charts_flutter__src__canvas__pie_painter$46dart.src__canvas__pie_painter;
+  const point_painter = packages__charts_flutter__src__canvas__point_painter$46dart.src__canvas__point_painter;
+  const polygon_painter = packages__charts_flutter__src__canvas__polygon_painter$46dart.src__canvas__polygon_painter;
+  const chart_canvas = packages__charts_common__src__chart__common__canvas_shapes$46dart.src__chart__common__chart_canvas;
+  const canvas_shapes = packages__charts_common__src__chart__common__canvas_shapes$46dart.src__chart__common__canvas_shapes;
+  const text_element = packages__charts_flutter__src__text_element$46dart.src__text_element;
+  const text_element$ = packages__charts_common__src__common__text_element$46dart.src__common__text_element;
+  const style_factory = packages__charts_common__src__chart__cartesian__axis__simple_ordinal_scale$46dart.src__common__style__style_factory;
+  const color = packages__charts_common__src__common__color$46dart.src__common__color;
+  const graphics_factory = packages__charts_common__src__common__graphics_factory$46dart.src__common__graphics_factory;
+  var chart_canvas$ = Object.create(dart.library);
+  var $left = dartx.left;
+  var $top = dartx.top;
+  var $width = dartx.width;
+  var $height = dartx.height;
+  var $toDouble = dartx.toDouble;
+  var $length = dartx.length;
+  var $_get = dartx._get;
+  var $toInt = dartx.toInt;
+  var $ceil = dartx.ceil;
+  var $right = dartx.right;
+  var $bottom = dartx.bottom;
+  var $round = dartx.round;
+  dart._checkModuleNullSafetyMode(false);
+  var T = {
+    ColorL: () => (T.ColorL = dart.constFn(dart.legacy(ui.Color)))(),
+    JSArrayOfColorL: () => (T.JSArrayOfColorL = dart.constFn(_interceptors.JSArray$(T.ColorL())))(),
+    numL: () => (T.numL = dart.constFn(dart.legacy(core.num)))(),
+    RectangleOfnumL: () => (T.RectangleOfnumL = dart.constFn(math.Rectangle$(T.numL())))(),
+    TextElementL: () => (T.TextElementL = dart.constFn(dart.legacy(text_element.TextElement)))(),
+    PointOfnumL: () => (T.PointOfnumL = dart.constFn(math.Point$(T.numL())))(),
+    PointLOfnumL: () => (T.PointLOfnumL = dart.constFn(dart.legacy(T.PointOfnumL())))(),
+    JSArrayOfPointLOfnumL: () => (T.JSArrayOfPointLOfnumL = dart.constFn(_interceptors.JSArray$(T.PointLOfnumL())))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: chart_canvas.FillPatternType.prototype,
+        [_name]: "FillPatternType.forwardHatch",
+        index: 0
+      });
+    },
+    get C1() {
+      return C[1] = dart.const({
+        __proto__: chart_canvas.FillPatternType.prototype,
+        [_name]: "FillPatternType.solid",
+        index: 1
+      });
+    }
+  }, false);
+  var C = Array(2).fill(void 0);
+  var I = [
+    "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/charts_flutter-0.10.0/lib/src/chart_canvas.dart",
+    "package:charts_flutter/src/chart_canvas.dart"
+  ];
+  var canvas$ = dart.privateName(chart_canvas$, "ChartCanvas.canvas");
+  var graphicsFactory$ = dart.privateName(chart_canvas$, "ChartCanvas.graphicsFactory");
+  var _paint = dart.privateName(chart_canvas$, "_paint");
+  var _circleSectorPainter = dart.privateName(chart_canvas$, "_circleSectorPainter");
+  var _linePainter = dart.privateName(chart_canvas$, "_linePainter");
+  var _piePainter = dart.privateName(chart_canvas$, "_piePainter");
+  var _pointPainter = dart.privateName(chart_canvas$, "_pointPainter");
+  var _polygonPainter = dart.privateName(chart_canvas$, "_polygonPainter");
+  var _createHintGradient = dart.privateName(chart_canvas$, "_createHintGradient");
+  var _drawForwardHatchPattern = dart.privateName(chart_canvas$, "_drawForwardHatchPattern");
+  var _name = dart.privateName(chart_canvas, "_name");
+  var _getRect = dart.privateName(chart_canvas$, "_getRect");
+  var _getRRect = dart.privateName(chart_canvas$, "_getRRect");
+  chart_canvas$.ChartCanvas = class ChartCanvas extends core.Object {
+    get canvas() {
+      return this[canvas$];
+    }
+    set canvas(value) {
+      super.canvas = value;
+    }
+    get graphicsFactory() {
+      return this[graphicsFactory$];
+    }
+    set graphicsFactory(value) {
+      super.graphicsFactory = value;
+    }
+    drawCircleSector(center, radius, innerRadius, startAngle, endAngle, opts) {
+      let fill = opts && 'fill' in opts ? opts.fill : null;
+      let stroke = opts && 'stroke' in opts ? opts.stroke : null;
+      let strokeWidthPx = opts && 'strokeWidthPx' in opts ? opts.strokeWidthPx : null;
+      this[_circleSectorPainter] == null ? this[_circleSectorPainter] = new circle_sector_painter.CircleSectorPainter.new() : null;
+      this[_circleSectorPainter].draw({canvas: this.canvas, paint: this[_paint], center: center, radius: radius, innerRadius: innerRadius, startAngle: startAngle, endAngle: endAngle, fill: fill, stroke: stroke, strokeWidthPx: strokeWidthPx});
+    }
+    drawLine(opts) {
+      let points = opts && 'points' in opts ? opts.points : null;
+      let clipBounds = opts && 'clipBounds' in opts ? opts.clipBounds : null;
+      let fill = opts && 'fill' in opts ? opts.fill : null;
+      let stroke = opts && 'stroke' in opts ? opts.stroke : null;
+      let roundEndCaps = opts && 'roundEndCaps' in opts ? opts.roundEndCaps : null;
+      let strokeWidthPx = opts && 'strokeWidthPx' in opts ? opts.strokeWidthPx : null;
+      let dashPattern = opts && 'dashPattern' in opts ? opts.dashPattern : null;
+      this[_linePainter] == null ? this[_linePainter] = new line_painter.LinePainter.new() : null;
+      this[_linePainter].draw({canvas: this.canvas, paint: this[_paint], points: points, clipBounds: clipBounds, fill: fill, stroke: stroke, roundEndCaps: roundEndCaps, strokeWidthPx: strokeWidthPx, dashPattern: dashPattern});
+    }
+    drawPie(canvasPie) {
+      this[_piePainter] == null ? this[_piePainter] = new pie_painter.PiePainter.new() : null;
+      this[_piePainter].draw(this.canvas, this[_paint], canvasPie);
+    }
+    drawPoint(opts) {
+      let point = opts && 'point' in opts ? opts.point : null;
+      let radius = opts && 'radius' in opts ? opts.radius : null;
+      let fill = opts && 'fill' in opts ? opts.fill : null;
+      let stroke = opts && 'stroke' in opts ? opts.stroke : null;
+      let strokeWidthPx = opts && 'strokeWidthPx' in opts ? opts.strokeWidthPx : null;
+      let blendMode = opts && 'blendMode' in opts ? opts.blendMode : null;
+      this[_pointPainter] == null ? this[_pointPainter] = new point_painter.PointPainter.new() : null;
+      this[_pointPainter].draw({canvas: this.canvas, paint: this[_paint], point: point, radius: radius, fill: fill, stroke: stroke, strokeWidthPx: strokeWidthPx});
+    }
+    drawPolygon(opts) {
+      let points = opts && 'points' in opts ? opts.points : null;
+      let clipBounds = opts && 'clipBounds' in opts ? opts.clipBounds : null;
+      let fill = opts && 'fill' in opts ? opts.fill : null;
+      let stroke = opts && 'stroke' in opts ? opts.stroke : null;
+      let strokeWidthPx = opts && 'strokeWidthPx' in opts ? opts.strokeWidthPx : null;
+      this[_polygonPainter] == null ? this[_polygonPainter] = new polygon_painter.PolygonPainter.new() : null;
+      this[_polygonPainter].draw({canvas: this.canvas, paint: this[_paint], points: points, clipBounds: clipBounds, fill: fill, stroke: stroke, strokeWidthPx: strokeWidthPx});
+    }
+    [_createHintGradient](left, top, fill) {
+      return ui.Gradient.linear(new ui.Offset.new(left, top), new ui.Offset.new(left, dart.notNull(top) - 5), T.JSArrayOfColorL().of([new ui.Color.fromARGB(fill.a, fill.r, fill.g, fill.b), new ui.Color.fromARGB(0, fill.r, fill.g, fill.b)]));
+    }
+    drawRect(bounds, opts) {
+      let fill = opts && 'fill' in opts ? opts.fill : null;
+      let pattern = opts && 'pattern' in opts ? opts.pattern : null;
+      let stroke = opts && 'stroke' in opts ? opts.stroke : null;
+      let strokeWidthPx = opts && 'strokeWidthPx' in opts ? opts.strokeWidthPx : null;
+      let drawAreaBounds = opts && 'drawAreaBounds' in opts ? opts.drawAreaBounds : null;
+      let drawStroke = strokeWidthPx != null && dart.notNull(strokeWidthPx) > 0.0 && stroke != null;
+      let strokeWidthOffset = drawStroke ? strokeWidthPx : 0;
+      let fillRectBounds = new (T.RectangleOfnumL()).new(dart.notNull(bounds[$left]) + dart.notNull(strokeWidthOffset) / 2, dart.notNull(bounds[$top]) + dart.notNull(strokeWidthOffset) / 2, dart.notNull(bounds[$width]) - dart.notNull(strokeWidthOffset), dart.notNull(bounds[$height]) - dart.notNull(strokeWidthOffset));
+      switch (pattern) {
+        case C[0] || CT.C0:
+        {
+          this[_drawForwardHatchPattern](fillRectBounds, this.canvas, {fill: fill, drawAreaBounds: drawAreaBounds});
+          break;
+        }
+        case C[1] || CT.C1:
+        default:
+        {
+          this[_paint].color = new ui.Color.fromARGB(fill.a, fill.r, fill.g, fill.b);
+          this[_paint].style = ui.PaintingStyle.fill;
+          if (drawAreaBounds != null && dart.notNull(bounds[$top]) < dart.notNull(drawAreaBounds[$top])) {
+            this[_paint].shader = this[_createHintGradient](drawAreaBounds[$left][$toDouble](), drawAreaBounds[$top][$toDouble](), fill);
+          }
+          this.canvas.drawRect(this[_getRect](fillRectBounds), this[_paint]);
+          break;
+        }
+      }
+      if (drawStroke) {
+        this[_paint].color = new ui.Color.fromARGB(stroke.a, stroke.r, stroke.g, stroke.b);
+        this[_paint].shader = drawAreaBounds != null ? this[_createHintGradient](drawAreaBounds[$left][$toDouble](), drawAreaBounds[$top][$toDouble](), stroke) : null;
+        this[_paint].strokeJoin = ui.StrokeJoin.round;
+        this[_paint].strokeWidth = strokeWidthPx;
+        this[_paint].style = ui.PaintingStyle.stroke;
+        this.canvas.drawRect(this[_getRect](bounds), this[_paint]);
+      }
+      this[_paint].shader = null;
+    }
+    drawRRect(bounds, opts) {
+      let fill = opts && 'fill' in opts ? opts.fill : null;
+      let stroke = opts && 'stroke' in opts ? opts.stroke : null;
+      let patternColor = opts && 'patternColor' in opts ? opts.patternColor : null;
+      let fillPattern = opts && 'fillPattern' in opts ? opts.fillPattern : null;
+      let patternStrokeWidthPx = opts && 'patternStrokeWidthPx' in opts ? opts.patternStrokeWidthPx : null;
+      let strokeWidthPx = opts && 'strokeWidthPx' in opts ? opts.strokeWidthPx : null;
+      let radius = opts && 'radius' in opts ? opts.radius : null;
+      let roundTopLeft = opts && 'roundTopLeft' in opts ? opts.roundTopLeft : null;
+      let roundTopRight = opts && 'roundTopRight' in opts ? opts.roundTopRight : null;
+      let roundBottomLeft = opts && 'roundBottomLeft' in opts ? opts.roundBottomLeft : null;
+      let roundBottomRight = opts && 'roundBottomRight' in opts ? opts.roundBottomRight : null;
+      this[_paint].color = new ui.Color.fromARGB(fill.a, fill.r, fill.g, fill.b);
+      this[_paint].style = ui.PaintingStyle.fill;
+      this.canvas.drawRRect(this[_getRRect](bounds, {radius: radius, roundTopLeft: roundTopLeft, roundTopRight: roundTopRight, roundBottomLeft: roundBottomLeft, roundBottomRight: roundBottomRight}), this[_paint]);
+    }
+    drawBarStack(barStack, opts) {
+      let t0;
+      let drawAreaBounds = opts && 'drawAreaBounds' in opts ? opts.drawAreaBounds : null;
+      let roundedCorners = 0 < dart.notNull(barStack.radius);
+      if (roundedCorners) {
+        t0 = this.canvas;
+        (() => {
+          t0.save();
+          t0.clipRRect(this[_getRRect](barStack.fullStackRect, {radius: barStack.radius[$toDouble](), roundTopLeft: barStack.roundTopLeft, roundTopRight: barStack.roundTopRight, roundBottomLeft: barStack.roundBottomLeft, roundBottomRight: barStack.roundBottomRight}));
+          return t0;
+        })();
+      }
+      for (let barIndex = 0; barIndex < dart.notNull(barStack.segments[$length]); barIndex = barIndex + 1) {
+        let segment = barStack.segments[$_get](barIndex);
+        this.drawRect(segment.bounds, {fill: segment.fill, pattern: segment.pattern, stroke: segment.stroke, strokeWidthPx: segment.strokeWidthPx, drawAreaBounds: drawAreaBounds});
+      }
+      if (roundedCorners) {
+        this.canvas.restore();
+      }
+    }
+    drawText(textElement, offsetX, offsetY, opts) {
+      let rotation = opts && 'rotation' in opts ? opts.rotation : 0;
+      if (!T.TextElementL().is(textElement)) dart.assertFailed(null, I[0], 282, 12, "textElement is TextElement");
+      let flutterTextElement = T.TextElementL().as(textElement);
+      let textDirection = flutterTextElement.textDirection;
+      let measurement = flutterTextElement.measurement;
+      if (rotation !== 0) {
+        if (textDirection == text_element$.TextDirection.rtl) {
+          offsetY = dart.notNull(offsetY) + measurement.horizontalSliceWidth[$toInt]();
+        }
+        offsetX = dart.notNull(offsetX) - dart.notNull(flutterTextElement.verticalFontShift);
+        this.canvas.save();
+        this.canvas.translate(offsetX[$toDouble](), offsetY[$toDouble]());
+        this.canvas.rotate(rotation);
+        T.TextElementL().as(textElement).textPainter.paint(this.canvas, new ui.Offset.new(0.0, 0.0));
+        this.canvas.restore();
+      } else {
+        if (textDirection == text_element$.TextDirection.rtl) {
+          offsetX = dart.notNull(offsetX) - measurement.horizontalSliceWidth[$toInt]();
+        }
+        if (textDirection == text_element$.TextDirection.center) {
+          offsetX = dart.notNull(offsetX) - (dart.notNull(measurement.horizontalSliceWidth) / 2)[$ceil]();
+        }
+        offsetY = dart.notNull(offsetY) - dart.notNull(flutterTextElement.verticalFontShift);
+        T.TextElementL().as(textElement).textPainter.paint(this.canvas, new ui.Offset.new(offsetX[$toDouble](), offsetY[$toDouble]()));
+      }
+    }
+    setClipBounds(clipBounds) {
+      let t0;
+      t0 = this.canvas;
+      (() => {
+        t0.save();
+        t0.clipRect(this[_getRect](clipBounds));
+        return t0;
+      })();
+    }
+    resetClipBounds() {
+      this.canvas.restore();
+    }
+    [_getRect](rectangle) {
+      return new ui.Rect.fromLTWH(rectangle[$left][$toDouble](), rectangle[$top][$toDouble](), rectangle[$width][$toDouble](), rectangle[$height][$toDouble]());
+    }
+    [_getRRect](rectangle, opts) {
+      let radius = opts && 'radius' in opts ? opts.radius : null;
+      let roundTopLeft = opts && 'roundTopLeft' in opts ? opts.roundTopLeft : false;
+      let roundTopRight = opts && 'roundTopRight' in opts ? opts.roundTopRight : false;
+      let roundBottomLeft = opts && 'roundBottomLeft' in opts ? opts.roundBottomLeft : false;
+      let roundBottomRight = opts && 'roundBottomRight' in opts ? opts.roundBottomRight : false;
+      let cornerRadius = radius === 0 ? ui.Radius.zero : new ui.Radius.circular(radius);
+      return new ui.RRect.fromLTRBAndCorners(rectangle[$left][$toDouble](), rectangle[$top][$toDouble](), rectangle[$right][$toDouble](), rectangle[$bottom][$toDouble](), {topLeft: dart.test(roundTopLeft) ? cornerRadius : ui.Radius.zero, topRight: dart.test(roundTopRight) ? cornerRadius : ui.Radius.zero, bottomLeft: dart.test(roundBottomLeft) ? cornerRadius : ui.Radius.zero, bottomRight: dart.test(roundBottomRight) ? cornerRadius : ui.Radius.zero});
+    }
+    [_drawForwardHatchPattern](bounds, canvas, opts) {
+      let background = opts && 'background' in opts ? opts.background : null;
+      let fill = opts && 'fill' in opts ? opts.fill : null;
+      let fillWidthPx = opts && 'fillWidthPx' in opts ? opts.fillWidthPx : 4;
+      let drawAreaBounds = opts && 'drawAreaBounds' in opts ? opts.drawAreaBounds : null;
+      background == null ? background = style_factory.StyleFactory.style.white : null;
+      fill == null ? fill = style_factory.StyleFactory.style.black : null;
+      this[_paint].color = new ui.Color.fromARGB(background.a, background.r, background.g, background.b);
+      this[_paint].style = ui.PaintingStyle.fill;
+      if (drawAreaBounds != null && dart.notNull(bounds[$top]) < dart.notNull(drawAreaBounds[$top])) {
+        this[_paint].shader = this[_createHintGradient](drawAreaBounds[$left][$toDouble](), drawAreaBounds[$top][$toDouble](), background);
+      }
+      canvas.drawRect(this[_getRect](bounds), this[_paint]);
+      let size = math.max(T.numL(), bounds[$width], bounds[$height]);
+      let x0 = dart.notNull(bounds[$left]) + size + dart.notNull(fillWidthPx);
+      let x1 = dart.notNull(bounds[$left]) - dart.notNull(fillWidthPx);
+      let y0 = dart.notNull(bounds[$bottom]) - size - dart.notNull(fillWidthPx);
+      let y1 = dart.notNull(bounds[$bottom]) + dart.notNull(fillWidthPx);
+      let offset = 8;
+      let isVertical = dart.notNull(bounds[$height]) >= dart.notNull(bounds[$width]);
+      this[_linePainter] == null ? this[_linePainter] = new line_painter.LinePainter.new() : null;
+      let smallSide = isVertical ? bounds[$width] : bounds[$height];
+      let start = -(dart.notNull(smallSide) / offset)[$round]() * offset;
+      let end = size + offset;
+      let lineShader = null;
+      if (drawAreaBounds != null && dart.notNull(bounds[$top]) < dart.notNull(drawAreaBounds[$top])) {
+        lineShader = this[_createHintGradient](drawAreaBounds[$left][$toDouble](), drawAreaBounds[$top][$toDouble](), fill);
+      }
+      for (let i = start; i < end; i = i + offset) {
+        let modifier = isVertical ? -1 * i : i;
+        this[_linePainter].draw({canvas: canvas, paint: this[_paint], points: T.JSArrayOfPointLOfnumL().of([new (T.PointOfnumL()).new(x0 + modifier, y0), new (T.PointOfnumL()).new(x1 + modifier, y1)]), stroke: fill, strokeWidthPx: fillWidthPx, shader: lineShader});
+      }
+    }
+    set drawingView(viewName) {
+    }
+  };
+  (chart_canvas$.ChartCanvas.new = function(canvas, graphicsFactory) {
+    this[_paint] = ui.Paint.new();
+    this[_circleSectorPainter] = null;
+    this[_linePainter] = null;
+    this[_piePainter] = null;
+    this[_pointPainter] = null;
+    this[_polygonPainter] = null;
+    this[canvas$] = canvas;
+    this[graphicsFactory$] = graphicsFactory;
+    ;
+  }).prototype = chart_canvas$.ChartCanvas.prototype;
+  dart.addTypeTests(chart_canvas$.ChartCanvas);
+  dart.addTypeCaches(chart_canvas$.ChartCanvas);
+  chart_canvas$.ChartCanvas[dart.implements] = () => [chart_canvas.ChartCanvas];
+  dart.setMethodSignature(chart_canvas$.ChartCanvas, () => ({
+    __proto__: dart.getMethods(chart_canvas$.ChartCanvas.__proto__),
+    drawCircleSector: dart.fnType(dart.void, [dart.legacy(math.Point$(dart.legacy(core.num))), dart.legacy(core.double), dart.legacy(core.double), dart.legacy(core.double), dart.legacy(core.double)], {fill: dart.legacy(color.Color), stroke: dart.legacy(color.Color), strokeWidthPx: dart.legacy(core.double)}, {}),
+    drawLine: dart.fnType(dart.void, [], {clipBounds: dart.legacy(math.Rectangle$(dart.legacy(core.num))), dashPattern: dart.legacy(core.List$(dart.legacy(core.int))), fill: dart.legacy(color.Color), points: dart.legacy(core.List$(dart.legacy(math.Point$(dart.legacy(core.num))))), roundEndCaps: dart.legacy(core.bool), stroke: dart.legacy(color.Color), strokeWidthPx: dart.legacy(core.double)}, {}),
+    drawPie: dart.fnType(dart.void, [dart.legacy(canvas_shapes.CanvasPie)]),
+    drawPoint: dart.fnType(dart.void, [], {blendMode: dart.legacy(chart_canvas.BlendMode), fill: dart.legacy(color.Color), point: dart.legacy(math.Point$(dart.legacy(core.num))), radius: dart.legacy(core.double), stroke: dart.legacy(color.Color), strokeWidthPx: dart.legacy(core.double)}, {}),
+    drawPolygon: dart.fnType(dart.void, [], {clipBounds: dart.legacy(math.Rectangle$(dart.legacy(core.num))), fill: dart.legacy(color.Color), points: dart.legacy(core.List$(dart.legacy(math.Point$(dart.legacy(core.num))))), stroke: dart.legacy(color.Color), strokeWidthPx: dart.legacy(core.double)}, {}),
+    [_createHintGradient]: dart.fnType(dart.legacy(ui.Gradient), [dart.legacy(core.double), dart.legacy(core.double), dart.legacy(color.Color)]),
+    drawRect: dart.fnType(dart.void, [dart.legacy(math.Rectangle$(dart.legacy(core.num)))], {drawAreaBounds: dart.legacy(math.Rectangle$(dart.legacy(core.num))), fill: dart.legacy(color.Color), pattern: dart.legacy(chart_canvas.FillPatternType), stroke: dart.legacy(color.Color), strokeWidthPx: dart.legacy(core.double)}, {}),
+    drawRRect: dart.fnType(dart.void, [dart.legacy(math.Rectangle$(dart.legacy(core.num)))], {fill: dart.legacy(color.Color), fillPattern: dart.legacy(chart_canvas.FillPatternType), patternColor: dart.legacy(color.Color), patternStrokeWidthPx: dart.legacy(core.double), radius: dart.legacy(core.num), roundBottomLeft: dart.legacy(core.bool), roundBottomRight: dart.legacy(core.bool), roundTopLeft: dart.legacy(core.bool), roundTopRight: dart.legacy(core.bool), stroke: dart.legacy(color.Color), strokeWidthPx: dart.legacy(core.double)}, {}),
+    drawBarStack: dart.fnType(dart.void, [dart.legacy(canvas_shapes.CanvasBarStack)], {drawAreaBounds: dart.legacy(math.Rectangle$(dart.legacy(core.num)))}, {}),
+    drawText: dart.fnType(dart.void, [dart.legacy(text_element$.TextElement), dart.legacy(core.int), dart.legacy(core.int)], {rotation: dart.legacy(core.double)}, {}),
+    setClipBounds: dart.fnType(dart.void, [dart.legacy(math.Rectangle$(dart.legacy(core.int)))]),
+    resetClipBounds: dart.fnType(dart.void, []),
+    [_getRect]: dart.fnType(dart.legacy(ui.Rect), [dart.legacy(math.Rectangle$(dart.legacy(core.num)))]),
+    [_getRRect]: dart.fnType(dart.legacy(ui.RRect), [dart.legacy(math.Rectangle$(dart.legacy(core.num)))], {radius: dart.legacy(core.double), roundBottomLeft: dart.legacy(core.bool), roundBottomRight: dart.legacy(core.bool), roundTopLeft: dart.legacy(core.bool), roundTopRight: dart.legacy(core.bool)}, {}),
+    [_drawForwardHatchPattern]: dart.fnType(dart.dynamic, [dart.legacy(math.Rectangle$(dart.legacy(core.num))), dart.legacy(ui.Canvas)], {background: dart.legacy(color.Color), drawAreaBounds: dart.legacy(math.Rectangle$(dart.legacy(core.num))), fill: dart.legacy(color.Color), fillWidthPx: dart.legacy(core.double)}, {})
+  }));
+  dart.setSetterSignature(chart_canvas$.ChartCanvas, () => ({
+    __proto__: dart.getSetters(chart_canvas$.ChartCanvas.__proto__),
+    drawingView: dart.legacy(core.String)
+  }));
+  dart.setLibraryUri(chart_canvas$.ChartCanvas, I[1]);
+  dart.setFieldSignature(chart_canvas$.ChartCanvas, () => ({
+    __proto__: dart.getFields(chart_canvas$.ChartCanvas.__proto__),
+    canvas: dart.finalFieldType(dart.legacy(ui.Canvas)),
+    graphicsFactory: dart.finalFieldType(dart.legacy(graphics_factory.GraphicsFactory)),
+    [_paint]: dart.finalFieldType(dart.legacy(ui.Paint)),
+    [_circleSectorPainter]: dart.fieldType(dart.legacy(circle_sector_painter.CircleSectorPainter)),
+    [_linePainter]: dart.fieldType(dart.legacy(line_painter.LinePainter)),
+    [_piePainter]: dart.fieldType(dart.legacy(pie_painter.PiePainter)),
+    [_pointPainter]: dart.fieldType(dart.legacy(point_painter.PointPainter)),
+    [_polygonPainter]: dart.fieldType(dart.legacy(polygon_painter.PolygonPainter))
+  }));
+  dart.defineLazy(chart_canvas$.ChartCanvas, {
+    /*chart_canvas$.ChartCanvas.rect_top_gradient_pixels*/get rect_top_gradient_pixels() {
+      return 5;
+    }
+  }, true);
+  dart.trackLibraries("packages/charts_flutter/src/chart_canvas.dart", {
+    "package:charts_flutter/src/chart_canvas.dart": chart_canvas$
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["chart_canvas.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../D:/packages/charts_flutter/src/chart_canvas.dart.lib.js"}');
+  // Exports:
+  return {
+    src__chart_canvas: chart_canvas$
+  };
+}));
+
+//# sourceMappingURL=chart_canvas.dart.lib.js.map
