@@ -87,7 +87,6 @@ class _AppState extends State<App> {
       systemNavigationBarColor: Colors.white,
       statusBarColor: Colors.white
     ));
-
 	  return MaterialApp(
       
       localizationsDelegates: context.localizationDelegates,
