@@ -23,7 +23,7 @@ class AccountDetailsView extends GetView<ProfileController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                'Edit Account',
+                'แก้ไขข้อมูล',
                 style: kSubHeadTextStyle.copyWith(
                     color: Theme.of(context).primaryColorDark),
               ),
@@ -86,7 +86,7 @@ class AccountDetailsView extends GetView<ProfileController> {
                   onPressed: controller.onToggledGender,
                 ),
               ),
-              SizedBox(height: Get.height * 0.1),
+              SizedBox(height: Get.height * 0.05),
               ProceedButton(
                 size: Get.size,
                 buttonColor: Theme.of(context).primaryColor.withOpacity(0.9),

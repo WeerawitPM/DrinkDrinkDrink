@@ -12,13 +12,14 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     Size size = Get.size;
     return Scaffold(
+      appBar: AppBar(
+        title:Text('ข้อมูลส่วนตัว',),
+      ),
       body: Container(
+        color: Colors.blue[200],
         height: size.height,
         width: size.width,
-        padding: EdgeInsets.only(top: size.height * 0.1),
-        decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor,
-        ),
+        padding: EdgeInsets.only(top: size.height * 0.05),
         child: Column(
           children: [
             Container(
@@ -26,7 +27,7 @@ class ProfileView extends GetView<ProfileController> {
                 height: size.height * 0.18,
                 width: size.width * 0.90,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor.withOpacity(0.85),
+                  color: Color(0xFFF0F8FF),
                   borderRadius: BorderRadius.circular(15),
                   boxShadow: [kDefaultShadow],
                 ),
@@ -52,7 +53,7 @@ class ProfileView extends GetView<ProfileController> {
                                 ),
                               ),
                               Text(
-                                '${fController.Drink} ${fController.Drink}',
+                                '${'เป้าหมาย ' + fController.Drink + ' ml'}',
                                 style: kSub2HeadTextStyle.copyWith(
                                   color: Theme.of(context).primaryColorDark,
                                   fontSize: 18,
@@ -64,44 +65,17 @@ class ProfileView extends GetView<ProfileController> {
                       );
                     })),
             SizedBox(
-              height: size.height * 0.07,
+              height: size.height * 0.03,
             ),
-            ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(horizontal: size.width * 0.08),
-              onTap: () {
+            ElevatedButton(
+              onPressed: () {
                 Get.to(() => AccountDetailsView());
                 fController.preEditUser();
-              },
-              title: Text(
-                'Account',
-                style: kSub2HeadTextStyle.copyWith(
-                  color: Theme.of(context).primaryColorDark,
-                ),
+              }, child: Text('แก้ไขข้อมูล',
+                  style: kSub2HeadTextStyle.copyWith(
+                  color: Color(0xFFFFFFFF),
+                  ),
               ),
-              leading: Icon(
-                FontAwesomeIcons.userEdit,
-                color: Theme.of(context).primaryColorDark,
-                size: size.width * 0.06,
-              ),
-            ),
-            ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(horizontal: size.width * 0.08),
-              title: Text(
-                'Log out',
-                style: kSub2HeadTextStyle.copyWith(
-                  color: Theme.of(context).primaryColorDark,
-                ),
-              ),
-              leading: Icon(
-                FontAwesomeIcons.signOutAlt,
-                color: Theme.of(context).primaryColorDark,
-                size: size.width * 0.06,
-              ),
-              onTap: () {
-                fController.customDialogLogOut(context);
-              },
             ),
           ],
         ),

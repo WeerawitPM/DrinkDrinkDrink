@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as p;
-import 'package:waterreminder/main_setting2.dart';
+import 'package:waterreminder/main_setting.dart';
 import 'package:waterreminder/models/Daily.dart';
 import 'package:waterreminder/screens/home.dart';
 import 'package:flutter/services.dart';
@@ -105,7 +105,7 @@ class _AppState extends State<App> {
             if (snapshot.hasError) {
               return Text(snapshot.error.toString());
             }
-            return MySetting2();
+            return MySetting();
           }
           else{
             return Scaffold();
