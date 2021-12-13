@@ -86,7 +86,7 @@ class AccountDetailsView extends GetView<ProfileController> {
                   onPressed: controller.onToggledGender,
                 ),
               ),
-              SizedBox(height: Get.height * 0.18),
+              SizedBox(height: Get.height * 0.1),
               ProceedButton(
                 size: Get.size,
                 buttonColor: Theme.of(context).primaryColor.withOpacity(0.9),

@@ -5,6 +5,9 @@ import 'package:waterreminder/app/modules/splash_screen/bindings/splash_screen_b
 import 'package:waterreminder/app/modules/splash_screen/views/splash_screen_view.dart';
 import 'package:waterreminder/app/modules/welcome/bindings/welcome_binding.dart';
 import 'package:waterreminder/app/modules/welcome/views/login_view.dart';
+import 'package:waterreminder/screens/home.dart';
+import 'package:waterreminder/screens/home_binding.dart';
+import 'package:waterreminder/screens/home_screen.dart';
 
 
 part 'app_routes.dart';
@@ -27,6 +30,11 @@ class AppPages {
       name: _Paths.WELCOME,
       page: () => LoginView(),
       binding: WelcomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.HOME,
+      page: () => Home(),
+      binding: HomeBinding(),
     ),
   ];
 }
