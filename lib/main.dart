@@ -12,8 +12,6 @@ import 'package:waterreminder/screens/settings.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:waterreminder/enums.dart';
-import 'package:waterreminder/models/menu_info.dart';
 import 'package:provider/provider.dart';
 
 // Future<void> showScheduleAtWorkweekDay(int id) async {
