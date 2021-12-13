@@ -1,9 +1,10 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as p;
+import 'package:waterreminder/main_setting2.dart';
 import 'package:waterreminder/models/Daily.dart';
-import 'package:waterreminder/screenlogin/home.dart';
 import 'package:waterreminder/screens/home.dart';
 import 'package:flutter/services.dart';
 import 'package:charts_flutter/flutter.dart';
@@ -37,7 +38,10 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 void main() async{
 
 WidgetsFlutterBinding.ensureInitialized();
-  
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  await GetStorage.init();
+
   var initializationSettingsAndroid =
       AndroidInitializationSettings('codex_logo');
   var initializationSettingsIOS = IOSInitializationSettings(
@@ -101,7 +105,7 @@ class _AppState extends State<App> {
             if (snapshot.hasError) {
               return Text(snapshot.error.toString());
             }
-            return Home();
+            return MySetting2();
           }
           else{
             return Scaffold();

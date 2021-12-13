@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:waterreminder/app/modules/profile/views/profile_view.dart';
 import 'package:waterreminder/main_setting.dart';
 import 'package:waterreminder/screens/home_screen.dart';
 import 'package:waterreminder/screens/settings.dart';
@@ -20,6 +21,7 @@ class _HomeState extends State<Home> {
 		Statistics(),
     AlarmPage(),
     MySetting(),
+    ProfileView(),
 	];
 
 	Widget currentScreen = HomeScreen();
@@ -80,7 +82,7 @@ class _HomeState extends State<Home> {
 								icon: Icon(Icons.settings,color: currentTab==3?Colors.blue:Colors.blueGrey,),
 								onPressed: (){
 									setState(() {
-										currentScreen=MySetting();
+										currentScreen=ProfileView();
 										currentTab=3;
 									});
 								},
