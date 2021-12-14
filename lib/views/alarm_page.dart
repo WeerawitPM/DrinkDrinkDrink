@@ -1,3 +1,4 @@
+import 'package:get/get_connect/sockets/src/socket_notifier.dart';
 import 'package:waterreminder/alarm_helper.dart';
 import 'package:waterreminder/constants/theme_data.dart';
 import 'package:waterreminder/data.dart';
@@ -322,8 +323,9 @@ class _AlarmPageState extends State<AlarmPage> {
     );
     _alarmHelper.insertAlarm(alarmInfo);
     scheduleAlarm(scheduleAlarmDateTime, alarmInfo);
-    Navigator.pop(context);
+    // Navigator.pop(context);
     loadAlarms();
+    // Get.offAllNamed('/Alarm');
   }
 
   void deleteAlarm(int id) {

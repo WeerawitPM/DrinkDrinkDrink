@@ -8,6 +8,7 @@ import 'package:waterreminder/app/modules/welcome/views/login_view.dart';
 import 'package:waterreminder/screens/home.dart';
 import 'package:waterreminder/screens/home_binding.dart';
 import 'package:waterreminder/screens/home_screen.dart';
+import 'package:waterreminder/views/alarm_page.dart';
 
 
 part 'app_routes.dart';

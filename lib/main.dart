@@ -37,11 +37,11 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 
 void main() async{
 
-WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await GetStorage.init();
-
+  
   var initializationSettingsAndroid =
       AndroidInitializationSettings('codex_logo');
   var initializationSettingsIOS = IOSInitializationSettings(
@@ -64,7 +64,7 @@ WidgetsFlutterBinding.ensureInitialized();
   
   Hive.init(pathDirecory.path);
   Hive.registerAdapter(DailyAdapter());
-
+  
   runApp(
     EasyLocalization(
       supportedLocales: [Locale('en', 'EN'), Locale('tr', 'TR')],
@@ -73,6 +73,7 @@ WidgetsFlutterBinding.ensureInitialized();
       child: App()
     ),
   );
+  
 }
 
 class App extends StatefulWidget{

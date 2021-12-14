@@ -21,7 +21,6 @@ class _HomeState extends State<Home> {
 		Statistics(),
     AlarmPage(),
     MySetting(),
-    ProfileView(),
 	];
 
 	Widget currentScreen = HomeScreen();
