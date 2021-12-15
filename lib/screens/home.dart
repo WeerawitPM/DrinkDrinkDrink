@@ -3,8 +3,11 @@ import 'package:hive/hive.dart';
 import 'package:waterreminder/app/modules/home/views/all_tasks_view.dart';
 import 'package:waterreminder/app/modules/home/views/home_view.dart';
 import 'package:waterreminder/app/modules/profile/views/profile_view.dart';
+import 'package:waterreminder/main_setting.dart';
 import 'package:waterreminder/screens/home_screen.dart';
+import 'package:waterreminder/screens/settings.dart';
 import 'package:waterreminder/screens/statistics.dart';
+import 'package:waterreminder/views/alarm_page.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -17,9 +20,10 @@ class _HomeState extends State<Home> {
 
 	final List<Widget> screens = [
 		HomeScreen(),
+		Settings(),
 		Statistics(),
+    AlarmPage(),
     AllTasksView(),
-    ProfileView(),
 	];
 
 	Widget currentScreen = HomeScreen();

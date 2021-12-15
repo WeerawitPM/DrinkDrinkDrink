@@ -27,7 +27,7 @@ class AllTasksView extends GetView<HomeController> {
               MaterialPageRoute(
                 builder: (context) => PastTasksView()),
               );
-            }, 
+            },
             icon: Icon(Icons.restore)),
         ],
       ),
@@ -58,10 +58,10 @@ class AllTasksView extends GetView<HomeController> {
               );
             },
           );
-              }, child:
-              Icon(Icons.add,size: 50,color: Color(0xFFFFFFFF),),
+              }, child: 
+              Icon(Icons.add,size: 50,),
               ),
-            SizedBox(height: Get.height * 0.025),
+            SizedBox(height: Get.height * 0.018),
             GetBuilder<HomeController>(
               id: 1,
               builder: (controller) {

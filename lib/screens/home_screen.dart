@@ -7,6 +7,7 @@ import 'package:waterreminder/models/Daily.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 
