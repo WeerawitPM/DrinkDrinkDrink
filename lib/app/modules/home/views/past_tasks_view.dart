@@ -15,14 +15,13 @@ class PastTasksView extends GetView<HomeController> {
         height: Get.height,
         width: Get.width,
         color: Theme.of(context).scaffoldBackgroundColor,
-        //padding: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: EdgeInsets.only(top: 50, left: 25, right: 25),
               child: Text(
-                'ผ่านมาแล้ว',
+                'ประวัติการแจ้งเตือน',
                 style: kSubHeadTextStyle.copyWith(
                     color: Theme.of(context).primaryColorDark),
               ),
