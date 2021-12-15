@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:waterreminder/app/modules/home/views/all_tasks_view.dart';
+import 'package:waterreminder/app/modules/home/views/home_view.dart';
 import 'package:waterreminder/app/modules/profile/views/profile_view.dart';
 import 'package:waterreminder/main_setting.dart';
 import 'package:waterreminder/screens/home_screen.dart';
@@ -20,7 +23,7 @@ class _HomeState extends State<Home> {
 		Settings(),
 		Statistics(),
     AlarmPage(),
-    MySetting(),
+    AllTasksView(),
 	];
 
 	Widget currentScreen = HomeScreen();
@@ -28,6 +31,7 @@ class _HomeState extends State<Home> {
 	final PageStorageBucket bucket = PageStorageBucket();
 	updateState(id){
 		setState(() {
+      Hive.openBox('dailys');
 			currentTab = id;
 		});
 	}
@@ -61,6 +65,7 @@ class _HomeState extends State<Home> {
 								icon: Icon(Icons.analytics,color: currentTab==1?Colors.blue:Colors.blueGrey,),
 								onPressed: (){
 									setState(() {
+                    Hive.openBox('dailys');
 										currentScreen=Statistics();
 										currentTab=1;
 									});
@@ -71,7 +76,8 @@ class _HomeState extends State<Home> {
 								icon: Icon(Icons.alarm,color: currentTab==2?Colors.blue:Colors.blueGrey,),
 								onPressed: (){
 									setState(() {
-										currentScreen=AlarmPage();
+                    Hive.openBox('dailys');
+										currentScreen=HomeView();
 										currentTab=2;
 									});
 								},

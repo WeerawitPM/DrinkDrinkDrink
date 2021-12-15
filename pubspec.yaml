@@ -86,6 +86,8 @@ flutter:
     - assets/icons/drop.png
     - assets/lang/tr-TR.json
     - assets/lang/en-EN.json
+    - assets/icons/
+    - assets/lottie/
 
   fonts:
     - family: avenir
