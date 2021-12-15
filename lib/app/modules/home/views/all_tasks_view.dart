@@ -27,7 +27,7 @@ class AllTasksView extends GetView<HomeController> {
               MaterialPageRoute(
                 builder: (context) => PastTasksView()),
               );
-            },
+            }, 
             icon: Icon(Icons.restore)),
         ],
       ),
@@ -37,10 +37,11 @@ class AllTasksView extends GetView<HomeController> {
       height: size.height,
       width: size.width,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            height: size.height * 0.08,
+            height: size.height * 0.05,
           ),
               ElevatedButton(onPressed: (){
                 controller.controllerReset();
@@ -57,10 +58,10 @@ class AllTasksView extends GetView<HomeController> {
               );
             },
           );
-              }, child: 
-              Icon(Icons.add,),
+              }, child:
+              Icon(Icons.add,size: 50,color: Color(0xFFFFFFFF),),
               ),
-            SizedBox(height: Get.height * 0.012),
+            SizedBox(height: Get.height * 0.025),
             GetBuilder<HomeController>(
               id: 1,
               builder: (controller) {
